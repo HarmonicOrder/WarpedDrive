@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
+using Prime31.TransitionKit;
 
 public class CyberspaceShellInput : MonoBehaviour {
 	
@@ -53,6 +54,18 @@ public class CyberspaceShellInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
+		if (CrossPlatformInputManager.GetButtonDown("Cancel")){
+			var pixelater = new PixelateTransition()
+			{
+				finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
+				duration = 1.0f
+			};
+			pixelater.nextScene = 0;
+			TransitionKit.instance.transitionWithDelegate( pixelater );
+			return;
+		}
+
 		boost = CrossPlatformInputManager.GetButton("Jump");
 		boostStart = CrossPlatformInputManager.GetButtonDown("Jump");
 		boostStop = CrossPlatformInputManager.GetButtonUp("Jump");
