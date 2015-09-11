@@ -2,9 +2,12 @@
 using System.Collections;
 
 public class Spin : MonoBehaviour {
+	
+	public enum Axis {X, Y, Z}
 
 	public float ZOffset = 1f;
 	public float speed = 10f;
+	public Axis RotationAxis = Axis.Y;
 
 
 	private Vector3 position;
@@ -16,6 +19,19 @@ public class Spin : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		this.transform.RotateAround(position, Vector3.up, speed*Time.deltaTime);
+		this.transform.RotateAround(position, GetVector(), speed*Time.deltaTime);
+	}
+
+	private Vector3 GetVector(){
+		switch(RotationAxis){
+		case Axis.X:
+			return Vector3.right;
+		case Axis.Y:
+			return Vector3.up;
+		case Axis.Z:
+			return Vector3.forward;
+		default:
+			return Vector3.up;
+		}
 	}
 }
