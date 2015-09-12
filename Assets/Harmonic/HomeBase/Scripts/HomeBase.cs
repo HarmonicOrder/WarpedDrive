@@ -9,10 +9,14 @@ public class HomeBase : MonoBehaviour {
 	void Start () {
 	
 	}
-	
+
+	private bool isZoomedOut = false;
 	// Update is called once per frame
 	void Update () {
-		
+		if (CrossPlatformInputManager.GetButtonDown("Zoom")){
+			isZoomedOut = !isZoomedOut;
+			this.transform.GetComponent<CameraZoomToZoom>().Zoom(isZoomedOut);
+		}
 		if (CrossPlatformInputManager.GetButtonDown("Jump")){
 			var pixelater = new PixelateTransition()
 			{
