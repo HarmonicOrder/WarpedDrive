@@ -5,13 +5,23 @@ public class CameraZoomToZoom : MonoBehaviour {
 
 	public Transform MainCamera;
 	public Transform ZoomCamera;
-	public Transform ZoomFromPosition;
-	public Transform ZoomToPosition;
+	private Vector3 ZoomFromPosition;
+	private Vector3 ZoomToPosition;
+	private Quaternion ZoomFromRotation;
+	private Quaternion ZoomToRotation;
+
+
+	public delegate void AfterZoomFinished();
+
+	public AfterZoomFinished afterZoom;
 
 	private short zoomDirection; //positive for zoom out negative for zoom in
 	// Use this for initialization
 	void Start () {
-		ZoomFromPosition = MainCamera.transform;
+		ZoomFromPosition = MainCamera.position;
+		ZoomFromRotation = MainCamera.rotation;
+		ZoomToPosition = ZoomCamera.position;
+		ZoomToRotation = ZoomCamera.rotation;
 		ZoomCamera.gameObject.SetActive(false);	
 	}
 
@@ -26,43 +36,67 @@ public class CameraZoomToZoom : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		currentZoomTime += Time.deltaTime;
-
 		if (zoomDirection > 0){
-			ZoomCamera.position = Vector3.Lerp(ZoomFromPosition.position, ZoomToPosition.position, zoomPercentage);
-			ZoomCamera.rotation = Quaternion.Slerp(ZoomFromPosition.rotation, ZoomToPosition.rotation, zoomPercentage);
+			ZoomCamera.position = Vector3.Lerp(ZoomFromPosition, ZoomToPosition, Mathfx.Hermite(0, 1, zoomPercentage));
+			ZoomCamera.rotation = Quaternion.Slerp(ZoomFromRotation, ZoomToRotation, zoomPercentage);
 
-			if (currentZoomTime > ZoomTime)
-				zoomDirection = 0;
+			if (currentZoomTime > ZoomTime){
+				AfterZoom();
+			}
 		} else if (zoomDirection < 0){
-			ZoomCamera.position = Vector3.Lerp(ZoomToPosition.position, ZoomFromPosition.position, zoomPercentage);
-			ZoomCamera.rotation = Quaternion.Slerp(ZoomToPosition.rotation, ZoomFromPosition.rotation, zoomPercentage);
+			ZoomCamera.position = Vector3.Lerp(ZoomToPosition, ZoomFromPosition, Mathfx.Hermite(0, 1, zoomPercentage));
+			ZoomCamera.rotation = Quaternion.Slerp(ZoomToRotation, ZoomFromRotation, zoomPercentage);
 
 			if (currentZoomTime > ZoomTime)
 				OnFullyZoomedIn();
 		}
 	}
 
-	public void Zoom(bool isZoomingOut){
-		currentZoomTime = 0;
+	private void Zoom(bool isZoomingOut){
+		this.currentZoomTime = 0;
 		if (isZoomingOut){
-			zoomDirection = 1;
-			ZoomCamera.gameObject.SetActive(true);
-			MainCamera.gameObject.SetActive(false);
+			this.zoomDirection = 1;
+			this.ZoomCamera.gameObject.SetActive(true);
+			this.MainCamera.gameObject.SetActive(false);
 		} else {
-			zoomDirection = -1;
+			this.zoomDirection = -1;
 		}
 	}
 
+	public void ZoomTo(bool isZoomingOut){
+		if (isZoomingOut) {
+			ZoomFromPosition = MainCamera.position;
+			ZoomFromRotation = MainCamera.rotation;
+			ZoomToPosition = ZoomCamera.parent.position;
+			ZoomToRotation = ZoomCamera.parent.rotation;
+		} else {
+			ZoomFromPosition = ZoomCamera.parent.position;
+			ZoomFromRotation = ZoomCamera.parent.rotation;
+			ZoomToPosition = MainCamera.position;
+			ZoomToRotation = MainCamera.rotation;
+		}
+		Zoom(isZoomingOut);
+	}
+
 	public void ZoomTo(Transform target, float overTime = 1f){
-		ZoomTime = overTime;
-		ZoomFromPosition = ZoomCamera;
-		ZoomToPosition = target;
-		Zoom(true);
+		this.ZoomTime = overTime;
+		this.ZoomFromPosition = ZoomCamera.position;
+		this.ZoomFromRotation = ZoomCamera.rotation;
+		this.ZoomToPosition = target.position;
+		this.ZoomToRotation = target.rotation;
+		this.Zoom(true);
 	}
 
 	private void OnFullyZoomedIn(){
-		zoomDirection = 0;
-		MainCamera.gameObject.SetActive(true);
-		ZoomCamera.gameObject.SetActive(false);
+		this.zoomDirection = 0;
+		this.MainCamera.gameObject.SetActive(true);
+		this.ZoomCamera.gameObject.SetActive(false);
+	}
+
+	private void AfterZoom(){
+		this.zoomDirection = 0;
+		if (this.afterZoom != null){
+			this.afterZoom();
+		}
 	}
 }
