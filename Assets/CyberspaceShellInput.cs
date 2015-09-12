@@ -41,6 +41,7 @@ public class CyberspaceShellInput : MonoBehaviour {
 		currentHeading = playerPrefab.rotation;
 		normalThrottlePanelColor = ThrottlePanel.color;
 		Cursor.lockState = CursorLockMode.Confined;
+		Cursor.visible = false;
 	}
 	
 	private float GetThrottleAxis(){
