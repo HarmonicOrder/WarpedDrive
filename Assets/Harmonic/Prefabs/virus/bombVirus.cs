@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class tankVirus : MonoBehaviour {
+public class bombVirus : MonoBehaviour {
 
 	public float lookAtSpeed = 2f;
-	public float tooCloseDistance = 10f;
 	public float engagementDistance = 200f;
-	public float optimumRange = 60f;
-	public float moveSpeed = 10f;
+	public float moveSpeed = 20f;
 
 	private Transform playerT;
 	// Use this for initialization
@@ -26,24 +24,11 @@ public class tankVirus : MonoBehaviour {
 		{
 			//do not engage
 		} 
-		else if (relativePos.magnitude < this.tooCloseDistance) 
-		{
-			//within too close, move away
-			this.transform.Translate(0, 0, -Time.deltaTime * this.moveSpeed, Space.Self);
-		} 
-		else if ((relativePos.magnitude > this.optimumRange - 10f) && (relativePos.magnitude < this.optimumRange + 10f))
-		{
-			//within 10 of optimum, just fire
-		} 
-		else if (relativePos.magnitude > this.optimumRange)
+		else 
 		{
 			//within engagement, outside optimum, move closer
 			this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed, Space.Self);
 		} 
-		else 
-		{
-			//within engagement, within optimum, move away
-			//this.transform.Translate(0, 0, -Time.deltaTime * this.moveSpeed, Space.Self);
-		}
+
 	}
 }
