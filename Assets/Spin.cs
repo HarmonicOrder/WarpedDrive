@@ -19,7 +19,8 @@ public class Spin : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		this.transform.RotateAround(position, GetVector(), speed*Time.deltaTime);
+		//this.transform.RotateAround(position, GetVector(), speed*Time.deltaTime);
+		this.transform.Rotate(GetVector(), speed*Time.deltaTime);
 	}
 
 	private Vector3 GetVector(){

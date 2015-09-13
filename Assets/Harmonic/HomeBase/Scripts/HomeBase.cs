@@ -65,8 +65,17 @@ public class HomeBase : MonoBehaviour {
 	{
 		isWarping = true;
 		homeFiberGate.LookAt(currentHover.transform.position);
-		zoomScript.afterZoom = new CameraZoomToZoom.AfterZoomFinished(OnWarpStart);
-		zoomScript.ZoomTo(homeFiberGate.FindChild("gatewayStartNode"), 5f);
+		zoomScript.afterZoom = new CameraZoomToZoom.AfterZoomFinished(AfterSubnetZoom);
+		zoomScript.ZoomTo(homeFiberGate.FindChild("gatewayStartNode"), 2f);
+	}
+
+	private void AfterSubnetZoom(){
+		StartCoroutine(BeforeWarpStart());
+	}
+
+	private IEnumerator BeforeWarpStart(){
+		yield return new WaitForSeconds(1f);
+		OnWarpStart();
 	}
 
 	private Transform warpBubble;
@@ -74,7 +83,7 @@ public class HomeBase : MonoBehaviour {
 		warpBubble = (Transform)Instantiate(WarpBubblePrefab, zoomCamera.transform.position, zoomCamera.transform.rotation);
 		warpBubble.parent = zoomCamera.transform;
 		zoomScript.afterZoom = new CameraZoomToZoom.AfterZoomFinished(OnWarpEnd);
-		zoomScript.ZoomTo(currentHover.transform.FindChild("gateway"), 10f);
+		zoomScript.ZoomTo(currentHover.transform.FindChild("gateway"), 6f, 80f);
 	}
 
 	public void OnWarpEnd(){

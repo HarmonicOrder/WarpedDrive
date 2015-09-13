@@ -32,23 +32,34 @@ public class CameraZoomToZoom : MonoBehaviour {
 			return currentZoomTime / ZoomTime;
 		}
 	}
+	private float fovMax = -1;
 
 	// Update is called once per frame
 	void Update () {
 		currentZoomTime += Time.deltaTime;
 		if (zoomDirection > 0){
-			ZoomCamera.position = Vector3.Lerp(ZoomFromPosition, ZoomToPosition, Mathfx.Hermite(0, 1, zoomPercentage));
-			ZoomCamera.rotation = Quaternion.Slerp(ZoomFromRotation, ZoomToRotation, zoomPercentage);
+			DoZoom();
 
 			if (currentZoomTime > ZoomTime){
 				AfterZoom();
 			}
 		} else if (zoomDirection < 0){
-			ZoomCamera.position = Vector3.Lerp(ZoomToPosition, ZoomFromPosition, Mathfx.Hermite(0, 1, zoomPercentage));
-			ZoomCamera.rotation = Quaternion.Slerp(ZoomToRotation, ZoomFromRotation, zoomPercentage);
+			DoZoom();
 
 			if (currentZoomTime > ZoomTime)
 				OnFullyZoomedIn();
+		}
+	}
+
+	private void DoZoom()
+	{
+		ZoomCamera.position = Vector3.Lerp(ZoomFromPosition, ZoomToPosition, Mathfx.Hermite(0, 1, zoomPercentage));
+		ZoomCamera.rotation = Quaternion.Slerp(ZoomFromRotation, ZoomToRotation, zoomPercentage);
+
+		if (fovMax > 0f){
+			ZoomCamera.GetComponent<Camera>().fieldOfView = 60 + ((60 - fovMax) * Mathf.Sin( Mathf.PI * zoomPercentage));
+		} else {
+			ZoomCamera.GetComponent<Camera>().fieldOfView = 60;
 		}
 	}
 
@@ -78,12 +89,13 @@ public class CameraZoomToZoom : MonoBehaviour {
 		Zoom(isZoomingOut);
 	}
 
-	public void ZoomTo(Transform target, float overTime = 1f){
+	public void ZoomTo(Transform target, float overTime = 1f, float fovMax = -1){
 		this.ZoomTime = overTime;
 		this.ZoomFromPosition = ZoomCamera.position;
 		this.ZoomFromRotation = ZoomCamera.rotation;
 		this.ZoomToPosition = target.position;
 		this.ZoomToRotation = target.rotation;
+		this.fovMax = fovMax;
 		this.Zoom(true);
 	}
 
