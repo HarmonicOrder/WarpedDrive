@@ -47,7 +47,7 @@ public class CameraZoomToZoom : MonoBehaviour {
 			DoZoom();
 
 			if (currentZoomTime > ZoomTime)
-				OnFullyZoomedIn();
+				ResetZoom();
 		}
 	}
 
@@ -99,7 +99,7 @@ public class CameraZoomToZoom : MonoBehaviour {
 		this.Zoom(true);
 	}
 
-	private void OnFullyZoomedIn(){
+	private void ResetZoom(){
 		this.zoomDirection = 0;
 		this.MainCamera.gameObject.SetActive(true);
 		this.ZoomCamera.gameObject.SetActive(false);
@@ -110,5 +110,12 @@ public class CameraZoomToZoom : MonoBehaviour {
 		if (this.afterZoom != null){
 			this.afterZoom();
 		}
+	}
+
+	public void MainCameraToZoom(){
+		this.MainCamera.position = this.ZoomCamera.position;
+		this.MainCamera.rotation = this.ZoomCamera.rotation;
+		this.MainCamera.gameObject.SetActive(true);
+		this.ZoomCamera.gameObject.SetActive(false);
 	}
 }

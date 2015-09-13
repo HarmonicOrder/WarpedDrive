@@ -26,13 +26,7 @@ public class HomeBase : MonoBehaviour {
 			this.transform.GetComponent<CameraZoomToZoom>().ZoomTo(isZoomedOut);
 		}
 		if (CrossPlatformInputManager.GetButtonDown("Jump")){
-			var pixelater = new PixelateTransition()
-			{
-				nextScene = 2,
-				finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
-				duration = 1.0f
-			};
-			TransitionKit.instance.transitionWithDelegate( pixelater );
+			TransitionToBattlespace();
 		}
 
 		if (isZoomedOut){
@@ -89,5 +83,18 @@ public class HomeBase : MonoBehaviour {
 	public void OnWarpEnd(){
 		GameObject.Destroy(warpBubble.gameObject);
 		isWarping = false;
+		zoomScript.MainCameraToZoom();
+		TransitionToBattlespace();
+	}
+
+	private void TransitionToBattlespace()
+	{
+		var pixelater = new PixelateTransition()
+		{
+			nextScene = 2,
+			finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
+			duration = 1.0f
+		};
+		TransitionKit.instance.transitionWithDelegate( pixelater );
 	}
 }
