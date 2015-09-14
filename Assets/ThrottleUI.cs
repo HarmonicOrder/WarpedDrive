@@ -19,7 +19,7 @@ public class ThrottleUI : MonoBehaviour {
 
 	private string GetThrottleText()
 	{
-		int currentBars = (int)Mathf.Floor( Shell.CurrentThrottle * numBars );
+		int currentBars = (int)Mathf.Floor( 0); //Shell.CurrentThrottle * numBars );
 		return string.Format("{0}", "".PadLeft(currentBars, (char)9608));
 	}
 }

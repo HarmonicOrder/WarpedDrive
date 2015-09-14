@@ -8,27 +8,22 @@ public class CyberspaceShellInput : MonoBehaviour {
 	
 	public EngineThruster thruster;
 	public Image ThrottlePanel;
+
 	public float maximumRollPerSecond = 10f;
 	public float maximumPitchPerSecond = 10f;
 	public float maximumYawPerSecond = 10f;
-	public float smoothing = 5f;
-	public float xSensitivity = 2f,
-	ySensitivity = 2f,
-	zSensitivity = 2f;
-	public float timeToFullThrottle = 2f;
 
-	public float CurrentThrottle {
-		get {
-			return currentThrottle;
-		}
-	}
+	public float smoothing = 5f;
+
+	public float xSensitivity = 2f,
+				 ySensitivity = 2f,
+				 zSensitivity = 2f;
+	public float moveSpeed = .25f;
+	public float boostMultiplier = 2f;
+
 
 	private bool boost = false, boostStart = false, boostStop = false;
 	private float forward = 0f, vert, horz = 0f;
-	private float moveSpeed = 1f;
-	private float boostMultiplier = 2f;
-	private float currentSpeed = 0f;
-	private float currentThrottle = 0f;
 	private Quaternion currentHeading;
 	private float roll = 0f;
 	private Transform playerPrefab;
@@ -42,15 +37,6 @@ public class CyberspaceShellInput : MonoBehaviour {
 		normalThrottlePanelColor = ThrottlePanel.color;
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = false;
-	}
-	
-	private float GetThrottleAxis(){
-		if (Input.GetKey(KeyCode.LeftShift)){
-			return timeToFullThrottle * Time.deltaTime;
-		} else if (Input.GetKey(KeyCode.LeftControl)){
-			return -timeToFullThrottle * Time.deltaTime;
-		}
-		return 0;
 	}
 	
 	// Update is called once per frame
@@ -74,19 +60,10 @@ public class CyberspaceShellInput : MonoBehaviour {
 		vert = -CrossPlatformInputManager.GetAxis("Mouse Y") * ySensitivity;
 		horz = CrossPlatformInputManager.GetAxis("Mouse X") * xSensitivity;
 		roll = -CrossPlatformInputManager.GetAxis("Roll") * zSensitivity;
-		
-		forward = GetThrottleAxis();
-		
-		currentThrottle += forward;
-		
-		if (currentThrottle > 1f)
-			currentThrottle = 1f;
-		else if (currentThrottle < 0f)
-			currentThrottle = 0f;
-		
+
 		//print(string.Format("Boosting:{0}, X:{1}, Y:{2}, Z:{3}", boost, horz, vert, roll));
 		
-		if (thruster != null){
+		/*if (thruster != null){
 			if (currentThrottle != 0f){
 				if (boost) {
 					thruster.ChangeEngineState(EngineThruster.EngineState.Boost);
@@ -96,8 +73,7 @@ public class CyberspaceShellInput : MonoBehaviour {
 			} else {
 				thruster.ChangeEngineState(EngineThruster.EngineState.Idle);
 			}
-		}
-		currentSpeed = moveSpeed * Mathf.Abs(currentThrottle) * (boost ? boostMultiplier : 1);
+		}*/
 
 		if (boostStart){
 			throttleBoostDirection = 1;
@@ -112,12 +88,17 @@ public class CyberspaceShellInput : MonoBehaviour {
 		} else if (throttleBoostDirection == -1){
 			ThrottlePanel.color = Color.Lerp(ThrottlePanel.color, normalThrottlePanelColor, 4f*Time.deltaTime);
 		}
-		
-		
-		if (currentThrottle > 0f){
-			this.transform.parent.transform.Translate(Vector3.forward * currentSpeed);	
-		} else if (currentThrottle < 0f) {
-			this.transform.parent.transform.Translate(Vector3.back * currentSpeed);	
+
+		Vector3 translateV = new Vector3(
+			CrossPlatformInputManager.GetAxis("Horizontal") * moveSpeed * (boost ? boostMultiplier : 1),
+			CrossPlatformInputManager.GetAxis("Elevator") * moveSpeed * (boost ? boostMultiplier : 1),
+			CrossPlatformInputManager.GetAxis("Vertical") * moveSpeed * (boost ? boostMultiplier : 1)
+			);
+		translateV.Normalize();
+
+		if (translateV.magnitude > 0)
+		{
+			this.transform.parent.transform.Translate(translateV);	
 		}
 		
 		BoundsCheckInput();
