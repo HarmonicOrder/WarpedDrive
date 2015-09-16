@@ -1,9 +1,10 @@
-Shader "UI/Glitch_OverlayNoZTest"
+Shader "UI/Glitch2_OverlayNoZTest"
  {
      Properties
      {
          [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
          _Color ("Tint", Color) = (1,1,1,1)
+        _CellSize ("Cell Size", Vector) = (0.02, 0.02, 0, 0)
          
          _StencilComp ("Stencil Comparison", Float) = 8
          _Stencil ("Stencil ID", Float) = 0
@@ -62,6 +63,7 @@ Shader "UI/Glitch_OverlayNoZTest"
                  half2 texcoord  : TEXCOORD0;
              };
              
+             float4 _CellSize;
              fixed4 _Color;
 			 
 			 float rand(float3 co)
@@ -107,25 +109,17 @@ Shader "UI/Glitch_OverlayNoZTest"
  
              fixed4 frag(v2f IN) : SV_Target
              {
-             	float2 griddedF;
-             	//griddedF.x = floor(IN.texcoord.x / 160);
-             	//griddedF.y = floor(IN.texcoord.y / 160);
-             	griddedF.x = IN.texcoord.x / 900;
-             	griddedF.y = IN.texcoord.y / 900;
+				float2 steppedUV = IN.texcoord.xy;
+				steppedUV /= _CellSize.xy;
+				steppedUV = round(steppedUV);
+				steppedUV *= _CellSize.xy;
              	IN.color.a = sin(
 								fmod(
 								_Time[1]*2
-								-griddedF.x
-								+griddedF.y
-								//+rand(griddedF)// / 16
-								//+rand(IN.texcoord.y) / 16
-								//- fmod(IN.texcoord.x, 2)
-								//+ fmod(IN.texcoord.y, 2)
-								//+ rand(IN.vertex.xyz)
-								//+ rand(fmod(IN.vertex.xyz, 16))
-								//+ rand(IN.vertex.xyz / 16)
-								,3.141592653589))
-								+rand(griddedF);
+								-steppedUV.x
+								+steppedUV.y
+								+rand(steppedUV)
+								,3.141592653589));
                  half4 color = tex2D(_MainTex, IN.texcoord) * IN.color;
                  clip (color.a - 0.01);
                  return color;
