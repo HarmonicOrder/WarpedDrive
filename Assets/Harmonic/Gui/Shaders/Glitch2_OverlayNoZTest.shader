@@ -89,18 +89,6 @@ Shader "UI/Glitch2_OverlayNoZTest"
  #ifdef UNITY_HALF_TEXEL_OFFSET
                  OUT.vertex.xy += (_ScreenParams.zw-1.0)*float2(-1,1);
  #endif
-				//_Color.a = sin(fmod(_Time[1]*2, 3.141592653589));
-				//_Color.a = sin(fmod(rand(OUT.vertex.xyz)+_Time[1]*2, 3.141592653589));
-				//_Color.a = sin(
-				//				fmod(
-				//				(_Time[1]*2)
-								//+
-								 //_ScreenParams.x
-								//OUT.vertex.x
-								//fmod(OUT.vertex.x, _ScreenParams.x)
-								//+
-								//fmod(OUT.vertex.y, _ScreenParams.y)
-				//				,3.141592653589));
                  OUT.color = IN.color * _Color;
                  return OUT;
              }
@@ -115,7 +103,7 @@ Shader "UI/Glitch2_OverlayNoZTest"
 				steppedUV *= _CellSize.xy;
              	IN.color.a = sin(
 								fmod(
-								_Time[1]*2
+								20 +_Time[1]
 								-steppedUV.x
 								+steppedUV.y
 								+rand(steppedUV)
