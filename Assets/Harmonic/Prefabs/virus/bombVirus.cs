@@ -6,6 +6,7 @@ public class bombVirus : MonoBehaviour {
 	public float lookAtSpeed = 2f;
 	public float engagementDistance = 200f;
 	public float moveSpeed = 20f;
+	public playerHealth HealthScript;
 
 	private Transform playerT;
 	// Use this for initialization
@@ -30,5 +31,9 @@ public class bombVirus : MonoBehaviour {
 			this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed, Space.Self);
 		} 
 
+		if (relativePos.magnitude < 1)
+		{
+			HealthScript.TakeDamage(2.5f);
+		}
 	}
 }

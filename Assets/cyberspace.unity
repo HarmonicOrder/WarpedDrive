@@ -1923,6 +1923,7 @@ GameObject:
   - 4: {fileID: 460677733}
   - 114: {fileID: 460677732}
   - 114: {fileID: 460677734}
+  - 114: {fileID: 460677735}
   m_Layer: 5
   m_Name: Logician
   m_TagString: Untagged
@@ -1969,6 +1970,25 @@ MonoBehaviour:
   ThrottleText: {fileID: 1153870807}
   Shell: {fileID: 129597212}
   numBars: 20
+--- !u!114 &460677735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 460677731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d83dbde72e39e3d4ba3ed72943c4126d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RecoveryTime: 5
+  MaximumHealth: 10
+  HealthAmount: 1
+  GlitchSpots:
+  - {fileID: 2074041735}
+  - {fileID: 2061451101}
+  - {fileID: 1677627128}
+  - {fileID: 1897413252}
 --- !u!4 &498585816 stripped
 Transform:
   m_PrefabParentObject: {fileID: 490176, guid: 46d1f5944911c5946bf373f1beeb29cc, type: 2}
@@ -6035,6 +6055,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 11413114, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
+      propertyPath: HealthScript
+      value: 
+      objectReference: {fileID: 460677735}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
   m_IsPrefabParent: 0
@@ -7384,7 +7408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 4df129163f64e944d9c78f18db21f88c, type: 2}
-  m_Color: {r: 0, g: 1, b: .213793039, a: 1}
+  m_Color: {r: 0, g: 1, b: .213793039, a: 0}
   m_Sprite: {fileID: 21300000, guid: e7e41224db2b118479fc1996a21f4e78, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -7584,7 +7608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 4df129163f64e944d9c78f18db21f88c, type: 2}
-  m_Color: {r: 0, g: 1, b: .213793039, a: 1}
+  m_Color: {r: 0, g: 1, b: .213793039, a: 0}
   m_Sprite: {fileID: 21300000, guid: e7e41224db2b118479fc1996a21f4e78, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -8839,7 +8863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 4df129163f64e944d9c78f18db21f88c, type: 2}
-  m_Color: {r: 0, g: 1, b: .213793039, a: 1}
+  m_Color: {r: 0, g: 1, b: .213793039, a: 0}
   m_Sprite: {fileID: 21300000, guid: e5b00eb4d676b71408428efe7ec590a2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -8861,14 +8885,14 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2061451100}
   m_LocalRotation: {x: .241844803, y: -.241844773, z: -.664463043, w: .664462984}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 121.099998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1628026724}
   m_RootOrder: 9
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 162, y: 73}
+  m_AnchoredPosition: {x: 71.5, y: 36.5999985}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: .5, y: .5}
 --- !u!1 &2074041733
@@ -8917,7 +8941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 4df129163f64e944d9c78f18db21f88c, type: 2}
-  m_Color: {r: 0, g: 1, b: .213793039, a: 1}
+  m_Color: {r: 0, g: 1, b: .213793039, a: 0}
   m_Sprite: {fileID: 21300000, guid: 95ea8c8df429ca948b8950b0393aec30, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
