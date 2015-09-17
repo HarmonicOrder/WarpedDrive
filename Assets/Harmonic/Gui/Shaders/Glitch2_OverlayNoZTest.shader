@@ -101,7 +101,7 @@ Shader "UI/Glitch2_OverlayNoZTest"
 				steppedUV /= _CellSize.xy;
 				steppedUV = round(steppedUV);
 				steppedUV *= _CellSize.xy;
-             	IN.color.a = sin(
+             	IN.color.a *= sin(
 								fmod(
 								20 +_Time[1]
 								-steppedUV.x
