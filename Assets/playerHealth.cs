@@ -10,6 +10,7 @@ public class playerHealth : MonoBehaviour {
 	public float MaximumHealth = 10f;
 	public float HealthAmount = 1f;
 	public float GlitchFade = 1f;
+	public float InvulnerabilityTime = 1f;
 	public List<Image> GlitchSpots = new List<Image>();
 
 	private float CurrentHealth;
@@ -23,7 +24,7 @@ public class playerHealth : MonoBehaviour {
 		CurrentHealth = MaximumHealth;
 	}
 	
-	private float timeSinceLastDamage = 0f;
+	private float timeSinceLastDamage = 999f;
 	void LateUpdate () {
 		if (CurrentHealth < MaximumHealth)
 		{
@@ -31,12 +32,12 @@ public class playerHealth : MonoBehaviour {
 			if (timeSinceLastDamage > RecoveryTime)
 			{
 				HealDamage(HealthAmount);
-				timeSinceLastDamage = 0f;
+				timeSinceLastDamage = 999f;
 			}
 		}
 		if (AlphaMoving)
 		{
-			print (CurrentAlpha.ToString());
+			//print (CurrentAlpha.ToString());
 			SetAlpha(Mathf.Lerp(CurrentAlpha, DestinationAlpha, CurrentGlitchFade / GlitchFade));
 			CurrentGlitchFade += Time.deltaTime;
 			if (CurrentGlitchFade > GlitchFade){
@@ -48,18 +49,21 @@ public class playerHealth : MonoBehaviour {
 
 	public void TakeDamage(float damage)
 	{
-		CurrentHealth -= damage;
-		if (CurrentHealth < 0f)
+		if (timeSinceLastDamage > InvulnerabilityTime)
 		{
-			//game over!
+			CurrentHealth -= damage;
+			if (CurrentHealth < 0f)
+			{
+				//game over!
+			}
+			else
+			{
+				timeSinceLastDamage = 0f;
+			}
+			DestinationAlpha = 1 - CurrentHealth / MaximumHealth;
+			AlphaMoving = true;
+			CurrentGlitchFade = 0;
 		}
-		else
-		{
-			timeSinceLastDamage = 0f;
-		}
-		DestinationAlpha = 1 - CurrentHealth / MaximumHealth;
-		AlphaMoving = true;
-		CurrentGlitchFade = 0;
 	}
 
 	public void HealDamage(float healAmount)
