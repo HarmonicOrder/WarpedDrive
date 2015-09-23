@@ -1984,6 +1984,8 @@ MonoBehaviour:
   RecoveryTime: 5
   MaximumHealth: 10
   HealthAmount: 1
+  GlitchFade: 1
+  InvulnerabilityTime: 1
   GlitchSpots:
   - {fileID: 2074041735}
   - {fileID: 2061451101}
@@ -2580,8 +2582,8 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: f195d84a959f9ac46a1d720a1f870388, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 7ff64f8cdfac65c4b820a2cbde3f4226, type: 3}
-    m_FontSize: 16
+    m_Font: {fileID: 12800000, guid: cd7bc8ced6cd06c4ba64f8cbc035df7d, type: 3}
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -4026,8 +4028,8 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: f195d84a959f9ac46a1d720a1f870388, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 7ff64f8cdfac65c4b820a2cbde3f4226, type: 3}
-    m_FontSize: 38
+    m_Font: {fileID: 12800000, guid: cd7bc8ced6cd06c4ba64f8cbc035df7d, type: 3}
+    m_FontSize: 48
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -4036,7 +4038,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: .75
   m_Text: O2 01:35
 --- !u!222 &1082527348
 CanvasRenderer:
@@ -9046,7 +9048,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: f195d84a959f9ac46a1d720a1f870388, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 7ff64f8cdfac65c4b820a2cbde3f4226, type: 3}
+    m_Font: {fileID: 12800000, guid: cd7bc8ced6cd06c4ba64f8cbc035df7d, type: 3}
     m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
