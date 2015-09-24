@@ -91,7 +91,7 @@ public class HomeBase : MonoBehaviour {
 	{
 		var pixelater = new PixelateTransition()
 		{
-			nextScene = 2,
+			nextScene = 3,
 			finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
 			duration = 1.0f
 		};

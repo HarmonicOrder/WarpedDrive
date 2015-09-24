@@ -9,6 +9,7 @@ public class CircleDraw : MonoBehaviour {
 	public Color StartColor = Color.red;
 	public Color EndColor = Color.red;
 	LineRenderer lineRenderer;
+	public bool OnYAxis = false;
 	
 	private int size; //Total number of points in circle
 	void Awake () {       
@@ -20,18 +21,32 @@ public class CircleDraw : MonoBehaviour {
 		lineRenderer.SetWidth(lineThickness, lineThickness); //thickness of line
 		lineRenderer.SetVertexCount(size);      
 		lineRenderer.SetColors(StartColor, EndColor);
+		Draw ();
 	}
 	
-	void Update () {      
+	void Update () {
+	}
+
+	public void Draw()
+	{      
 		Vector3 pos;
 		float theta = 0f;
 		for(int i = 0; i < size; i++){          
 			theta += (2.0f * Mathf.PI * theta_scale);         
 			float x = radius * Mathf.Cos(theta);
 			float y = radius * Mathf.Sin(theta);          
+			float z = radius * Mathf.Sin(theta);          
 			x += gameObject.transform.position.x;
-			y += gameObject.transform.position.y;
-			pos = new Vector3(x, y, 0);
+			if (OnYAxis)
+			{
+				z += gameObject.transform.position.z;
+				pos = new Vector3(x, gameObject.transform.position.y, z);
+			}
+			else
+			{
+				y += gameObject.transform.position.y;
+				pos = new Vector3(x, y, gameObject.transform.position.z);
+			}
 			lineRenderer.SetPosition(i, pos);
 		}
 	}

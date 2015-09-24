@@ -26,7 +26,7 @@ public class BasicWASD : MonoBehaviour {
 		if (CrossPlatformInputManager.GetButtonDown("Jump")){
 			var pixelater = new PixelateTransition()
 			{
-				nextScene = 1,
+				nextScene = 2,
 				finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
 				duration = 1.0f
 			};
