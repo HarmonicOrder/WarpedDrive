@@ -6,8 +6,8 @@ using Prime31.TransitionKit;
 
 public class CyberspaceDroneInput : MonoBehaviour {
 	public float smoothing = 5f;
-	public Transform strategySphere;
-
+	public Transform strategyYawSphere;
+	public Transform strategyPitchSphere;
 	public float xSensitivity = 2f,
 				 ySensitivity = 2f,
 				 zSensitivity = 2f;
@@ -19,7 +19,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		currentHeading = strategySphere.rotation;
+		//currentHeading = strategySphere.rotation;
 		currentLookRotation = Camera.main.transform.localRotation;
 		Cursor.lockState = CursorLockMode.Confined;
 		//Cursor.visible = false;
@@ -42,30 +42,24 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		//bool  = CrossPlatformInputManager.GetButton("Jump");
 		bool fireSubroutine = CrossPlatformInputManager.GetButtonDown("Jump");
 
-		//todo: make movement more intuitive - something's off 
-		float vert = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;
-		float horz = -CrossPlatformInputManager.GetAxis("Horizontal") * xSensitivity;
-		//float roll = -CrossPlatformInputManager.GetAxis("Roll") * zSensitivity;
+		float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;
+		float vert = -CrossPlatformInputManager.GetAxis("Horizontal") * xSensitivity;
 
 		if (invertY) 
 		{
 			vert = -vert;
 		}
 
-		float dX = 0f, dY = 0f, dRoll = 0f;
+		float dX = 0f, dY = 0f;
 		if (vert != 0f)
 			dY = vert * moveSpeed;
 		if (horz != 0f)
 			dX = horz * moveSpeed;
-		//if (roll != 0f)
-		//	dRoll = roll * moveSpeed;
 
-		currentHeading *= Quaternion.Euler(vert, 
-		                                   horz, 
-		                                   0);
-		strategySphere.rotation = Quaternion.Slerp(strategySphere.rotation, currentHeading, smoothing * Time.deltaTime);
+		SlerpRotate(strategyPitchSphere, dX, 0, 91f);
 
-		//todo: clamp rotation to certain bits
+		SlerpRotate(strategyYawSphere, 0, dY);
+
 		float x = -CrossPlatformInputManager.GetAxis("Mouse Y") * xSensitivity;
 		float y = CrossPlatformInputManager.GetAxis("Mouse X") * ySensitivity;
 		float roll = -CrossPlatformInputManager.GetAxis("Roll") * zSensitivity;
@@ -73,17 +67,21 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		currentLookRotation *= Quaternion.Euler(x, 
 		                                   y, 
 		                                   roll);
-		Camera.main.transform.localRotation = Quaternion.Slerp(Camera.main.transform.localRotation, currentLookRotation, smoothing * Time.deltaTime);
-
-
-		
+		Camera.main.transform.localRotation = Quaternion.Slerp(Camera.main.transform.localRotation, currentLookRotation, smoothing * Time.deltaTime);		
 	}
 
-	
-	private bool isNegative = false;
-	private float BoundsCheckOneInput(float input, float max){
-		isNegative = input < 0f;
-		input = Mathf.Min( Mathf.Abs(input), max / Time.deltaTime);
-		return (isNegative ? -input: input);
+	private void SlerpRotate(Transform target, float deltaX, float deltaY, float? xRange = null)
+	{
+		Quaternion newRotation = target.localRotation * Quaternion.Euler(deltaX, deltaY, 0);
+		if (xRange.HasValue && (Quaternion.Angle(Quaternion.identity, newRotation) > xRange))
+		{
+			//try and get closer to the max
+			if (target.localRotation.x < xRange)
+				SlerpRotate(target, deltaX / 2, deltaY, xRange);
+			return;
+		}
+
+		target.localRotation = Quaternion.Slerp(target.localRotation, newRotation, smoothing * Time.deltaTime);
 	}
+
 }
