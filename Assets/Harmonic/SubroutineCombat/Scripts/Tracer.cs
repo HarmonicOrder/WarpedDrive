@@ -16,7 +16,7 @@ public class Tracer : MonoBehaviour {
 	private float CurrentFireDistance = 0f;
 	// Use this for initialization
 	void Start () {
-		Fire ();
+		
 	}
 
 	public void Fire()

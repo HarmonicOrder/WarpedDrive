@@ -13,10 +13,12 @@ public class CyberspaceDroneInput : MonoBehaviour {
 				 zSensitivity = 2f;
 	public float moveSpeed = 1f;
 	public bool invertY = true;
+	public Transform AlphaSubPrefab;
 
 	private Quaternion currentHeading;
 	private Quaternion currentLookRotation;
-	
+	private Transform CurrentAlphaSubroutine;
+
 	// Use this for initialization
 	void Start () {
 		//currentHeading = strategySphere.rotation;
@@ -40,7 +42,12 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		}
 
 		//bool  = CrossPlatformInputManager.GetButton("Jump");
-		bool fireSubroutine = CrossPlatformInputManager.GetButtonDown("Jump");
+		bool fireSubroutine = Input.GetKeyDown(KeyCode.Alpha1);
+		if (fireSubroutine)
+		{
+			CurrentAlphaSubroutine = AlphaSubPrefab;
+			CurrentAlphaSubroutine.GetComponent<Tracer>().Fire();
+		}
 
 		float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;
 		float vert = -CrossPlatformInputManager.GetAxis("Horizontal") * xSensitivity;
