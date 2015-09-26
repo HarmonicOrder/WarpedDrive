@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Orbit : MonoBehaviour {
+public class Orbit : SubroutineMovement {
 	public Transform OrbitAnchor;
 	public float orbitSpeed = 5f;
 	public bool IsOrbiting = true;

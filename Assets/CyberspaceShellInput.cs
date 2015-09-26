@@ -23,7 +23,7 @@ public class CyberspaceShellInput : MonoBehaviour {
 
 
 	private bool boost = false, boostStart = false, boostStop = false;
-	private float forward = 0f, vert, horz = 0f;
+	private float vert, horz = 0f;
 	private Quaternion currentHeading;
 	private float roll = 0f;
 	private Transform playerPrefab;

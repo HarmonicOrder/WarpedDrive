@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Tracer : MonoBehaviour {
+public class Tracer : SubroutineMovement {
 	
 	public float lookAtSpeed = 2f;
 	public float engagementDistance = 200f;
@@ -19,7 +19,7 @@ public class Tracer : MonoBehaviour {
 		
 	}
 
-	public void Fire()
+	public override void Fire()
 	{
 		this.transform.SetParent(null);
 		BeingFired = true;

@@ -46,7 +46,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		if (fireSubroutine)
 		{
 			CurrentAlphaSubroutine = AlphaSubPrefab;
-			CurrentAlphaSubroutine.GetComponent<Tracer>().Fire();
+			CurrentAlphaSubroutine.GetComponent<Subroutine>().Activate();
 		}
 
 		float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;

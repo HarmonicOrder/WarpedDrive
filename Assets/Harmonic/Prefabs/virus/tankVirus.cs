@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class tankVirus : MonoBehaviour {
+public class tankVirus : VirusAI {
 
 	public float lookAtSpeed = 2f;
 	public float tooCloseDistance = 10f;
@@ -9,19 +9,26 @@ public class tankVirus : MonoBehaviour {
 	public float optimumRange = 60f;
 	public float moveSpeed = 10f;
 
-	private Transform playerT;
 	// Use this for initialization
-	void Start () {
-		playerT = GameObject.FindGameObjectWithTag("Player").transform;
+	protected override void OnStart () {
+		base.OnStart();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		Vector3 relativePos = this.playerT.position - this.transform.position;
+	protected override void OnUpdate () {
+		if (this.targetT != null)
+		{
+			Vector3 relativePos = this.targetT.position - this.transform.position;
+			FaceTarget(relativePos);
+			//MoveToTarget(relativePos);
+		}
+	}
+
+	private void FaceTarget(Vector3 relativePos){
 		this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);
+	}
 
-		//print (relativePos.magnitude);
-
+	private void MoveToTarget(Vector3 relativePos){
 		if (relativePos.magnitude > this.engagementDistance)
 		{
 			//do not engage
