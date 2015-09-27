@@ -3254,6 +3254,7 @@ MonoBehaviour:
   moveSpeed: 8
   invertY: 0
   AlphaSubPrefab: {fileID: 647248118}
+  TargetGuiText: {fileID: 866117182}
 --- !u!1001 &498110464
 Prefab:
   m_ObjectHideFlags: 0
@@ -4073,7 +4074,7 @@ GameObject:
   - 222: {fileID: 866117183}
   - 114: {fileID: 866117182}
   m_Layer: 5
-  m_Name: CycleText
+  m_Name: TargetText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4121,9 +4122,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '50%   50% 0%
-
-    <color=blue>Route</color> <color=red>ICE</color> <color=green>Firewall</color>'
+  m_Text: 
 --- !u!222 &866117183
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7655,7 +7654,8 @@ Prefab:
       propertyPath: m_Name
       value: bombVirusPrefab (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11492190, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1457378394 stripped
@@ -7770,6 +7770,10 @@ Prefab:
       propertyPath: OrbitAnchor
       value: 
       objectReference: {fileID: 999437848}
+    - target: {fileID: 128990, guid: 52942d2bc4ffa1d4ab02cefad65f67cf, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52942d2bc4ffa1d4ab02cefad65f67cf, type: 2}
   m_IsPrefabParent: 0
@@ -8105,124 +8109,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 493616, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 493616, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 493616, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 427852, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 443428, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 485188, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 435348, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 471872, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 485736, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 427852, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 443428, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 485188, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 435348, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 471872, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 485736, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 427852, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 443428, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 485188, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 435348, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 471872, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 485736, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 11413114, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
       propertyPath: HealthScript
       value: 
       objectReference: {fileID: 460677735}
-    - target: {fileID: 109816, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 168018, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
+      propertyPath: m_Name
+      value: Bomber
       objectReference: {fileID: 0}
-    - target: {fileID: 126314, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 11492190, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
+      propertyPath: OrbitAnchor
+      value: 
+      objectReference: {fileID: 999437848}
+    - target: {fileID: 13538244, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
+      propertyPath: m_Radius
+      value: 1.20000005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1577132605 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 168018, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-  m_PrefabInternal: {fileID: 1577132604}
---- !u!114 &1577132606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1577132605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f6aa264678f7ff4185c6a00a8c9c750, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OrbitAnchor: {fileID: 999437848}
-  orbitSpeed: 15
-  IsOrbiting: 1
-  RotationAxis: {x: 0, y: 1, z: 0}
 --- !u!1001 &1589994220
 Prefab:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public float moveSpeed = 1f;
 	public bool invertY = true;
 	public Transform AlphaSubPrefab;
+	public Text TargetGuiText;
 
 	private Quaternion currentHeading;
 	private Quaternion currentLookRotation;
@@ -74,7 +75,21 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		currentLookRotation *= Quaternion.Euler(x, 
 		                                   y, 
 		                                   roll);
-		Camera.main.transform.localRotation = Quaternion.Slerp(Camera.main.transform.localRotation, currentLookRotation, smoothing * Time.deltaTime);		
+		Camera.main.transform.localRotation = Quaternion.Slerp(Camera.main.transform.localRotation, currentLookRotation, smoothing * Time.deltaTime);	
+
+		RaycastHit rayHit;
+		if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("TargetRaycast")))
+		{
+			if (rayHit.collider != null)
+			{
+				//print (rayHit.collider.transform.parent.name);
+				VirusAI v = (VirusAI)rayHit.collider.GetComponentInParent(typeof(VirusAI));
+				if (v)
+				{
+					TargetGuiText.text = v.Info.GetTargetRichText();
+				}
+			}
+		}
 	}
 
 	private void SlerpRotate(Transform target, float deltaX, float deltaY, float? xRange = null)

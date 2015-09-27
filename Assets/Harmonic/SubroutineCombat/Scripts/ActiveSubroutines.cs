@@ -16,7 +16,6 @@ public static class ActiveSubroutines {
 			//notify viruses of this
 			foreach(VirusAI v in VirusList)
 			{
-				Debug.Log("alerting virus");
 				v.OnSubroutineActive(newlyActive);
 			}
 		}

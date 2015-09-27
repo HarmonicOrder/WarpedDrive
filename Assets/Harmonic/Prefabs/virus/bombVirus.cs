@@ -9,6 +9,17 @@ public class bombVirus : VirusAI {
 	public playerHealth HealthScript;
 	private bool orbiting = true;
 
+	public bombVirus()
+	{
+		this.Info = new ActorInfo()
+		{ 
+			Name = "Bomber",
+			DamagePerHit = 5f,
+			FireRate = 1f,
+			HitPoints = 5f
+		};
+	}
+
 	protected override void OnStart () {
 		base.OnStart();
 	}

@@ -9,6 +9,18 @@ public class tankVirus : VirusAI {
 	public float optimumRange = 60f;
 	public float moveSpeed = 10f;
 
+	void Awake()
+	{
+		this.Info = new ActorInfo()
+		{
+			Name = "Tank",
+			DamagePerHit = 3f,
+			FireRate = 1f,
+			HitPoints = 5f,
+			ArmorPoints = 5f
+		};
+	}
+
 	// Use this for initialization
 	protected override void OnStart () {
 		base.OnStart();
