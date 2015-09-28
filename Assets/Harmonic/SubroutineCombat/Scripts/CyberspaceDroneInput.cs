@@ -15,22 +15,25 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public bool invertY = true;
 	public Transform AlphaSubPrefab;
 	public Text TargetGuiText;
+	public Transform PivotTransform;
+	public MeshRenderer HitCrosshair;
 
 	private Quaternion currentHeading;
 	private Quaternion currentLookRotation;
 	private Transform CurrentAlphaSubroutine;
+	private VirusAI CurrentVirusLock;
 
 	// Use this for initialization
 	void Start () {
 		//currentHeading = strategySphere.rotation;
-		currentLookRotation = Camera.main.transform.localRotation;
+		currentLookRotation = PivotTransform.localRotation;
 		Cursor.lockState = CursorLockMode.Confined;
-		//Cursor.visible = false;
+		Cursor.visible = false;
+		HitCrosshair.enabled = false;
 	}
 
 	// Update is called once per frame
-	void Update () {
-		
+	void Update () {		
 		if (CrossPlatformInputManager.GetButtonDown("Cancel")){
 			var pixelater = new PixelateTransition()
 			{
@@ -42,11 +45,50 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			return;
 		}
 
+		bool LeftClick = CrossPlatformInputManager.GetButtonDown("Fire1");
+
+		RaycastHit rayHit;
+		if (Physics.Raycast(PivotTransform.position, PivotTransform.forward, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("TargetRaycast")))
+		{
+			if (rayHit.collider != null)
+			{
+				//print (rayHit.collider.transform.parent.name);
+				VirusAI v = (VirusAI)rayHit.collider.GetComponentInParent(typeof(VirusAI));
+				if (v)
+				{
+					TargetGuiText.text = v.Info.GetTargetRichText();
+					
+					if (LeftClick)
+					{
+						if (CurrentVirusLock != null)
+						{
+							CurrentVirusLock.LockedOnGUI.enabled = false;
+						}
+						CurrentVirusLock = v;
+						CurrentVirusLock.LockedOnGUI.enabled = true;
+					}
+				}
+			}
+			
+			HitCrosshair.enabled = true;
+		}
+		else 
+		{
+			if (LeftClick && CurrentVirusLock != null)
+			{
+				CurrentVirusLock.LockedOnGUI.enabled = false;
+				CurrentVirusLock = null;
+			}
+			HitCrosshair.enabled = false;
+		}
+
+
 		//bool  = CrossPlatformInputManager.GetButton("Jump");
 		bool fireSubroutine = Input.GetKeyDown(KeyCode.Alpha1);
-		if (fireSubroutine)
+		if (fireSubroutine && CurrentVirusLock != null)
 		{
 			CurrentAlphaSubroutine = AlphaSubPrefab;
+			CurrentAlphaSubroutine.GetComponent<Subroutine>().LockedTarget = CurrentVirusLock.transform;
 			CurrentAlphaSubroutine.GetComponent<Subroutine>().Activate();
 		}
 
@@ -75,21 +117,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		currentLookRotation *= Quaternion.Euler(x, 
 		                                   y, 
 		                                   roll);
-		Camera.main.transform.localRotation = Quaternion.Slerp(Camera.main.transform.localRotation, currentLookRotation, smoothing * Time.deltaTime);	
-
-		RaycastHit rayHit;
-		if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("TargetRaycast")))
-		{
-			if (rayHit.collider != null)
-			{
-				//print (rayHit.collider.transform.parent.name);
-				VirusAI v = (VirusAI)rayHit.collider.GetComponentInParent(typeof(VirusAI));
-				if (v)
-				{
-					TargetGuiText.text = v.Info.GetTargetRichText();
-				}
-			}
-		}
+		PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);	
 	}
 
 	private void SlerpRotate(Transform target, float deltaX, float deltaY, float? xRange = null)

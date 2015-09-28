@@ -3,11 +3,16 @@ using System.Collections;
 
 public class VirusAI : Actor {
 	
+	public MeshRenderer LockedOnGUI;
 	protected Transform targetT;
 
 	protected override void OnStart ()
 	{
 		ActiveSubroutines.VirusList.Add(this);
+		if (LockedOnGUI != null)
+		{
+			LockedOnGUI.enabled = false;
+		}
 		base.OnStart();
 	}
 

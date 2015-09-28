@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SubroutineMovement : MonoBehaviour {
-
-	public Subroutine Parent {get;set;}
+public class Delete : SubroutineFunction {
 
 	// Use this for initialization
 	void Start () {
@@ -14,6 +12,4 @@ public class SubroutineMovement : MonoBehaviour {
 	void Update () {
 	
 	}
-
-	public virtual void Fire(){}
 }

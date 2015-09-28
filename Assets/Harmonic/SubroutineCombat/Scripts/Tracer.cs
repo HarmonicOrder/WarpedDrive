@@ -9,7 +9,6 @@ public class Tracer : SubroutineMovement {
 	public float moveSpeed = 20f;
 	public float fireSpeed = 100f;
 	public float FireDistance = 200f;
-	public Transform targetT;
 
 
 	private bool BeingFired = false; //maybe add public getter
@@ -38,9 +37,9 @@ public class Tracer : SubroutineMovement {
 			}
 		}
 
-		if (!BeingFired && (targetT != null))
+		if (!BeingFired && (Parent.LockedTarget != null))
 		{
-			Vector3 relativePos = this.targetT.position - this.transform.position;
+			Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
 			this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);
 			
 			//print (relativePos.magnitude);
