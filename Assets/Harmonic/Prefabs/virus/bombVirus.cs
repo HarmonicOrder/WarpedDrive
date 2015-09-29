@@ -52,9 +52,12 @@ public class bombVirus : VirusAI {
 			this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed, Space.Self);
 		} 
 		
-		if (HealthScript != null && relativePos.magnitude < 1)
+		if (relativePos.magnitude < 1)
 		{
-			HealthScript.TakeDamage(2.5f);
+			if (this.targetT.GetComponent<Subroutine>() != null)
+			{
+				this.targetT.GetComponent<Subroutine>().TakeDamage(this.Info.DamagePerHit);
+			}
 		}
 
 	}
