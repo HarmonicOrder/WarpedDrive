@@ -3,10 +3,12 @@ using System.Collections;
 using Prime31.TransitionKit;
 
 public class MainMenuInput : MonoBehaviour {
+	public Texture2D cursorTexture;
 
 	// Use this for initialization
 	void Start () {
-	
+		Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+		Cursor.visible = true;
 	}
 	
 	// Update is called once per frame

@@ -15,6 +15,7 @@ public class HomeBase : MonoBehaviour {
 	void Start () {
 		Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
 		zoomScript = this.transform.GetComponent<CameraZoomToZoom>();
+		Cursor.visible = true;
 	}
 
 	private bool isZoomedOut = false, isWarping = false;
