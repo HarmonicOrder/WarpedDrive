@@ -20,6 +20,7 @@ public class Tracer : SubroutineMovement {
 
 	public override void Fire()
 	{
+		CurrentFireDistance = 0f;
 		this.transform.SetParent(null);
 		BeingFired = true;
 	}
@@ -37,7 +38,7 @@ public class Tracer : SubroutineMovement {
 			}
 		}
 
-		if (!BeingFired && (Parent.LockedTarget != null))
+		if (!BeingFired && Parent.IsActive && (Parent.LockedTarget != null))
 		{
 			Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
 			this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);

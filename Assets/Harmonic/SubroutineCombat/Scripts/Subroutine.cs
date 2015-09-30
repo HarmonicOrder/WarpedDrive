@@ -18,6 +18,8 @@ public class Subroutine : Actor {
 		}
 	}
 
+	public bool IsActive {get;set;}
+
 	private Transform StartingPosition {get;set;}
 
 	protected override void OnStart(){
@@ -38,12 +40,14 @@ public class Subroutine : Actor {
 
 	public void Activate()
 	{
+		this.IsActive = true;
 		ActiveSubroutines.Add(this);
 		this.Movement.Fire();
 	}
 
 	public void Deactivate()
 	{
+		this.IsActive = false;
 		ActiveSubroutines.Remove(this);
 	}
 
@@ -56,6 +60,7 @@ public class Subroutine : Actor {
 
 			this.transform.SetParent(this.StartingPosition);
 			this.transform.localPosition = Vector3.zero;
+			this.Deactivate();
 		}
 	}
 }
