@@ -8,7 +8,7 @@ public class SubnetSceneSelector : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SubnetLabelRenderer.enabled = false;	
+		SubnetLabelRenderer.enabled = true;	
 	}
 	
 	// Update is called once per frame
@@ -17,10 +17,11 @@ public class SubnetSceneSelector : MonoBehaviour {
 	}
 
 	public void OnHoverOn(){
+		//todo: change color, not set renderer enabled
 		SubnetLabelRenderer.enabled = true;
 	}
 
 	public void OnHoverOff(){
-		SubnetLabelRenderer.enabled = false;
+		SubnetLabelRenderer.enabled = true;
 	}
 }
