@@ -8,11 +8,14 @@ public class HomeBase : MonoBehaviour {
 	public Texture2D cursorTexture;
 	public Transform homeFiberGate;
 	public Transform WarpBubblePrefab;
+	public Color _highlightColor;
+	public static Color SubnetTextHighlightColor;
 
 	private CameraZoomToZoom zoomScript;
 
 	// Use this for initialization
 	void Start () {
+		SubnetTextHighlightColor = this._highlightColor;
 		Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
 		zoomScript = this.transform.GetComponent<CameraZoomToZoom>();
 		Cursor.visible = true;
