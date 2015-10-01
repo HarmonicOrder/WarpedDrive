@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: StationBase
+  m_Name: Hardpoint
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _DETAIL_MULX2 _EMISSION
+  m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -19,8 +19,8 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 2}
+          m_Texture: {fileID: 2800000, guid: bd948e8648a6d124c8c0b52baef1d9e9, type: 3}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -54,8 +54,8 @@ Material:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 2800000, guid: 892618e6c36bc204199055fc2c54aac3, type: 3}
-          m_Scale: {x: 1, y: 2}
+          m_Texture: {fileID: 2800000, guid: 658affc576d594a4d997eb60ba5f10bd, type: 3}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -68,8 +68,8 @@ Material:
         first:
           name: _DetailAlbedoMap
         second:
-          m_Texture: {fileID: 2800000, guid: d5d045f1d01d03543868c84b6968d642, type: 3}
-          m_Scale: {x: 2, y: 2}
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -110,7 +110,7 @@ Material:
       data:
         first:
           name: _OcclusionStrength
-        second: 0
+        second: 1
       data:
         first:
           name: _DetailNormalMapScale
@@ -131,8 +131,8 @@ Material:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: .0314973854, b: 4.56699991, a: 1}
+        second: {r: 0, g: 9.56538773, b: 10.9379988, a: 1}
       data:
         first:
           name: _Color
-        second: {r: .433823526, g: .433823526, b: .433823526, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}

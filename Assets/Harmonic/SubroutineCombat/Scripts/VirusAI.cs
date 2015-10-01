@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class VirusAI : Actor {
+public class VirusAI : Actor, ILockTarget {
 	
 	public MeshRenderer LockedOnGUI;
 	protected Transform targetT;
@@ -24,5 +24,16 @@ public class VirusAI : Actor {
 	public void OnSubroutineInactive(Subroutine sub)
 	{
 		this.targetT = null;
+	}
+
+	
+	public void EnableLockedOnGui()
+	{
+		LockedOnGUI.enabled = true;
+	}
+
+	public void DisableLockedOnGui()
+	{
+		LockedOnGUI.enabled = false;
 	}
 }
