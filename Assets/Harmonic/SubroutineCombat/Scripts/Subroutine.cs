@@ -20,7 +20,7 @@ public class Subroutine : Actor {
 
 	public bool IsActive {get;set;}
 
-	private Transform StartingPosition {get;set;}
+	public Transform StartingPosition {get;set;}
 
 	protected override void OnStart(){
 		this.Movement = this.GetComponent<SubroutineMovement>();
