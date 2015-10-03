@@ -3,12 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Station : SubroutineMovement {	
-	public float lookAtSpeed = 2f;
-	public float engagementDistance = 200f;
-	public float followDistance = 30f;
-	public float moveSpeed = 20f;
-	public float fireSpeed = 100f;
-	public float FireDistance = 200f;
+
+
 	public float TimeToHardpoint = 4f;
 	public MeshRenderer ShieldRenderer;
 
@@ -42,6 +38,10 @@ public class Station : SubroutineMovement {
 				BeingFired = false;
 				this.transform.position = Parent.LockedTarget.position;
 				this.ShieldRenderer.material.color = HarmonicUtils.ColorWithAlpha(this.ShieldRenderer.material.color, this.originalAlpha);
+				if (this.Parent.Function.GetType() == typeof(Terminate))
+				{
+					(this.Parent.Function as Terminate).TrackEnemy = true;
+				}
 			} else {
 				this.transform.position = Vector3.Lerp(firePosition, Parent.LockedTarget.position, CurrentFireTime / TimeToHardpoint);
 			}

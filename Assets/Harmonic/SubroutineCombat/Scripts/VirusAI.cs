@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class VirusAI : Actor, ILockTarget {
 	
 	public MeshRenderer LockedOnGUI;
+
 	protected Transform targetT;
 
 	protected override void OnStart ()
@@ -35,5 +37,10 @@ public class VirusAI : Actor, ILockTarget {
 	public void DisableLockedOnGui()
 	{
 		LockedOnGUI.enabled = false;
+	}
+
+	protected virtual void OnVirusDead()
+	{
+		ActiveSubroutines.VirusList.Remove(this);
 	}
 }

@@ -6,6 +6,7 @@ public class Subroutine : Actor {
 	public SubroutineFunction Function {get;set;}
 	public SubroutineMovement Movement {get;set;}
 	public Transform ExplosionPrefab;
+	public Transform FunctionRoot;
 
 	private Transform _lockedTarget;
 	public Transform LockedTarget {
