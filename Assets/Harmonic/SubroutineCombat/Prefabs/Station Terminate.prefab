@@ -240,10 +240,8 @@ Transform:
   - {fileID: 463624}
   - {fileID: 484448}
   - {fileID: 472736}
-  - {fileID: 424362}
-  - {fileID: 484344}
   m_Father: {fileID: 428382}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &424362
 Transform:
   m_ObjectHideFlags: 1
@@ -252,10 +250,10 @@ Transform:
   m_GameObject: {fileID: 157002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .166666672, y: .166666627, z: .166666627}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 403166}
-  m_RootOrder: 4
+  m_Father: {fileID: 428382}
+  m_RootOrder: 2
 --- !u!4 &428382
 Transform:
   m_ObjectHideFlags: 1
@@ -266,7 +264,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 484344}
   - {fileID: 403166}
+  - {fileID: 424362}
   m_Father: {fileID: 472536}
   m_RootOrder: 0
 --- !u!4 &428396
@@ -326,11 +326,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187910}
   m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106709}
-  m_LocalPosition: {x: 0, y: 0, z: 66}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 50}
+  m_LocalScale: {x: 50, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 403166}
-  m_RootOrder: 5
+  m_Father: {fileID: 428382}
+  m_RootOrder: 0
 --- !u!4 &484448
 Transform:
   m_ObjectHideFlags: 1
@@ -617,7 +617,7 @@ LineRenderer:
     endWidth: .5
     m_StartColor:
       serializedVersion: 2
-      rgba: 4294901811
+      rgba: 4294904832
     m_EndColor:
       serializedVersion: 2
       rgba: 4294901779
@@ -684,7 +684,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     startSpeed:
-      scalar: 200
+      scalar: 100
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -705,7 +705,7 @@ ParticleSystem:
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-      minMaxState: 3
+      minMaxState: 0
     startColor:
       maxGradient:
         key0:
@@ -1881,7 +1881,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 12
-    radius: 66
+    radius: 1
     angle: 0
     length: 200
     boxX: .5

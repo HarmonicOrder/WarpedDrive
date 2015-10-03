@@ -79,9 +79,11 @@ public class Terminate : SubroutineFunction {
 		this.TerminateLineRenderer.SetVertexCount(2);
 		this.TerminateLineRenderer.SetPosition(0, Vector3.zero);
 		this.TerminateLineRenderer.SetPosition(1, Vector3.forward * relativePos.magnitude);
+		this.PulseParticles.startSpeed = relativePos.magnitude;
 		this.PulseParticles.Play();
 		this.BurstParticles.Emit(100);
 		this.BurstParticles.transform.localPosition = Vector3.forward * relativePos.magnitude / 2;
+		this.BurstParticles.transform.localScale = Vector3.right * relativePos.magnitude / 2;
 		//this.BurstParticles.
 		StartCoroutine(this.WaitAndStopLaser());
 	}
