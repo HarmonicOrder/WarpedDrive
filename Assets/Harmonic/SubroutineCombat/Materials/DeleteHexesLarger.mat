@@ -6,13 +6,12 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: StationCore
+  m_Name: DeleteHexesLarger
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHABLEND_ON _EMISSION
+  m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -20,8 +19,8 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: b4646ae63b0bcca40b1bdde3b87e01bf, type: 3}
-          m_Scale: {x: 1, y: 1}
+          m_Texture: {fileID: 2800000, guid: d5d045f1d01d03543868c84b6968d642, type: 3}
+          m_Scale: {x: 2, y: 2}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -55,8 +54,8 @@ Material:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
+          m_Texture: {fileID: 2800000, guid: 6d56acc63ed5ed341bfba538fe10fe25, type: 3}
+          m_Scale: {x: 2, y: 2}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -83,11 +82,11 @@ Material:
       data:
         first:
           name: _SrcBlend
-        second: 5
+        second: 1
       data:
         first:
           name: _DstBlend
-        second: 10
+        second: 0
       data:
         first:
           name: _Cutoff
@@ -99,11 +98,11 @@ Material:
       data:
         first:
           name: _ZWrite
-        second: 0
+        second: 1
       data:
         first:
           name: _Glossiness
-        second: 0
+        second: .5
       data:
         first:
           name: _BumpScale
@@ -119,11 +118,11 @@ Material:
       data:
         first:
           name: _UVSec
-        second: 0
+        second: 1
       data:
         first:
           name: _Mode
-        second: 2
+        second: 0
       data:
         first:
           name: _Metallic
@@ -132,8 +131,8 @@ Material:
       data:
         first:
           name: _EmissionColor
-        second: {r: 8.61200047, g: 4.6326623, b: 0, a: 1}
+        second: {r: .0579313636, g: 0, b: 1.67999995, a: 1}
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: .871999979}
+        second: {r: .566176474, g: .566176474, b: .566176474, a: 1}
