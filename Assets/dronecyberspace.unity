@@ -97,7 +97,7 @@ GameObject:
   - 4: {fileID: 126823}
   - 114: {fileID: 126824}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: 50xAxisOrbit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2901,6 +2901,10 @@ Prefab:
       propertyPath: HealthScript
       value: 
       objectReference: {fileID: 460677735}
+    - target: {fileID: 11492190, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
+      propertyPath: OrbitRenderer
+      value: 
+      objectReference: {fileID: 126824}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
   m_IsPrefabParent: 0
@@ -4520,6 +4524,10 @@ Prefab:
       propertyPath: OrbitAnchor
       value: 
       objectReference: {fileID: 999437848}
+    - target: {fileID: 11419872, guid: 52942d2bc4ffa1d4ab02cefad65f67cf, type: 2}
+      propertyPath: OrbitRenderer
+      value: 
+      objectReference: {fileID: 1525040100}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52942d2bc4ffa1d4ab02cefad65f67cf, type: 2}
   m_IsPrefabParent: 0
@@ -7088,6 +7096,7 @@ MonoBehaviour:
   orbitSpeed: 15
   IsOrbiting: 1
   RotationAxis: {x: 0, y: 1, z: 0}
+  OrbitRenderer: {fileID: 126824}
 --- !u!1001 &1458894371
 Prefab:
   m_ObjectHideFlags: 0
@@ -7181,6 +7190,10 @@ Prefab:
       propertyPath: m_Name
       value: tankVirus2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 11419872, guid: 52942d2bc4ffa1d4ab02cefad65f67cf, type: 2}
+      propertyPath: OrbitRenderer
+      value: 
+      objectReference: {fileID: 1525040100}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52942d2bc4ffa1d4ab02cefad65f67cf, type: 2}
   m_IsPrefabParent: 0
@@ -7404,7 +7417,7 @@ GameObject:
   - 4: {fileID: 1525040099}
   - 114: {fileID: 1525040100}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: 60yAxisOrbit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

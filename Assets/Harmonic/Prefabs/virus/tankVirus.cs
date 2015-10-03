@@ -69,6 +69,10 @@ public class tankVirus : VirusAI {
 	
 	protected override void OnVirusDead ()
 	{
+		if (this.GetComponent<Orbit>() != null)
+		{
+			this.GetComponent<Orbit>().RemoveOrbiter();
+		}
 		GameObject.Instantiate(this.ExplosionPrefab, this.transform.position, Quaternion.identity);
 		base.OnVirusDead ();
 		StartCoroutine(SelfDestruct());

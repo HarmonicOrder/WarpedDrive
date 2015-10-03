@@ -10,6 +10,22 @@ public class CircleDraw : MonoBehaviour {
 	public Color EndColor = Color.red;
 	LineRenderer lineRenderer;
 	public bool OnYAxis = false;
+
+	private int numOrbiters = 0;
+	public int NumberOfOrbiters
+	{
+		get {return numOrbiters;}
+		set
+		{
+			numOrbiters = value;
+			if (value < 1)
+			{
+				lineRenderer.enabled = false;
+			} else if (!lineRenderer.enabled){
+				lineRenderer.enabled = true;
+			}
+		}
+	}
 	
 	private int size; //Total number of points in circle
 	void Awake () {       

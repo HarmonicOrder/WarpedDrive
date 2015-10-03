@@ -37,7 +37,7 @@ public class bombVirus : VirusAI {
 	{
 		if (orbiting)
 		{
-			this.GetComponent<Orbit>().enabled = false;
+			this.GetComponent<Orbit>().RemoveOrbiter();
 			orbiting = false;
 		}
 
