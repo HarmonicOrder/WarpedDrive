@@ -2,8 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Station : SubroutineMovement {
-	
+public class Station : SubroutineMovement {	
 	public float lookAtSpeed = 2f;
 	public float engagementDistance = 200f;
 	public float followDistance = 30f;
@@ -11,15 +10,19 @@ public class Station : SubroutineMovement {
 	public float fireSpeed = 100f;
 	public float FireDistance = 200f;
 	public float TimeToHardpoint = 4f;
-	
+	public MeshRenderer ShieldRenderer;
+
 	private bool BeingFired = false; //maybe add public getter
 	private float CurrentFireTime = 0f;
 	private List<Transform> targetsInView = new List<Transform>();
+	private float originalAlpha;
 
 	private Vector3 firePosition;
 	// Use this for initialization
 	void Start () {
-		
+		this.originalAlpha = this.ShieldRenderer.material.color.a;
+
+		this.ShieldRenderer.material.color = HarmonicUtils.ColorWithAlpha(this.ShieldRenderer.material.color, 0);
 	}
 	
 	public override void Fire()
@@ -38,8 +41,8 @@ public class Station : SubroutineMovement {
 			{
 				BeingFired = false;
 				this.transform.position = Parent.LockedTarget.position;
+				this.ShieldRenderer.material.color = HarmonicUtils.ColorWithAlpha(this.ShieldRenderer.material.color, this.originalAlpha);
 			} else {
-				print (CurrentFireTime / TimeToHardpoint);
 				this.transform.position = Vector3.Lerp(firePosition, Parent.LockedTarget.position, CurrentFireTime / TimeToHardpoint);
 			}
 			CurrentFireTime += Time.deltaTime;
