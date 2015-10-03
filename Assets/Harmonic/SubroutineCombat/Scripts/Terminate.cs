@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Terminate : SubroutineFunction {
 
 	public float LookAtSpeed = 2f;
-	public float TerminateRange = 999f;
+	public float TerminateRange = 9999f;
 	public float LaserPersistTime = 1f;
 
 	public ParticleSystem PulseParticles;
@@ -13,7 +13,7 @@ public class Terminate : SubroutineFunction {
 
 	internal bool TrackEnemy = false;
 	private Transform closestTransform;
-	private VirusAI closestVirus;
+	private IMalware closestVirus;
 	private float CooldownRemaining = -1f;
 	private bool isFiringLaser = false;
 
@@ -59,20 +59,30 @@ public class Terminate : SubroutineFunction {
 
 	private void FindClosestTransform()
 	{
-		float closest = TerminateRange;
-		foreach( VirusAI vai in ActiveSubroutines.VirusList)
+		if (ActiveSubroutines.MalwareList.Count == 0)
 		{
-			if ((vai.transform.position - this.transform.position).magnitude < closest)
+			this.closestVirus = null;
+			this.closestTransform = null;
+			return;
+		}
+
+		float closest = TerminateRange;
+		foreach( IMalware mal in ActiveSubroutines.MalwareList)
+		{
+			float dist = (mal.transform.position - this.transform.position).sqrMagnitude; 
+			//if this has a higher priority than now
+			//and the distance is closer
+			if (dist < closest * closest * mal.AttackPriority)
 			{
-				this.closestVirus = vai;
-				this.closestTransform = vai.transform;
+				this.closestVirus = mal;
+				this.closestTransform = mal.transform;
+				closest = dist;
 			}
 		}
 	}
 
 	private void FireAtEnemy(Vector3 relativePos)
 	{
-		print (relativePos.magnitude);
 		isFiringLaser = true;
 		CooldownRemaining = this.Parent.Info.FireRate;
 		this.closestVirus.TakeDamage(this.Parent.Info.DamagePerHit);
@@ -84,7 +94,6 @@ public class Terminate : SubroutineFunction {
 		this.BurstParticles.Emit(100);
 		this.BurstParticles.transform.localPosition = Vector3.forward * relativePos.magnitude / 2;
 		this.BurstParticles.transform.localScale = Vector3.right * relativePos.magnitude / 2;
-		//this.BurstParticles.
 		StartCoroutine(this.WaitAndStopLaser());
 	}
 	

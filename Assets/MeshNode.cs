@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Collider))]
-public class MeshNode : MonoBehaviour {
+public class MeshNode : MonoBehaviour, IMalware {
 
 	public List<MeshNode> TargetNodes = new List<MeshNode>();
 	public List<LineRenderer> TargetEdges = new List<LineRenderer>();
+	public short AttackPriority {get{return 1;}}
 
 	// Use this for initialization
 	void Start () {
-		
+		ActiveSubroutines.MalwareList.Add(this);		
 	}
 	
 	// Update is called once per frame
@@ -22,9 +23,15 @@ public class MeshNode : MonoBehaviour {
 	{
 		LazerBeam beam = col.collider.GetComponent<LazerBeam>();
 		if (beam != null){
-			RemoveEdges();
-			this.transform.parent.GetComponent<MeshMalware>().RemoveNode(this);
+			TakeDamage(1);
 		}
+	}
+
+	public void TakeDamage(float amount)
+	{
+		RemoveEdges();
+		this.transform.parent.GetComponent<MeshMalware>().RemoveNode(this);
+		ActiveSubroutines.MalwareList.Remove(this);		
 	}
 
 	public void RemoveEdges(){
@@ -48,4 +55,6 @@ public class MeshNode : MonoBehaviour {
 			TargetNodes.Remove(sibling);
 		}
 	}
+
+
 }

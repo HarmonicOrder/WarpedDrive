@@ -2,15 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class VirusAI : Actor, ILockTarget {
+public class VirusAI : Actor, ILockTarget, IMalware {
 	
+	public Transform ExplosionPrefab;
 	public MeshRenderer LockedOnGUI;
+	public virtual short AttackPriority {get{return 2;}}
 
 	protected Transform targetT;
 
 	protected override void OnStart ()
 	{
-		ActiveSubroutines.VirusList.Add(this);
+		ActiveSubroutines.MalwareList.Add(this);
 		if (LockedOnGUI != null)
 		{
 			LockedOnGUI.enabled = false;
@@ -42,21 +44,25 @@ public class VirusAI : Actor, ILockTarget {
 
 	protected virtual void OnVirusDead()
 	{
-		ActiveSubroutines.VirusList.Remove(this);
+		ActiveSubroutines.MalwareList.Remove(this);
 	}
 
-	public void TakeDamage(float damage)
+	public void TakeDamage(float amount)
 	{
 		if(this.Info.ArmorPoints > 0f)
 		{
-			this.Info.ArmorPoints -= damage;
+			this.Info.ArmorPoints -= amount;
 		}
 		else 
 		{
-			this.Info.HitPoints -= damage;
+			this.Info.HitPoints -= amount;
 
 			if (this.Info.HitPoints < 0f)
 				this.OnVirusDead();
 		}
+	}
+
+	protected virtual void OnTakeDamage(float damage)
+	{
 	}
 }

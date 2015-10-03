@@ -8,7 +8,6 @@ public class bombVirus : VirusAI {
 	public float engagementDistance = 200f;
 	public float moveSpeed = 20f;
 	public playerHealth HealthScript;
-	public Transform ExplosionPrefab;
 	public Transform[] DestroyBeforeExplosion;
 	public float ExplodingTime = 3f;
 

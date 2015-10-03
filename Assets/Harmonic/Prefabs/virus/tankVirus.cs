@@ -65,4 +65,18 @@ public class tankVirus : VirusAI {
 			//this.transform.Translate(0, 0, -Time.deltaTime * this.moveSpeed, Space.Self);
 		}
 	}
+
+	
+	protected override void OnVirusDead ()
+	{
+		GameObject.Instantiate(this.ExplosionPrefab, this.transform.position, Quaternion.identity);
+		base.OnVirusDead ();
+		StartCoroutine(SelfDestruct());
+	}
+	
+	private IEnumerator SelfDestruct()
+	{		
+		yield return new WaitForSeconds(1f);
+		GameObject.Destroy(this.gameObject);
+	}
 }
