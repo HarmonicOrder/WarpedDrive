@@ -36,11 +36,27 @@ public class VirusAI : Actor, ILockTarget {
 
 	public void DisableLockedOnGui()
 	{
-		LockedOnGUI.enabled = false;
+		if (LockedOnGUI != null)
+			LockedOnGUI.enabled = false;
 	}
 
 	protected virtual void OnVirusDead()
 	{
 		ActiveSubroutines.VirusList.Remove(this);
+	}
+
+	public void TakeDamage(float damage)
+	{
+		if(this.Info.ArmorPoints > 0f)
+		{
+			this.Info.ArmorPoints -= damage;
+		}
+		else 
+		{
+			this.Info.HitPoints -= damage;
+
+			if (this.Info.HitPoints < 0f)
+				this.OnVirusDead();
+		}
 	}
 }

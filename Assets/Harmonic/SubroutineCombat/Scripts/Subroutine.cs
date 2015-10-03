@@ -35,7 +35,9 @@ public class Subroutine : Actor {
 		this.Info = new ActorInfo()
 		{ 
 			Name = "Subroutine",
-			HitPoints = 10f
+			HitPoints = 10f,
+			FireRate = 1f,
+			DamagePerHit = 2f
 		};
 	}
 

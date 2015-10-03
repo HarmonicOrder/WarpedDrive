@@ -71,16 +71,20 @@ public class bombVirus : VirusAI {
 	private void OnCollideWithSubroutine(Subroutine s)
 	{
 		s.TakeDamage(this.Info.DamagePerHit);
+		this.OnVirusDead();
+	}
 
+	protected override void OnVirusDead ()
+	{
 		GameObject.Instantiate(this.ExplosionPrefab, this.transform.position, Quaternion.identity);
 		for(int i = 0; i < DestroyBeforeExplosion.Length; i++)
 		{
 			Transform t = DestroyBeforeExplosion[i];
-
+			
 			if (t != null)
 				GameObject.Destroy(t.gameObject);
 		}
-		this.OnVirusDead();
+		base.OnVirusDead ();
 		StartCoroutine(SelfDestruct());
 	}
 

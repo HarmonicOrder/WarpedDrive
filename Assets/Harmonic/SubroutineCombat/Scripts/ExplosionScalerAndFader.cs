@@ -22,7 +22,7 @@ public class ExplosionScalerAndFader : MonoBehaviour {
 			TimeSpentScaling += Time.deltaTime;
 			float scaleFactor = Mathf.Pow( ScaleCoeff, TimeSpentScaling );
 			ScaleTransform.localScale = new Vector3( scaleFactor, scaleFactor, scaleFactor);
-			print (scaleFactor);
+			//print (scaleFactor);
 		}
 
 		if(FadeSprite != null)

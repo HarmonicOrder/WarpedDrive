@@ -21,7 +21,6 @@ public class Hardpoint : MonoBehaviour, ILockTarget {
 	
 	public void EnableLockedOnGui()
 	{
-		print ("stuff");
 		this.lockedOnMesh.material.SetColor(this.emissionColorPropertyID, HighlightedEmission);
 	}
 	
