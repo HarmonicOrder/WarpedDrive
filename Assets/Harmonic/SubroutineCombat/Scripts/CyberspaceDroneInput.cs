@@ -18,6 +18,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public Text TargetGuiText;
 	public Transform PivotTransform;
 	public MeshRenderer HitCrosshair;
+	public MeshRenderer Crosshair;
 	public RectTransform Menu;
 
 	private Quaternion currentHeading;
@@ -44,11 +45,15 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			if (showingMainMenu)
 			{
 				Menu.gameObject.SetActive(true);
+				Crosshair.gameObject.SetActive(false);
+				HitCrosshair.gameObject.SetActive(false);
 				Cursor.visible = true;
 			}
 			else 
 			{
 				Menu.gameObject.SetActive(false);
+				Crosshair.gameObject.SetActive(true);
+				HitCrosshair.gameObject.SetActive(true);
 				Cursor.visible = false;
 			}
 		}

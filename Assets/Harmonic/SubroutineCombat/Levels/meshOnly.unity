@@ -2447,6 +2447,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 576352178}
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!23 &867078880 stripped
+MeshRenderer:
+  m_PrefabParentObject: {fileID: 2301082, guid: 9b13d2a799acbbf459f78964944819bf,
+    type: 2}
+  m_PrefabInternal: {fileID: 126307381}
 --- !u!20 &872121916 stripped
 Camera:
   m_PrefabParentObject: {fileID: 2066314, guid: 7938cdcde03546a428bd4c314b8e2a07,
@@ -5436,6 +5441,10 @@ Prefab:
       propertyPath: HitCrosshair
       value: 
       objectReference: {fileID: 1023565487}
+    - target: {fileID: 11463084, guid: 0a92df97cb363714080a7d216ffe1f71, type: 2}
+      propertyPath: Crosshair
+      value: 
+      objectReference: {fileID: 867078880}
     - target: {fileID: 11463084, guid: 0a92df97cb363714080a7d216ffe1f71, type: 2}
       propertyPath: Menu
       value: 

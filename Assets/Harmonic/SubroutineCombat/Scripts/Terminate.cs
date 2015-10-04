@@ -66,13 +66,15 @@ public class Terminate : SubroutineFunction {
 			return;
 		}
 
-		float closest = TerminateRange;
+		//comparing range squared vs magnitude squared is a performance enhancement
+		//it eliminates the expensive square root calculation
+		float closest = TerminateRange * TerminateRange;
 		foreach( IMalware mal in ActiveSubroutines.MalwareList)
 		{
 			float dist = (mal.transform.position - this.transform.position).sqrMagnitude; 
 			//if this has a higher priority than now
 			//and the distance is closer
-			if (dist < closest * closest * mal.AttackPriority)
+			if (dist < closest * mal.AttackPriority)
 			{
 				this.closestVirus = mal;
 				this.closestTransform = mal.transform;
