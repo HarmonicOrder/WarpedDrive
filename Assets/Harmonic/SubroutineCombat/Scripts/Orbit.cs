@@ -26,6 +26,7 @@ public class Orbit : SubroutineMovement {
 
 	public void RemoveOrbiter()
 	{
+		IsOrbiting = false;
 		if (OrbitRenderer != null)
 		{
 			OrbitRenderer.NumberOfOrbiters -= 1;

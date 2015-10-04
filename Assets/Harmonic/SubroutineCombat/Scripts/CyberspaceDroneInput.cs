@@ -18,12 +18,14 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public Text TargetGuiText;
 	public Transform PivotTransform;
 	public MeshRenderer HitCrosshair;
+	public RectTransform Menu;
 
 	private Quaternion currentHeading;
 	private Quaternion currentLookRotation;
 	private Transform CurrentAlphaSubroutine;
 	private Transform CurrentBetaSubroutine;
 	private ILockTarget CurrentLock;
+	private bool showingMainMenu;
 
 	// Use this for initialization
 	void Start () {
@@ -37,15 +39,22 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {		
 		if (CrossPlatformInputManager.GetButtonDown("Cancel")){
-			var pixelater = new PixelateTransition()
+			showingMainMenu = !showingMainMenu;
+
+			if (showingMainMenu)
 			{
-				finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
-				duration = 1.0f
-			};
-			pixelater.nextScene = 0;
-			TransitionKit.instance.transitionWithDelegate( pixelater );
-			return;
+				Menu.gameObject.SetActive(true);
+				Cursor.visible = true;
+			}
+			else 
+			{
+				Menu.gameObject.SetActive(false);
+				Cursor.visible = false;
+			}
 		}
+
+		if (showingMainMenu)
+			return;
 
 		bool LeftClick = CrossPlatformInputManager.GetButtonDown("Fire1");
 
@@ -126,6 +135,28 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);	
 	}
 
+	public void BackToNetwork()
+	{
+		var pixelater = new PixelateTransition()
+		{
+			finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
+			duration = 1.0f
+		};
+		pixelater.nextScene = 3;
+		TransitionKit.instance.transitionWithDelegate( pixelater );
+	}
+	
+	public void BackToMeatspace()
+	{
+		var pixelater = new PixelateTransition()
+		{
+			finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
+			duration = 1.0f
+		};
+		pixelater.nextScene = 2;
+		TransitionKit.instance.transitionWithDelegate( pixelater );
+	}
+	
 	private void AssignLockTarget(bool leftClick, ILockTarget newTargt)
 	{
 		if (leftClick)
