@@ -14,7 +14,7 @@ public class MeshNode : MonoBehaviour, IMalware {
 
 	// Use this for initialization
 	void Start () {
-		ActiveSubroutines.MalwareList.Add(this);		
+		ActiveSubroutines.AddVirus(this);		
 	}
 	
 	// Update is called once per frame
@@ -34,7 +34,7 @@ public class MeshNode : MonoBehaviour, IMalware {
 	{
 		RemoveEdges();
 		this.transform.parent.GetComponent<MeshMalware>().RemoveNode(this);
-		ActiveSubroutines.MalwareList.Remove(this);		
+		ActiveSubroutines.RemoveVirus(this);		
 	}
 
 	public void RemoveEdges(){

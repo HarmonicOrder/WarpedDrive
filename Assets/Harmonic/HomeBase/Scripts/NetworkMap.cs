@@ -34,14 +34,17 @@ public static class NetworkMap {
 						new NetworkLocation(){
 							Name = "Hydroponics",
 							sceneIndex = 3,
+							IsInfected = true
 						},
 						new NetworkLocation(){
 							Name = "Reactor Control",
 							sceneIndex = 4,
+							IsInfected = true
 						},
 						new NetworkLocation(){
 							Name = "Propulsion",
 							sceneIndex = 5,
+							IsInfected = true
 						}
 					}
 				}

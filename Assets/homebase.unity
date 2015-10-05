@@ -267,8 +267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ServerName: {fileID: 1031718430}
-  infectedColor: {r: 0, g: 0, b: 0, a: 0}
-  cleanColor: {r: 0, g: 0, b: 0, a: 0}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
+  cleanColor: {r: .200000048, g: 1, b: 0, a: 1}
   hoverColor: {r: 0, g: .874509811, b: 1, a: 1}
   InfectedSpriteRenderer: {fileID: 1206259722}
 --- !u!54 &59012667
@@ -383,7 +383,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4000, y: 1, z: 1000}
+  m_Size: {x: 4000, y: 1, z: 2200}
   m_Center: {x: 500, y: 1500, z: -400}
 --- !u!54 &64577450
 Rigidbody:
@@ -620,8 +620,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ServerName: {fileID: 1671987657}
-  infectedColor: {r: 0, g: 0, b: 0, a: 0}
-  cleanColor: {r: 0, g: 0, b: 0, a: 0}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
+  cleanColor: {r: .200000048, g: 1, b: 0, a: 1}
   hoverColor: {r: 0, g: .874509811, b: 1, a: 1}
   InfectedSpriteRenderer: {fileID: 1382309177}
 --- !u!1001 &171584086
@@ -971,7 +971,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 283186414}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
-  m_LocalPosition: {x: 0, y: -0, z: 1477}
+  m_LocalPosition: {x: 0, y: .00796000008, z: 1459}
   m_LocalScale: {x: 2.49999994e-05, y: 1, z: 2.49999957e-05}
   m_Children: []
   m_Father: {fileID: 1432835199}
@@ -996,7 +996,7 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: cd7bc8ced6cd06c4ba64f8cbc035df7d, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4294958848
+    rgba: 4278255411
 --- !u!23 &283186417
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3090,7 +3090,7 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: cd7bc8ced6cd06c4ba64f8cbc035df7d, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4294958848
+    rgba: 4278255411
 --- !u!23 &1075973019
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3915,8 +3915,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ServerName: {fileID: 566387660}
-  infectedColor: {r: 0, g: 0, b: 0, a: 0}
-  cleanColor: {r: 0, g: 0, b: 0, a: 0}
+  infectedColor: {r: 1, g: 0, b: 0, a: 1}
+  cleanColor: {r: .200000048, g: 1, b: 0, a: 1}
   hoverColor: {r: 0, g: .874509811, b: 1, a: 1}
   InfectedSpriteRenderer: {fileID: 839586237}
 --- !u!65 &1431390046
@@ -5078,7 +5078,7 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: cd7bc8ced6cd06c4ba64f8cbc035df7d, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4294958848
+    rgba: 4278255411
 --- !u!23 &2012804559
 MeshRenderer:
   m_ObjectHideFlags: 0

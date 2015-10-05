@@ -11,12 +11,13 @@ public class bombVirus : VirusAI {
 	public Transform[] DestroyBeforeExplosion;
 	public float ExplodingTime = 3f;
 
-	public virtual string DisplayNameSingular {get{return "Bomb";}}
-	public virtual string DisplayNamePlural {get{return "Bombs";}}
+	public override string DisplayNameSingular {get{return "Bomb";}}
+	public override string DisplayNamePlural {get{return "Bombs";}}
 	private bool orbiting = true;
 
-	public bombVirus()
+	protected override void OnAwake()
 	{
+		base.OnAwake();
 		this.Info = new ActorInfo()
 		{ 
 			Name = "Bomber",
@@ -24,10 +25,6 @@ public class bombVirus : VirusAI {
 			FireRate = 1f,
 			HitPoints = 5f
 		};
-	}
-
-	protected override void OnStart () {
-		base.OnStart();
 	}
 
 	protected override void OnUpdate () {

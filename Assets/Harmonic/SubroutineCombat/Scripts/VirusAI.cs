@@ -12,10 +12,14 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 	public virtual string DisplayNamePlural {get{return "Viruses";}}
 
 	protected Transform targetT;
+	
+	protected override void OnAwake ()
+	{
+		ActiveSubroutines.AddVirus(this);
+	}
 
 	protected override void OnStart ()
 	{
-		ActiveSubroutines.MalwareList.Add(this);
 		if (LockedOnGUI != null)
 		{
 			LockedOnGUI.enabled = false;
@@ -47,9 +51,10 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 
 	protected virtual void OnVirusDead()
 	{
-		ActiveSubroutines.MalwareList.Remove(this);
+		ActiveSubroutines.RemoveVirus(this);
 	}
 
+	//todo - leftover damage from taking down armor needs to go to health
 	public void TakeDamage(float amount)
 	{
 		if(this.Info.ArmorPoints > 0f)

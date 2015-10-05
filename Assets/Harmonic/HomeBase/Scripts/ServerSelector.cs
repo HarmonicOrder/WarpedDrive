@@ -12,6 +12,21 @@ public class ServerSelector : MonoBehaviour {
 	void Start()
 	{
 		initialColor = ServerName.color;
+
+		NetworkLocation netloc = NetworkMap.GetLocationByLocationName(name);
+		if (netloc != null)
+		{
+			InfectedSpriteRenderer.enabled = netloc.IsInfected;
+
+			if (netloc.IsInfected)
+			{
+				ServerName.color = infectedColor;
+			}
+			else
+			{
+				ServerName.color = cleanColor;
+			}
+		}
 	}
 
 	public void OnHoverOver()
@@ -21,7 +36,6 @@ public class ServerSelector : MonoBehaviour {
 
 	public void OnHoverOff()
 	{
-		print ("hover off");
 		ServerName.color = initialColor;
 	}
 

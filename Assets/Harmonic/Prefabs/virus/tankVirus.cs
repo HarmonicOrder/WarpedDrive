@@ -9,11 +9,12 @@ public class tankVirus : VirusAI {
 	public float optimumRange = 60f;
 	public float moveSpeed = 10f;
 
-	public virtual string DisplayNameSingular {get{return "Armored";}}
-	public virtual string DisplayNamePlural {get{return "Armored";}}
+	public override string DisplayNameSingular {get{return "Armored";}}
+	public override string DisplayNamePlural {get{return "Armored";}}
 
-	void Awake()
+	protected override void OnAwake()
 	{
+		base.OnAwake();
 		this.Info = new ActorInfo()
 		{
 			Name = "Tank",
@@ -22,11 +23,6 @@ public class tankVirus : VirusAI {
 			HitPoints = 5f,
 			ArmorPoints = 5f
 		};
-	}
-
-	// Use this for initialization
-	protected override void OnStart () {
-		base.OnStart();
 	}
 	
 	// Update is called once per frame

@@ -10,7 +10,7 @@ public class Station : SubroutineMovement {
 
 	private bool BeingFired = false; //maybe add public getter
 	private float CurrentFireTime = 0f;
-	private List<Transform> targetsInView = new List<Transform>();
+	//private List<Transform> targetsInView = new List<Transform>();
 	private float originalAlpha;
 
 	private Vector3 firePosition;

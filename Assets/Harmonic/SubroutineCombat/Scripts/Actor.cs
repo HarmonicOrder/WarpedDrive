@@ -5,6 +5,13 @@ public class Actor : MonoBehaviour {
 
 	public ActorInfo Info {get;set;}
 
+	void Awake () {
+		print ("awake!");
+		OnAwake();
+	}
+	
+	protected virtual void OnAwake(){}
+
 	// Use this for initialization
 	void Start () {
 		OnStart();

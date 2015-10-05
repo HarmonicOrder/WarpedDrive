@@ -7,6 +7,9 @@ public static class ActiveSubroutines {
 	public static List<Subroutine> List = new List<Subroutine>();
 	public static List<IMalware> MalwareList = new List<IMalware>();
 
+	public delegate void ChangeHandler();
+	public static event ChangeHandler OnMalwareListChange;
+	
 	public static void Add(Subroutine newlyActive)
 	{
 		if (!List.Contains(newlyActive))
@@ -39,5 +42,19 @@ public static class ActiveSubroutines {
 				}
 			}
 		}
+	}
+
+	public static void AddVirus(IMalware newVirus)
+	{
+		MalwareList.Add(newVirus);
+		if (OnMalwareListChange != null)
+			OnMalwareListChange();
+	}
+
+	public static void RemoveVirus(IMalware oldVirus)
+	{
+		MalwareList.Remove(oldVirus);
+		if (OnMalwareListChange != null)
+			OnMalwareListChange();
 	}
 }
