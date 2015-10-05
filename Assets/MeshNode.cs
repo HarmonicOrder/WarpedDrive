@@ -9,6 +9,9 @@ public class MeshNode : MonoBehaviour, IMalware {
 	public List<LineRenderer> TargetEdges = new List<LineRenderer>();
 	public short AttackPriority {get{return 1;}}
 
+	public virtual string DisplayNameSingular {get{return "Infection Node";}}
+	public virtual string DisplayNamePlural {get{return "Infection Nodes";}}
+
 	// Use this for initialization
 	void Start () {
 		ActiveSubroutines.MalwareList.Add(this);		

@@ -7,6 +7,9 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 	public Transform ExplosionPrefab;
 	public MeshRenderer LockedOnGUI;
 	public virtual short AttackPriority {get{return 2;}}
+	
+	public virtual string DisplayNameSingular {get{return "Virus";}}
+	public virtual string DisplayNamePlural {get{return "Viruses";}}
 
 	protected Transform targetT;
 

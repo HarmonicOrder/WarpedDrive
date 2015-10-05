@@ -9,6 +9,9 @@ public class tankVirus : VirusAI {
 	public float optimumRange = 60f;
 	public float moveSpeed = 10f;
 
+	public virtual string DisplayNameSingular {get{return "Armored";}}
+	public virtual string DisplayNamePlural {get{return "Armored";}}
+
 	void Awake()
 	{
 		this.Info = new ActorInfo()

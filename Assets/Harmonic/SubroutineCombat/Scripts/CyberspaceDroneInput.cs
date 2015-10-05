@@ -147,7 +147,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
 			duration = 1.0f
 		};
-		pixelater.nextScene = 3;
+		pixelater.nextScene = 2;
 		TransitionKit.instance.transitionWithDelegate( pixelater );
 	}
 	
@@ -158,7 +158,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
 			duration = 1.0f
 		};
-		pixelater.nextScene = 2;
+		pixelater.nextScene = 1;
 		TransitionKit.instance.transitionWithDelegate( pixelater );
 	}
 	

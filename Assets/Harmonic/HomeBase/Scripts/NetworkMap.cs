@@ -11,6 +11,8 @@ public static class NetworkMap {
 		}
 	}
 
+	public static NetworkLocation CurrentLocation;
+
 	//static constructor!
 	static NetworkMap()
 	{
@@ -20,21 +22,58 @@ public static class NetworkMap {
 				"Infocom", 
 				new NetworkLocation(){
 					Name = "Infocom",
-					sceneName = null
+					sceneIndex = 2
 				}
 			},
 			{
 				"Engineering", 
 				new NetworkLocation(){
-					Name = "engineering",
-					sceneName = null
+					Name = "Engineering",
+					sceneIndex = 2,
+					Children = new List<NetworkLocation>(){
+						new NetworkLocation(){
+							Name = "Hydroponics",
+							sceneIndex = 3,
+						},
+						new NetworkLocation(){
+							Name = "Reactor Control",
+							sceneIndex = 4,
+						},
+						new NetworkLocation(){
+							Name = "Propulsion",
+							sceneIndex = 5,
+						}
+					}
 				}
 			}
 		};
+		SetParents(RootSubnets.Values, null);
 	}
 
-	private static void SetParents()
+	private static void SetParents(IEnumerable children, NetworkLocation parent)
 	{
+		if (children != null)
+		{
+			foreach(NetworkLocation net in children)
+			{
+				net.Parent = parent;
+				SetParents(net.Children, net);
+			}
+		}
+	}
+
+	//case insensitive
+	public static NetworkLocation GetLocationByLocationName(string name){
+		NetworkLocation candidate;
+
+		foreach(NetworkLocation net in RootSubnets.Values)
+		{
+			candidate = net.FindByName(name);
+			if (candidate != null)
+				return candidate;
+		}
+
+		return null;
 	}
 
 }
