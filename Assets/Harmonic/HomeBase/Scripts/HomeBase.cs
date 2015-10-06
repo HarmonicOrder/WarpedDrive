@@ -117,7 +117,7 @@ public class HomeBase : MonoBehaviour {
 		warpBubble = (Transform)Instantiate(WarpBubblePrefab, zoomCamera.transform.position, zoomCamera.transform.rotation);
 		warpBubble.parent = zoomCamera.transform;
 		zoomScript.afterZoom = new CameraZoomToZoom.AfterZoomFinished(OnWarpEnd);
-		zoomScript.ZoomTo(currentSubnet.transform.FindChild("gateway"), 6f, 80f);
+		zoomScript.ZoomTo(currentServer.transform.FindChild("gateway"), 4f, 80f);
 	}
 
 	public void OnWarpEnd(){

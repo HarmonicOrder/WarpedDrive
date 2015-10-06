@@ -433,7 +433,6 @@ GameObject:
   - 114: {fileID: 11474798}
   - 114: {fileID: 11484794}
   - 114: {fileID: 11435478}
-  - 114: {fileID: 11429400}
   - 114: {fileID: 11451490}
   m_Layer: 5
   m_Name: StrategyMode
@@ -3498,20 +3497,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11429400
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 121652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a39e473aed018a4fa58e5b94152e9d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PinnedTextLine: WASD to Pan, R-Click to Zoom
-  consoleOut: {fileID: 11417606}
-  LineStartString: '> '
 --- !u!114 &11431234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4314,6 +4299,7 @@ MonoBehaviour:
   HitCrosshair: {fileID: 2390242}
   Crosshair: {fileID: 2302830}
   Menu: {fileID: 22460688}
+  consoleText: {fileID: 11436478}
 --- !u!114 &11485320
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -30,21 +30,19 @@ public class InfectionMonitor : MonoBehaviour {
 		{
 			if (malwareTypes.ContainsKey(imal.GetType().Name))
 			{
-				print ("incrementing " + imal.GetType().Name);
 				Tuple<int, IMalware> thisRecord = malwareTypes[imal.GetType().Name];
 				malwareTypes[imal.GetType().Name] = new Tuple<int, IMalware>(thisRecord.First + 1, thisRecord.Second);
 			}
 			else
 			{
-				print ("adding " + imal.GetType().Name);
 				malwareTypes.Add(imal.GetType().Name, new Tuple<int, IMalware>(1, imal));
 			}
 		}
 
-		string output = StrategyConsole.Instance.LineStartString + "INFECTION SCAN :\r\n";
+		string output = StrategyConsole.LineStartString + "INFECTION SCAN :\r\n";
 		foreach(Tuple<int, IMalware> rec in malwareTypes.Values)
 		{
-			output += StrategyConsole.Instance.LineStartString + rec.First.ToString()+" ";
+			output += StrategyConsole.LineStartString + rec.First.ToString()+" ";
 			if (rec.First > 1)
 			{
 				output +=  rec.Second.DisplayNamePlural;
@@ -56,12 +54,12 @@ public class InfectionMonitor : MonoBehaviour {
 			output += "\r\n";
 		}
 
-		StrategyConsole.Instance.WriteLines(output);
+		StrategyConsole.WriteLines(output);
 	}
 
 	private void OnWin()
 	{
-		StrategyConsole.Instance.WriteLines(StrategyConsole.Instance.LineStartString+"SYSTEM CLEAN!\r\n> Esc to return to menu");
+		StrategyConsole.WriteLines(StrategyConsole.LineStartString+"SYSTEM CLEAN!\r\n> Esc to return to menu");
 		if (NetworkMap.CurrentLocation != null)
 			NetworkMap.CurrentLocation.IsInfected = false;
 	}

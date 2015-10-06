@@ -6,7 +6,6 @@ public class Actor : MonoBehaviour {
 	public ActorInfo Info {get;set;}
 
 	void Awake () {
-		print ("awake!");
 		OnAwake();
 	}
 	

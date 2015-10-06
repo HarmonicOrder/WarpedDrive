@@ -20,6 +20,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public MeshRenderer HitCrosshair;
 	public MeshRenderer Crosshair;
 	public RectTransform Menu;
+	public Text consoleText;
 
 	private Quaternion currentHeading;
 	private Quaternion currentLookRotation;
@@ -27,6 +28,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	private Transform CurrentBetaSubroutine;
 	private ILockTarget CurrentLock;
 	private bool showingMainMenu;
+
+	void Awake() {
+		StrategyConsole.Initialize(consoleText);
+	}
 
 	// Use this for initialization
 	void Start () {

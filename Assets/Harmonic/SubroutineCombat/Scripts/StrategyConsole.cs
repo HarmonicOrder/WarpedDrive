@@ -2,26 +2,22 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class StrategyConsole : MonoBehaviour {
+public static class StrategyConsole {
 
-	public static StrategyConsole Instance {get;set;}
+	public static string PinnedTextLine = "WASD to Pan, R-Click to Zoom";
+	public static string LineStartString = "> ";
 
-	public string PinnedTextLine;
-	public Text consoleOut;
-	public string LineStartString = "> ";
+	private static Text consoleOut;
 
 	// Use this for initialization
-	void Start () {
-		Instance = this;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public static void Initialize(Text currentUIElement) {
+		consoleOut = currentUIElement;
 	}
 
-	public void WriteLines(string lines)
+
+	public static void WriteLines(string lines)
 	{
-		consoleOut.text = LineStartString + PinnedTextLine + '\n'+ lines;
+		if (consoleOut != null)
+			consoleOut.text = LineStartString + PinnedTextLine + '\n'+ lines;
 	}
 }
