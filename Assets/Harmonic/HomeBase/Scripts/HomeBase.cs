@@ -108,7 +108,7 @@ public class HomeBase : MonoBehaviour {
 	}
 
 	private IEnumerator BeforeWarpStart(){
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(.25f);
 		OnWarpStart();
 	}
 
@@ -116,24 +116,41 @@ public class HomeBase : MonoBehaviour {
 	public void OnWarpStart(){
 		warpBubble = (Transform)Instantiate(WarpBubblePrefab, zoomCamera.transform.position, zoomCamera.transform.rotation);
 		warpBubble.parent = zoomCamera.transform;
+		warpBubble.localPosition = Vector3.forward*6;
+		StartCoroutine(waitThenWarp());
+	}
+	
+	private IEnumerator waitThenWarp()
+	{
+		yield return new WaitForSeconds(.75f);
+		warpBubble.localPosition = Vector3.zero;
+		zoomCamera.farClipPlane = 9f;
 		zoomScript.afterZoom = new CameraZoomToZoom.AfterZoomFinished(OnWarpEnd);
-		zoomScript.ZoomTo(currentServer.transform.FindChild("gateway"), 4f, 80f);
+		zoomScript.ZoomTo(currentServer.transform.FindChild("gateway"), 2f, 80f);
 	}
 
 	public void OnWarpEnd(){
-		GameObject.Destroy(warpBubble.gameObject);
-		isWarping = false;
-		zoomScript.MainCameraToZoom();
+		//GameObject.Destroy(warpBubble.gameObject);
+		//isWarping = false;
+		//zoomScript.MainCameraToZoom();
+		warpBubble.Find("endGateScaler").GetComponent<Scaler>().scaleUp = true;
+		StartCoroutine(waitThenBattle());
+	}
+
+	private IEnumerator waitThenBattle()
+	{
+		yield return new WaitForSeconds(1f);
 		TransitionToBattlespace();
 	}
 
 	private void TransitionToBattlespace()
 	{
-		var pixelater = new PixelateTransition()
+		var pixelater = new SquaresTransition()
 		{
 			nextScene = NetworkMap.CurrentLocation.sceneIndex,
-			finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
-			duration = 1.0f
+
+			//finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
+			duration = .5f
 		};
 		TransitionKit.instance.transitionWithDelegate( pixelater );
 	}
