@@ -10,7 +10,7 @@ public class Tracer : SubroutineMovement {
 	public float fireSpeed = 100f;
 	public float FireDistance = 200f;
 
-
+	//private Trans
 	private bool BeingFired = false; //maybe add public getter
 	private float CurrentFireDistance = 0f;
 	// Use this for initialization

@@ -27,17 +27,20 @@ public class LazerBeam : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision coll){
-		this.liveFire = false;
-		this.GetComponent<Rigidbody>().isKinematic = false;
-		this.transform.GetComponentInChildren<LineRenderer>().enabled = false;
-		this.transform.GetComponent<ParticleSystem>().Emit(30);
-
-		if (coll.gameObject != null)
+		if (this.liveFire)
 		{
-			VirusAI v = coll.gameObject.GetComponent<VirusAI>();
-			if (v != null)
+			this.liveFire = false;
+			this.GetComponent<Rigidbody>().isKinematic = false;
+			this.transform.GetComponentInChildren<LineRenderer>().enabled = false;
+			this.transform.GetComponent<ParticleSystem>().Emit(30);
+
+			if (coll.gameObject != null)
 			{
-				v.TakeDamage(damage);
+				VirusAI v = coll.gameObject.GetComponent<VirusAI>();
+				if (v != null)
+				{
+					v.TakeDamage(damage);
+				}
 			}
 		}
 	}

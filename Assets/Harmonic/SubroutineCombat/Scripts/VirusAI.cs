@@ -54,18 +54,28 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 		ActiveSubroutines.RemoveVirus(this);
 	}
 
-	//todo - leftover damage from taking down armor needs to go to health
 	public void TakeDamage(float amount)
 	{
+		print ("taking " +amount.ToString() + "damage");
 		if(this.Info.ArmorPoints > 0f)
 		{
-			this.Info.ArmorPoints -= amount;
+			if (amount > this.Info.ArmorPoints)
+			{
+				amount -= this.Info.ArmorPoints;
+				this.Info.ArmorPoints = 0f;
+			}
+			else
+			{
+				this.Info.ArmorPoints -= amount;
+				amount = 0f;
+			}
 		}
-		else 
+
+		if (amount > 0f)
 		{
 			this.Info.HitPoints -= amount;
 
-			if (this.Info.HitPoints < 0f)
+			if (this.Info.HitPoints <= 0f)
 				this.OnVirusDead();
 		}
 	}
