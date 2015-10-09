@@ -57,7 +57,7 @@ GameObject:
   - 4: {fileID: 499926}
   - 212: {fileID: 21249284}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +176,7 @@ GameObject:
   - 136: {fileID: 13651410}
   - 23: {fileID: 2393584}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: GunLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -837,7 +837,7 @@ GameObject:
   - 4: {fileID: 457746}
   - 212: {fileID: 21213978}
   m_Layer: 0
-  m_Name: New Sprite (1)
+  m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -890,7 +890,7 @@ GameObject:
   - 136: {fileID: 13619514}
   - 23: {fileID: 2323938}
   m_Layer: 0
-  m_Name: Capsule (1)
+  m_Name: GunRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3300,6 +3300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a496795bf2cc9744b102176612ea6f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lazerPrefab: {fileID: 444036, guid: e1b4d94b35ddb5a468173c311fe041e0, type: 2}
 --- !u!114 &11415856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3991,7 +3992,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LookAtSpeed: 2
-  TerminateRange: 999
   LaserPersistTime: .5
   PulseParticles: {fileID: 19848600}
   BurstParticles: {fileID: 19866750}
@@ -4601,7 +4601,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 151066}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: .5
   m_Height: 2
   m_Direction: 1
@@ -4640,7 +4640,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 107966}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: .5
   m_Height: 2
   m_Direction: 1

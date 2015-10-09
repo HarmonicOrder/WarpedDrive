@@ -32,6 +32,7 @@ public class Tracer : SubroutineMovement {
 			if (CurrentFireDistance >= FireDistance)
 			{
 				BeingFired = false;
+				this.Parent.Function.TrackEnemy = true;
 			} else {
 				this.transform.Translate(0, 0, Time.deltaTime * this.fireSpeed, Space.Self);
 				CurrentFireDistance += Time.deltaTime * this.fireSpeed;
@@ -50,7 +51,7 @@ public class Tracer : SubroutineMovement {
 				//do not engage
 			} 
 			else if (relativePos.magnitude < followDistance){
-				this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed / 2f, Space.Self);
+				this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed / 3f, Space.Self);
 			}
 			else 
 			{

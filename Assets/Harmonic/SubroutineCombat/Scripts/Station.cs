@@ -38,10 +38,8 @@ public class Station : SubroutineMovement {
 				BeingFired = false;
 				this.transform.position = Parent.LockedTarget.position;
 				this.ShieldRenderer.material.color = HarmonicUtils.ColorWithAlpha(this.ShieldRenderer.material.color, this.originalAlpha);
-				if (this.Parent.Function.GetType() == typeof(Terminate))
-				{
-					(this.Parent.Function as Terminate).TrackEnemy = true;
-				}
+				
+				this.Parent.Function.TrackEnemy = true;
 			} else {
 				this.transform.position = Vector3.Lerp(firePosition, Parent.LockedTarget.position, CurrentFireTime / TimeToHardpoint);
 			}

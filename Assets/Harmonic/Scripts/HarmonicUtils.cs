@@ -18,4 +18,12 @@ public static class HarmonicUtils {
 			alpha
 			);
 	}
+
+	public static Transform FindInChildren(Transform go, string name)
+	{
+		foreach (Transform x in go.GetComponentsInChildren<Transform>())
+			if  (x.gameObject.name == name)
+				return x;
+		return null;
+	}
 }

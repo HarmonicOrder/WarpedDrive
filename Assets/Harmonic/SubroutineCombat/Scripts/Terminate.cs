@@ -4,18 +4,11 @@ using System.Collections;
 public class Terminate : SubroutineFunction {
 
 	public float LookAtSpeed = 2f;
-	public float TerminateRange = 9999f;
 	public float LaserPersistTime = 1f;
 
 	public ParticleSystem PulseParticles;
 	public ParticleSystem BurstParticles;
 	public LineRenderer TerminateLineRenderer;
-
-	internal bool TrackEnemy = false;
-	private Transform closestTransform;
-	private IMalware closestVirus;
-	private float CooldownRemaining = -1f;
-	private bool isFiringLaser = false;
 
 	// Use this for initialization
 	void Start () {
@@ -38,7 +31,7 @@ public class Terminate : SubroutineFunction {
 				CooldownRemaining -= Time.deltaTime;
 			}
 
-			if (TrackEnemy && !isFiringLaser)
+			if (TrackEnemy && !isFiring)
 			{
 				FindClosestTransform();
 
@@ -57,35 +50,9 @@ public class Terminate : SubroutineFunction {
 		}
 	}
 
-	private void FindClosestTransform()
-	{
-		if (ActiveSubroutines.MalwareList.Count == 0)
-		{
-			this.closestVirus = null;
-			this.closestTransform = null;
-			return;
-		}
-
-		//comparing range squared vs magnitude squared is a performance enhancement
-		//it eliminates the expensive square root calculation
-		float closest = TerminateRange * TerminateRange;
-		foreach( IMalware mal in ActiveSubroutines.MalwareList)
-		{
-			float dist = (mal.transform.position - this.transform.position).sqrMagnitude; 
-			//if this has a higher priority than now
-			//and the distance is closer
-			if (dist < closest * mal.AttackPriority)
-			{
-				this.closestVirus = mal;
-				this.closestTransform = mal.transform;
-				closest = dist;
-			}
-		}
-	}
-
 	private void FireAtEnemy(Vector3 relativePos)
 	{
-		isFiringLaser = true;
+		isFiring = true;
 		CooldownRemaining = this.Parent.Info.FireRate;
 		this.closestVirus.TakeDamage(this.Parent.Info.DamagePerHit);
 		this.TerminateLineRenderer.SetVertexCount(2);
@@ -105,6 +72,6 @@ public class Terminate : SubroutineFunction {
 		yield return new WaitForSeconds(this.LaserPersistTime);
 		this.TerminateLineRenderer.SetVertexCount(0);		
 		this.PulseParticles.Stop();
-		isFiringLaser = false;
+		isFiring = false;
 	}
 }

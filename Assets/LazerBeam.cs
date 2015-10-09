@@ -7,6 +7,7 @@ public class LazerBeam : MonoBehaviour {
 
 	public float laserSpeed = 20f;
 	public float lifetime = 10f;
+	public float damage = 1f;
 	private bool liveFire = true;
 
 	// Use this for initialization
@@ -25,10 +26,19 @@ public class LazerBeam : MonoBehaviour {
 		UnityEngine.Object.Destroy(this.gameObject);
 	}
 
-	void OnCollisionEnter(){
+	void OnCollisionEnter(Collision coll){
 		this.liveFire = false;
 		this.GetComponent<Rigidbody>().isKinematic = false;
 		this.transform.GetComponentInChildren<LineRenderer>().enabled = false;
 		this.transform.GetComponent<ParticleSystem>().Emit(30);
+
+		if (coll.gameObject != null)
+		{
+			VirusAI v = coll.gameObject.GetComponent<VirusAI>();
+			if (v != null)
+			{
+				v.TakeDamage(damage);
+			}
+		}
 	}
 }
