@@ -41,7 +41,10 @@ public class tankVirus : VirusAI {
 		if (this.targetT != null)
 		{
 			Vector3 relativePos = this.targetT.position - this.transform.position;
-			FaceTarget(relativePos);
+
+			if (relativePos.sqrMagnitude < this.engagementDistance * this.engagementDistance){
+				FaceTarget(relativePos);
+			}
 			//MoveToTarget(relativePos);
 		}
 	}
