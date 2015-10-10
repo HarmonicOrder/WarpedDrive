@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class tankVirus : VirusAI {
 
@@ -12,6 +13,8 @@ public class tankVirus : VirusAI {
 	public ParticleSystem PulseParticles;
 	public ParticleSystem BurstParticles;
 	public LineRenderer LineRenderer;
+
+	public List<Transform> ArmorPlates;
 
 	public override string DisplayNameSingular {get{return "Armored";}}
 	public override string DisplayNamePlural {get{return "Armored";}}
@@ -27,7 +30,7 @@ public class tankVirus : VirusAI {
 			DamagePerHit = 3f,
 			FireRate = 3f,
 			HitPoints = 5f,
-			ArmorPoints = 5f
+			ArmorPoints = 6f
 		};
 		LineRenderer.SetVertexCount(0);
 		OrbitScript = this.GetComponent<Orbit>();
@@ -154,5 +157,22 @@ public class tankVirus : VirusAI {
 		
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = true;
+	}
+
+	
+	protected override void OnTakeDamage(float damage, float armorPointsLost, float hitPointsLost)
+	{
+		if (armorPointsLost > 0f)
+		{
+			Transform killedArmorPlate;
+			for (int i = 0; i < armorPointsLost; i++) {
+				if (ArmorPlates.Count > 0)
+				{
+					killedArmorPlate = ArmorPlates[ArmorPlates.Count-1];
+					ArmorPlates.Remove(killedArmorPlate);
+					GameObject.Destroy(killedArmorPlate.gameObject);
+				}
+			}
+		}
 	}
 }

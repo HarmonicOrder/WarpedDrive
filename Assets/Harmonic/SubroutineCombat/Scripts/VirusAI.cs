@@ -56,16 +56,20 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 
 	public void TakeDamage(float amount)
 	{
-		print ("taking " +amount.ToString() + "damage");
+		float armorPointsLost = 0;
+		float hitPointsLost = 0;
+
 		if(this.Info.ArmorPoints > 0f)
 		{
 			if (amount > this.Info.ArmorPoints)
 			{
+				armorPointsLost = this.Info.ArmorPoints;
 				amount -= this.Info.ArmorPoints;
 				this.Info.ArmorPoints = 0f;
 			}
 			else
 			{
+				armorPointsLost = amount;
 				this.Info.ArmorPoints -= amount;
 				amount = 0f;
 			}
@@ -73,14 +77,17 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 
 		if (amount > 0f)
 		{
+			hitPointsLost = amount;
 			this.Info.HitPoints -= amount;
 
 			if (this.Info.HitPoints <= 0f)
 				this.OnVirusDead();
 		}
+
+		this.OnTakeDamage(amount, armorPointsLost, hitPointsLost);
 	}
 
-	protected virtual void OnTakeDamage(float damage)
+	protected virtual void OnTakeDamage(float damage, float armorPointsLost, float hitPointsLost)
 	{
 	}
 }
