@@ -100,10 +100,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			HitCrosshair.enabled = false;
 		}
 
-
-		//bool  = CrossPlatformInputManager.GetButton("Jump");
-		bool fireSubroutine = Input.GetKeyDown(KeyCode.Alpha1);
-		if (fireSubroutine && CurrentLock != null)
+		if (Input.GetKeyDown(KeyCode.Alpha1) && CurrentLock != null)
 		{
 			CurrentAlphaSubroutine = AlphaSubPrefab;
 			CurrentAlphaSubroutine.GetComponent<Subroutine>().LockedTarget = CurrentLock.transform;

@@ -43,9 +43,12 @@ public class Subroutine : Actor {
 
 	public void Activate()
 	{
-		this.IsActive = true;
-		ActiveSubroutines.Add(this);
-		this.Movement.Fire();
+		if (!this.IsActive)
+		{
+			this.IsActive = true;
+			ActiveSubroutines.Add(this);
+			this.Movement.Fire();
+		}
 	}
 
 	public void Deactivate()
@@ -63,6 +66,7 @@ public class Subroutine : Actor {
 
 			this.transform.SetParent(this.StartingPosition);
 			this.transform.localPosition = Vector3.zero;
+			this.transform.localRotation = Quaternion.Euler(Vector3.forward);
 			this.Deactivate();
 		}
 	}

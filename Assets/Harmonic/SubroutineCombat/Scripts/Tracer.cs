@@ -27,36 +27,38 @@ public class Tracer : SubroutineMovement {
 
 	// Update is called once per frame
 	void Update () {
-		if (BeingFired)
+		if(Parent.IsActive)
 		{
-			if (CurrentFireDistance >= FireDistance)
+			if (BeingFired)
 			{
-				BeingFired = false;
-				this.Parent.Function.TrackEnemy = true;
-			} else {
-				this.transform.Translate(0, 0, Time.deltaTime * this.fireSpeed, Space.Self);
-				CurrentFireDistance += Time.deltaTime * this.fireSpeed;
+				if (CurrentFireDistance >= FireDistance)
+				{
+					BeingFired = false;
+					this.Parent.Function.TrackEnemy = true;
+				} else {
+					this.transform.Translate(0, 0, Time.deltaTime * this.fireSpeed, Space.Self);
+					CurrentFireDistance += Time.deltaTime * this.fireSpeed;
+				}
 			}
-		}
-
-		if (!BeingFired && Parent.IsActive && (Parent.LockedTarget != null))
-		{
-			Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
-			this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);
-			
-			//print (relativePos.magnitude);
-			
-			if (relativePos.magnitude > this.engagementDistance)
+			else if (Parent.LockedTarget != null)
 			{
-				//do not engage
-			} 
-			else if (relativePos.magnitude < followDistance){
-				this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed / 3f, Space.Self);
-			}
-			else 
-			{
-				//within engagement, outside optimum, move closer
-				this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed, Space.Self);
+				Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
+				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);
+				
+				//print (relativePos.magnitude);
+				
+				if (relativePos.magnitude > this.engagementDistance)
+				{
+					//do not engage
+				} 
+				else if (relativePos.magnitude < followDistance){
+					this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed / 3f, Space.Self);
+				}
+				else 
+				{
+					//within engagement, outside optimum, move closer
+					this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed, Space.Self);
+				}
 			}
 		}
 	}
