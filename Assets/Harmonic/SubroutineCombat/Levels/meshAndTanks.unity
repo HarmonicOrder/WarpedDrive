@@ -819,6 +819,10 @@ Prefab:
       propertyPath: OrbitRenderer
       value: 
       objectReference: {fileID: 1525040100}
+    - target: {fileID: 12019988, guid: 52942d2bc4ffa1d4ab02cefad65f67cf, type: 2}
+      propertyPath: m_UseWorldSpace
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52942d2bc4ffa1d4ab02cefad65f67cf, type: 2}
   m_IsPrefabParent: 0
@@ -859,7 +863,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 454268, guid: b14969d001dc5364f9b49a5d478cd99b, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 162312, guid: b14969d001dc5364f9b49a5d478cd99b, type: 2}
       propertyPath: m_IsActive
@@ -1025,7 +1029,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 438000, guid: 13a65851ce995e34990a307539f6a724, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 11480396, guid: 13a65851ce995e34990a307539f6a724, type: 2}
       propertyPath: secondaryCamera
