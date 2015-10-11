@@ -6,13 +6,12 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: tankShields
-  m_Shader: {fileID: 4800000, guid: 0faf2943ce685604f83e1eecad364d05, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _EMISSION
-  m_LightmapFlags: 1
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_Name: bacphageClaws
+  m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -20,8 +19,8 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: ac3ef1c2264246c409b299e63a5556ca, type: 3}
-          m_Scale: {x: .204999998, y: .204999998}
+          m_Texture: {fileID: 2800000, guid: 732e2eebfe574ca47ba46cc3a67965fd, type: 3}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -55,8 +54,8 @@ Material:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 2800000, guid: ac3ef1c2264246c409b299e63a5556ca, type: 3}
-          m_Scale: {x: .204999998, y: .204999998}
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -75,13 +74,6 @@ Material:
       data:
         first:
           name: _MetallicGlossMap
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _SpecGlossMap
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -126,11 +118,11 @@ Material:
       data:
         first:
           name: _UVSec
-        second: 0
+        second: 1
       data:
         first:
           name: _Mode
-        second: 1
+        second: 0
       data:
         first:
           name: _Metallic
@@ -138,21 +130,21 @@ Material:
       data:
         first:
           name: _InvFade
-        second: 1
+        second: .00999999978
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 1, g: 0, b: 0, a: 1}
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _Color
         second: {r: 1, g: 0, b: 0, a: 1}
       data:
         first:
-          name: _SpecColor
-        second: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+          name: _EmisColor
+        second: {r: 1, g: 0, b: 0, a: 0}
       data:
         first:
           name: _TintColor
-        second: {r: 1, g: 0, b: 0, a: .5}
+        second: {r: 1, g: 0, b: 0, a: 1}

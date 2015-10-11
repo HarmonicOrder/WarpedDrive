@@ -23,15 +23,15 @@ public class Subroutine : Actor {
 
 	public Transform StartingPosition {get;set;}
 
-	protected override void OnStart(){
+	protected override void OnAwake(){
 		this.Movement = this.GetComponent<SubroutineMovement>();
 		this.Movement.Parent = this;
-
+		
 		this.Function = this.GetComponent<SubroutineFunction>();
 		this.Function.Parent = this;
-
+		
 		this.StartingPosition = this.transform.parent;
-
+		
 		this.Info = new ActorInfo()
 		{ 
 			Name = "Subroutine",
@@ -39,6 +39,9 @@ public class Subroutine : Actor {
 			FireRate = 1f,
 			DamagePerHit = 2f
 		};
+	}
+
+	protected override void OnStart(){
 	}
 
 	public void Activate()
