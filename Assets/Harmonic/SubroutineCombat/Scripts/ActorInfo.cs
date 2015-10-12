@@ -10,6 +10,7 @@ public class ActorInfo {
 			return DamagePerHit * FireRate;
 		}
 	}
+	public float MaxHitPoints = 0f;
 	public float HitPoints = 0f;
 	public float ArmorPoints = 0f;
 	public float DefenseRating {
@@ -19,9 +20,8 @@ public class ActorInfo {
 	}
 	public string Name = "";
 
-	// Use this for initialization
-	public ActorInfo() {
-	
+
+	public ActorInfo() {	
 	}
 	
 	public string GetTargetRichText()

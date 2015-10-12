@@ -7,6 +7,20 @@ public class Subroutine : Actor {
 	public SubroutineMovement Movement {get;set;}
 	public Transform ExplosionPrefab;
 	public Transform FunctionRoot;
+	public SubroutineStatus Status { 
+		set
+		{
+			this.OnSubroutineActive += value.OnSubroutineActive;
+			this.OnSubroutineDead += value.OnSubroutineDead;
+			this.OnSubroutineTakeDamage += value.OnSubroutineTakeDamage;
+		}
+	}
+
+	public delegate void StatusChange();
+	public delegate void DamageReport(float currentHitpoints, float maxHitpoints);
+	public event StatusChange OnSubroutineActive;
+	public event StatusChange OnSubroutineDead;
+	public event DamageReport OnSubroutineTakeDamage;
 
 	private Transform _lockedTarget;
 	public Transform LockedTarget {
@@ -35,6 +49,7 @@ public class Subroutine : Actor {
 		this.Info = new ActorInfo()
 		{ 
 			Name = "Subroutine",
+			MaxHitPoints = 10f,
 			HitPoints = 10f,
 			FireRate = 1f,
 			DamagePerHit = 2f
@@ -51,6 +66,8 @@ public class Subroutine : Actor {
 			this.IsActive = true;
 			ActiveSubroutines.Add(this);
 			this.Movement.Fire();
+			if (this.OnSubroutineActive != null)
+				this.OnSubroutineActive();
 		}
 	}
 
@@ -63,6 +80,7 @@ public class Subroutine : Actor {
 	public void TakeDamage(float damage)
 	{
 		this.Info.HitPoints -= damage;
+
 		if (this.Info.HitPoints < 0f)
 		{
 			GameObject.Instantiate(ExplosionPrefab, this.transform.position, Quaternion.identity);
@@ -71,6 +89,11 @@ public class Subroutine : Actor {
 			this.transform.localPosition = Vector3.zero;
 			this.transform.localRotation = Quaternion.Euler(Vector3.forward);
 			this.Deactivate();
+			if (this.OnSubroutineDead != null)
+				this.OnSubroutineDead();
+		} else {
+			if (this.OnSubroutineTakeDamage != null)
+				this.OnSubroutineTakeDamage(this.Info.HitPoints, this.Info.MaxHitPoints);
 		}
 	}
 }

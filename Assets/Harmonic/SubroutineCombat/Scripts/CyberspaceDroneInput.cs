@@ -15,6 +15,9 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public bool invertY = true;
 	public Transform AlphaSubPrefab;
 	public Transform BetaSubPrefab;
+	public SubroutineStatus AlphaStatus;
+	public SubroutineStatus BetaStatus;
+	public SubroutineStatus GammaStatus;
 	public Text TargetGuiText;
 	public Transform PivotTransform;
 	public MeshRenderer HitCrosshair;
@@ -31,6 +34,9 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
 	void Awake() {
 		StrategyConsole.Initialize(consoleText);
+
+		AlphaSubPrefab.GetComponent<Subroutine>().Status = AlphaStatus;
+		BetaSubPrefab.GetComponent<Subroutine>().Status = BetaStatus;
 	}
 
 	// Use this for initialization
