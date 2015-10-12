@@ -45,6 +45,11 @@ public static class NetworkMap {
 							Name = "Propulsion",
 							sceneIndex = 5,
 							IsInfected = true
+						},
+						new NetworkLocation(){
+							Name = "3DPrintshop",
+							sceneIndex = 6,
+							IsInfected = true
 						}
 					}
 				}
