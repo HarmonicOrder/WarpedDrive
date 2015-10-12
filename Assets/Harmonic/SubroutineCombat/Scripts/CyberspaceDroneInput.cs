@@ -109,15 +109,13 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Alpha1) && CurrentLock != null)
 		{
 			CurrentAlphaSubroutine = AlphaSubPrefab;
-			CurrentAlphaSubroutine.GetComponent<Subroutine>().LockedTarget = CurrentLock.transform;
-			CurrentAlphaSubroutine.GetComponent<Subroutine>().Activate();
+			FireSubroutine(CurrentAlphaSubroutine);
 		}
 
 		if (Input.GetKeyDown(KeyCode.Alpha2) && CurrentLock != null)
 		{
 			CurrentBetaSubroutine = BetaSubPrefab;
-			CurrentBetaSubroutine.GetComponent<Subroutine>().LockedTarget = CurrentLock.transform;
-			CurrentBetaSubroutine.GetComponent<Subroutine>().Activate();
+			FireSubroutine(CurrentBetaSubroutine);
 		}
 
 		float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;
@@ -168,6 +166,14 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		};
 		pixelater.nextScene = 1;
 		TransitionKit.instance.transitionWithDelegate( pixelater );
+	}
+
+	private void FireSubroutine(Transform t)
+	{
+		Subroutine s = t.GetComponent<Subroutine>();
+		s.LockedTarget = CurrentLock.transform;
+		s.Info.HitPoints = s.Info.MaxHitPoints;
+		s.Activate();
 	}
 	
 	private void AssignLockTarget(bool leftClick, ILockTarget newTargt)

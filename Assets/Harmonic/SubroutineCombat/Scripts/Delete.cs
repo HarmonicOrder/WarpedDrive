@@ -62,14 +62,15 @@ public class Delete : SubroutineFunction {
 			laserStart = rightGun;
 
 		onPrimary = !onPrimary;
-		print (lazerPrefab.name);
-		Object o = Instantiate(lazerPrefab, laserStart.position, laserStart.rotation);
-		if ((o as GameObject) != null)
-		{
-			LazerBeam b = (o as GameObject).GetComponent<LazerBeam>();
-			if (b != null)
-				b.damage = this.Parent.Info.DamagePerHit;
-		}
+
+		Transform t = (Transform)Instantiate(lazerPrefab, laserStart.position, laserStart.rotation);
+
+		LazerBeam b = t.GetComponent<LazerBeam>();
+		if (b != null)
+			b.damage = this.Parent.Info.DamagePerHit;
+
+		Physics.IgnoreCollision(this.GetComponent<Collider>(), t.GetComponent<Collider>());
+
 		StartCoroutine(this.WaitCooldown());
 	}
 }

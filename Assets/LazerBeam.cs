@@ -41,6 +41,12 @@ public class LazerBeam : MonoBehaviour {
 				{
 					v.TakeDamage(damage);
 				}
+
+				Subroutine s = coll.gameObject.GetComponent<Subroutine>();
+				if (s != null)
+				{
+					s.TakeDamage(damage);
+				}
 			}
 		}
 	}
