@@ -10,6 +10,7 @@ public class HomeBase : MonoBehaviour {
 	public Transform WarpBubblePrefab;
 	public Color _highlightColor;
 	public static Color SubnetTextHighlightColor;
+	public Camera RenderExitCamera;
 
 	private CameraZoomToZoom zoomScript;
 	// Use this for initialization
@@ -126,7 +127,13 @@ public class HomeBase : MonoBehaviour {
 		warpBubble.localPosition = Vector3.zero;
 		zoomCamera.farClipPlane = 9f;
 		zoomScript.afterZoom = new CameraZoomToZoom.AfterZoomFinished(OnWarpEnd);
-		zoomScript.ZoomTo(currentServer.transform.FindChild("gateway"), 2f, 80f);
+		Transform goToGate = currentServer.transform.FindChild("gateway");
+		zoomScript.ZoomTo(goToGate, 2f, 80f);
+
+		if (RenderExitCamera != null){
+			RenderExitCamera.transform.position = goToGate.position + (Vector3.forward * 10);
+			RenderExitCamera.transform.rotation = goToGate.rotation;
+		}
 	}
 
 	public void OnWarpEnd(){

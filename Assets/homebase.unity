@@ -1598,6 +1598,7 @@ MonoBehaviour:
   homeFiberGate: {fileID: 821466474}
   WarpBubblePrefab: {fileID: 475778, guid: f91a3bea524557a4ea2037ce3dd40780, type: 2}
   _highlightColor: {r: 0, g: .874509811, b: 1, a: 1}
+  RenderExitCamera: {fileID: 1580694632}
 --- !u!4 &537315421
 Transform:
   m_ObjectHideFlags: 0
@@ -4724,13 +4725,22 @@ GameObject:
   m_Component:
   - 4: {fileID: 1580694633}
   - 20: {fileID: 1580694632}
+  - 45: {fileID: 1580694629}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: RenderExitCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!45 &1580694629
+Skybox:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1580694628}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 81301db375a9c544bb875681aabf308c, type: 2}
 --- !u!20 &1580694632
 Camera:
   m_ObjectHideFlags: 0
