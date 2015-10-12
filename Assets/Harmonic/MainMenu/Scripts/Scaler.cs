@@ -6,7 +6,12 @@ public class Scaler : MonoBehaviour {
 	public bool scaleUp = false;
 	public float duration = 1f;
 	private float scaleTime = 0f;
-	
+
+	void Start()
+	{
+		this.transform.localScale = Vector3.forward;
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if (scaleUp){

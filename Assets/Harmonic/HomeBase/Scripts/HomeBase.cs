@@ -150,7 +150,7 @@ public class HomeBase : MonoBehaviour {
 			nextScene = NetworkMap.CurrentLocation.sceneIndex,
 
 			//finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
-			duration = .5f
+			duration = .33f
 		};
 		TransitionKit.instance.transitionWithDelegate( pixelater );
 	}
