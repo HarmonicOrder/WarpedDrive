@@ -12,6 +12,8 @@ public class MeshNode : MonoBehaviour, IMalware {
 	public virtual string DisplayNameSingular {get{return "Infection Node";}}
 	public virtual string DisplayNamePlural {get{return "Infection Nodes";}}
 
+	public Transform MiniExplosionPrefab;
+
 	// Use this for initialization
 	void Start () {
 		ActiveSubroutines.AddVirus(this);		
@@ -35,6 +37,7 @@ public class MeshNode : MonoBehaviour, IMalware {
 		RemoveEdges();
 		this.transform.parent.GetComponent<MeshMalware>().RemoveNode(this);
 		ActiveSubroutines.RemoveVirus(this);		
+		SelfDestruct();
 	}
 
 	public void RemoveEdges(){
@@ -57,6 +60,12 @@ public class MeshNode : MonoBehaviour, IMalware {
 
 			TargetNodes.Remove(sibling);
 		}
+	}
+
+	private void SelfDestruct()
+	{
+		Instantiate(MiniExplosionPrefab, this.transform.position, Quaternion.identity);
+		GameObject.Destroy(this.gameObject);
 	}
 
 
