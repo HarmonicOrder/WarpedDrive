@@ -15,7 +15,7 @@ public class virus : VirusAI {
 	public override string DisplayNameSingular {get{return "Virus";}}
 	public override string DisplayNamePlural {get{return "Virus";}}
 	
-	private Orbit OrbitScript;
+	private OrbitAround OrbitScript;
 	
 	protected override void OnAwake()
 	{
@@ -28,7 +28,7 @@ public class virus : VirusAI {
 			HitPoints = 5f,
 			ArmorPoints = 0f
 		};
-		OrbitScript = this.GetComponent<Orbit>();
+		OrbitScript = this.GetComponent<OrbitAround>();
 	}
 	
 	// Update is called once per frame
@@ -102,9 +102,9 @@ public class virus : VirusAI {
 	
 	protected override void OnVirusDead ()
 	{
-		if (this.GetComponent<Orbit>() != null)
+		if (this.GetComponent<OrbitAround>() != null)
 		{
-			this.GetComponent<Orbit>().RemoveOrbiter();
+			this.GetComponent<OrbitAround>().RemoveOrbiter();
 		}
 		GameObject.Instantiate(this.ExplosionPrefab, this.transform.position, Quaternion.identity);
 		base.OnVirusDead ();

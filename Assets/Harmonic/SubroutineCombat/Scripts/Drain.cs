@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Orbit : SubroutineMovement {
+public class Drain : SubroutineFunction {
 
 	// Use this for initialization
 	void Start () {

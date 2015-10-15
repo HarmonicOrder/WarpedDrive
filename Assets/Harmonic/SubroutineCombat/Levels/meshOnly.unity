@@ -1299,6 +1299,62 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 19807142, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 19807142, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424404, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 52.7999992
+      objectReference: {fileID: 0}
+    - target: {fileID: 19807142, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: EmissionModule.rate.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 19807142, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428266, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: pullTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 19807142, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: InitialModule.maxNumParticles
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 19807142, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19807142, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428266, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: pullIterations
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 19807142, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: SizeModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19807142, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: InitialModule.startColor.maxColor.rgba
+      value: 1879048191
+      objectReference: {fileID: 0}
+    - target: {fileID: 19964708, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 58c43f5b24854a449914b176750c4af9, type: 2}
+    - target: {fileID: 11428266, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
+      propertyPath: delayRange
+      value: .200000003
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 07c1df1b1a7cf6d459f7dfd9de47166e, type: 2}
   m_IsPrefabParent: 0
