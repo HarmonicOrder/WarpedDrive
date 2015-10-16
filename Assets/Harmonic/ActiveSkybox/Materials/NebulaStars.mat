@@ -6,13 +6,13 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ConeStarburst
+  m_Name: NebulaStars
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHABLEND_ON _DETAIL_MULX2 _EMISSION
+  m_ShaderKeywords: _ALPHATEST_ON _EMISSION
   m_LightmapFlags: 1
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2450
   stringTagMap:
-    RenderType: Transparent
+    RenderType: TransparentCutout
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -20,7 +20,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: fba69fa782926714f90ecf883445d936, type: 3}
+          m_Texture: {fileID: 2800000, guid: 479aa5ccd75242a4288c5e82c2b42fa6, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -48,14 +48,14 @@ Material:
         first:
           name: _OcclusionMap
         second:
-          m_Texture: {fileID: 2800000, guid: fba69fa782926714f90ecf883445d936, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+          m_Texture: {fileID: 2800000, guid: 479aa5ccd75242a4288c5e82c2b42fa6, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -69,7 +69,7 @@ Material:
         first:
           name: _DetailAlbedoMap
         second:
-          m_Texture: {fileID: 2800000, guid: 19555d7d9d114c7f1100f5ab44295342, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -83,11 +83,11 @@ Material:
       data:
         first:
           name: _SrcBlend
-        second: 5
+        second: 1
       data:
         first:
           name: _DstBlend
-        second: 10
+        second: 0
       data:
         first:
           name: _Cutoff
@@ -99,11 +99,11 @@ Material:
       data:
         first:
           name: _ZWrite
-        second: 0
+        second: 1
       data:
         first:
           name: _Glossiness
-        second: 0
+        second: .5
       data:
         first:
           name: _BumpScale
@@ -123,7 +123,7 @@ Material:
       data:
         first:
           name: _Mode
-        second: 2
+        second: 1
       data:
         first:
           name: _Metallic
@@ -132,8 +132,8 @@ Material:
       data:
         first:
           name: _EmissionColor
-        second: {r: .257922024, g: .800999999, b: .257922024, a: 1}
+        second: {r: 1.11180031, g: 5.55900002, b: 0, a: 1}
       data:
         first:
           name: _Color
-        second: {r: 0, g: 1, b: .00689649582, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
