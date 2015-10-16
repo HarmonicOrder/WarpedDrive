@@ -144,10 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b806afe323d5345bfcb6aa6114580f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleUp: 1
+  scaleUp: 0
   duration: 4
-  scaleTo: 8
-  ScaleAxis: {x: 1, y: 1, z: 1}
+  scaleFrom: {x: 0, y: 0, z: 0}
+  scaleTo: {x: 8, y: 8, z: 8}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

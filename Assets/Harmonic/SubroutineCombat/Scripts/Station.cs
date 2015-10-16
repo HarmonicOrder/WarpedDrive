@@ -28,15 +28,15 @@ public class Station : SubroutineMovement {
 		CurrentInstantiateTime = 0f;
 		CurrentInstantiateCube = (Transform)GameObject.Instantiate(InstantiatePrefab, Parent.LockedTarget.position, Parent.LockedTarget.rotation);
 
-		//prefab can handle this?
-		//CurrentInstantiateCube.GetComponent<Scaler>().duration = TimeToInstantiate;
+		//ugly hack
+		CurrentInstantiateCube.GetChild(0).GetComponent<Scaler>().duration = TimeToInstantiate;
+		CurrentInstantiateCube.GetChild(0).GetComponent<Scaler>().scaleUp = true;
 
 		this.transform.SetParent(null);
 		this.transform.position = Parent.LockedTarget.position;
 		this.transform.rotation = Parent.LockedTarget.rotation;
-		this.gameObject.AddComponent<Scaler>();
 		this.gameObject.GetComponent<Scaler>().duration = TimeToInstantiate;
-		this.gameObject.GetComponent<Scaler>().scaleUp = true;
+		this.gameObject.GetComponent<Scaler>().ScaleAgain();
 		BeingFired = true;
 	}
 	

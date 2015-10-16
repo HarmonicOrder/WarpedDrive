@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: StationBase
+  m_Name: StationBarrel
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
@@ -19,9 +19,9 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: bd948e8648a6d124c8c0b52baef1d9e9, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
+          m_Texture: {fileID: 2800000, guid: 17da6d53ec93a0444bd0f751b1d02477, type: 3}
+          m_Scale: {x: 1, y: 3.20000005}
+          m_Offset: {x: 0, y: -.200000003}
       data:
         first:
           name: _BumpMap
@@ -54,9 +54,9 @@ Material:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 2800000, guid: 6d56acc63ed5ed341bfba538fe10fe25, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
+          m_Texture: {fileID: 2800000, guid: 784c280926e80ff4dbee220c08318594, type: 3}
+          m_Scale: {x: 1, y: 3.20000005}
+          m_Offset: {x: 0, y: -.200000003}
       data:
         first:
           name: _DetailMask
@@ -69,7 +69,7 @@ Material:
           name: _DetailAlbedoMap
         second:
           m_Texture: {fileID: 0}
-          m_Scale: {x: 2, y: 2}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -102,7 +102,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: .5
+        second: .68900001
       data:
         first:
           name: _BumpScale
@@ -110,7 +110,7 @@ Material:
       data:
         first:
           name: _OcclusionStrength
-        second: 0
+        second: 1
       data:
         first:
           name: _DetailNormalMapScale
@@ -131,7 +131,7 @@ Material:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: .0115865134, b: 1.67999995, a: 1}
+        second: {r: .327281862, g: .272058845, b: 1, a: 1}
       data:
         first:
           name: _Color
