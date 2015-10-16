@@ -5,15 +5,17 @@ using System.Collections.Generic;
 public class Station : SubroutineMovement {	
 
 
-	public float TimeToHardpoint = 4f;
+	public float TimeToInstantiate = 4f;
 	public MeshRenderer ShieldRenderer;
+	public Transform InstantiatePrefab;
 
 	private bool BeingFired = false; //maybe add public getter
-	private float CurrentFireTime = 0f;
+	private float CurrentInstantiateTime = 0f;
+
 	//private List<Transform> targetsInView = new List<Transform>();
 	private float originalAlpha;
+	private Transform CurrentInstantiateCube;
 
-	private Vector3 firePosition;
 	// Use this for initialization
 	void Start () {
 		this.originalAlpha = this.ShieldRenderer.material.color.a;
@@ -23,9 +25,18 @@ public class Station : SubroutineMovement {
 	
 	public override void Fire()
 	{
-		firePosition = this.Parent.StartingPosition.position;
-		CurrentFireTime = 0f;
+		CurrentInstantiateTime = 0f;
+		CurrentInstantiateCube = (Transform)GameObject.Instantiate(InstantiatePrefab, Parent.LockedTarget.position, Parent.LockedTarget.rotation);
+
+		//prefab can handle this?
+		//CurrentInstantiateCube.GetComponent<Scaler>().duration = TimeToInstantiate;
+
 		this.transform.SetParent(null);
+		this.transform.position = Parent.LockedTarget.position;
+		this.transform.rotation = Parent.LockedTarget.rotation;
+		this.gameObject.AddComponent<Scaler>();
+		this.gameObject.GetComponent<Scaler>().duration = TimeToInstantiate;
+		this.gameObject.GetComponent<Scaler>().scaleUp = true;
 		BeingFired = true;
 	}
 	
@@ -33,17 +44,17 @@ public class Station : SubroutineMovement {
 	void Update () {
 		if (BeingFired)
 		{
-			if (CurrentFireTime > TimeToHardpoint)
+			if (CurrentInstantiateTime > TimeToInstantiate)
 			{
 				BeingFired = false;
-				this.transform.position = Parent.LockedTarget.position;
+
+				GameObject.Destroy(CurrentInstantiateCube.gameObject);
+
 				this.ShieldRenderer.material.color = HarmonicUtils.ColorWithAlpha(this.ShieldRenderer.material.color, this.originalAlpha);
 				
 				this.Parent.Function.TrackEnemy = true;
-			} else {
-				this.transform.position = Vector3.Lerp(firePosition, Parent.LockedTarget.position, CurrentFireTime / TimeToHardpoint);
 			}
-			CurrentFireTime += Time.deltaTime;
+			CurrentInstantiateTime += Time.deltaTime;
 		}
 		
 		if (!BeingFired && Parent.IsActive && (Parent.LockedTarget != null))

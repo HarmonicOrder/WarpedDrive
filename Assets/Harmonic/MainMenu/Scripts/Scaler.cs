@@ -5,6 +5,7 @@ public class Scaler : MonoBehaviour {
 
 	public bool scaleUp = false;
 	public float duration = 1f;
+
 	private float scaleTime = 0f;
 
 	void Start()
