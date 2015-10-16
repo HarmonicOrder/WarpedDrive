@@ -30,9 +30,6 @@ public class LazerBeam : MonoBehaviour {
 		if (this.liveFire)
 		{
 			this.liveFire = false;
-			this.GetComponent<Rigidbody>().isKinematic = false;
-			this.transform.GetComponentInChildren<LineRenderer>().enabled = false;
-			this.transform.GetComponent<ParticleSystem>().Emit(30);
 
 			if (coll.gameObject != null)
 			{
@@ -47,7 +44,18 @@ public class LazerBeam : MonoBehaviour {
 				{
 					s.TakeDamage(damage);
 				}
+				print (coll.gameObject.name);
 			}
+
+			killSelf();
 		}
+	}
+
+	private void killSelf()
+	{
+		this.GetComponent<Rigidbody>().isKinematic = false;
+		this.transform.GetComponentInChildren<LineRenderer>().enabled = false;
+		this.transform.GetComponent<ParticleSystem>().Emit(30);
+		this.transform.GetComponent<Collider>().enabled = false;
 	}
 }

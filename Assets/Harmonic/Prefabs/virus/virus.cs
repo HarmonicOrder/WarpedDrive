@@ -124,7 +124,9 @@ public class virus : VirusAI {
 		
 		CooldownRemaining = this.Info.FireRate;
 
-		GameObject.Instantiate(this.LazerPrefab, this.LazerStart.position, this.LazerStart.rotation);
+		Transform t = (Transform)GameObject.Instantiate(this.LazerPrefab, this.LazerStart.position, this.LazerStart.rotation);
+		
+		Physics.IgnoreCollision(this.GetComponent<Collider>(), t.GetComponent<Collider>());
 
 		StartCoroutine(this.WaitAndStopLaser());
 	}

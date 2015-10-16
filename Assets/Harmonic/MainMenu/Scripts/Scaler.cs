@@ -5,6 +5,8 @@ public class Scaler : MonoBehaviour {
 
 	public bool scaleUp = false;
 	public float duration = 1f;
+	public float scaleTo = 1f;
+	public Vector3 ScaleAxis = Vector3.forward;
 
 	private float scaleTime = 0f;
 
@@ -21,7 +23,7 @@ public class Scaler : MonoBehaviour {
 			if (scaleTime > duration)
 				scaleUp = false;
 			else 
-				this.transform.localScale = Vector3.Lerp(Vector3.forward, new Vector3(1f, 1f, 1f), Mathf.Min(1, scaleTime / duration));
+				this.transform.localScale = Vector3.Lerp(ScaleAxis, new Vector3(scaleTo, scaleTo, scaleTo), Mathf.Min(1, scaleTime / duration));
 		}
 	}
 }

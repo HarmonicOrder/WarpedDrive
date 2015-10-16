@@ -8,7 +8,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 415594}
-  - 114: {fileID: 11434754}
+  - 65: {fileID: 6526124}
+  - 54: {fileID: 5437858}
   m_Layer: 0
   m_Name: Instantiator
   m_TagString: Untagged
@@ -25,9 +26,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 402794}
   - 33: {fileID: 3391342}
-  - 65: {fileID: 6546590}
   - 23: {fileID: 2324900}
   - 114: {fileID: 11406050}
+  - 114: {fileID: 11421594}
   m_Layer: 0
   m_Name: pixelateCube
   m_TagString: Untagged
@@ -91,18 +92,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 198572}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &6546590
+--- !u!54 &5437858
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117566}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &6526124
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 198572}
+  m_GameObject: {fileID: 117566}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 8, y: 8, z: 8}
+  m_Center: {x: 0, y: 0, z: 3.5}
 --- !u!114 &11406050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -117,12 +133,12 @@ MonoBehaviour:
   pixelateInTime: 4
   fromCellSize: .0500000007
   toCellSize: .00100000005
---- !u!114 &11434754
+--- !u!114 &11421594
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117566}
+  m_GameObject: {fileID: 198572}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72b806afe323d5345bfcb6aa6114580f, type: 3}
@@ -130,6 +146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleUp: 1
   duration: 4
+  scaleTo: 8
+  ScaleAxis: {x: 1, y: 1, z: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
