@@ -30,7 +30,7 @@ public static class NetworkMap {
 				new NetworkLocation(){
 					Name = "Engineering",
 					sceneIndex = 2,
-					Children = new List<NetworkLocation>(){
+					Children = (IEnumerable<Location>)new List<NetworkLocation>(){
 						new NetworkLocation(){
 							Name = "Hydroponics",
 							sceneIndex = 3,
@@ -76,7 +76,7 @@ public static class NetworkMap {
 
 		foreach(NetworkLocation net in RootSubnets.Values)
 		{
-			candidate = net.FindByName(name);
+			candidate = (NetworkLocation)net.FindByName(name);
 			if (candidate != null)
 				return candidate;
 		}
