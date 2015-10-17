@@ -33,6 +33,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	private bool showingMainMenu;
 
 	void Awake() {
+		CyberspaceBattlefield.Current = new CyberspaceBattlefield();
 		StrategyConsole.Initialize(consoleText);
 
 		AlphaSubPrefab.GetComponent<Subroutine>().Status = AlphaStatus;
