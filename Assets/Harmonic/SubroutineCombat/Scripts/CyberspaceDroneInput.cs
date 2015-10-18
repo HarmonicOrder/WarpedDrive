@@ -27,8 +27,6 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
 	private Quaternion currentHeading;
 	private Quaternion currentLookRotation;
-	private Transform CurrentAlphaSubroutine;
-	private Transform CurrentBetaSubroutine;
 	private ILockTarget CurrentLock;
 	private bool showingMainMenu;
 
@@ -107,16 +105,14 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			HitCrosshair.enabled = false;
 		}
 
-		if (Input.GetKeyDown(KeyCode.Alpha1) && CurrentLock != null)
+		if (Input.GetKeyDown(KeyCode.Alpha1) && (CurrentLock != null) && (CurrentLock is VirusAI))
 		{
-			CurrentAlphaSubroutine = AlphaSubPrefab;
-			FireSubroutine(CurrentAlphaSubroutine);
+			FireSubroutine((Transform)Instantiate(AlphaSubPrefab, AlphaSubPrefab.position, AlphaSubPrefab.rotation));
 		}
 
 		if (Input.GetKeyDown(KeyCode.Alpha2) && CurrentLock != null)
 		{
-			CurrentBetaSubroutine = BetaSubPrefab;
-			FireSubroutine(CurrentBetaSubroutine);
+			FireSubroutine(Instantiate(BetaSubPrefab));
 		}
 
 		float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;

@@ -90,4 +90,8 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 	protected virtual void OnTakeDamage(float damage, float armorPointsLost, float hitPointsLost)
 	{
 	}
+
+	void OnDestroy(){
+		ActiveSubroutines.RemoveVirus(this);
+	}
 }

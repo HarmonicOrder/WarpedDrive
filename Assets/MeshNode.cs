@@ -67,6 +67,10 @@ public class MeshNode : MonoBehaviour, IMalware {
 		Instantiate(MiniExplosionPrefab, this.transform.position, Quaternion.identity);
 		GameObject.Destroy(this.gameObject);
 	}
-
+	
+	
+	void OnDestroy(){
+		ActiveSubroutines.RemoveVirus(this);
+	}
 
 }
