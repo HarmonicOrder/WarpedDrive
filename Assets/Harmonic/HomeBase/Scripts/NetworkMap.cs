@@ -30,7 +30,7 @@ public static class NetworkMap {
 				new NetworkLocation(){
 					Name = "Engineering",
 					sceneIndex = 2,
-					Children = (IEnumerable<Location>)new List<NetworkLocation>(){
+					Children = new List<Location>(){
 						new NetworkLocation(){
 							Name = "Hydroponics",
 							sceneIndex = 3,
