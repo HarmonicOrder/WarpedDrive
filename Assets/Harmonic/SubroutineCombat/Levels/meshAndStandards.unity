@@ -2104,8 +2104,48 @@ Prefab:
     - target: {fileID: 21266402, guid: 22c15be7bb87e03469cb3a440f600ad0, type: 2}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 4e3b5149d37f400409885b4af27ba98c,
+      objectReference: {fileID: 21300000, guid: bdf72886f2832d242a34b9c7cba8d5a0,
         type: 3}
+    - target: {fileID: 420654, guid: 22c15be7bb87e03469cb3a440f600ad0, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 420654, guid: 22c15be7bb87e03469cb3a440f600ad0, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 129.600006
+      objectReference: {fileID: 0}
+    - target: {fileID: 420654, guid: 22c15be7bb87e03469cb3a440f600ad0, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10279390, guid: 22c15be7bb87e03469cb3a440f600ad0, type: 2}
+      propertyPath: m_Alignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 10279390, guid: 22c15be7bb87e03469cb3a440f600ad0, type: 2}
+      propertyPath: m_Anchor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520716, guid: 22c15be7bb87e03469cb3a440f600ad0, type: 2}
+      propertyPath: m_Size.y
+      value: 18.2586536
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520716, guid: 22c15be7bb87e03469cb3a440f600ad0, type: 2}
+      propertyPath: m_Center.y
+      value: -9.1559515
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520716, guid: 22c15be7bb87e03469cb3a440f600ad0, type: 2}
+      propertyPath: m_Center.z
+      value: 1.54495247e-05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520716, guid: 22c15be7bb87e03469cb3a440f600ad0, type: 2}
+      propertyPath: m_Size.x
+      value: 69.9442062
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520716, guid: 22c15be7bb87e03469cb3a440f600ad0, type: 2}
+      propertyPath: m_Center.x
+      value: .689659119
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22c15be7bb87e03469cb3a440f600ad0, type: 2}
   m_IsPrefabParent: 0
@@ -2444,7 +2484,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4e3b5149d37f400409885b4af27ba98c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bdf72886f2832d242a34b9c7cba8d5a0, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: .316000015}
 --- !u!1 &1089258603
 GameObject:
@@ -4759,7 +4799,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 60cd1944b87499a468aa88c8baa44eff, type: 2}
     - target: {fileID: 2037948, guid: 13a65851ce995e34990a307539f6a724, type: 2}
       propertyPath: far clip plane
-      value: 1500
+      value: 2000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 13a65851ce995e34990a307539f6a724, type: 2}
