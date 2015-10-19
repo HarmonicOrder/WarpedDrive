@@ -24,6 +24,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public MeshRenderer Crosshair;
 	public RectTransform Menu;
 	public Text consoleText;
+	public Transform TracerStartPosition;
 
 	private Quaternion currentHeading;
 	private Quaternion currentLookRotation;
@@ -112,7 +113,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Alpha1) && (CurrentLock != null) && (CurrentLock is VirusAI))
 		{
-			FireSubroutine((Transform)Instantiate(AlphaSubPrefab, AlphaSubPrefab.position, AlphaSubPrefab.rotation));
+			FireSubroutine((Transform)Instantiate(AlphaSubPrefab, TracerStartPosition.position, TracerStartPosition.rotation));
 		}
 
 		if (Input.GetKeyDown(KeyCode.Alpha2) && CurrentLock != null)

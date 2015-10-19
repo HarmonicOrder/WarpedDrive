@@ -10,7 +10,7 @@ public class SubroutineFunction : MonoBehaviour {
 	protected IMalware closestVirus;
 	protected float CooldownRemaining = -1f;
 	protected bool isFiring = false;
-	protected float Range = 999f;
+	public float Range = 300f;
 
 	// Use this for initialization
 	void Start () {

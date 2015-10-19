@@ -72,7 +72,7 @@ public class bombVirus : VirusAI {
 		this.OnVirusDead();
 	}
 
-	protected override void OnVirusDead ()
+	protected override void OnVirusDead()
 	{
 		GameObject.Instantiate(this.ExplosionPrefab, this.transform.position, Quaternion.identity);
 		for(int i = 0; i < DestroyBeforeExplosion.Length; i++)
@@ -83,12 +83,6 @@ public class bombVirus : VirusAI {
 				GameObject.Destroy(t.gameObject);
 		}
 		base.OnVirusDead ();
-		StartCoroutine(SelfDestruct());
-	}
-
-	private IEnumerator SelfDestruct()
-	{		
-		yield return new WaitForSeconds(this.ExplodingTime);
-		GameObject.Destroy(this.gameObject);
+		StartCoroutine(SelfDestruct(this.ExplodingTime));
 	}
 }

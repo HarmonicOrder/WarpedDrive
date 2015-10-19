@@ -85,12 +85,11 @@ public class Subroutine : Actor {
 		{
 			GameObject.Instantiate(ExplosionPrefab, this.transform.position, Quaternion.identity);
 
-			this.transform.SetParent(this.StartingPosition);
-			this.transform.localPosition = Vector3.zero;
-			this.transform.localRotation = Quaternion.Euler(Vector3.forward);
 			this.Deactivate();
 			if (this.OnSubroutineDead != null)
 				this.OnSubroutineDead();
+
+			GameObject.Destroy(this.gameObject);
 		} else {
 			if (this.OnSubroutineTakeDamage != null)
 				this.OnSubroutineTakeDamage(this.Info.HitPoints, this.Info.MaxHitPoints);

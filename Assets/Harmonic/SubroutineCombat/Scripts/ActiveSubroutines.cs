@@ -57,4 +57,32 @@ public static class ActiveSubroutines {
 		if (OnMalwareListChange != null)
 			OnMalwareListChange();
 	}
+
+	
+	
+	public static Transform FindClosestActiveSubroutine(Vector3 fromPosition, float range)
+	{
+		if (ActiveSubroutines.List.Count == 0)
+		{
+			return null;
+		}
+		
+		//comparing range squared vs magnitude squared is a performance enhancement
+		//it eliminates the expensive square root calculation
+		float closest = range * range;
+		Transform result = null;
+		foreach( Subroutine mal in ActiveSubroutines.List)
+		{
+			float dist = (mal.transform.position - fromPosition).sqrMagnitude; 
+			//if this has a higher priority than now
+			//and the distance is closer
+			if (dist < closest)
+			{
+				result = mal.transform;
+				closest = dist;
+			}
+		}
+
+		return result;
+	}
 }

@@ -24,4 +24,10 @@ public class Actor : MonoBehaviour {
 	}
 	
 	protected virtual void OnUpdate(){}
+	
+	protected IEnumerator SelfDestruct(float timer)
+	{		
+		yield return new WaitForSeconds(timer);
+		GameObject.Destroy(this.gameObject);
+	}
 }

@@ -29,12 +29,14 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 
 	public void OnSubroutineActive(Subroutine sub)
 	{
-		this.targetT = sub.transform;
+		//todo: remove magic number
+		this.targetT = ActiveSubroutines.FindClosestActiveSubroutine(this.transform.position, 300f);
 	}
 	
 	public void OnSubroutineInactive(Subroutine sub)
 	{
-		this.targetT = null;
+		//todo: remove magic number
+		this.targetT = ActiveSubroutines.FindClosestActiveSubroutine(this.transform.position, 300f);
 	}
 
 	
