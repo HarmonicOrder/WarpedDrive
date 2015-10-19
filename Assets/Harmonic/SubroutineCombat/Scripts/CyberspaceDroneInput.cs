@@ -91,6 +91,11 @@ public class CyberspaceDroneInput : MonoBehaviour {
 				{
 					AssignLockTarget(LeftClick, h);
 				}
+
+				if ((rayHit.collider.name == "SubnetworkText") && LeftClick)
+				{
+					this.transform.position = rayHit.collider.transform.parent.parent.position;
+				}
 			}
 			
 			HitCrosshair.enabled = true;

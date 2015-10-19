@@ -11,7 +11,9 @@ GameObject:
   - 23: {fileID: 2388366}
   - 102: {fileID: 10279390}
   - 114: {fileID: 11489486}
-  m_Layer: 0
+  - 65: {fileID: 6520716}
+  - 54: {fileID: 5488150}
+  m_Layer: 9
   m_Name: SubnetworkText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,6 +114,33 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!54 &5488150
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107538}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &6520716
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107538}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 64.9000015, y: 18.9199982, z: 0}
+  m_Center: {x: -32.4500008, y: -3.81469727e-06, z: -1.52587891e-05}
 --- !u!102 &10279390
 TextMesh:
   serializedVersion: 3
