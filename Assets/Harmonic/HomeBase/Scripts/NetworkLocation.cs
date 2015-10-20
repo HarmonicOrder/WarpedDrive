@@ -5,4 +5,5 @@ using System.Collections.Generic;
 public class NetworkLocation : Location {
 	public int sceneIndex {get;set;}
 	public bool IsInfected {get;set;}
+	public List<Machine> Machines {get;set;}
 }

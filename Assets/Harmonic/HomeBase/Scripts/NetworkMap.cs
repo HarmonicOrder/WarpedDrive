@@ -39,7 +39,20 @@ public static class NetworkMap {
 						new NetworkLocation(){
 							Name = "Reactor Control",
 							sceneIndex = 4,
-							IsInfected = true
+							IsInfected = true,
+							Machines = new List<Machine>()
+							{
+								new Machine()
+								{
+									Name = "GatewayMachine",
+									CPUCores = 4
+								},
+								new Machine()
+								{
+									Name = "ServerMachine",
+									CPUCores = 2
+								}
+							}
 						},
 						new NetworkLocation(){
 							Name = "Propulsion",
@@ -84,4 +97,42 @@ public static class NetworkMap {
 		return null;
 	}
 
+	public static NetworkLocation GetLocationByCurrentScene()
+	{		
+		IEnumerable<Location> coll = ConvertToList(RootSubnets.Values);
+		if (coll != null)
+			return LocByCurrentScene(coll);
+		else 
+			return null;
+	}
+
+	private static NetworkLocation LocByCurrentScene(IEnumerable<Location> collection)
+	{
+		Location candidate = null;
+		foreach(Location net in collection)
+		{
+			if ((net as NetworkLocation).sceneIndex == Application.loadedLevel)
+				candidate = net;
+			else if (net.Children != null)
+				candidate = LocByCurrentScene(net.Children);
+
+			if (candidate != null)
+				return (NetworkLocation)candidate;
+		}
+
+		return null;
+	}
+
+	private static IEnumerable<Location> ConvertToList(Dictionary<string, NetworkLocation>.ValueCollection values)
+	{
+		//it has to be downcast
+		List<Location> list = new List<Location>();
+		foreach(NetworkLocation netLoc in values)
+		{
+			//i would do addRange but it can't downcast while doing that
+			Debug.Log("adding");
+			list.Add(netLoc);
+		}
+		return list;
+	}
 }

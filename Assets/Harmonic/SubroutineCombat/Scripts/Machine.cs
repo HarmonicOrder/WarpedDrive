@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class SubnetworkLocation : Location {
+public class Machine : Location {
 
 	public static string[,] Phonetic = new string[4,6]{
 		{"alpha", "bravo", "charlie", "delta", "echo", "foxtrot"},
@@ -13,8 +13,10 @@ public class SubnetworkLocation : Location {
 	};
 	public string SubnetAddress;
 	public string HumanSubnetAddress;
+	public int CPUCores;
+	public bool IsInfected;
 
-	public SubnetworkLocation()
+	public Machine()
 	{
 		SetRandomSubnetAddress();
 	}
@@ -29,13 +31,11 @@ public class SubnetworkLocation : Location {
 	private const string hexChars = "0123456789abcdef";
 	private static string GetFourRandomHexcodes()
 	{
-		System.Random r = new System.Random();
 		System.Text.StringBuilder result = new System.Text.StringBuilder(4);
 		result.Append("::");
 		for (int i = 0; i < 4; i++) {
-			result.Append(hexChars[r.Next(hexChars.Length)]);
+			result.Append(hexChars[Random.Range(0, hexChars.Length)]);
 		}
-		Debug.Log(result.ToString());
 		return result.ToString();
 	}
 	
