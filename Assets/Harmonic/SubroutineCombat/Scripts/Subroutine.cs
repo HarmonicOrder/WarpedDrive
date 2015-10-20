@@ -89,6 +89,8 @@ public class Subroutine : Actor {
 			if (this.OnSubroutineDead != null)
 				this.OnSubroutineDead();
 
+			CyberspaceBattlefield.Current.ReclaimCores(this.Info.CoreCost);
+
 			GameObject.Destroy(this.gameObject);
 		} else {
 			if (this.OnSubroutineTakeDamage != null)

@@ -113,12 +113,16 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Alpha1) && (CurrentLock != null) && (CurrentLock is VirusAI))
 		{
-			FireSubroutine((Transform)Instantiate(AlphaSubPrefab, TracerStartPosition.position, TracerStartPosition.rotation));
+			if (CyberspaceBattlefield.Current.ProvisionCores(1)){
+				FireSubroutine((Transform)Instantiate(AlphaSubPrefab, TracerStartPosition.position, TracerStartPosition.rotation));
+			}
 		}
 
 		if (Input.GetKeyDown(KeyCode.Alpha2) && CurrentLock != null)
 		{
-			FireSubroutine(Instantiate(BetaSubPrefab));
+			if (CyberspaceBattlefield.Current.ProvisionCores(2)){
+				FireSubroutine(Instantiate(BetaSubPrefab));
+			}
 		}
 
 		float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;

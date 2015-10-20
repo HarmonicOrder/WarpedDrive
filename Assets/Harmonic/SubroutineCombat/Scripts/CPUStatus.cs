@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CPUStatus : MonoBehaviour {
 	public float MaxWidth = 500f;
+	public Text CPUTextLine;
 	public RectTransform CPUBar;
 
 	// Use this for initialization
 	void Start () {
 		CyberspaceBattlefield.Current.OnCoreChange += OnCPUChange;
+		OnCPUChange();
 	}
 
 	public void OnCPUChange()
@@ -15,6 +18,7 @@ public class CPUStatus : MonoBehaviour {
 		string newCPUString = string.Format("{0} / {1} / {2} CPU Cores", CyberspaceBattlefield.Current.UsedCores, CyberspaceBattlefield.Current.CurrentCores, CyberspaceBattlefield.Current.TotalCores);
 		float denom = Mathf.Max(CyberspaceBattlefield.Current.CurrentCores, 1f);
 		SetBarByPercentage(CyberspaceBattlefield.Current.UsedCores / denom);
+		CPUTextLine.text = newCPUString;
 	}
 	
 	

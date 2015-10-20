@@ -13,6 +13,7 @@ public class Delete : SubroutineFunction {
 	void Start () {
 		this.Parent.Info.DamagePerHit = 1f;
 		this.Parent.Info.FireRate = 1f;	
+		this.Parent.Info.CoreCost += 1;
 		leftGun = HarmonicUtils.FindInChildren(this.Parent.FunctionRoot, "CrosshairLeft");
 		rightGun = HarmonicUtils.FindInChildren(this.Parent.FunctionRoot, "CrosshairRight");
 	}

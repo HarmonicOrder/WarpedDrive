@@ -45,12 +45,14 @@ public static class NetworkMap {
 								new Machine()
 								{
 									Name = "GatewayMachine",
-									CPUCores = 4
+									CPUCores = 4,
+									IsInfected = false
 								},
 								new Machine()
 								{
 									Name = "ServerMachine",
-									CPUCores = 2
+									CPUCores = 2,
+									IsInfected = true
 								}
 							}
 						},

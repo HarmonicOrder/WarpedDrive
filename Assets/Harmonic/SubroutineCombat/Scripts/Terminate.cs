@@ -15,6 +15,7 @@ public class Terminate : SubroutineFunction {
 		TerminateLineRenderer.SetVertexCount(0);
 		this.Parent.Info.DamagePerHit = 5f;
 		this.Parent.Info.FireRate = 5f;
+		this.Parent.Info.CoreCost += 2;
 	}
 	
 	// Update is called once per frame

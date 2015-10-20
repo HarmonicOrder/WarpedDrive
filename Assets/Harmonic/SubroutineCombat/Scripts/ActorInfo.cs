@@ -18,6 +18,7 @@ public class ActorInfo {
 			return HitPoints + ArmorPoints;
 		}
 	}
+	public int CoreCost = 0;
 	public string Name = "";
 
 
