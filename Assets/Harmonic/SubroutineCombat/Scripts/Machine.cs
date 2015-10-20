@@ -15,6 +15,10 @@ public class Machine : Location {
 	public string HumanSubnetAddress;
 	public int CPUCores;
 	public bool IsInfected;
+	public List<IMalware> ActiveMalware = new List<IMalware>();
+
+	public delegate void SystemCleanEvent();
+	public SystemCleanEvent OnSystemClean;
 
 	public Machine()
 	{

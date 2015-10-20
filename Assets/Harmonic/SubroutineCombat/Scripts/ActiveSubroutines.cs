@@ -47,12 +47,25 @@ public static class ActiveSubroutines {
 	public static void AddVirus(IMalware newVirus)
 	{
 		MalwareList.Add(newVirus);
+
+		Machine m = CyberspaceBattlefield.Current.FindByName(newVirus.transform.root.name);
+		if (m != null)
+			m.ActiveMalware.Add(newVirus);
+
 		if (OnMalwareListChange != null)
 			OnMalwareListChange();
 	}
 
 	public static void RemoveVirus(IMalware oldVirus)
 	{
+		Machine m = CyberspaceBattlefield.Current.FindByName(oldVirus.transform.root.name);
+		if (m != null)
+		{
+			m.ActiveMalware.Remove(oldVirus);
+			if ((m.ActiveMalware.Count == 0) && (m.OnSystemClean != null))
+				m.OnSystemClean();
+		}
+
 		MalwareList.Remove(oldVirus);
 		if (OnMalwareListChange != null)
 			OnMalwareListChange();
