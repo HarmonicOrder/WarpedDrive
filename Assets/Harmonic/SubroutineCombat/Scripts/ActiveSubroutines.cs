@@ -63,6 +63,7 @@ public static class ActiveSubroutines {
 		{
 			m.ActiveMalware.Remove(oldVirus);
 			if ((m.ActiveMalware.Count == 0) && (m.OnSystemClean != null))
+				m.IsInfected = false;
 				m.OnSystemClean();
 		}
 
