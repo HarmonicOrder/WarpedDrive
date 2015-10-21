@@ -8,10 +8,10 @@ public class Tracer : SubroutineMovement {
 	public float followDistance = 30f;
 	public float moveSpeed = 20f;
 	public float fireSpeed = 100f;
-	public float FireDistance = 200f;
+	public float FireTime = 1f;
 
 	private bool BeingFired = false; //maybe add public getter
-	private float CurrentFireDistance = 0f;
+	private float CurrentFireTime = 0f;
 
 	// Use this for initialization
 	void Start () {
@@ -20,44 +20,40 @@ public class Tracer : SubroutineMovement {
 
 	public override void Fire()
 	{
-		CurrentFireDistance = 0f;
+		CurrentFireTime = 0f;
 		this.transform.SetParent(null);
-		BeingFired = true;
+		this.Parent.Function.TrackEnemy = true;
+		//BeingFired = true;
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if(Parent.IsActive)
 		{
-			if (BeingFired)
+			float moveSpeed = this.moveSpeed;
+
+			if (CurrentFireTime <= FireTime)
 			{
-				if (CurrentFireDistance >= FireDistance)
-				{
-					BeingFired = false;
-					this.Parent.Function.TrackEnemy = true;
-				} else {
-					this.transform.Translate(0, 0, Time.deltaTime * this.fireSpeed, Space.Self);
-					CurrentFireDistance += Time.deltaTime * this.fireSpeed;
-				}
+				CurrentFireTime += Time.deltaTime;
+				moveSpeed = this.fireSpeed;
 			}
-			else if (Parent.LockedTarget != null)
+
+			if (Parent.LockedTarget != null)
 			{
 				Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
 				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);
-				
-				//print (relativePos.magnitude);
 				
 				if (relativePos.magnitude > this.engagementDistance)
 				{
 					//do not engage
 				} 
 				else if (relativePos.magnitude < followDistance){
-					this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed / 3f, Space.Self);
+					this.transform.Translate(0, 0, Time.deltaTime * moveSpeed / 3f, Space.Self);
 				}
 				else 
 				{
 					//within engagement, outside optimum, move closer
-					this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed, Space.Self);
+					this.transform.Translate(0, 0, Time.deltaTime * moveSpeed, Space.Self);
 				}
 			}
 		}

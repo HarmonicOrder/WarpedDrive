@@ -22,6 +22,7 @@ public class MachineLabel : MonoBehaviour {
 	}
 
 	private void OnSystemClean() {
+
 		UpdateText();
 		UpdateFence();
 	}
