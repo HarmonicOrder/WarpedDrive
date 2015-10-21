@@ -36,10 +36,10 @@ public class SubroutineFunction : MonoBehaviour {
 		float closest = Range * Range;
 		foreach( IMalware mal in ActiveSubroutines.MalwareList)
 		{
-			float dist = (mal.transform.position - this.transform.position).sqrMagnitude; 
+			float dist = (mal.transform.position - this.transform.position).sqrMagnitude / mal.AttackPriority; 
 			//if this has a higher priority than now
 			//and the distance is closer
-			if (dist < closest * mal.AttackPriority)
+			if (dist < closest)
 			{
 				this.closestVirus = mal;
 				this.closestTransform = mal.transform;
