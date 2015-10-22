@@ -98,7 +98,7 @@ public class HomeBase : MonoBehaviour {
 		{
 			isSelectingServer = false;
 			isWarping = true;
-			homeFiberGate.LookAt(currentSubnet.transform.position);
+			homeFiberGate.LookAt(HarmonicUtils.FindInChildren(currentServer.transform, "gateway").position);
 			zoomScript.afterZoom = new CameraZoomToZoom.AfterZoomFinished(AfterSubnetZoom);
 			zoomScript.ZoomTo(homeFiberGate.FindChild("gatewayStartNode"), 2f);
 		}
