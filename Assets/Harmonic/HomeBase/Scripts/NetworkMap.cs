@@ -34,7 +34,22 @@ public static class NetworkMap {
 						new NetworkLocation(){
 							Name = "Hydroponics",
 							sceneIndex = 3,
-							IsInfected = true
+							IsInfected = true,
+							Machines = new List<Machine>()
+							{
+								new Machine()
+								{
+									Name = "GatewayMachine",
+									CPUCores = 4,
+									IsInfected = false
+								},
+								new Machine()
+								{
+									Name = "DBMachine",
+									CPUCores = 2,
+									IsInfected = true
+								}
+							}
 						},
 						new NetworkLocation(){
 							Name = "Reactor Control",
@@ -64,7 +79,28 @@ public static class NetworkMap {
 						new NetworkLocation(){
 							Name = "3DPrintshop",
 							sceneIndex = 6,
-							IsInfected = true
+							IsInfected = true,
+							Machines = new List<Machine>()
+							{
+								new Machine()
+								{
+									Name = "GatewayMachine",
+									CPUCores = 4,
+									IsInfected = false
+								},
+								new Machine()
+								{
+									Name = "DBMachine",
+									CPUCores = 2,
+									IsInfected = true
+								},
+								new Machine()
+								{
+									Name = "DBMachine2",
+									CPUCores = 6,
+									IsInfected = true
+								}
+							}
 						}
 					}
 				}
