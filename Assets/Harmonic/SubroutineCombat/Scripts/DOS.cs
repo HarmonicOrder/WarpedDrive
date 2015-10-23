@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class DOS : MonoBehaviour {
+	public float Damage = 1f;
 
 	// Use this for initialization
 	void Start () {
@@ -50,12 +51,10 @@ public class DOS : MonoBehaviour {
 			yield return null;
 		}
 
-		this.target = ActiveSubroutines.FindClosestMalware(this.transform.position, 999f);
-		this.lerpFrom = this.transform.position;
+		AcquireTarget();
+
 		this.pointAt = this.target.transform.root.Find("EthernetJack");
 
-		CurrentIterationTime = 0f;
-		IterationTime = 1f;
 
 		while(CurrentIterationTime < IterationTime)
 		{
@@ -72,13 +71,32 @@ public class DOS : MonoBehaviour {
 		CurrentIterationTime = 0f;
 		IterationTime = 1f;
 		this.lerpFrom = this.transform.position;
+		this.pointAt = this.target.transform;
 
 		while(CurrentIterationTime < IterationTime)
 		{
 			CurrentIterationTime += Time.deltaTime;
-			this.transform.position = Vector3.Lerp(lerpFrom, this.target.transform.position, CurrentIterationTime / IterationTime);
+			if ((this.target == null) || ((this.target as MonoBehaviour).enabled == false))
+				AcquireTarget();
+
+			if (this.target != null)
+				this.transform.position = Vector3.Lerp(lerpFrom, this.target.transform.position, CurrentIterationTime / IterationTime);
 			yield return null;
 		}
+
+		if (this.target != null)
+			this.target.TakeDamage(Damage);
+
+		GameObject.Destroy(this.gameObject);
+
+	}
+
+	private void AcquireTarget()
+	{
+		this.target = ActiveSubroutines.FindClosestMalware(this.transform.position, 999f);
+		this.lerpFrom = this.transform.position;
+		CurrentIterationTime = 0f;
+		IterationTime = 1f;
 	}
 
 
