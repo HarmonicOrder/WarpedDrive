@@ -101,4 +101,32 @@ public static class ActiveSubroutines {
 
 		return result;
 	}
+
+	
+	public static IMalware FindClosestMalware(Vector3 fromPosition, float Range)
+	{
+		if (ActiveSubroutines.MalwareList.Count == 0)
+		{
+			return null;
+		}
+		
+		//comparing range squared vs magnitude squared is a performance enhancement
+		//it eliminates the expensive square root calculation
+		float closest = Range * Range;
+
+		IMalware closeIMal = null;
+
+		foreach( IMalware mal in ActiveSubroutines.MalwareList)
+		{
+			float dist = (mal.transform.position - fromPosition).sqrMagnitude / mal.AttackPriority; 
+			//if this has a higher priority than now
+			//and the distance is closer
+			if (dist < closest)
+			{
+				closeIMal = mal;
+			}
+		}
+
+		return closeIMal;
+	}
 }
