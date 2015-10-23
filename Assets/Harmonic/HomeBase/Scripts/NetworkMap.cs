@@ -74,7 +74,22 @@ public static class NetworkMap {
 						new NetworkLocation(){
 							Name = "Propulsion",
 							sceneIndex = 5,
-							IsInfected = true
+							IsInfected = true,
+							Machines = new List<Machine>()
+							{
+								new Machine()
+								{
+									Name = "GatewayMachine",
+									CPUCores = 4,
+									IsInfected = false
+								},
+								new Machine()
+								{
+									Name = "ServerMachine",
+									CPUCores = 2,
+									IsInfected = true
+								}
+							}
 						},
 						new NetworkLocation(){
 							Name = "3DPrintshop",

@@ -31,6 +31,11 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	private ILockTarget CurrentLock;
 	private bool showingMainMenu;
 
+	private bool lerpToMachine = false;
+	private float currentLerpTime = 0f;
+	private float lerpToTime = .5f;
+	private Vector3 lerpFrom, lerpTo;
+
 	void Awake() {
 		CyberspaceBattlefield.Current = new CyberspaceBattlefield();
 		StrategyConsole.Initialize(consoleText);
@@ -53,19 +58,21 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		if (CrossPlatformInputManager.GetButtonDown("Cancel")){
 			showingMainMenu = !showingMainMenu;
 
-			if (showingMainMenu)
+			ToggleMenu(showingMainMenu);
+		}
+
+		if (lerpToMachine)
+		{
+			if (currentLerpTime > lerpToTime)
 			{
-				Menu.gameObject.SetActive(true);
-				Crosshair.gameObject.SetActive(false);
-				HitCrosshair.gameObject.SetActive(false);
-				Cursor.visible = true;
+				this.transform.position = lerpTo;
+				currentLerpTime = 0f;
+				lerpToMachine = false;
 			}
-			else 
+			else
 			{
-				Menu.gameObject.SetActive(false);
-				Crosshair.gameObject.SetActive(true);
-				HitCrosshair.gameObject.SetActive(true);
-				Cursor.visible = false;
+				this.transform.position = Vector3.Lerp(lerpFrom, lerpTo, currentLerpTime / lerpToTime);
+				currentLerpTime += Time.deltaTime;
 			}
 		}
 
@@ -95,7 +102,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
 				if ((rayHit.collider.name == "SubnetworkText") && LeftClick)
 				{
-					this.transform.position = rayHit.collider.transform.parent.parent.position;
+					//super hack
+					lerpTo = rayHit.collider.transform.parent.parent.position;
+					lerpFrom = this.transform.position;
+					lerpToMachine = true;
 				}
 			}
 			
@@ -153,6 +163,14 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);	
 	}
 
+	private void ToggleMenu(bool showMenu)
+	{
+		Menu.gameObject.SetActive(showMenu);
+		Crosshair.gameObject.SetActive(!showMenu);
+		HitCrosshair.gameObject.SetActive(!showMenu);
+		Cursor.visible = showMenu;
+	}
+	
 	public void BackToNetwork()
 	{
 		var pixelater = new PixelateTransition()
