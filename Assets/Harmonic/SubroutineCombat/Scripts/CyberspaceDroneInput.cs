@@ -89,6 +89,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 				//print (rayHit.collider.transform.parent.name);
 				VirusAI v = (VirusAI)rayHit.collider.GetComponentInParent(typeof(VirusAI));
 				Hardpoint h = (Hardpoint)rayHit.collider.GetComponentInParent(typeof(Hardpoint));
+				Webserver w = (Webserver)rayHit.collider.GetComponentInParent(typeof(Webserver));
 				if (v)
 				{
 					TargetGuiText.text = v.Info.GetTargetRichText();
@@ -98,6 +99,11 @@ public class CyberspaceDroneInput : MonoBehaviour {
 				if (h)
 				{
 					AssignLockTarget(LeftClick, h);
+				}
+
+				if (w && LeftClick)
+				{
+					w.Activate();
 				}
 
 				if ((rayHit.collider.name == "SubnetworkText") && LeftClick)
