@@ -116,6 +116,32 @@ public static class NetworkMap {
 									IsInfected = true
 								}
 							}
+						},
+						new NetworkLocation(){
+							Name = "3DPrintshop",
+							sceneIndex = 7,
+							IsInfected = true,
+							Machines = new List<Machine>()
+							{
+								new Machine()
+								{
+									Name = "GatewayMachine",
+									CPUCores = 4,
+									IsInfected = false
+								},
+								new Machine()
+								{
+									Name = "ServerMachine",
+									CPUCores = 2,
+									IsInfected = true
+								},
+								new Machine()
+								{
+									Name = "DBMachine",
+									CPUCores = 6,
+									IsInfected = true
+								}
+							}
 						}
 					}
 				}
