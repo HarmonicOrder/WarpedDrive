@@ -87,15 +87,18 @@ public static class ActiveSubroutines {
 		//it eliminates the expensive square root calculation
 		float closest = range * range;
 		Transform result = null;
-		foreach( Subroutine mal in ActiveSubroutines.List)
+		foreach( Subroutine sub in ActiveSubroutines.List)
 		{
-			float dist = (mal.transform.position - fromPosition).sqrMagnitude; 
-			//if this has a higher priority than now
-			//and the distance is closer
-			if (dist < closest)
+			if ((sub != null) && (sub.transform != null))
 			{
-				result = mal.transform;
-				closest = dist;
+				float dist = (sub.transform.position - fromPosition).sqrMagnitude; 
+				//if this has a higher priority than now
+				//and the distance is closer
+				if (dist < closest)
+				{
+					result = sub.transform;
+					closest = dist;
+				}
 			}
 		}
 
