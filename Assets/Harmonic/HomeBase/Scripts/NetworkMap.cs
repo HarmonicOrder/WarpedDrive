@@ -132,13 +132,19 @@ public static class NetworkMap {
 								new Machine()
 								{
 									Name = "ServerMachine",
+									CPUCores = 4,
+									IsInfected = true
+								},
+								new Machine()
+								{
+									Name = "KeystoreMachine",
 									CPUCores = 2,
 									IsInfected = true
 								},
 								new Machine()
 								{
 									Name = "DBMachine",
-									CPUCores = 6,
+									CPUCores = 2,
 									IsInfected = true
 								}
 							}
