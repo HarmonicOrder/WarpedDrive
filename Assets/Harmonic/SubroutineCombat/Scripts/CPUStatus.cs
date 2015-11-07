@@ -15,7 +15,7 @@ public class CPUStatus : MonoBehaviour {
 
 	public void OnCPUChange()
 	{
-		string newCPUString = string.Format("{0} / {1} / {2} CPU Cores", CyberspaceBattlefield.Current.UsedCores, CyberspaceBattlefield.Current.CurrentCores, CyberspaceBattlefield.Current.TotalCores);
+        string newCPUString = string.Format("{0} / {1} / {2} CPU ¢ores", CyberspaceBattlefield.Current.UsedCores, CyberspaceBattlefield.Current.CurrentCores, CyberspaceBattlefield.Current.TotalCores);
 		float denom = Mathf.Max(CyberspaceBattlefield.Current.CurrentCores, 1f);
 		SetBarByPercentage(CyberspaceBattlefield.Current.UsedCores / denom);
 		CPUTextLine.text = newCPUString;

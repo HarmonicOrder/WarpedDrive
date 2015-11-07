@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Webserver : MonoBehaviour {
+public class Webserver : MonoBehaviour, IActivatable {
 
 	public Transform DOSPrefab;
 	public List<Transform> Hangars;
