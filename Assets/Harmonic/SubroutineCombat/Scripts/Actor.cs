@@ -22,8 +22,16 @@ public class Actor : MonoBehaviour {
 	void Update () {
 		OnUpdate();
 	}
-	
-	protected virtual void OnUpdate(){}
+
+    protected virtual void OnUpdate() { }
+
+
+    void Destroy()
+    {
+        OnDestroy();
+    }
+
+    protected virtual void OnDestroy() { }
 	
 	protected IEnumerator SelfDestruct(float timer)
 	{		

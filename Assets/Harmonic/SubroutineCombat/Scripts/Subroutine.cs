@@ -34,8 +34,9 @@ public class Subroutine : Actor {
 	}
 
 	public bool IsActive {get;set;}
-
 	public Transform StartingPosition {get;set;}
+
+    private Machine DeployedMachine { get; set; }
 
 	protected override void OnAwake(){
 		this.Movement = this.GetComponent<SubroutineMovement>();
@@ -69,6 +70,11 @@ public class Subroutine : Actor {
 			if (this.OnSubroutineActive != null)
 				this.OnSubroutineActive();
 		}
+        if (this._lockedTarget != null)
+        {
+            this.DeployedMachine = CyberspaceBattlefield.Current.FindByName(this._lockedTarget.root.name);
+            this.DeployedMachine.OnSystemClean += OnMachineClean;
+        }
 	}
 
 	public void Deactivate()
@@ -84,17 +90,34 @@ public class Subroutine : Actor {
 		if (this.Info.HitPoints < 0f)
 		{
 			GameObject.Instantiate(ExplosionPrefab, this.transform.position, Quaternion.identity);
-
-			this.Deactivate();
-			if (this.OnSubroutineDead != null)
-				this.OnSubroutineDead();
-
-			CyberspaceBattlefield.Current.ReclaimCores(this.Info.CoreCost);
-
-			GameObject.Destroy(this.gameObject);
+            Die();
 		} else {
 			if (this.OnSubroutineTakeDamage != null)
 				this.OnSubroutineTakeDamage(this.Info.HitPoints, this.Info.MaxHitPoints);
 		}
 	}
+
+    private void Die()
+    {
+        this.Deactivate();
+        if (this.OnSubroutineDead != null)
+            this.OnSubroutineDead();
+
+        CyberspaceBattlefield.Current.ReclaimCores(this.Info.CoreCost);
+
+        GameObject.Destroy(this.gameObject);
+    }
+
+    protected override void OnDestroy()
+    {
+        if (this.DeployedMachine != null)
+        {
+            this.DeployedMachine.OnSystemClean -= OnMachineClean;
+        }
+    }
+
+    private void OnMachineClean()
+    {
+        Die();
+    }
 }

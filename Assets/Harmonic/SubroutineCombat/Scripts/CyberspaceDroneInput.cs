@@ -88,30 +88,38 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			{
 				//print (rayHit.collider.transform.parent.name);
 				VirusAI v = (VirusAI)rayHit.collider.GetComponentInParent(typeof(VirusAI));
-				Hardpoint h = (Hardpoint)rayHit.collider.GetComponentInParent(typeof(Hardpoint));
-                IActivatable a = (IActivatable)rayHit.collider.GetComponentInParent(typeof(IActivatable));
 				if (v)
 				{
 					TargetGuiText.text = v.Info.GetTargetRichText();
 					AssignLockTarget(LeftClick, v);
 				}
 
+				Hardpoint h = (Hardpoint)rayHit.collider.GetComponentInParent(typeof(Hardpoint));
 				if (h)
 				{
 					AssignLockTarget(LeftClick, h);
 				}
 
+                IActivatable a = (IActivatable)rayHit.collider.GetComponentInParent(typeof(IActivatable));
 				if ((a != null) && LeftClick)
 				{
 					a.Activate();
 				}
 
-				if ((rayHit.collider.name == "SubnetworkText") && LeftClick)
+                MachineLabel m = rayHit.collider.GetComponent<MachineLabel>();
+				if ((m != null) && LeftClick)
 				{
-					//super hack
-					lerpTo = rayHit.collider.transform.parent.parent.position;
-					lerpFrom = this.transform.position;
-					lerpToMachine = true;
+                    if (m.myMachine.IsAccessible)
+                    {
+					    //super hack
+					    lerpTo = rayHit.collider.transform.parent.parent.position;
+					    lerpFrom = this.transform.position;
+					    lerpToMachine = true;
+                    }
+                    else
+                    {
+                        ToastLog.Toast("Machine\nInaccessible");
+                    }
 				}
 			}
 			

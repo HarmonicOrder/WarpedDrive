@@ -8,7 +8,7 @@ public class MachineLabel : MonoBehaviour {
 	public SpriteRenderer FenceRenderer;
 
 	private Transform Root;
-	private Machine myMachine;
+	public Machine myMachine;
 	private TextMesh myText;
 
 	// Use this for initialization

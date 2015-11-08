@@ -29,6 +29,8 @@ public class SSH : NetworkLocationButton, IKeyListener, IActivatable {
     {
         TunnelViz.gameObject.SetActive(true);
         ToastLog.Toast("SSH Tunnel\nOpened");
+        Machine myMachine = CyberspaceBattlefield.Current.FindByName(wipeCube.root.name);
+        myMachine.IsAccessible = true;
         if (wipeCube != null)
             StartCoroutine(CloseCube());
         StartCoroutine(Close());
@@ -41,11 +43,13 @@ public class SSH : NetworkLocationButton, IKeyListener, IActivatable {
 
     public IEnumerator CloseCube()
     {
-        //while (wipeCube.localPosition.y < 1000f)
-        //{
-        //    this.wipeCube.localPosition = new Vector3(0, this.transform.localScale.y + (Time.deltaTime * 11000f), 0f);
+        float currentTime = 0f;
+        while (currentTime < 1f)
+        {
+            this.wipeCube.localPosition = Vector3.Lerp(Vector3.zero, new Vector3(0, 400f, 0f), currentTime);
             yield return null;
-        //}
+            currentTime += Time.deltaTime;
+        }
 
         this.wipeCube.gameObject.SetActive(false);
     }
