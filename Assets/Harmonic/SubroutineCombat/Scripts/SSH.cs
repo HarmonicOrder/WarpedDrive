@@ -26,6 +26,7 @@ public class SSH : KeyListener, IActivatable {
     public void Activate()
     {
         TunnelViz.gameObject.SetActive(true);
+        ToastLog.Toast("SSH Tunnel\nOpened");
         StartCoroutine(Close());
     }
 

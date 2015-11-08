@@ -18,6 +18,7 @@ public class Keystore : MonoBehaviour, IActivatable {
     public void Activate()
     {
         StartCoroutine(Close());
+        ToastLog.Toast("Key Copied!");
     }
 
     public IEnumerator Close()
