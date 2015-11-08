@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SSH : KeyListener, IActivatable {
+public class SSH : NetworkLocationButton, IKeyListener, IActivatable {
 
     public Transform TunnelViz;
     public Transform LockViz;
+    public Transform wipeCube;
 
 	// Use this for initialization
 	void Start () {
         TunnelViz.gameObject.SetActive(false);
         this.transform.localScale = Vector3.zero;
+        Keystore.OnKeyCopied += OnKeyCopied;
 	}
 	
 	// Update is called once per frame
@@ -17,7 +19,7 @@ public class SSH : KeyListener, IActivatable {
 	
 	}
 
-    public override void OnKeyCopied(Keystore.KeyColor keyColor)
+    public void OnKeyCopied(Keystore.KeyColor keyColor)
     {
         LockViz.gameObject.SetActive(false);
         StartCoroutine(Open());
@@ -27,28 +29,24 @@ public class SSH : KeyListener, IActivatable {
     {
         TunnelViz.gameObject.SetActive(true);
         ToastLog.Toast("SSH Tunnel\nOpened");
+        if (wipeCube != null)
+            StartCoroutine(CloseCube());
         StartCoroutine(Close());
     }
 
-    public IEnumerator Open()
+    void Destroy()
     {
-        while (this.transform.localScale.x < 1f)
-        {
-            this.transform.localScale = new Vector3(this.transform.localScale.x + Time.deltaTime * 4, 1f, 1f);
-            yield return null;
-        }
-
-        this.transform.localScale = Vector3.one;
+        Keystore.OnKeyCopied -= OnKeyCopied;
     }
 
-    public IEnumerator Close()
+    public IEnumerator CloseCube()
     {
-        while (this.transform.localScale.x > 0f)
-        {
-            this.transform.localScale = new Vector3(this.transform.localScale.x - Time.deltaTime * 4, 1f, 1f);
+        //while (wipeCube.localPosition.y < 1000f)
+        //{
+        //    this.wipeCube.localPosition = new Vector3(0, this.transform.localScale.y + (Time.deltaTime * 11000f), 0f);
             yield return null;
-        }
+        //}
 
-        this.transform.localScale = Vector3.zero;
+        this.wipeCube.gameObject.SetActive(false);
     }
 }

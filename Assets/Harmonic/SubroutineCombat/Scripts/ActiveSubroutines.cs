@@ -62,10 +62,12 @@ public static class ActiveSubroutines {
 		if (m != null)
 		{
 			m.ActiveMalware.Remove(oldVirus);
-			if ((m.ActiveMalware.Count == 0) && (m.IsInfected) && (m.OnSystemClean != null)){
+			if ((m.ActiveMalware.Count == 0) && (m.IsInfected)){
 				m.IsInfected = false;
 				CyberspaceBattlefield.Current.AddCores(m.CPUCores);
-				m.OnSystemClean();
+
+                if (m.OnSystemClean != null)
+				    m.OnSystemClean();
 			}
 		}
 

@@ -145,7 +145,8 @@ public static class NetworkMap {
 								{
 									Name = "DBMachine",
 									CPUCores = 2,
-									IsInfected = true
+									IsInfected = true,
+                                    IsAccessible = false
 								}
 							}
 						}

@@ -1,13 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Keystore : MonoBehaviour, IActivatable {
+public class Keystore : NetworkLocationButton, IActivatable {
 
     public KeyColor ThisKeyColor = KeyColor.Green;
+    private Machine myMachine { get; set; }
+
+    public delegate void KeyCopiedEvent(KeyColor keyColor);
+    public static KeyCopiedEvent OnKeyCopied;
 
 	// Use this for initialization
 	void Start () {
-	
+        this.transform.localScale = Vector3.zero;
+        this.myMachine = CyberspaceBattlefield.Current.FindByName(this.transform.root.name);
+        this.myMachine.OnSystemClean += OnSystemClean;
+	}
+
+	private void OnSystemClean() {
+        StartCoroutine(Open());
 	}
 	
 	// Update is called once per frame
@@ -21,28 +31,21 @@ public class Keystore : MonoBehaviour, IActivatable {
         ToastLog.Toast("Key Copied!");
     }
 
-    public IEnumerator Close()
+    public override void AfterClose()
     {
-        while (this.transform.localScale.x > 0f)
-        {
-            this.transform.localScale = new Vector3(this.transform.localScale.x - Time.deltaTime * 4, 1f, 1f);
-            yield return null;
-        }
-
-        this.transform.localScale = Vector3.zero;
-
         BroadcastKeyCopied();
     }
 
     private void BroadcastKeyCopied()
     {
-        KeyListener[] listeners = FindObjectsOfType(typeof(KeyListener)) as KeyListener[];
-
-        foreach(KeyListener listen in listeners)
-        {
-            listen.OnKeyCopied(this.ThisKeyColor);
-        }
+        if (OnKeyCopied != null)
+            OnKeyCopied(this.ThisKeyColor);
     }
 
     public enum KeyColor { Green, Blue, Purple }
+
+    void Destroy()
+    {
+        this.myMachine.OnSystemClean -= OnSystemClean;
+    }
 }
