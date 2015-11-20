@@ -25,6 +25,49 @@ public static class NetworkMap {
 					sceneIndex = 2
 				}
 			},
+            {
+                "Archives",
+                new NetworkLocation()
+                {
+                    Name = "Archives",
+                    sceneIndex = 2,
+                    Children = new List<Location>() {
+                        new NetworkLocation(){
+                            Name = "colonyBlueprints",
+                            sceneIndex = 7,
+                            IsInfected = true,
+                            Machines = new List<Machine>()
+                            {
+                                new Machine()
+                                {
+                                    Name = "GatewayMachine",
+                                    CPUCores = 4,
+                                    IsInfected = false
+                                },
+                                new Machine()
+                                {
+                                    Name = "ServerMachine",
+                                    CPUCores = 4,
+                                    IsInfected = true
+                                },
+                                new Machine()
+                                {
+                                    Name = "KeystoreMachine",
+                                    CPUCores = 2,
+                                    IsInfected = true
+                                },
+                                new Machine()
+                                {
+                                    Name = "DBMachine",
+                                    CPUCores = 2,
+                                    IsInfected = true,
+                                    IsAccessible = false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
 			{
 				"Engineering", 
 				new NetworkLocation(){
@@ -116,40 +159,7 @@ public static class NetworkMap {
 									IsInfected = true
 								}
 							}
-						},
-						new NetworkLocation(){
-							Name = "3DPrintshop",
-							sceneIndex = 7,
-							IsInfected = true,
-							Machines = new List<Machine>()
-							{
-								new Machine()
-								{
-									Name = "GatewayMachine",
-									CPUCores = 4,
-									IsInfected = false
-								},
-								new Machine()
-								{
-									Name = "ServerMachine",
-									CPUCores = 4,
-									IsInfected = true
-								},
-								new Machine()
-								{
-									Name = "KeystoreMachine",
-									CPUCores = 2,
-									IsInfected = true
-								},
-								new Machine()
-								{
-									Name = "DBMachine",
-									CPUCores = 2,
-									IsInfected = true,
-                                    IsAccessible = false
-								}
-							}
-						}
+						}						
 					}
 				}
 			}
