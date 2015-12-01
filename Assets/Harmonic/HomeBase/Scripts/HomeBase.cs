@@ -33,6 +33,10 @@ public class HomeBase : MonoBehaviour {
 		if (CrossPlatformInputManager.GetButtonDown("Jump")){
 			TransitionToBattlespace();
 		}
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            TransitionToSubroutineWorkspace();
+        }
 
 		if (isZoomedOut){
 			if (CrossPlatformInputManager.GetButtonDown("Fire1")){
@@ -160,9 +164,20 @@ public class HomeBase : MonoBehaviour {
 			duration = .33f
 		};
 		TransitionKit.instance.transitionWithDelegate( pixelater );
-	}
+    }
+    private void TransitionToSubroutineWorkspace()
+    {
+        var pixelater = new SquaresTransition()
+        {
+            nextScene = 3,
 
-	private bool FindNetworkLocation(string name)
+            //finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
+            duration = .33f
+        };
+        TransitionKit.instance.transitionWithDelegate(pixelater);
+    }
+
+    private bool FindNetworkLocation(string name)
 	{
 		NetworkMap.CurrentLocation = NetworkMap.GetLocationByLocationName(name);
 		return (NetworkMap.CurrentLocation != null);

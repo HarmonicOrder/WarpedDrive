@@ -22,7 +22,7 @@ public static class NetworkMap {
 				"Infocom", 
 				new NetworkLocation(){
 					Name = "Infocom",
-					sceneIndex = 2
+					sceneIndex = 3
 				}
 			},
             {
@@ -30,11 +30,11 @@ public static class NetworkMap {
                 new NetworkLocation()
                 {
                     Name = "Archives",
-                    sceneIndex = 2,
+                    sceneIndex = 3,
                     Children = new List<Location>() {
                         new NetworkLocation(){
                             Name = "colonyBlueprints",
-                            sceneIndex = 7,
+                            sceneIndex = 8,
                             IsInfected = true,
                             Machines = new List<Machine>()
                             {
@@ -72,11 +72,11 @@ public static class NetworkMap {
 				"Engineering", 
 				new NetworkLocation(){
 					Name = "Engineering",
-					sceneIndex = 2,
+					sceneIndex = 3,
 					Children = new List<Location>(){
 						new NetworkLocation(){
 							Name = "Hydroponics",
-							sceneIndex = 3,
+							sceneIndex = 4,
 							IsInfected = true,
 							Machines = new List<Machine>()
 							{
@@ -96,26 +96,6 @@ public static class NetworkMap {
 						},
 						new NetworkLocation(){
 							Name = "Reactor Control",
-							sceneIndex = 4,
-							IsInfected = true,
-							Machines = new List<Machine>()
-							{
-								new Machine()
-								{
-									Name = "GatewayMachine",
-									CPUCores = 4,
-									IsInfected = false
-								},
-								new Machine()
-								{
-									Name = "ServerMachine",
-									CPUCores = 2,
-									IsInfected = true
-								}
-							}
-						},
-						new NetworkLocation(){
-							Name = "Propulsion",
 							sceneIndex = 5,
 							IsInfected = true,
 							Machines = new List<Machine>()
@@ -135,8 +115,28 @@ public static class NetworkMap {
 							}
 						},
 						new NetworkLocation(){
-							Name = "3DPrintshop",
+							Name = "Propulsion",
 							sceneIndex = 6,
+							IsInfected = true,
+							Machines = new List<Machine>()
+							{
+								new Machine()
+								{
+									Name = "GatewayMachine",
+									CPUCores = 4,
+									IsInfected = false
+								},
+								new Machine()
+								{
+									Name = "ServerMachine",
+									CPUCores = 2,
+									IsInfected = true
+								}
+							}
+						},
+						new NetworkLocation(){
+							Name = "3DPrintshop",
+							sceneIndex = 7,
 							IsInfected = true,
 							Machines = new List<Machine>()
 							{

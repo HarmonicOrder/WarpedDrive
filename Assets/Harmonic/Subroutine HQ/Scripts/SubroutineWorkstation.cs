@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Prime31.TransitionKit;
 
 public class SubroutineWorkstation : MonoBehaviour {
 
@@ -44,7 +45,7 @@ public class SubroutineWorkstation : MonoBehaviour {
         if (isRotating)
         {
             this.transform.localRotation = Quaternion.Slerp(from, to, currentRotateTime / rotateTime);
-            subroutineVisualization.position = Vector3.Slerp(subFrom, subTo, currentRotateTime / rotateTime);
+            subroutineVisualization.position = Vector3.Lerp(subFrom, subTo, currentRotateTime / rotateTime);
             if (currentRotateTime >= rotateTime)
             {
                 this.transform.localRotation = to;
@@ -53,6 +54,18 @@ public class SubroutineWorkstation : MonoBehaviour {
                 isRotating = false;
             }
             currentRotateTime += Time.deltaTime;
+        }
+
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            var pixelater = new SquaresTransition()
+            {
+                nextScene = 2,
+
+                //finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
+                duration = .33f
+            };
+            TransitionKit.instance.transitionWithDelegate(pixelater);
         }
 	}
 
@@ -75,6 +88,29 @@ public class SubroutineWorkstation : MonoBehaviour {
         to = Quaternion.Euler(Vector3.up);
         subFrom = GameObject.Find("assemblyHarness").transform.FindChild("harness").position;
         subParent = GameObject.Find("listHarness").transform.FindChild("harness");
+        subTo = subParent.position;
+        subroutineVisualization.SetParent(null);
+        isRotating = true;
+    }
+
+    public void subroutineToUpgrade()
+    {
+        currentRotateTime = 0f;
+        from = this.transform.localRotation;
+        to = Quaternion.Euler(Vector3.up * 180f);
+        subFrom = GameObject.Find("assemblyHarness").transform.FindChild("harness").position;
+        subParent = GameObject.Find("assemblyHarness").transform.FindChild("harness");
+        subTo = subParent.position;
+        subroutineVisualization.SetParent(null);
+        isRotating = true;
+    }
+    public void upgradeToSubroutine()
+    {
+        currentRotateTime = 0f;
+        from = this.transform.localRotation;
+        to = Quaternion.Euler(Vector3.up * 90f);
+        subFrom = GameObject.Find("assemblyHarness").transform.FindChild("harness").position;
+        subParent = GameObject.Find("assemblyHarness").transform.FindChild("harness");
         subTo = subParent.position;
         subroutineVisualization.SetParent(null);
         isRotating = true;
