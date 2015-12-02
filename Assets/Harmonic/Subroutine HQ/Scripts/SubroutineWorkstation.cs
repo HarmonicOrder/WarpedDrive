@@ -5,18 +5,21 @@ using Prime31.TransitionKit;
 
 public class SubroutineWorkstation : MonoBehaviour {
 
-    public float rotateTime = .5f;
+    public float rotateTime = .5f, moveTime = .5f;
     public Transform subroutineVisualization;
 
     public string currentFunctionName = "Delete";
     public string currentMovementName = "Tracer";
 
+    public GameObject UpgradeRoot;
+
     private Dictionary<string, Transform> functions = new Dictionary<string, Transform>();
     private Dictionary<string, Transform> movement = new Dictionary<string, Transform>();
 
-    bool isRotating = false;
-    float currentRotateTime = 0;
+    bool isRotating = false, isMoving = false;
+    float currentRotateTime = 0, currentMoveTime = 0;
     Quaternion from, to;
+    Vector3 camFrom, camTo;
     Transform subParent;
     Vector3 subFrom, subTo;
 
@@ -38,6 +41,7 @@ public class SubroutineWorkstation : MonoBehaviour {
                 t.gameObject.SetActive(false);
             }
         }
+        UpgradeRoot.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -54,6 +58,19 @@ public class SubroutineWorkstation : MonoBehaviour {
                 isRotating = false;
             }
             currentRotateTime += Time.deltaTime;
+        }
+        if (isMoving)
+        {
+            this.transform.position = Vector3.Lerp(camFrom, camTo, currentMoveTime/ moveTime);
+            subroutineVisualization.position = Vector3.Lerp(subFrom, subTo, currentMoveTime / moveTime);
+            if (currentMoveTime >= moveTime)
+            {
+                this.transform.position = camTo;
+                subroutineVisualization.position = subTo;
+                subroutineVisualization.SetParent(subParent);
+                isMoving = false;
+            }
+            currentMoveTime += Time.deltaTime;
         }
 
         if (Input.GetKeyUp(KeyCode.Escape))
@@ -95,25 +112,27 @@ public class SubroutineWorkstation : MonoBehaviour {
 
     public void subroutineToUpgrade()
     {
-        currentRotateTime = 0f;
-        from = this.transform.localRotation;
-        to = Quaternion.Euler(Vector3.up * 180f);
+        currentMoveTime = 0f;
+        camFrom = this.transform.position;
+        camTo = GameObject.Find("upgradeHarness").transform.FindChild("cameraMount").position;
         subFrom = GameObject.Find("assemblyHarness").transform.FindChild("harness").position;
-        subParent = GameObject.Find("assemblyHarness").transform.FindChild("harness");
+        subParent = GameObject.Find("upgradeHarness").transform.FindChild("harness");
         subTo = subParent.position;
         subroutineVisualization.SetParent(null);
-        isRotating = true;
+        isMoving = true;
+        UpgradeRoot.SetActive(true);
     }
     public void upgradeToSubroutine()
     {
-        currentRotateTime = 0f;
-        from = this.transform.localRotation;
-        to = Quaternion.Euler(Vector3.up * 90f);
-        subFrom = GameObject.Find("assemblyHarness").transform.FindChild("harness").position;
+        currentMoveTime = 0f;
+        camFrom = this.transform.position;
+        camTo = Vector3.zero;
+        subFrom = GameObject.Find("upgradeHarness").transform.FindChild("harness").position;
         subParent = GameObject.Find("assemblyHarness").transform.FindChild("harness");
         subTo = subParent.position;
         subroutineVisualization.SetParent(null);
-        isRotating = true;
+        isMoving = true;
+        UpgradeRoot.SetActive(false);
     }
 
     public void SetFunction(string name)
