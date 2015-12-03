@@ -6,10 +6,10 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: StationOrb
+  m_Name: UpgradeLine
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHABLEND_ON
-  m_LightmapFlags: 5
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
+  m_LightmapFlags: 1
   m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
@@ -20,9 +20,9 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
-          m_Scale: {x: 8, y: 8}
-          m_Offset: {x: 0, y: 0}
+          m_Texture: {fileID: 2800000, guid: 46512b493ef560e479d38a6978ccc327, type: 3}
+          m_Scale: {x: 2, y: .5}
+          m_Offset: {x: 0, y: .25}
       data:
         first:
           name: _BumpMap
@@ -62,9 +62,9 @@ Material:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 8, y: 8}
-          m_Offset: {x: 0, y: 0}
+          m_Texture: {fileID: 2800000, guid: 784c280926e80ff4dbee220c08318594, type: 3}
+          m_Scale: {x: 2, y: .5}
+          m_Offset: {x: 0, y: .25}
       data:
         first:
           name: _DetailMask
@@ -83,7 +83,7 @@ Material:
       data:
         first:
           name: _SrcBlend
-        second: 5
+        second: 1
       data:
         first:
           name: _DstBlend
@@ -103,7 +103,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: 0
+        second: .5
       data:
         first:
           name: _Metallic
@@ -115,7 +115,7 @@ Material:
       data:
         first:
           name: _OcclusionStrength
-        second: .768000007
+        second: 1
       data:
         first:
           name: _DetailNormalMapScale
@@ -127,7 +127,7 @@ Material:
       data:
         first:
           name: _Mode
-        second: 2
+        second: 3
       data:
         first:
           name: _InvFade
@@ -136,12 +136,12 @@ Material:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 1}
+        second: {r: 0, g: .209731013, b: .279000014, a: 1}
       data:
         first:
           name: _Color
-        second: {r: 0, g: .172413826, b: 1, a: .310000002}
+        second: {r: 0, g: .0482757092, b: 1, a: 1}
       data:
         first:
           name: _TintColor
-        second: {r: 0, g: .00689649582, b: 1, a: .0599999987}
+        second: {r: .0758619234, g: 0, b: 1, a: .5}
