@@ -2061,7 +2061,7 @@ GameObject:
   - 222: {fileID: 480257332}
   - 114: {fileID: 480257331}
   m_Layer: 5
-  m_Name: Panel (1)
+  m_Name: UpgradesPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4583,6 +4583,7 @@ MonoBehaviour:
   currentFunctionName: Delete
   currentMovementName: Tracer
   UpgradeRoot: {fileID: 659334462}
+  UpgradeLines: {fileID: 32100800}
 --- !u!1001 &950320101
 Prefab:
   m_ObjectHideFlags: 0
@@ -4844,7 +4845,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 123940, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
       propertyPath: m_Name
-      value: Button (14)
+      value: FunctionBase
       objectReference: {fileID: 0}
     - target: {fileID: 11467548, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
       propertyPath: m_Text
@@ -4915,6 +4916,10 @@ Prefab:
       value: 
       objectReference: {fileID: 12800000, guid: cd7bc8ced6cd06c4ba64f8cbc035df7d,
         type: 3}
+    - target: {fileID: 198902, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
+      propertyPath: m_Name
+      value: Name
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
   m_IsPrefabParent: 0
@@ -5141,7 +5146,7 @@ GameObject:
   - 222: {fileID: 1060596855}
   - 114: {fileID: 1060596854}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5216,7 +5221,7 @@ GameObject:
   - 222: {fileID: 1080175576}
   - 114: {fileID: 1080175575}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5509,7 +5514,7 @@ GameObject:
   - 222: {fileID: 1156266853}
   - 114: {fileID: 1156266852}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6104,7 +6109,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 123940, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
       propertyPath: m_Name
-      value: Button (17)
+      value: FunctionLeft
       objectReference: {fileID: 0}
     - target: {fileID: 11467548, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
       propertyPath: m_Text
@@ -6175,6 +6180,10 @@ Prefab:
       value: 
       objectReference: {fileID: 12800000, guid: cd7bc8ced6cd06c4ba64f8cbc035df7d,
         type: 3}
+    - target: {fileID: 198902, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
+      propertyPath: m_Name
+      value: Name
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
   m_IsPrefabParent: 0
@@ -8079,7 +8088,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 123940, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
       propertyPath: m_Name
-      value: Button (16)
+      value: FunctionRight
       objectReference: {fileID: 0}
     - target: {fileID: 11467548, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
       propertyPath: m_Text
@@ -8150,6 +8159,10 @@ Prefab:
       value: 
       objectReference: {fileID: 12800000, guid: cd7bc8ced6cd06c4ba64f8cbc035df7d,
         type: 3}
+    - target: {fileID: 198902, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
+      propertyPath: m_Name
+      value: Name
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
   m_IsPrefabParent: 0
@@ -10122,7 +10135,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: .460000008
   m_Text: 'Corrupt
 
 '

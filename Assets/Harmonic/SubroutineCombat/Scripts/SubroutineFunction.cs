@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SubroutineFunction : MonoBehaviour {
 
 	public Subroutine Parent {get;set;}
-	
-	internal bool TrackEnemy = false;
+    public List<Upgrade> Upgrades { get; set; }
+
+    internal bool TrackEnemy = false;
 	protected Transform closestTransform;
 	protected IMalware closestVirus;
 	protected float CooldownRemaining = -1f;

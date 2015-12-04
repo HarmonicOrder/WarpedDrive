@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Subroutine : Actor {
 
@@ -35,6 +36,7 @@ public class Subroutine : Actor {
 
 	public bool IsActive {get;set;}
 	public Transform StartingPosition {get;set;}
+
 
     private Machine DeployedMachine { get; set; }
 

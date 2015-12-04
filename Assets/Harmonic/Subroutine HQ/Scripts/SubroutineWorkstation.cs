@@ -2,16 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using Prime31.TransitionKit;
+using System;
+using UnityEngine.UI;
 
 public class SubroutineWorkstation : MonoBehaviour {
 
     public float rotateTime = .5f, moveTime = .5f;
     public Transform subroutineVisualization;
 
-    public string currentFunctionName = "Delete";
+    public string currentFunctionName = "";
     public string currentMovementName = "Tracer";
 
-    public GameObject UpgradeRoot;
+    public GameObject UpgradeRoot, UpgradeLines;
 
     private Dictionary<string, Transform> functions = new Dictionary<string, Transform>();
     private Dictionary<string, Transform> movement = new Dictionary<string, Transform>();
@@ -22,9 +24,12 @@ public class SubroutineWorkstation : MonoBehaviour {
     Vector3 camFrom, camTo;
     Transform subParent;
     Vector3 subFrom, subTo;
+    private GameObject FunctionBaseButton;
+    private GameObject FunctionLeftButton;
+    private GameObject FunctionRightButton;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 	    foreach (Transform t in GameObject.Find("FunctionRoot").transform)
         {
             functions.Add(t.name, t);
@@ -41,7 +46,12 @@ public class SubroutineWorkstation : MonoBehaviour {
                 t.gameObject.SetActive(false);
             }
         }
+        FunctionBaseButton = GameObject.Find("FunctionBase");
+        FunctionLeftButton = GameObject.Find("FunctionLeft");
+        FunctionRightButton = GameObject.Find("FunctionRight");
         UpgradeRoot.SetActive(false);
+        UpgradeLines.SetActive(false);
+        SetFunction("Delete");
     }
 	
 	// Update is called once per frame
@@ -121,6 +131,7 @@ public class SubroutineWorkstation : MonoBehaviour {
         subroutineVisualization.SetParent(null);
         isMoving = true;
         UpgradeRoot.SetActive(true);
+        UpgradeLines.SetActive(true);
     }
     public void upgradeToSubroutine()
     {
@@ -133,6 +144,7 @@ public class SubroutineWorkstation : MonoBehaviour {
         subroutineVisualization.SetParent(null);
         isMoving = true;
         UpgradeRoot.SetActive(false);
+        UpgradeLines.SetActive(false);
     }
 
     public void SetFunction(string name)
@@ -144,6 +156,22 @@ public class SubroutineWorkstation : MonoBehaviour {
 
             currentFunctionName = name;
         }
+
+        UpdateUpgrades();
+    }
+
+    private void UpdateUpgrades()
+    {
+        Upgrade.WorkstationMapping mapping = Upgrade.FunctionUpgrades[Type.GetType(currentFunctionName)];
+        SetUpgradeButton(FunctionBaseButton, mapping.Base);
+        SetUpgradeButton(FunctionLeftButton, mapping.Left);
+        SetUpgradeButton(FunctionRightButton, mapping.Right);
+    }
+
+    private void SetUpgradeButton(GameObject gameObject, Upgrade u)
+    {
+        gameObject.transform.FindChild("Name").GetComponent<Text>().text = u.Name;
+        gameObject.transform.FindChild("Description").GetComponent<Text>().text = u.Description;
     }
 
     public void SetMovement(string name)
