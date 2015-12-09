@@ -34,6 +34,7 @@ public class BasicWASD : MonoBehaviour {
         {
             animator.SetInteger("Direction", 1);
         }
+        animator.SetBool("isWalking", (h != 0) || (v != 0));
 
         Vector3 vec = new Vector3(h, 0f, v);
 		vec.Normalize();
