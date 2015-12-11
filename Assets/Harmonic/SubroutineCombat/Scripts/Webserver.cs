@@ -1,18 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
-public class Webserver : MonoBehaviour, IActivatable {
+public class Webserver : NetworkLocationButton, IActivatable {
 
 	public Transform DOSPrefab;
 	public List<Transform> Hangars;
 
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    private Machine myMachine { get; set; }
+
+    // Use this for initialization
+    void Start ()
+    {
+        this.myMachine = CyberspaceBattlefield.Current.FindByName(this.transform.root.name);
+        this.myMachine.OnSystemClean += OnMachineClean;
+        this.transform.localScale = Vector3.zero;
+    }
+
+    private void OnMachineClean()
+    {
+        StartCoroutine(this.Open());
+    }
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 
@@ -25,7 +37,7 @@ public class Webserver : MonoBehaviour, IActivatable {
 	{
 		if (ActiveSubroutines.MalwareList.Count > 0f)
 		{
-			yield return new WaitForSeconds(Random.Range(5f, 6f));
+			yield return new WaitForSeconds(UnityEngine.Random.Range(5f, 6f));
 
 			foreach(Transform t in Hangars)
 			{
@@ -33,7 +45,7 @@ public class Webserver : MonoBehaviour, IActivatable {
 				i.Rotate(Vector3.right, -90f, Space.Self);
 				i.SetParent(t);
 
-				yield return new WaitForSeconds(Random.Range(.1f, .25f));
+				yield return new WaitForSeconds(UnityEngine.Random.Range(.1f, .25f));
 			}
 
 			StartCoroutine(FireSalvo());
