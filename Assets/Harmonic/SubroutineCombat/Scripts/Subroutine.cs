@@ -8,6 +8,9 @@ public class Subroutine : Actor {
 	public SubroutineMovement Movement {get;set;}
 	public Transform ExplosionPrefab;
 	public Transform FunctionRoot;
+    public Transform HealthBar;
+    public Transform HealthPipPrefab;
+
 	public SubroutineStatus Status { 
 		set
 		{
@@ -77,7 +80,9 @@ public class Subroutine : Actor {
             this.DeployedMachine = CyberspaceBattlefield.Current.FindByName(this._lockedTarget.root.name);
             this.DeployedMachine.OnSystemClean += OnMachineClean;
         }
-	}
+
+        RefreshHealthDisplay();
+    }
 
 	public void Deactivate()
 	{
@@ -97,7 +102,9 @@ public class Subroutine : Actor {
 			if (this.OnSubroutineTakeDamage != null)
 				this.OnSubroutineTakeDamage(this.Info.HitPoints, this.Info.MaxHitPoints);
 		}
-	}
+
+        RefreshHealthDisplay();
+    }
 
     private void Die()
     {
@@ -121,5 +128,24 @@ public class Subroutine : Actor {
     private void OnMachineClean()
     {
         Die();
+    }
+
+    private void RefreshHealthDisplay()
+    {
+        if (this.HealthBar != null)
+        {
+            foreach(Transform t in this.HealthBar)
+            {
+                GameObject.Destroy(t.gameObject);
+            }
+
+            for (int i = 0; i < this.Info.HitPoints; i++)
+            {
+                Transform t = GameObject.Instantiate<Transform>(this.HealthPipPrefab);
+                t.SetParent(this.HealthBar);
+                t.localPosition = Vector3.right * (this.Info.HitPoints - i);
+                t.localScale = Vector3.one * 5f;
+            }
+        }
     }
 }
