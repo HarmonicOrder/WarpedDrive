@@ -3063,6 +3063,7 @@ GameObject:
   - 33: {fileID: 947135216}
   - 135: {fileID: 947135215}
   - 23: {fileID: 947135214}
+  - 81: {fileID: 947135218}
   m_Layer: 0
   m_Name: HomeSystem
   m_TagString: Untagged
@@ -3134,6 +3135,13 @@ Transform:
   - {fileID: 418945773}
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!81 &947135218
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 947135213}
+  m_Enabled: 1
 --- !u!4 &954372991 stripped
 Transform:
   m_PrefabParentObject: {fileID: 497890, guid: 98854fe7fb88d9b47ab6fc8cb5516c99, type: 2}
@@ -5700,7 +5708,6 @@ GameObject:
   - 20: {fileID: 1964921587}
   - 92: {fileID: 1964921586}
   - 124: {fileID: 1964921585}
-  - 81: {fileID: 1964921584}
   - 45: {fileID: 1964921589}
   m_Layer: 0
   m_Name: Main Camera
@@ -5709,13 +5716,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1964921584
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1964921583}
-  m_Enabled: 1
 --- !u!124 &1964921585
 Behaviour:
   m_ObjectHideFlags: 0

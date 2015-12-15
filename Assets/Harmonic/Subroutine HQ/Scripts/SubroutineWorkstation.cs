@@ -30,6 +30,8 @@ public class SubroutineWorkstation : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Radio.Instance.SetSoundtrack(Radio.Soundtrack.DigitalEnvironment);
+
 	    foreach (Transform t in GameObject.Find("FunctionRoot").transform)
         {
             functions.Add(t.name, t);

@@ -10,6 +10,7 @@ public class BasicWASD : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Cursor.visible = false;
+        Radio.Instance.SetSoundtrack(Radio.Soundtrack.Spacey);
 	}
 	
 	// Update is called once per frame

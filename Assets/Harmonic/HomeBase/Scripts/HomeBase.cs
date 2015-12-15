@@ -15,6 +15,7 @@ public class HomeBase : MonoBehaviour {
 	private CameraZoomToZoom zoomScript;
 	// Use this for initialization
 	void Start () {
+        Radio.Instance.SetSoundtrack(Radio.Soundtrack.SubtleElectronica);
 		SubnetTextHighlightColor = this._highlightColor;
 		Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
 		zoomScript = this.transform.GetComponent<CameraZoomToZoom>();

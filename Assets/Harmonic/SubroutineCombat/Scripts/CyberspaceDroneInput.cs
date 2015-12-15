@@ -46,6 +46,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Radio.Instance.SetSoundtrack(Radio.Soundtrack.MethodicalAntivirus);
+
 		//currentHeading = strategySphere.rotation;
 		currentLookRotation = PivotTransform.localRotation;
 		Cursor.lockState = CursorLockMode.Confined;
