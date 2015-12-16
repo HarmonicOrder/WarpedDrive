@@ -93,7 +93,7 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 	{
 	}
 
-	void OnDestroy(){
+	protected override void OnDestroy(){
 		ActiveSubroutines.RemoveVirus(this);
 	}
 }

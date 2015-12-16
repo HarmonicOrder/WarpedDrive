@@ -44,7 +44,7 @@ public class LazerBeam : MonoBehaviour {
 				{
 					s.TakeDamage(damage);
 				}
-				print (coll.gameObject.name);
+				//print (coll.gameObject.name);
 			}
 
 			killSelf();

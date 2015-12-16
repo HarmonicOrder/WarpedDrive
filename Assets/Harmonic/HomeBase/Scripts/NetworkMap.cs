@@ -226,7 +226,7 @@ public static class NetworkMap {
 		foreach(NetworkLocation netLoc in values)
 		{
 			//i would do addRange but it can't downcast while doing that
-			Debug.Log("adding");
+			//Debug.Log("adding");
 			list.Add(netLoc);
 		}
 		return list;

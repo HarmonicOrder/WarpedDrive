@@ -143,8 +143,9 @@ public class Subroutine : Actor {
             {
                 Transform t = GameObject.Instantiate<Transform>(this.HealthPipPrefab);
                 t.SetParent(this.HealthBar);
-                t.localPosition = Vector3.right * (this.Info.HitPoints - i);
-                t.localScale = Vector3.one * 5f;
+                t.localPosition = Vector3.zero;
+                t.Rotate(Vector3.forward, (i - ((this.Info.HitPoints - 1) / 2))*15);
+                //t.localScale = Vector3.one * 5f;
             }
         }
     }
