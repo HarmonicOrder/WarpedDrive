@@ -31,8 +31,8 @@ public class HomeBase : MonoBehaviour {
 			isZoomedOut = !isZoomedOut;
 			this.transform.GetComponent<CameraZoomToZoom>().ZoomTo(isZoomedOut);
 		}
-		if (CrossPlatformInputManager.GetButtonDown("Jump")){
-			TransitionToBattlespace();
+		if (Input.GetKeyUp(KeyCode.Escape)){
+			TransitionToMeatspace();
 		}
         if (Input.GetKeyUp(KeyCode.Q))
         {
@@ -166,6 +166,7 @@ public class HomeBase : MonoBehaviour {
 		};
 		TransitionKit.instance.transitionWithDelegate( pixelater );
     }
+
     private void TransitionToSubroutineWorkspace()
     {
         var pixelater = new SquaresTransition()
@@ -174,6 +175,17 @@ public class HomeBase : MonoBehaviour {
 
             //finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
             duration = .33f
+        };
+        TransitionKit.instance.transitionWithDelegate(pixelater);
+    }
+
+    private void TransitionToMeatspace()
+    {
+        var pixelater = new PixelateTransition()
+        {
+            nextScene = 1,
+            finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
+            duration = 1.0f
         };
         TransitionKit.instance.transitionWithDelegate(pixelater);
     }
