@@ -2,19 +2,35 @@
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 using Prime31.TransitionKit;
+using System;
 
 public class BasicWASD : MonoBehaviour {
 
     public Animator animator;
+    public Camera TerminalCamera;
+    public UnityStandardAssets.ImageEffects.BlurOptimized BlurEffect;
 
-	// Use this for initialization
-	void Start () {
+    private bool IsUsingTerminal = false;
+
+    // Use this for initialization
+    void Start () {
 		Cursor.visible = false;
         Radio.Instance.SetSoundtrack(Radio.Soundtrack.Spacey);
+        BlurEffect.enabled = false;
+        TerminalCamera.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            ToggleTerminal();
+        }
+        else if (IsUsingTerminal && Input.GetKeyUp(KeyCode.Escape))
+        {
+            ToggleTerminal();
+        }
+
 		float h, v;
 		h = CrossPlatformInputManager.GetAxis("Horizontal");
 		v = CrossPlatformInputManager.GetAxis("Vertical")  ;
@@ -53,4 +69,12 @@ public class BasicWASD : MonoBehaviour {
 			TransitionKit.instance.transitionWithDelegate( pixelater );
 		}
 	}
+
+    private void ToggleTerminal()
+    {
+        IsUsingTerminal = !IsUsingTerminal;
+
+        BlurEffect.enabled = IsUsingTerminal;
+        TerminalCamera.enabled = IsUsingTerminal;
+    }
 }
