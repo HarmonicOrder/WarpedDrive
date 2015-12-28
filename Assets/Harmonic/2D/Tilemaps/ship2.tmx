@@ -20,26 +20,24 @@
   <tile id="22" terrain="0,,0,0"/>
   <tile id="23" terrain=",0,0,0"/>
   <tile id="30">
-   <objectgroup draworder="index">
-    <object id="0" x="-1.5" y="14.25" width="36" height="18.75"/>
-   </objectgroup>
+   <objectgroup draworder="index"/>
   </tile>
   <tile id="33" terrain=",0,,"/>
   <tile id="34" terrain="0,0,,"/>
   <tile id="35" terrain="0,,,"/>
   <tile id="42">
    <objectgroup draworder="index">
-    <object id="0" x="-2" y="-2" width="35.25" height="35"/>
+    <object id="0" x="-1.75" y="-2.25" width="36.5" height="10.25"/>
    </objectgroup>
   </tile>
   <tile id="43">
    <objectgroup draworder="index">
-    <object id="0" x="-2" y="-2" width="34.5" height="35.25"/>
+    <object id="0" x="-4" y="-5.5" width="42.5" height="13"/>
    </objectgroup>
   </tile>
   <tile id="44">
    <objectgroup draworder="index">
-    <object id="0" x="-1.5" y="-1.5" width="33.5" height="34.75"/>
+    <object id="0" x="-4.75" y="-2.5" width="42.75" height="10.75"/>
    </objectgroup>
   </tile>
   <tile id="46">
@@ -52,11 +50,26 @@
   <tile id="49" terrain=",,1,"/>
   <tile id="50" terrain="1,1,1,"/>
   <tile id="51" terrain="1,1,,1"/>
+  <tile id="58">
+   <objectgroup draworder="index">
+    <object id="0" x="-1.5" y="4" width="36.25" height="16.25"/>
+   </objectgroup>
+  </tile>
   <tile id="61" terrain=",1,,1"/>
   <tile id="62" terrain="1,1,1,1"/>
   <tile id="63" terrain="1,,1,"/>
   <tile id="64" terrain="1,,1,1"/>
   <tile id="65" terrain=",1,1,1"/>
+  <tile id="68">
+   <objectgroup draworder="index">
+    <object id="0" x="5.27273" y="0.545455" width="21.6364" height="31.0909"/>
+   </objectgroup>
+  </tile>
+  <tile id="69">
+   <objectgroup draworder="index">
+    <object id="0" x="0.181818" y="10.9091" width="31.6364" height="20.7273"/>
+   </objectgroup>
+  </tile>
   <tile id="73">
    <objectgroup draworder="index">
     <object id="0" x="-2.75" y="-2.5" width="37.75" height="17"/>
@@ -131,17 +144,37 @@
  </tileset>
  <layer name="Ground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt2G8uA0EcBuD5hAPQA+AA9AD0APQCnAcXEFyi7Rf/wuHMxEzUpm1W7HZXPU/yRjM1yWbe/johBAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAvu4i5/GVo1mPMU8xzzFvMy5LM/85rznsHz7vppjlXMdc1c5P3zDp43k1X+tiK2a6ZnaCPtqQzncTsxuzVzCDv0Ufzyuc89XFaM4NgPtqSznXZfJTzXzQf+mhHuT9+Oh++r9oxC1/fV+aje+lzns52P+agktJHdf0w6KMt0xXvlT6W0UfzSh9HMceVlD6q68O8Rx/Nm+SfJ6H+fT7Ke/TRvDIfZzHnlZTzr66P8x59NG/Vmbo/1q/8/TGbe30fPu+T0scwr80WhHbdxTyE7/fJKK/ddvdY/1bqI81CtY+0po/1Mx/9Yj76xXz0i/noF/PRL+ajX8p8zP//ZBzMBwAAAAAAAMB/8wECBXDf
+   eJzt2E1KHEEYBuBaaQ5gPIDJzgjqAdR1/CG4NeeJXkBMLuHMxiQSD+dXWIVN4QwT7HZafR54UaptaOqbt4sxJQAAAAAAAAAAAAAAAAAAAAAAAAAAAOA1O4t8f2bo103kd+RP5F/k74x0/+a25G4Jz/vWTUp+RM4XzEW5Z7qE533r6jxWIqsL5kMyj6HkPb2OrEW+RLbKz49NutfWyz3m0b/6Oc/z2F8w60k/hpL3tfaj7UTd/3bdPIZTz4//7Yf31TCm6fF9tdlJ24/uNf0YTv6c573diHxqUufRrn9O5jGUyZxr9byYxTz6l+fxNbId2WlS+9Gu75Z7zKN/+X11GPmWFj/PT8s95tG/+r46ihw3qfvfrp+Ue8yjf/P21Pnx8ur3j2nn95/p4Typ/dgta9MnwrCuIr8ie+lxHgdl7XJ5j/Vu5XnkLrTzyGvm8fL0Y1z0Y1z0Y1z0Y1z0Y1z0Y1xqP7r/PzlJ+gEAAAAAAADw3twDu9NylQ==
   </data>
  </layer>
  <layer name="Midground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1cEJgDAQBMB0YgEqNmAF6b8gFQzkcSARIgFnYMljP+HucSkBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHxvqtLS0cdyZr3flg5gJO7HWOYq8CfbmRykiLrt4z/+yZvZ2kc/9jGWa7Z7kCLq7KOf6D483Y+cAAAAAAAAAAAAAADo6QBQPAzP
+   eJzt1bEJwDAMBEBt4hG8QCbw/gMlLgwpBCGFjcF38NU3qvQRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADrlVf+dACczX4Au6tPWpIh6+riGwG6/nuuJEPW+VfzZPvwtR8tAAAAAAAAAAAAAACY6QbHSArl
+  </data>
+ </layer>
+ <layer name="Infosec Doors" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwzENAAAIA7Cpw78knlngIGmTJgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADApWkAAAAAAAAAAAAAAADghwUXywCN
+  </data>
+ </layer>
+ <layer name="Cargobay Doors" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwzENAAAIA7Cpw78knmkgHG3SBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgG+mAQAAAAAAAAAAAAC4t6yPAI0=
+  </data>
+ </layer>
+ <layer name="Biomed Doors" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzgENAAAIA6CXs38lY9xNSEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD3TDsAAAAAAAAAAAAAAAC8tcc7AEY=
+  </data>
+ </layer>
+ <layer name="Bridge Doors" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7CZw78lNOwgPK2CJgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcGu+AwAAAAAAAAAAAAAAAIUF1T8ARg==
   </data>
  </layer>
  <layer name="Foreground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1TEJADAMAME4qYBKiH9fXTpkKnQKgTt4DR8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM6wS/XYJeMsbAPzwDwAAAAAAAAAAAACAPgc7qgHL
+   eJzt1TENADAIAEGcYKr+tbAwsHYiJHfJa/gIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuCFHAJe8DgB++AcAAAAAAAAAAAAAwJ4CgmsBrg==
   </data>
  </layer>
 </map>
