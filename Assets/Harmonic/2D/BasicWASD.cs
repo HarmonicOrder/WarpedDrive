@@ -53,10 +53,10 @@ public class BasicWASD : MonoBehaviour {
         }
         animator.SetBool("isWalking", (h != 0) || (v != 0));
 
-        Vector3 vec = new Vector3(h, 0f, v);
+        Vector3 vec = new Vector3(h, v, 0f);
 		vec.Normalize();
 		vec.x *= Time.deltaTime * 5f;
-		vec.z *= Time.deltaTime * 5f;
+		vec.y *= Time.deltaTime * 5f;
 		this.transform.Translate(vec);
 
 		if (CrossPlatformInputManager.GetButtonDown("Jump")){
@@ -76,5 +76,10 @@ public class BasicWASD : MonoBehaviour {
 
         BlurEffect.enabled = IsUsingTerminal;
         TerminalCamera.enabled = IsUsingTerminal;
+    }
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        print("colliding!");
     }
 }

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" backgroundcolor="#000000" nextobjectid="1">
+ <properties>
+  <property name="unity:scale" value=".03"/>
+ </properties>
+ <tileset firstgid="1" name="scifitiles-sheet" tilewidth="32" tileheight="32" tilecount="84">
+  <image source="../../../../../../../Downloads/scifitiles-sheet.png" width="448" height="192"/>
+  <terraintypes>
+   <terrain name="blueBorderFloor" tile="20"/>
+   <terrain name="orangeBorderFloor" tile="20"/>
+  </terraintypes>
+  <tile id="5" terrain=",,,0"/>
+  <tile id="6" terrain=",,0,0"/>
+  <tile id="7" terrain=",,0,"/>
+  <tile id="8" terrain="0,0,0,"/>
+  <tile id="9" terrain="0,0,,0"/>
+  <tile id="19" terrain=",0,,0"/>
+  <tile id="20" terrain="0,0,0,0"/>
+  <tile id="21" terrain="0,,0,"/>
+  <tile id="22" terrain="0,,0,0"/>
+  <tile id="23" terrain=",0,0,0"/>
+  <tile id="30">
+   <objectgroup draworder="index">
+    <object id="0" x="-1.5" y="14.25" width="36" height="18.75"/>
+   </objectgroup>
+  </tile>
+  <tile id="33" terrain=",0,,"/>
+  <tile id="34" terrain="0,0,,"/>
+  <tile id="35" terrain="0,,,"/>
+  <tile id="42">
+   <objectgroup draworder="index">
+    <object id="0" x="-2" y="-2" width="35.25" height="35"/>
+   </objectgroup>
+  </tile>
+  <tile id="43">
+   <objectgroup draworder="index">
+    <object id="0" x="-2" y="-2" width="34.5" height="35.25"/>
+   </objectgroup>
+  </tile>
+  <tile id="44">
+   <objectgroup draworder="index">
+    <object id="0" x="-1.5" y="-1.5" width="33.5" height="34.75"/>
+   </objectgroup>
+  </tile>
+  <tile id="46">
+   <objectgroup draworder="index">
+    <object id="0" x="-1.75" y="-3" width="36.25" height="37"/>
+   </objectgroup>
+  </tile>
+  <tile id="47" terrain=",,,1"/>
+  <tile id="48" terrain=",,1,1"/>
+  <tile id="49" terrain=",,1,"/>
+  <tile id="50" terrain="1,1,1,"/>
+  <tile id="51" terrain="1,1,,1"/>
+  <tile id="61" terrain=",1,,1"/>
+  <tile id="62" terrain="1,1,1,1"/>
+  <tile id="63" terrain="1,,1,"/>
+  <tile id="64" terrain="1,,1,1"/>
+  <tile id="65" terrain=",1,1,1"/>
+  <tile id="73">
+   <objectgroup draworder="index">
+    <object id="0" x="-2.75" y="-2.5" width="37.75" height="17"/>
+   </objectgroup>
+  </tile>
+  <tile id="75" terrain=",1,,"/>
+  <tile id="76" terrain="1,1,,"/>
+  <tile id="77" terrain="1,,,"/>
+ </tileset>
+ <tileset firstgid="85" name="intbuilding7a" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="132">
+  <image source="../../../OGA/intbuilding7a.png" width="432" height="396"/>
+  <tile id="88">
+   <objectgroup draworder="index">
+    <object id="0" x="-7.5" y="-7.25" width="47.5" height="44.5"/>
+   </objectgroup>
+  </tile>
+  <tile id="89">
+   <objectgroup draworder="index">
+    <object id="0" x="-4.75" y="-4.75" width="44.5" height="44"/>
+   </objectgroup>
+  </tile>
+  <tile id="90">
+   <objectgroup draworder="index">
+    <object id="0" x="-1.75" y="-3" width="34.75" height="39.75"/>
+   </objectgroup>
+  </tile>
+  <tile id="91">
+   <objectgroup draworder="index">
+    <object id="0" x="-1.75" y="-5.5" width="38.25" height="41.25"/>
+   </objectgroup>
+  </tile>
+  <tile id="96">
+   <objectgroup draworder="index">
+    <object id="0" x="-6.25" y="-1.5" width="43.25" height="39.5"/>
+   </objectgroup>
+  </tile>
+  <tile id="97">
+   <objectgroup draworder="index">
+    <object id="0" x="-4.25" y="-3.5" width="41.25" height="39"/>
+   </objectgroup>
+  </tile>
+  <tile id="98">
+   <objectgroup draworder="index">
+    <object id="0" x="-4" y="-4.25" width="42.5" height="37.5"/>
+   </objectgroup>
+  </tile>
+  <tile id="99">
+   <objectgroup draworder="index">
+    <object id="0" x="-5.75" y="-5.25" width="42.25" height="41"/>
+   </objectgroup>
+  </tile>
+  <tile id="100">
+   <objectgroup draworder="index">
+    <object id="0" x="-5.25" y="-4.75" width="41.5" height="39.25"/>
+   </objectgroup>
+  </tile>
+  <tile id="101">
+   <objectgroup draworder="index">
+    <object id="0" x="-3.25" y="-5.5" width="38.75" height="40.25"/>
+   </objectgroup>
+  </tile>
+  <tile id="102">
+   <objectgroup draworder="index">
+    <object id="0" x="-7.5" y="-5" width="47" height="39"/>
+   </objectgroup>
+  </tile>
+  <tile id="103">
+   <objectgroup draworder="index">
+    <object id="0" x="-6.5" y="-8.25" width="46.25" height="48.25"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <layer name="Ground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2G8uA0EcBuD5hAPQA+AA9AD0APQCnAcXEFyi7Rf/wuHMxEzUpm1W7HZXPU/yRjM1yWbe/johBAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAvu4i5/GVo1mPMU8xzzFvMy5LM/85rznsHz7vppjlXMdc1c5P3zDp43k1X+tiK2a6ZnaCPtqQzncTsxuzVzCDv0Ufzyuc89XFaM4NgPtqSznXZfJTzXzQf+mhHuT9+Oh++r9oxC1/fV+aje+lzns52P+agktJHdf0w6KMt0xXvlT6W0UfzSh9HMceVlD6q68O8Rx/Nm+SfJ6H+fT7Ke/TRvDIfZzHnlZTzr66P8x59NG/Vmbo/1q/8/TGbe30fPu+T0scwr80WhHbdxTyE7/fJKK/ddvdY/1bqI81CtY+0po/1Mx/9Yj76xXz0i/noF/PRL+ajX8p8zP//ZBzMBwAAAAAAAMB/8wECBXDf
+  </data>
+ </layer>
+ <layer name="Midground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1cEJgDAQBMB0YgEqNmAF6b8gFQzkcSARIgFnYMljP+HucSkBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHxvqtLS0cdyZr3flg5gJO7HWOYq8CfbmRykiLrt4z/+yZvZ2kc/9jGWa7Z7kCLq7KOf6D483Y+cAAAAAAAAAAAAAADo6QBQPAzP
+  </data>
+ </layer>
+ <layer name="Foreground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1TEJADAMAME4qYBKiH9fXTpkKnQKgTt4DR8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM6wS/XYJeMsbAPzwDwAAAAAAAAAAAACAPgc7qgHL
+  </data>
+ </layer>
+</map>
