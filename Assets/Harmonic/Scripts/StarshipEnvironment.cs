@@ -6,6 +6,21 @@ public class StarshipEnvironment {
 
     public Dictionary<string, bool> OpenDoors = new Dictionary<string, bool>();
 
+    //all kilograms!
+    public float OxygenStorage { get; set; }
+    public float OxygenLevel { get; set; }
+    public float OxygenProductionPerSecond { get; set; }
+
+    public const float OxygenConsumedPerSecond = 0.84f;
+
+    public float SecondsTilOxygenRunsOut
+    {
+        get
+        {
+            return OxygenLevel / (OxygenConsumedPerSecond - OxygenProductionPerSecond);
+        }
+    }
+
     private static StarshipEnvironment _instance;
     public static StarshipEnvironment Instance
     {

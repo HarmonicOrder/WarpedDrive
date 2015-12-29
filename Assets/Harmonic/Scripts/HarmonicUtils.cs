@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Text;
 
 public static class HarmonicUtils {
 
@@ -26,4 +28,29 @@ public static class HarmonicUtils {
 				return x;
 		return null;
 	}
+
+    public static string HumanizeTimespan(TimeSpan obj)
+    {
+        StringBuilder sb = new StringBuilder();
+        if (obj.Hours != 0)
+        {
+            sb.Append(obj.Hours);
+            sb.Append(" ");
+            sb.Append("hours");
+            sb.Append(" ");
+        }
+        if (obj.Minutes != 0 || sb.Length != 0)
+        {
+            sb.Append(obj.Minutes);
+            sb.Append(" ");
+            sb.Append("minutes");
+            sb.Append(" ");
+        }
+
+        sb.Append(obj.Seconds);
+        sb.Append(" ");
+        sb.Append("seconds");
+
+        return sb.ToString();
+    }
 }

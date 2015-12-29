@@ -1199,7 +1199,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 74527215}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Terminal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1212,7 +1212,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 74527214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.32999992, y: 0, z: 1.36000001}
+  m_LocalPosition: {x: -3.74000001, y: 2.45000005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1370049315}
@@ -1443,6 +1443,7 @@ MonoBehaviour:
   animator: {fileID: 193003503}
   TerminalCamera: {fileID: 1222344020}
   BlurEffect: {fileID: 496934800}
+  T: {fileID: 2007883362}
 --- !u!114 &193003506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1488,6 +1489,66 @@ Transform:
   - {fileID: 1467593883}
   - {fileID: 39842681}
   m_Father: {fileID: 193003501}
+  m_RootOrder: 0
+--- !u!1 &254765577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 254765579}
+  - 108: {fileID: 254765578}
+  m_Layer: 0
+  m_Name: Spotlight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &254765578
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 254765577}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_Type: 0
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Intensity: 8
+  m_Range: 10
+  m_SpotAngle: 43.2999992
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_NormalBias: .400000006
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_BounceIntensity: .970000029
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_AreaSize: {x: 1, y: 1}
+--- !u!4 &254765579
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 254765577}
+  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
+  m_LocalPosition: {x: 0, y: .200000003, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 694805880}
   m_RootOrder: 0
 --- !u!1 &327846842
 GameObject:
@@ -1592,7 +1653,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 8
-  m_Range: 2.66000009
+  m_Range: 2.02999997
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -1620,7 +1681,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 358127260}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.68799996, y: .838, z: 6.07000017}
+  m_LocalPosition: {x: 2.68799996, y: .838, z: 6.96000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1222344021}
@@ -1817,7 +1878,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 503635587}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: Terminal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1830,7 +1891,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 503635586}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.56100011, y: 0, z: -1.42499995}
+  m_LocalPosition: {x: -3.88000011, y: -.579999983, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1370049315}
@@ -1995,6 +2056,50 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!1 &694805879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 694805880}
+  - 114: {fileID: 694805881}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &694805880
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 694805879}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 65.2549973, y: -59.9609985, z: -.100000001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 254765579}
+  - {fileID: 1443603027}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+--- !u!114 &694805881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 694805879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb893c91ce55b340a50b3795be866b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ZOffset: 0
+  speed: 180
+  RotationAxis: 2
 --- !u!1 &830659407
 GameObject:
   m_ObjectHideFlags: 0
@@ -2476,6 +2581,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1370049315}
+  - 114: {fileID: 1370049316}
   m_Layer: 0
   m_Name: Terminals
   m_TagString: Untagged
@@ -2490,7 +2596,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1370049314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 65.6299973, y: -60.6899986, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 74527215}
@@ -2499,6 +2605,19 @@ Transform:
   - {fileID: 1448228180}
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!114 &1370049316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1370049314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28297fae243c7db43b36d2c78c414c63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TerminalDistance: 1.5
+  Character: {fileID: 193003501}
 --- !u!1001 &1405657382
 Prefab:
   m_ObjectHideFlags: 0
@@ -2597,6 +2716,66 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b2eb55d2080e844b904365dfdf9ada8, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1443603026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1443603027}
+  - 108: {fileID: 1443603028}
+  m_Layer: 0
+  m_Name: Spotlight (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1443603027
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1443603026}
+  m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106709}
+  m_LocalPosition: {x: 0, y: -.200000003, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 694805880}
+  m_RootOrder: 1
+--- !u!108 &1443603028
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1443603026}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_Type: 0
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Intensity: 8
+  m_Range: 10
+  m_SpotAngle: 43.2999992
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_NormalBias: .400000006
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_BounceIntensity: .970000029
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_AreaSize: {x: 1, y: 1}
 --- !u!1 &1444855078
 GameObject:
   m_ObjectHideFlags: 0
@@ -2682,7 +2861,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1448228180}
   m_Layer: 0
-  m_Name: GameObject (3)
+  m_Name: Terminal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2695,7 +2874,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1448228179}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.35800004, y: 0, z: -1.477}
+  m_LocalPosition: {x: 3.1099999, y: -.670000017, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1370049315}
@@ -3819,7 +3998,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1487417886}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: Terminal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3832,7 +4011,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1487417885}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.58999991, y: 0, z: 1.30999994}
+  m_LocalPosition: {x: 3.67000008, y: 2.52999997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1370049315}
@@ -3999,6 +4178,7 @@ GameObject:
   - 4: {fileID: 2007883361}
   - 23: {fileID: 2007883360}
   - 102: {fileID: 2007883359}
+  - 114: {fileID: 2007883362}
   m_Layer: 8
   m_Name: TerminalText
   m_TagString: Untagged
@@ -4020,7 +4200,7 @@ TextMesh:
   m_Anchor: 0
   m_Alignment: 0
   m_TabSize: 4
-  m_FontSize: 22
+  m_FontSize: 18
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: cd7bc8ced6cd06c4ba64f8cbc035df7d, type: 3}
@@ -4065,6 +4245,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 98967294}
   m_RootOrder: 1
+--- !u!114 &2007883362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2007883358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fe80125b9495a48b3b6c6fbf4bdbf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TerminalText: {fileID: 2007883359}
 --- !u!1 &2039890209
 GameObject:
   m_ObjectHideFlags: 0
@@ -4210,7 +4402,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2064515602}
   m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106709}
-  m_LocalPosition: {x: 1.278, y: -.269999981, z: 6.26000023}
+  m_LocalPosition: {x: 1.36000001, y: -.140000001, z: 7.15999985}
   m_LocalScale: {x: .433970124, y: .433970213, z: .339359581}
   m_Children: []
   m_Father: {fileID: 1222344021}

@@ -9,6 +9,7 @@ public class BasicWASD : MonoBehaviour {
     public Animator animator;
     public Camera TerminalCamera;
     public UnityStandardAssets.ImageEffects.BlurOptimized BlurEffect;
+    public Terminal T;
 
     private bool IsUsingTerminal = false;
 
@@ -22,7 +23,12 @@ public class BasicWASD : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.BackQuote))
+        {
+            StarshipEnvironment.Instance.OxygenLevel += 10;
+        }
+
+        if (Input.GetKeyUp(KeyCode.E) && (IsUsingTerminal || TerminalManager.IsNextToTerminal))
         {
             ToggleTerminal();
         }
@@ -74,8 +80,22 @@ public class BasicWASD : MonoBehaviour {
     {
         IsUsingTerminal = !IsUsingTerminal;
 
-        BlurEffect.enabled = IsUsingTerminal;
-        TerminalCamera.enabled = IsUsingTerminal;
+        SetTerminalState(IsUsingTerminal);
+    }
+
+    private void SetTerminalState(bool isUsingTerminal)
+    {
+        BlurEffect.enabled = isUsingTerminal;
+        TerminalCamera.enabled = isUsingTerminal;
+
+        if (isUsingTerminal)
+        {
+            T.ShowStatus();
+        }
+        else
+        {
+            T.StopStatus();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D coll)
