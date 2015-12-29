@@ -10,6 +10,8 @@ public class BasicWASD : MonoBehaviour {
     public Camera TerminalCamera;
     public UnityStandardAssets.ImageEffects.BlurOptimized BlurEffect;
     public Terminal T;
+    public UnityEngine.UI.Text ClockText;
+    public UnityEngine.UI.Image ClockPanel;
 
     private bool IsUsingTerminal = false;
 
@@ -74,6 +76,8 @@ public class BasicWASD : MonoBehaviour {
 			};
 			TransitionKit.instance.transitionWithDelegate( pixelater );
 		}
+
+        ClockText.text = HarmonicUtils.ClockFormat(StarshipEnvironment.Instance.SecondsTilOxygenRunsOut);
 	}
 
     private void ToggleTerminal()
@@ -83,12 +87,13 @@ public class BasicWASD : MonoBehaviour {
         SetTerminalState(IsUsingTerminal);
     }
 
-    private void SetTerminalState(bool isUsingTerminal)
+    private void SetTerminalState(bool usingTerminal)
     {
-        BlurEffect.enabled = isUsingTerminal;
-        TerminalCamera.enabled = isUsingTerminal;
+        BlurEffect.enabled = usingTerminal;
+        TerminalCamera.enabled = usingTerminal;
+        ClockPanel.enabled = !usingTerminal;
 
-        if (isUsingTerminal)
+        if (usingTerminal)
         {
             T.ShowStatus();
         }

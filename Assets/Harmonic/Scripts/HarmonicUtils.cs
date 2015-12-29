@@ -70,4 +70,9 @@ public static class HarmonicUtils {
             return kilograms - kilograms % .01 + " kg";
         }
     }
+
+    public static string ClockFormat(float seconds)
+    {
+        return string.Format("{0}:{1}", Mathf.Floor(seconds / 60).ToString("00"), (Mathf.Floor(seconds % 60)).ToString("00"));
+    }
 }
