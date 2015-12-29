@@ -36,21 +36,38 @@ public static class HarmonicUtils {
         {
             sb.Append(obj.Hours);
             sb.Append(" ");
-            sb.Append("hours");
+            sb.Append("hour");
+            if (obj.Hours > 1)
+                sb.Append("s");
             sb.Append(" ");
         }
         if (obj.Minutes != 0 || sb.Length != 0)
         {
             sb.Append(obj.Minutes);
             sb.Append(" ");
-            sb.Append("minutes");
+            sb.Append("minute");
+            if (obj.Minutes > 1)
+                sb.Append("s");
             sb.Append(" ");
         }
 
-        sb.Append(obj.Seconds);
+        sb.Append(Math.Round((float)obj.Seconds));
         sb.Append(" ");
         sb.Append("seconds");
 
         return sb.ToString();
+    }
+
+    public static string HumanizeKilograms(float kilograms)
+    {
+        if (kilograms < 1000)
+        {
+            float grams = kilograms * 1000;
+            return (grams - grams % .01) + " g";
+        }
+        else
+        {
+            return kilograms - kilograms % .01 + " kg";
+        }
     }
 }

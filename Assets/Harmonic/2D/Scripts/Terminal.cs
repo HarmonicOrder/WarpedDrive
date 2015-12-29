@@ -43,9 +43,9 @@ public class Terminal : MonoBehaviour {
             "UNITED NATIONS COLONY SHIP <i>Adnascentia</i>\n"+
             "======================================\n"+
             "Life Support Report\n"+
-            "Oxygen Storage Space: {0} kg\nOxygen Level:         {1} kg/s\nSeconds until Oxygen Depletion:{2}", 
-            StarshipEnvironment.Instance.OxygenStorage, 
-            StarshipEnvironment.Instance.OxygenLevel, 
+            "Oxygen Storage Space: {0}\nOxygen Level:         {1}\nOxygen Depletion in:{2}",
+            HarmonicUtils.HumanizeKilograms(StarshipEnvironment.Instance.OxygenStorage), 
+            HarmonicUtils.HumanizeKilograms(StarshipEnvironment.Instance.OxygenLevel), 
             HarmonicUtils.HumanizeTimespan(TimeSpan.FromSeconds(StarshipEnvironment.Instance.SecondsTilOxygenRunsOut)));
     }
 }

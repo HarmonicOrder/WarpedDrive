@@ -25,7 +25,7 @@ public class BasicWASD : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyUp(KeyCode.BackQuote))
         {
-            StarshipEnvironment.Instance.OxygenLevel += 10;
+            StarshipEnvironment.Instance.OxygenLevel += .0025f;
         }
 
         if (Input.GetKeyUp(KeyCode.E) && (IsUsingTerminal || TerminalManager.IsNextToTerminal))

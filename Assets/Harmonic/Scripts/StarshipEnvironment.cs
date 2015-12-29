@@ -11,7 +11,7 @@ public class StarshipEnvironment {
     public float OxygenLevel { get; set; }
     public float OxygenProductionPerSecond { get; set; }
 
-    public const float OxygenConsumedPerSecond = 0.84f;
+    public const float OxygenConsumedPerSecond = 0.84f / 24 / 60 / 60;
 
     public float SecondsTilOxygenRunsOut
     {
@@ -19,6 +19,11 @@ public class StarshipEnvironment {
         {
             return OxygenLevel / (OxygenConsumedPerSecond - OxygenProductionPerSecond);
         }
+    }
+
+    public StarshipEnvironment()
+    {
+        UnityEngine.Debug.Log("oxygen is " + OxygenConsumer.Instance.enabled);
     }
 
     private static StarshipEnvironment _instance;
