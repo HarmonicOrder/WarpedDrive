@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class MainMenuInput : MonoBehaviour {
 	public Texture2D cursorTexture;
     public Button LoadGameButton;
+    public Canvas MainmenuCanvas;
+    public Canvas SignupCanvas;
+    public TextMesh TitleText;
 
 	// Use this for initialization
 	void Start () {
@@ -22,13 +25,21 @@ public class MainMenuInput : MonoBehaviour {
 	public void NewGame()
 	{
         HarmonicSerialization.Instance.CreateNewGame();
-        StartGame();
+        //StartGame();
+        ShowSignupForm();
 	}
 
     public void ContinueGame()
     {
         HarmonicSerialization.Instance.ContinueOnLastSavedGame();
         StartGame();
+    }
+
+    public void ShowSignupForm()
+    {
+        TitleText.gameObject.SetActive(false);
+        MainmenuCanvas.enabled = false;
+        SignupCanvas.enabled = true;
     }
 
     public void StartGame()

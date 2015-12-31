@@ -40,7 +40,7 @@ public class Terminal : MonoBehaviour {
     {
         //Adnascentia, n, plural, root-like branches that sprout into the earth from a plant's stem
         TerminalText.text = string.Format(
-            "UNITED NATIONS COLONY SHIP <i>Adnascentia</i>\n"+
+            "UNITED NATIONS STAR SHIP <i>Adnascentia</i>\n"+
             "======================================\n"+
             "Life Support Report\n"+
             "Oxygen Storage Space: {0}\nOxygen Level:         {1}\nOxygen Depletion in:{2}",
