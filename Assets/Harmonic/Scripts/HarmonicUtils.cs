@@ -32,6 +32,26 @@ public static class HarmonicUtils {
     public static string HumanizeTimespan(TimeSpan obj)
     {
         StringBuilder sb = new StringBuilder();
+        if (obj.Days != 0)
+        {
+            if (obj.Days > 365)
+            {
+                double years = Math.Floor(obj.Days / 365f);
+                sb.Append(years);
+                sb.Append(" ");
+                sb.Append("year");
+                if (years > 1)
+                    sb.Append("s");
+                sb.Append(" ");
+            }
+            sb.Append(obj.Days % 365);
+            sb.Append(" ");
+            sb.Append("day");
+            if (obj.Days % 365 > 1)
+                sb.Append("s");
+            sb.Append(" ");
+        }
+
         if (obj.Hours != 0)
         {
             sb.Append(obj.Hours);

@@ -6,6 +6,7 @@ using System;
 public class TerminalManager : MonoBehaviour {
 
     public static bool IsNextToTerminal = false;
+    public static Terminal.TerminalType CurrentTerminalType = Terminal.TerminalType.networkaccess;
     public float TerminalDistance = 2f;
     public Transform Character;
 
@@ -27,6 +28,8 @@ public class TerminalManager : MonoBehaviour {
                 if (Vector3.Distance(Character.position, t.position) < TerminalDistance)
                 {
                     IsNextToTerminal = true;
+
+                    CurrentTerminalType.TryParse<Terminal.TerminalType>(t.name.ToLower(), out CurrentTerminalType);
                     break;
                 }
             }

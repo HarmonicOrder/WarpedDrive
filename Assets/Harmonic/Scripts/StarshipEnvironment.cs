@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class StarshipEnvironment {
 
@@ -10,6 +11,7 @@ public class StarshipEnvironment {
     public float OxygenStorage { get; set; }
     public float OxygenLevel { get; set; }
     public float OxygenProductionPerSecond { get; set; }
+    public DateTime GameStartTime { get; set; }
 
     public const float OxygenConsumedPerSecond = 0.84f / 24 / 60 / 60;
 
@@ -33,7 +35,8 @@ public class StarshipEnvironment {
         {
             if (_instance == null)
                 _instance = new StarshipEnvironment() {
-                    OxygenLevel = OxygenConsumedPerSecond * 60 * 5
+                    OxygenLevel = OxygenConsumedPerSecond * 60 * 5,
+                    GameStartTime = DateTime.Now
                 };
             return _instance;
         }
