@@ -32,7 +32,9 @@ public class StarshipEnvironment {
         get
         {
             if (_instance == null)
-                _instance = new StarshipEnvironment();
+                _instance = new StarshipEnvironment() {
+                    OxygenLevel = OxygenConsumedPerSecond * 60 * 5
+                };
             return _instance;
         }
     }
