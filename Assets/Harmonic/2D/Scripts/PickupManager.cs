@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PickupManager : MonoBehaviour {
     
-    public float PickupDistance = 2f;
+    public float PickupDistance = 1f;
     public float OxygenMinutesPerPickup = 4f;
     public uint RAMPerPickup = 2;
     public Transform Character;
