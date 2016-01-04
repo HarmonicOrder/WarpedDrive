@@ -130,6 +130,8 @@ public class HarmonicSerialization : MonoBehaviour {
     public void ContinueOnLastSavedGame()
     {
         this.CurrentSave = this.ContinueSave;
+        StarshipEnvironment.SetInstance(this.CurrentSave.Meatspace);
+        CyberspaceEnvironment.SetInstance(this.CurrentSave.Cyberspace);
     }
 
     public void SaveCurrentGame()
@@ -144,8 +146,8 @@ public class HarmonicSerialization : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-	    //autosave?
+    void Start () {
+        GameObject.DontDestroyOnLoad(this.gameObject);
 	}
 
     public class WarpedDriveConfiguration

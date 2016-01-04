@@ -21,6 +21,7 @@ public class BasicWASD : MonoBehaviour {
         Radio.Instance.SetSoundtrack(Radio.Soundtrack.Spacey);
         BlurEffect.enabled = false;
         TerminalCamera.enabled = false;
+        Autosave.Instance.On = true;
 	}
 	
 	// Update is called once per frame
