@@ -56,6 +56,10 @@ public class Tracer : SubroutineMovement {
 					this.transform.Translate(0, 0, Time.deltaTime * moveSpeed, Space.Self);
 				}
 			}
+            else
+            {
+                Parent.LockedTarget = ActiveSubroutines.FindClosestMalware(this.transform.position, 100f).transform;
+            }
 		}
 	}
 }
