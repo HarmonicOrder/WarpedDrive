@@ -41,7 +41,9 @@ public class CameraZoomToZoom : MonoBehaviour {
 			DoZoom();
 
 			if (currentZoomTime > ZoomTime){
-				AfterZoom();
+                ZoomCamera.position = ZoomToPosition;
+                ZoomCamera.rotation = ZoomToRotation;
+                AfterZoom();
 			}
 		} else if (zoomDirection < 0){
 			DoZoom();
