@@ -8,14 +8,14 @@ public class StarshipEnvironment {
     public Dictionary<string, bool> OpenDoors = new Dictionary<string, bool>();
 
     //all kilograms!
-    public float OxygenStorage { get; set; }
-    public float OxygenLevel { get; set; }
-    public float OxygenProductionPerSecond { get; set; }
+    public double OxygenStorage { get; set; }
+    public double OxygenLevel { get; set; }
+    public double OxygenProductionPerSecond { get; set; }
     public DateTime GameStartTime { get; set; }
 
-    public const float OxygenConsumedPerSecond = 0.84f / 24 / 60 / 60;
+    public const double OxygenConsumedPerSecond = 0.84f / 24 / 60 / 60;
 
-    public float SecondsTilOxygenRunsOut
+    public double SecondsTilOxygenRunsOut
     {
         get
         {
@@ -34,12 +34,18 @@ public class StarshipEnvironment {
         get
         {
             if (_instance == null)
-                _instance = new StarshipEnvironment() {
-                    OxygenLevel = OxygenConsumedPerSecond * 60 * 5,
-                    GameStartTime = DateTime.Now
-                };
+                _instance = GetDefault();
             return _instance;
         }
+    }
+
+    public static StarshipEnvironment GetDefault()
+    {
+        return new StarshipEnvironment()
+        {
+            OxygenLevel = OxygenConsumedPerSecond * 60 * 5,
+            GameStartTime = DateTime.Now
+        };
     }
 
     internal static void SetInstance(StarshipEnvironment env)

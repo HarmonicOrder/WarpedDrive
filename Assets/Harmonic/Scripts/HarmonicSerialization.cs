@@ -119,9 +119,9 @@ public class HarmonicSerialization : MonoBehaviour {
         }
     }
 
-    public void CreateNewGame()
+    public void CreateNewGame(string name)
     {
-        this.CurrentSave = SaveGame.GetNewDefault();
+        this.CurrentSave = SaveGame.GetNewDefault(name);
         this.configuration.SavedGames.Add(this.CurrentSave.Name);
         this.configuration.LastSavedGameName = this.CurrentSave.Name;
         this.SaveCurrentGame();

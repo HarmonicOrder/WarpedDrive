@@ -12,7 +12,7 @@ public class OxygenTimer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		OxygenText.text = string.Format("O2 {0}", HarmonicUtils.ClockFormat(StarshipEnvironment.Instance.SecondsTilOxygenRunsOut));
+		OxygenText.text = string.Format("O2 {0}", HarmonicUtils.ClockFormat((float)StarshipEnvironment.Instance.SecondsTilOxygenRunsOut));
 	}
     
 }

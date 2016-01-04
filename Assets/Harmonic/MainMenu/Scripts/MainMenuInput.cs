@@ -9,6 +9,7 @@ public class MainMenuInput : MonoBehaviour {
     public Canvas MainmenuCanvas;
     public Canvas SignupCanvas;
     public TextMesh TitleText;
+    public InputField NewGameName;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +25,6 @@ public class MainMenuInput : MonoBehaviour {
 
 	public void NewGame()
 	{
-        HarmonicSerialization.Instance.CreateNewGame();
         //StartGame();
         ShowSignupForm();
 	}
@@ -44,6 +44,7 @@ public class MainMenuInput : MonoBehaviour {
 
     public void StartGame()
     {
+        HarmonicSerialization.Instance.CreateNewGame(NewGameName.text);
         var pixelater = new PixelateTransition()
         {
             finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,

@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CyberspaceEnvironment {
 
     public uint MaximumRAM { get; set; }
     public uint CurrentRAMUsed { get; set; }
+
+    public List<SubroutineInfo> Subroutines { get; set; }
 
     private static CyberspaceEnvironment _instance;
     public static CyberspaceEnvironment Instance
@@ -12,12 +15,21 @@ public class CyberspaceEnvironment {
         get
         {
             if (_instance == null)
-                _instance = new CyberspaceEnvironment()
-                {
-                    MaximumRAM = 2
-                };
+                _instance = GetDefault();
             return _instance;
         }
+    }
+
+    public static CyberspaceEnvironment GetDefault()
+    {
+        return new CyberspaceEnvironment()
+        {
+            MaximumRAM = 2,
+            Subroutines = new List<SubroutineInfo>()
+                    {
+                        new SubroutineInfo()
+                    }
+        };
     }
 
     internal static void SetInstance(CyberspaceEnvironment env)

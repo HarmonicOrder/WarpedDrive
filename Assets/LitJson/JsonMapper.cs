@@ -255,7 +255,7 @@ namespace LitJson
             foreach (PropertyInfo p_info in type.GetProperties ()) {
                 if (p_info.Name == "Item")
                     continue;
-
+                
                 PropertyMetadata p_data = new PropertyMetadata ();
                 p_data.Info = p_info;
                 p_data.IsField = false;
@@ -263,6 +263,9 @@ namespace LitJson
             }
 
             foreach (FieldInfo f_info in type.GetFields ()) {
+                if (f_info.IsLiteral || f_info.IsStatic)
+                    continue;
+
                 PropertyMetadata p_data = new PropertyMetadata ();
                 p_data.Info = f_info;
                 p_data.IsField = true;
@@ -811,7 +814,8 @@ namespace LitJson
                 else {
                     PropertyInfo p_info = (PropertyInfo) p_data.Info;
 
-                    if (p_info.CanRead) {
+                    //if you can read it, it isn't static, and you can set it, then serialize it
+                    if (p_info.CanRead && !p_info.GetGetMethod().IsStatic && (p_info.GetSetMethod() != null)) {
                         writer.WritePropertyName (p_data.Info.Name);
                         WriteValue (p_info.GetValue (obj, null),
                                     writer, writer_is_private, depth + 1);

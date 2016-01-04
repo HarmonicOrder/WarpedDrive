@@ -48,8 +48,8 @@ public class Terminal : MonoBehaviour {
                 PrintStatus(string.Format(
                     "Life Support Report\n"+
                     "Oxygen Storage Space: {0}\nOxygen Level:         {1}\nOxygen Depletion in:{2}",
-                    HarmonicUtils.HumanizeKilograms(StarshipEnvironment.Instance.OxygenStorage), 
-                    HarmonicUtils.HumanizeKilograms(StarshipEnvironment.Instance.OxygenLevel), 
+                    HarmonicUtils.HumanizeKilograms((float)StarshipEnvironment.Instance.OxygenStorage), 
+                    HarmonicUtils.HumanizeKilograms((float)StarshipEnvironment.Instance.OxygenLevel), 
                     HarmonicUtils.HumanizeTimespan(TimeSpan.FromSeconds(StarshipEnvironment.Instance.SecondsTilOxygenRunsOut))));
                 break;
             case TerminalType.mainframe:

@@ -77,7 +77,7 @@ public class BasicWASD : MonoBehaviour {
 			TransitionKit.instance.transitionWithDelegate( pixelater );
 		}
 
-        ClockText.text = HarmonicUtils.ClockFormat(StarshipEnvironment.Instance.SecondsTilOxygenRunsOut);
+        ClockText.text = HarmonicUtils.ClockFormat((float)StarshipEnvironment.Instance.SecondsTilOxygenRunsOut);
 	}
 
     private void ToggleTerminal()
