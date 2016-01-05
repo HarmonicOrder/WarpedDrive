@@ -10,6 +10,9 @@ public class SaveGame {
     public static string DefaultSaveGameName = "New Game";
     public static SaveGame GetNewDefault(string name)
     {
+        if (name == "warpeddrive")
+            name = "warpeddrive_game";
+
         return new SaveGame()
         {
             Name = (name == "") ? DefaultSaveGameName : name,

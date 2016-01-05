@@ -42,9 +42,14 @@ public class MainMenuInput : MonoBehaviour {
         SignupCanvas.enabled = true;
     }
 
-    public void StartGame()
+    public void CompleteSignupForm()
     {
         HarmonicSerialization.Instance.CreateNewGame(NewGameName.text);
+        StartGame();
+    }
+
+    public void StartGame()
+    {
         var pixelater = new PixelateTransition()
         {
             finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,

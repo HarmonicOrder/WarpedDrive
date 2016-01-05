@@ -123,7 +123,6 @@ public class HarmonicSerialization : MonoBehaviour {
     {
         this.CurrentSave = SaveGame.GetNewDefault(name);
         this.configuration.SavedGames.Add(this.CurrentSave.Name);
-        this.configuration.LastSavedGameName = this.CurrentSave.Name;
         this.SaveCurrentGame();
     }
 
@@ -136,13 +135,14 @@ public class HarmonicSerialization : MonoBehaviour {
 
     public void SaveCurrentGame()
     {
-        File.WriteAllText(GetPath(GlobalFileName), JsonMapper.ToJson(this.configuration));
-
         if (this.CurrentSave != null)
         {
             this.CurrentSave.LastSaved = DateTime.Now;
             File.WriteAllText(GetPath(this.CurrentSave.Name+".json"), JsonMapper.ToJson(this.CurrentSave));
+            this.configuration.LastSavedGameName = this.CurrentSave.Name;
         }
+
+        File.WriteAllText(GetPath(GlobalFileName), JsonMapper.ToJson(this.configuration));
     }
 
     // Update is called once per frame

@@ -25,7 +25,7 @@ public class StarshipEnvironment {
 
     public StarshipEnvironment()
     {
-        UnityEngine.Debug.Log("oxygen is " + OxygenConsumer.Instance.enabled);
+        //UnityEngine.Debug.Log("oxygen is " + OxygenConsumer.Instance.enabled);
     }
 
     private static StarshipEnvironment _instance;
