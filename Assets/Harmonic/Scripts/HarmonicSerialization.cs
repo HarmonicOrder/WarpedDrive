@@ -39,6 +39,7 @@ public class HarmonicSerialization : MonoBehaviour {
     }
 
     public Dictionary<string, SaveGame> Games = new Dictionary<string, SaveGame>();
+    public bool IsNewGame { get; set; }
     internal SaveGame CurrentSave { get; set; }
     internal SaveGame ContinueSave { get; set; }
     public bool HasContinueGame
@@ -123,6 +124,7 @@ public class HarmonicSerialization : MonoBehaviour {
     {
         this.CurrentSave = SaveGame.GetNewDefault(name);
         this.configuration.SavedGames.Add(this.CurrentSave.Name);
+        this.IsNewGame = true;
         this.SaveCurrentGame();
     }
 
