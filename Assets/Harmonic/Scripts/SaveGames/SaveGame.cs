@@ -10,6 +10,8 @@ public class SaveGame {
     public static string DefaultSaveGameName = "New Game";
     public static SaveGame GetNewDefault(string name)
     {
+        //validation: if you try and use warpeddrive, you could overwrite the configuration file
+        //so let's tack _game onto it
         if (name == "warpeddrive")
             name = "warpeddrive_game";
 

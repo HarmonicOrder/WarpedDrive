@@ -16,6 +16,12 @@ public class MainMenuInput : MonoBehaviour {
 		Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
         Cursor.visible = true;
         LoadGameButton.gameObject.SetActive(HarmonicSerialization.Instance.HasContinueGame);
+
+        if (HarmonicSerialization.Instance.HasContinueGame)
+        {
+            //put the name on the button so the user knows which game they're loading
+            LoadGameButton.GetComponentInChildren<Text>().text = "Continue as " + HarmonicSerialization.Instance.ContinueSave.Name;
+        }
 	}
 	
 	// Update is called once per frame
@@ -25,7 +31,6 @@ public class MainMenuInput : MonoBehaviour {
 
 	public void NewGame()
 	{
-        //StartGame();
         ShowSignupForm();
 	}
 

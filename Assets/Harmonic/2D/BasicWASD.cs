@@ -22,11 +22,13 @@ public class BasicWASD : MonoBehaviour {
         BlurEffect.enabled = false;
         TerminalCamera.enabled = false;
         Autosave.Instance.On = true;
+        //while in meatspace, consume oxygen
         OxygenConsumer.Instance.IsConsuming = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        //cheat! tilde to get instant 5 mins of oxygen
         if (Input.GetKeyUp(KeyCode.BackQuote))
         {
             StarshipEnvironment.Instance.OxygenLevel += .0025f;

@@ -135,6 +135,7 @@ public class HarmonicSerialization : MonoBehaviour {
 
     public void SaveCurrentGame()
     {
+        //save the game first so we can set the configuration's lastSavedGameName
         if (this.CurrentSave != null)
         {
             this.CurrentSave.LastSaved = DateTime.Now;
@@ -144,8 +145,7 @@ public class HarmonicSerialization : MonoBehaviour {
 
         File.WriteAllText(GetPath(GlobalFileName), JsonMapper.ToJson(this.configuration));
     }
-
-    // Update is called once per frame
+    
     void Start () {
         GameObject.DontDestroyOnLoad(this.gameObject);
 	}
