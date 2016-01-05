@@ -133,6 +133,16 @@ public class HarmonicSerialization : MonoBehaviour {
         CyberspaceEnvironment.SetInstance(this.CurrentSave.Cyberspace);
     }
 
+    public void LoadSaveGame(string name)
+    {
+        if (Games.ContainsKey(name))
+        {
+            this.CurrentSave = Games[name];
+            StarshipEnvironment.SetInstance(this.CurrentSave.Meatspace);
+            CyberspaceEnvironment.SetInstance(this.CurrentSave.Cyberspace);
+        }
+    }
+
     public void SaveCurrentGame()
     {
         //save the game first so we can set the configuration's lastSavedGameName
