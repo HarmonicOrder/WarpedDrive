@@ -22,6 +22,7 @@ public class BasicWASD : MonoBehaviour {
         BlurEffect.enabled = false;
         TerminalCamera.enabled = false;
         Autosave.Instance.On = true;
+        OxygenConsumer.Instance.IsConsuming = true;
 	}
 	
 	// Update is called once per frame
