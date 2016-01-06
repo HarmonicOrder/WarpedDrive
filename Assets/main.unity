@@ -1339,6 +1339,7 @@ GameObject:
   - 50: {fileID: 193003502}
   - 114: {fileID: 193003505}
   - 114: {fileID: 193003506}
+  - 114: {fileID: 193003507}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -1451,9 +1452,6 @@ MonoBehaviour:
   T: {fileID: 2007883362}
   ClockText: {fileID: 306234828}
   ClockPanel: {fileID: 338856477}
-  topSlit: {fileID: 2015046190}
-  bottomSlit: {fileID: 426697112}
-  TestNewGame: 0
 --- !u!114 &193003506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1470,6 +1468,23 @@ MonoBehaviour:
   - {fileID: 546603365}
   - {fileID: 2116526345}
   - {fileID: 414762598}
+--- !u!114 &193003507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 193003499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e73c23915bfb448b1e599167f03bdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topSlit: {fileID: 2015046190}
+  bottomSlit: {fileID: 426697112}
+  GlobalLight: {fileID: 830659408}
+  ClockCanvas: {fileID: 1380779135}
+  TestNewGame: 1
+  EmergencyLight: {fileID: 694805879}
 --- !u!1 &205412549
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,48 +13,7 @@ public class BasicWASD : MonoBehaviour {
     public UnityEngine.UI.Text ClockText;
     public UnityEngine.UI.Image ClockPanel;
 
-    public MeshRenderer topSlit, bottomSlit;
-
-    public bool TestNewGame;
-
     private bool IsUsingTerminal = false;
-
-    void Awake()
-    {
-        if (TestNewGame)
-            HarmonicSerialization.Instance.IsNewGame = true;
-
-        if (HarmonicSerialization.Instance.IsNewGame)
-        {
-            topSlit.enabled = true;
-            bottomSlit.enabled = true;
-            StartCoroutine(MoveSlits());
-        }
-        else
-        {
-            DestroySlits();
-        }
-    }
-
-    private IEnumerator MoveSlits()
-    {
-        yield return new WaitForSeconds(2f);
-        float openTime = 0f;
-        while (openTime < .5f)
-        {
-            topSlit.transform.Translate(Vector3.up * openTime * openTime, Space.World);
-            bottomSlit.transform.Translate(Vector3.down * openTime * openTime, Space.World);
-            openTime += Time.deltaTime;
-            yield return null;
-        }
-        DestroySlits();
-    }
-
-    private void DestroySlits()
-    {
-        GameObject.Destroy(topSlit.gameObject);
-        GameObject.Destroy(bottomSlit.gameObject);
-    }
 
     // Use this for initialization
     void Start () {
