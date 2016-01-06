@@ -9,8 +9,14 @@ public class ScriptedNewGame : MonoBehaviour {
     public Canvas ClockCanvas;
     public bool TestNewGame;
     public GameObject EmergencyLight;
+    public AudioClip WakeyWakey;
+
+    public uint FinalFrequency = 8000;
 
     private BlurOptimized blurrer;
+    private AudioSource audio;
+    private AudioLowPassFilter filter;
+
 
     // Use this for initialization
     void Start ()
@@ -27,6 +33,11 @@ public class ScriptedNewGame : MonoBehaviour {
             bottomSlit.enabled = true;
             ClockCanvas.enabled = false;
             GlobalLight.intensity = 0;
+            audio = this.gameObject.AddComponent<AudioSource>();
+            audio.clip = WakeyWakey;
+            audio.playOnAwake = false;
+            filter = this.gameObject.AddComponent<AudioLowPassFilter>();
+            filter.cutoffFrequency = 800f;
             StartCoroutine(MoveSlits());
         }
         else
@@ -39,7 +50,9 @@ public class ScriptedNewGame : MonoBehaviour {
 
     private IEnumerator MoveSlits()
     {
+        audio.Play(1000);
         yield return new WaitForSeconds(2f);
+        StartCoroutine(UnMuffle());
         while (blurrer.blurSize > 0f)
         {
             blurrer.blurSize -= .2f;
@@ -82,6 +95,15 @@ public class ScriptedNewGame : MonoBehaviour {
         GlobalLight.intensity = 1.25f;
         yield return new WaitForSeconds(.4f);
         GlobalLight.intensity = 0;
+    }
+
+    private IEnumerator UnMuffle()
+    {
+        while(filter.cutoffFrequency < this.FinalFrequency)
+        {
+            filter.cutoffFrequency += 100f;
+            yield return null;
+        }
     }
 
     private void DestroySlits()
