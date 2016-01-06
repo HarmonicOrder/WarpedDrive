@@ -171,12 +171,12 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
 		float x = -CrossPlatformInputManager.GetAxis("Mouse Y") * xSensitivity;
 		float y = CrossPlatformInputManager.GetAxis("Mouse X") * ySensitivity;
-		float roll = -CrossPlatformInputManager.GetAxis("Roll") * zSensitivity;
 		
 		currentLookRotation *= Quaternion.Euler(x, 
 		                                   y, 
-		                                   roll);
-		PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);	
+		                                   0);
+        currentLookRotation = new Quaternion(currentLookRotation.x, currentLookRotation.y, 0, currentLookRotation.w);
+		PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);
 	}
 
 	private void ToggleMenu(bool showMenu)
