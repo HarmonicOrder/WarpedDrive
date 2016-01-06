@@ -12,6 +12,7 @@ public class BasicWASD : MonoBehaviour {
     public Terminal T;
     public UnityEngine.UI.Text ClockText;
     public UnityEngine.UI.Image ClockPanel;
+    public ParticleSystem Immature;
 
     private bool IsUsingTerminal = false;
 
@@ -45,6 +46,11 @@ public class BasicWASD : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.C))
         {
 
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            StartCoroutine(BeImmature());
         }
 
         if (Input.GetKeyUp(KeyCode.E) && (IsUsingTerminal || TerminalManager.IsNextToTerminal))
@@ -99,6 +105,13 @@ public class BasicWASD : MonoBehaviour {
 
         ClockText.text = HarmonicUtils.ClockFormat((float)StarshipEnvironment.Instance.SecondsTilOxygenRunsOut);
 	}
+
+    private IEnumerator BeImmature()
+    {
+        Immature.Play();
+        yield return new WaitForSeconds(1f);
+        Immature.Stop();
+    }
 
     private void ToggleTerminal()
     {
