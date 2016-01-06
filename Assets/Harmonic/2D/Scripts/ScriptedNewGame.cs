@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.ImageEffects;
 
 public class ScriptedNewGame : MonoBehaviour {
     
@@ -9,6 +10,8 @@ public class ScriptedNewGame : MonoBehaviour {
     public bool TestNewGame;
     public GameObject EmergencyLight;
 
+    private BlurOptimized blurrer;
+
     // Use this for initialization
     void Start ()
     {
@@ -17,6 +20,9 @@ public class ScriptedNewGame : MonoBehaviour {
 
         if (HarmonicSerialization.Instance.IsNewGame)
         {
+            blurrer = Camera.main.GetComponent<BlurOptimized>();
+            blurrer.enabled = true;
+            blurrer.blurSize = 5;
             topSlit.enabled = true;
             bottomSlit.enabled = true;
             ClockCanvas.enabled = false;
@@ -34,14 +40,13 @@ public class ScriptedNewGame : MonoBehaviour {
     private IEnumerator MoveSlits()
     {
         yield return new WaitForSeconds(2f);
-        float openTime = 0f;
-        while (openTime < .5f)
+        while (blurrer.blurSize > 0f)
         {
-            topSlit.transform.Translate(Vector3.up * openTime * openTime, Space.World);
-            bottomSlit.transform.Translate(Vector3.down * openTime * openTime, Space.World);
-            openTime += Time.deltaTime;
+            blurrer.blurSize -= .2f;
             yield return null;
         }
+        blurrer.enabled = false;
+        blurrer.blurSize = 3f;
         DestroySlits();
         ClockCanvas.enabled = true;
 
@@ -81,7 +86,7 @@ public class ScriptedNewGame : MonoBehaviour {
 
     private void DestroySlits()
     {
-        GameObject.Destroy(topSlit.gameObject);
-        GameObject.Destroy(bottomSlit.gameObject);
+        topSlit.enabled = false;
+        bottomSlit.enabled = false;
     }
 }
