@@ -72,7 +72,20 @@ public class BasicWASD : MonoBehaviour {
         //cheat! tilde to get instant 5 mins of oxygen
         if (Input.GetKeyUp(KeyCode.BackQuote))
         {
-            StarshipEnvironment.Instance.OxygenLevel += .0025f;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                StarshipEnvironment.Instance.OxygenLevel -= .0025f;
+            }
+            else
+            {
+                StarshipEnvironment.Instance.OxygenLevel += .0025f;
+            }
+        }
+
+        //hypersleep
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+
         }
 
         if (Input.GetKeyUp(KeyCode.E) && (IsUsingTerminal || TerminalManager.IsNextToTerminal))
@@ -84,33 +97,36 @@ public class BasicWASD : MonoBehaviour {
             ToggleTerminal();
         }
 
-		float h, v;
-		h = CrossPlatformInputManager.GetAxis("Horizontal");
-		v = CrossPlatformInputManager.GetAxis("Vertical")  ;
+        if (!IsUsingTerminal)
+        {
+		    float h, v;
+		    h = CrossPlatformInputManager.GetAxis("Horizontal");
+		    v = CrossPlatformInputManager.GetAxis("Vertical")  ;
 
-        if (v > 0)
-        {
-            animator.SetInteger("Direction", 2);
-        }
-        else if (v < 0)
-        {
-            animator.SetInteger("Direction", 0);
-        }
-        else if (h > 0)
-        {
-            animator.SetInteger("Direction", 3);
-        }
-        else if (h < 0)
-        {
-            animator.SetInteger("Direction", 1);
-        }
-        animator.SetBool("isWalking", (h != 0) || (v != 0));
+            if (v > 0)
+            {
+                animator.SetInteger("Direction", 2);
+            }
+            else if (v < 0)
+            {
+                animator.SetInteger("Direction", 0);
+            }
+            else if (h > 0)
+            {
+                animator.SetInteger("Direction", 3);
+            }
+            else if (h < 0)
+            {
+                animator.SetInteger("Direction", 1);
+            }
+            animator.SetBool("isWalking", (h != 0) || (v != 0));
 
-        Vector3 vec = new Vector3(h, v, 0f);
-		vec.Normalize();
-		vec.x *= Time.deltaTime * 5f;
-		vec.y *= Time.deltaTime * 5f;
-		this.transform.Translate(vec);
+            Vector3 vec = new Vector3(h, v, 0f);
+		    vec.Normalize();
+		    vec.x *= Time.deltaTime * 5f;
+		    vec.y *= Time.deltaTime * 5f;
+		    this.transform.Translate(vec);
+        }
 
 		if (CrossPlatformInputManager.GetButtonDown("Jump")){
 			var pixelater = new PixelateTransition()
