@@ -38,6 +38,7 @@ public class ScriptedNewGame : MonoBehaviour {
             audio.playOnAwake = false;
             filter = this.gameObject.AddComponent<AudioLowPassFilter>();
             filter.cutoffFrequency = 800f;
+            Radio.Instance.Primary.volume = .25f;
             StartCoroutine(MoveSlits());
         }
         else
@@ -50,6 +51,7 @@ public class ScriptedNewGame : MonoBehaviour {
 
     private IEnumerator MoveSlits()
     {
+        yield return new WaitForSeconds(2f);
         audio.Play(1000);
         yield return new WaitForSeconds(2f);
         StartCoroutine(UnMuffle());
@@ -84,6 +86,7 @@ public class ScriptedNewGame : MonoBehaviour {
         yield return new WaitForSeconds(2f);
 
         GameObject.Destroy(EmergencyLight);
+        Radio.Instance.Primary.volume = 1f;
     }
 
     private IEnumerator FlickerLights()
