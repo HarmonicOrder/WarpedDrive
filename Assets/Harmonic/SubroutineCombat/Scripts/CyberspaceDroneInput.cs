@@ -25,8 +25,6 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public RectTransform Menu;
 	public Text consoleText;
 	public Transform TracerStartPosition;
-
-	private Quaternion currentHeading;
 	private Quaternion currentLookRotation;
 	private ILockTarget CurrentLock;
 	private bool showingMainMenu;
@@ -47,8 +45,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Radio.Instance.SetSoundtrack(Radio.Soundtrack.MethodicalAntivirus);
-
-		//currentHeading = strategySphere.rotation;
+        
 		currentLookRotation = PivotTransform.localRotation;
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = false;
@@ -243,5 +240,22 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
 		target.localRotation = Quaternion.Slerp(target.localRotation, newRotation, smoothing * Time.deltaTime);
 	}
+
+    private IEnumerator ClearFiringLines()
+    {
+        while(enabled)
+        {
+            System.Collections.Generic.List<Subroutine> activeTracers = ActiveSubroutines.List.FindAll((x) => x.Movement is Tracer);
+            if (activeTracers.Count > 0)
+            {
+                foreach(Subroutine s in activeTracers)
+                {
+                    //maybe have them clear a firing line?
+                }
+            }
+
+            yield return new WaitForSeconds(1f);
+        }
+    }
 
 }
