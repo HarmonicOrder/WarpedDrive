@@ -87,6 +87,7 @@ public class SubroutineWorkstation : MonoBehaviour {
                 {
                     ShowSubroutineSummary(si);
                     offsetY = r.anchoredPosition.y;
+                    r.GetComponent<Button>().Select();
                 }
             }
         }
@@ -230,12 +231,12 @@ public class SubroutineWorkstation : MonoBehaviour {
         }
     }
 
+    //actually pointer click now
     public void PointerEnter(BaseEventData data)
     {
         if (data is PointerEventData)
         {
             RectTransform rt = (data as PointerEventData).pointerEnter.transform.parent.GetComponent<RectTransform>();
-            print(rt);
             if (rt != null)
             {
                 if (ButtonInfoCache.ContainsKey(rt))
