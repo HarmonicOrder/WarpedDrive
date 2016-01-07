@@ -87,6 +87,7 @@ public class ScriptedNewGame : MonoBehaviour {
 
         GameObject.Destroy(EmergencyLight);
         Radio.Instance.Primary.volume = 1f;
+        HarmonicSerialization.Instance.IsNewGame = false;
     }
 
     private IEnumerator FlickerLights()

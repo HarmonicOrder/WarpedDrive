@@ -93,7 +93,7 @@ public class BasicWASD : MonoBehaviour {
 		    this.transform.Translate(vec);
         }
 
-		if (CrossPlatformInputManager.GetButtonDown("Jump")){
+		if (CrossPlatformInputManager.GetButtonDown("Jump") && !HarmonicSerialization.Instance.IsNewGame){
 			var pixelater = new PixelateTransition()
 			{
 				nextScene = 2,
