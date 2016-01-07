@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Tracer : SubroutineMovement {
 	
@@ -10,13 +11,49 @@ public class Tracer : SubroutineMovement {
 	public float fireSpeed = 100f;
 	public float FireTime = 1f;
     public bool MoveToClearFiringLine = false;
-	private float CurrentFireTime = 0f;
+
+    private float CurrentFireTime = 0f;
+    private Quaternion ClearFiringLineRotation;
+
     // Use this for initialization
     void Start () {
-		
+        CalculateFiringLineRotation();
 	}
 
-	public override void Fire()
+    private const float Divergence = 15f;
+
+    private void CalculateFiringLineRotation()
+    {
+        switch(UnityEngine.Random.Range(0, 8))
+        {
+            case 0:
+                ClearFiringLineRotation = Quaternion.Euler(0, -Divergence, 0);
+                break;
+            case 1:
+                ClearFiringLineRotation = Quaternion.Euler(0, Divergence, 0);
+                break;
+            case 2:
+                ClearFiringLineRotation = Quaternion.Euler(-Divergence, 0, 0);
+                break;
+            case 3:
+                ClearFiringLineRotation = Quaternion.Euler(Divergence, 0, 0);
+                break;
+            case 4:
+                ClearFiringLineRotation = Quaternion.Euler(Divergence, Divergence, 0);
+                break;
+            case 5:
+                ClearFiringLineRotation = Quaternion.Euler(Divergence, -Divergence, 0);
+                break;
+            case 6:
+                ClearFiringLineRotation = Quaternion.Euler(-Divergence, -Divergence, 0);
+                break;
+            default:
+                ClearFiringLineRotation = Quaternion.Euler(-Divergence, Divergence, 0);
+                break;
+        }
+    }
+
+    public override void Fire()
     {
         CurrentFireTime = 0f;
         this.transform.SetParent(null);
@@ -38,11 +75,12 @@ public class Tracer : SubroutineMovement {
 			if (Parent.LockedTarget != null)
 			{
 				Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
+                Quaternion look = Quaternion.LookRotation(relativePos);
 
                 if (MoveToClearFiringLine)
-                    relativePos += new Vector3(1f, -.5f, -5f);
+                    look *= ClearFiringLineRotation;
 
-				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);
+				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, look, Time.deltaTime * lookAtSpeed);
 				
 				if (relativePos.magnitude > this.engagementDistance)
 				{

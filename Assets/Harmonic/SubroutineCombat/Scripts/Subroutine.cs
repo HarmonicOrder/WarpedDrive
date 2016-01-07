@@ -42,6 +42,7 @@ public class Subroutine : Actor {
 
 
     private Machine DeployedMachine { get; set; }
+    private Coroutine Raycasting;
 
 	protected override void OnAwake(){
 		this.Movement = this.GetComponent<SubroutineMovement>();
@@ -74,6 +75,8 @@ public class Subroutine : Actor {
 			this.Movement.Fire();
 			if (this.OnSubroutineActive != null)
 				this.OnSubroutineActive();
+            if (this.Movement is Tracer)
+                Raycasting = StartCoroutine(RaycastForward());
 		}
         if (this._lockedTarget != null)
         {
@@ -88,6 +91,9 @@ public class Subroutine : Actor {
 	{
 		this.IsActive = false;
 		ActiveSubroutines.Remove(this);
+
+        if (Raycasting != null)
+            StopCoroutine(Raycasting);
 	}
 
 	public void TakeDamage(float damage)
@@ -147,6 +153,35 @@ public class Subroutine : Actor {
                 t.Rotate(Vector3.forward, (i - ((this.Info.HitPoints - 1) / 2))*15);
                 //t.localScale = Vector3.one * 5f;
             }
+        }
+    }
+
+    private IEnumerator RaycastForward()
+    {
+        while(this.IsActive)
+        {
+            RaycastHit rayHit;
+            if (Physics.Raycast(this.transform.position, this.transform.forward, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Default")))
+            {
+                if (rayHit.collider != null)
+                {
+                    print(rayHit.collider.gameObject == this.gameObject);
+                    if (rayHit.collider.GetComponent<Tracer>() != null)
+                    {
+                        if (this.Movement is Tracer)
+                        {
+                            (this.Movement as Tracer).MoveToClearFiringLine = true;
+                        }
+                    }
+                }
+                else if (this.Movement is Tracer)
+                {
+                    (this.Movement as Tracer).MoveToClearFiringLine = false;
+                }
+            }
+
+            yield return null;
+            yield return null;
         }
     }
 }
