@@ -11,7 +11,7 @@ public class SubroutineWorkstation : MonoBehaviour {
     public float rotateTime = .5f, moveTime = .5f;
     public Transform subroutineVisualization;
     public RectTransform subroutineListPanel, addNewSubroutineBtn;
-    public Text SummaryText;
+    public Text SummaryText, CoreText, RAMText, HPText, DMGText, FreeRAMText;
 
     public string currentFunctionName = "";
     public string currentMovementName = "Tracer";
@@ -59,7 +59,7 @@ public class SubroutineWorkstation : MonoBehaviour {
         UpgradeRoot.SetActive(false);
         UpgradeLines.SetActive(false);
         InitializeSubroutineList();
-        SetFunction("Delete");
+        UpdateFreeRAM();
     }
 
     private void InitializeSubroutineList()
@@ -98,6 +98,15 @@ public class SubroutineWorkstation : MonoBehaviour {
     private void ShowSubroutineSummary(SubroutineInfo si)
     {
         SummaryText.text = string.Format("{0}\n", si.CompositeName);
+        CoreText.text = string.Format(" {0}  ¢", si.CoreCost);
+        RAMText.text = string.Format(" {0} RAM", si.RAMCost);
+        //HPText.text = string.Format("{0} HP", si.);
+        //DMGText.text = string.Format("{0} DMG", si.d);
+    }
+
+    private void UpdateFreeRAM()
+    {
+        FreeRAMText.text = string.Format("{0} TB Free RAM", CyberspaceEnvironment.Instance.MaximumRAM - CyberspaceEnvironment.Instance.CurrentRAMUsed);
     }
 
     // Update is called once per frame
