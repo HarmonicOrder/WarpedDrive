@@ -25,8 +25,9 @@ public class CyberspaceBattlefield {
 	public OnCoreChangeEvent OnCoreChange;
 
 	public NetworkLocation CurrentNetwork {get;set;}
+    public bool Abdicate { get; set; }
 
-	public CyberspaceBattlefield() {
+    public CyberspaceBattlefield() {
 		CurrentNetwork = NetworkMap.GetLocationByCurrentScene();
 		if (CurrentNetwork != null)
 		{

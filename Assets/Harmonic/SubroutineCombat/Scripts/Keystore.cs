@@ -44,7 +44,7 @@ public class Keystore : NetworkLocationButton, IActivatable {
 
     public enum KeyColor { Green, Blue, Purple }
 
-    void Destroy()
+    void OnDestroy()
     {
         this.myMachine.OnSystemClean -= OnSystemClean;
     }

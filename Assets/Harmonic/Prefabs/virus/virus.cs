@@ -100,7 +100,7 @@ public class virus : VirusAI {
 	}
 	
 	
-	protected override void OnVirusDead ()
+	protected override void OnVirusDead()
 	{
 		if (this.GetComponent<OrbitAround>() != null)
 		{
@@ -144,5 +144,11 @@ public class virus : VirusAI {
 	
 	protected override void OnTakeDamage(float damage, float armorPointsLost, float hitPointsLost)
 	{
-	}
+    }
+
+    protected override void _OnDestroy()
+    {
+        print("removing virus from virus list");
+        base._OnDestroy();
+    }
 }

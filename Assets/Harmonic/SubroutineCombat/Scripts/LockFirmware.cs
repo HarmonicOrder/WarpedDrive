@@ -35,7 +35,7 @@ public class LockFirmware : NetworkLocationButton, IActivatable
         }
     }
 
-    void Destroy()
+    void OnDestroy()
     {
         this.myMachine.OnSystemClean -= OnSystemClean;
     }

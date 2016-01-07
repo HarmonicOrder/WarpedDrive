@@ -27,4 +27,9 @@ public class CPUStatus : MonoBehaviour {
 		CPUBar.anchoredPosition = new Vector2(newWidth / 2, 0);
 		CPUBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, newWidth);
 	}
+
+    void OnDestroy()
+    {
+        CyberspaceBattlefield.Current.OnCoreChange -= OnCPUChange;
+    }
 }

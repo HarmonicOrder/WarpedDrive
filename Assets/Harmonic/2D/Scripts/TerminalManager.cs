@@ -38,7 +38,7 @@ public class TerminalManager : MonoBehaviour {
         }
     }
     
-    void Destroy() {
+    void OnDestroy() {
         StopCoroutine(check);
 	}
 }

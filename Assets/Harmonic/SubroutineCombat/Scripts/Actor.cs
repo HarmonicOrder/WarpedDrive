@@ -26,12 +26,12 @@ public class Actor : MonoBehaviour {
     protected virtual void OnUpdate() { }
 
 
-    void Destroy()
+    void OnDestroy()
     {
-        OnDestroy();
+        _OnDestroy();
     }
 
-    protected virtual void OnDestroy() { }
+    protected virtual void _OnDestroy() { }
 	
 	protected IEnumerator SelfDestruct(float timer)
 	{		

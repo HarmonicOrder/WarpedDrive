@@ -11,6 +11,11 @@ public class InfectionMonitor : MonoBehaviour {
 		ScanAndPrint();
 	}
 
+    void OnDestroy()
+    {
+        ActiveSubroutines.OnMalwareListChange -= OnMalwareListChange;
+    }
+
 	private void OnMalwareListChange()
 	{
 		if (ActiveSubroutines.MalwareList.Count == 0)
@@ -59,9 +64,12 @@ public class InfectionMonitor : MonoBehaviour {
 
 	private void OnWin()
 	{
-		StrategyConsole.WriteLines(StrategyConsole.LineStartString+"SYSTEM CLEAN!\r\n> Esc to return to menu");
-		if (NetworkMap.CurrentLocation != null)
-			NetworkMap.CurrentLocation.IsInfected = false;
+        if (!CyberspaceBattlefield.Current.Abdicate)
+        {
+		    StrategyConsole.WriteLines(StrategyConsole.LineStartString+"SYSTEM CLEAN!\r\n> Esc to return to menu");
+		    if (NetworkMap.CurrentLocation != null)
+			    NetworkMap.CurrentLocation.IsInfected = false;
+        }
 	}
 
 }

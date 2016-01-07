@@ -43,7 +43,7 @@ public class Toaster : MonoBehaviour {
         OutputPanel.localScale = new Vector3(1, 0, 1);
     }
 
-    void Destroy()
+    void OnDestroy()
     {
         ToastLog.OnToast -= ToastLog_OnToast;
     }

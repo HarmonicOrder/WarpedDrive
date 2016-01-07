@@ -123,7 +123,7 @@ public class Subroutine : Actor {
         GameObject.Destroy(this.gameObject);
     }
 
-    protected override void OnDestroy()
+    protected override void _OnDestroy()
     {
         if (this.DeployedMachine != null)
         {
@@ -165,7 +165,8 @@ public class Subroutine : Actor {
             {
                 if (rayHit.collider != null)
                 {
-                    print(rayHit.collider.gameObject == this.gameObject);
+                    //always prints false, which is good
+                    //print(rayHit.collider.gameObject == this.gameObject);
                     if (rayHit.collider.GetComponent<Tracer>() != null)
                     {
                         if (this.Movement is Tracer)

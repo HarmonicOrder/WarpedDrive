@@ -36,7 +36,7 @@ public class SSH : NetworkLocationButton, IKeyListener, IActivatable {
         StartCoroutine(Close());
     }
 
-    void Destroy()
+    void OnDestroy()
     {
         Keystore.OnKeyCopied -= OnKeyCopied;
     }

@@ -69,8 +69,10 @@ public class MeshNode : MonoBehaviour, IMalware {
 	}
 	
 	
-	void OnDestroy(){
-		ActiveSubroutines.RemoveVirus(this);
+	void OnDestroy()
+    {
+        print("removing meshnode from virus list");
+        ActiveSubroutines.RemoveVirus(this);
 	}
 
 }

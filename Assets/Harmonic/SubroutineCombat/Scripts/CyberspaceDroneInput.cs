@@ -3,6 +3,7 @@ using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
 using Prime31.TransitionKit;
+using System;
 
 public class CyberspaceDroneInput : MonoBehaviour {
 	public float smoothing = 5f;
@@ -186,6 +187,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	
 	public void BackToNetwork()
 	{
+        CyberspaceBattlefield.Current.Abdicate = true;
 		var pixelater = new PixelateTransition()
 		{
 			finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
@@ -196,8 +198,9 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	}
 	
 	public void BackToMeatspace()
-	{
-		var pixelater = new PixelateTransition()
+    {
+        CyberspaceBattlefield.Current.Abdicate = true;
+        var pixelater = new PixelateTransition()
 		{
 			finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,
 			duration = 1.0f
@@ -206,7 +209,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		TransitionKit.instance.transitionWithDelegate( pixelater );
 	}
 
-	private void FireSubroutine(Transform t)
+    private void FireSubroutine(Transform t)
 	{
 		Subroutine s = t.GetComponent<Subroutine>();
 		s.LockedTarget = CurrentLock.transform;

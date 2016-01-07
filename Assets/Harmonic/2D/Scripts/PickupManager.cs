@@ -47,7 +47,7 @@ public class PickupManager : MonoBehaviour {
         }
     }
 
-    void Destroy()
+    void OnDestroy()
     {
         StopCoroutine(check);
     }

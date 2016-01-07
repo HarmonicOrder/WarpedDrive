@@ -51,4 +51,9 @@ public class Webserver : NetworkLocationButton, IActivatable {
 			StartCoroutine(FireSalvo());
 		}
 	}
+
+    void OnDestroy()
+    {
+        this.myMachine.OnSystemClean -= OnMachineClean;
+    }
 }
