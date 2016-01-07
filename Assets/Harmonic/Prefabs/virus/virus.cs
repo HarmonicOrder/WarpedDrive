@@ -126,7 +126,7 @@ public class virus : VirusAI {
 
 		Transform t = (Transform)GameObject.Instantiate(this.LazerPrefab, this.LazerStart.position, this.LazerStart.rotation);
 		
-		Physics.IgnoreCollision(this.GetComponent<Collider>(), t.GetComponent<Collider>());
+		Physics.IgnoreCollision(this.GetComponent<Collider>(), t.GetComponent<Collider>(), true);
 
 		StartCoroutine(this.WaitAndStopLaser());
 	}
