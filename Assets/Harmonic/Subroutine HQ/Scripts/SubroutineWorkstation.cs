@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using Prime31.TransitionKit;
 using System;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class SubroutineWorkstation : MonoBehaviour {
 
     public float rotateTime = .5f, moveTime = .5f;
     public Transform subroutineVisualization;
+    public RectTransform subroutineListPanel, addNewSubroutineBtn;
+    public Text SummaryText;
 
     public string currentFunctionName = "";
     public string currentMovementName = "Tracer";
@@ -27,6 +30,8 @@ public class SubroutineWorkstation : MonoBehaviour {
     private GameObject FunctionBaseButton;
     private GameObject FunctionLeftButton;
     private GameObject FunctionRightButton;
+
+    private Dictionary<RectTransform, SubroutineInfo> ButtonInfoCache = new Dictionary<RectTransform, SubroutineInfo>();
 
     // Use this for initialization
     void Start () {
@@ -53,11 +58,49 @@ public class SubroutineWorkstation : MonoBehaviour {
         FunctionRightButton = GameObject.Find("FunctionRight");
         UpgradeRoot.SetActive(false);
         UpgradeLines.SetActive(false);
+        InitializeSubroutineList();
         SetFunction("Delete");
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void InitializeSubroutineList()
+    {
+        int i = 0;
+        float height = 0, offsetY = 0;
+        foreach (RectTransform r in subroutineListPanel)
+        {
+            SubroutineInfo si = CyberspaceEnvironment.Instance.Subroutines.Find((s) => (s.ID == r.name));
+            if (r.name == "new")
+            {
+            }
+            else if (si == null)
+            { 
+                r.gameObject.SetActive(false);
+            }
+            else
+            {
+                height = r.sizeDelta.y;
+                i++;
+                r.GetComponentInChildren<Text>().text = si.CompositeName;
+                ButtonInfoCache.Add(r, si);
+
+                if (si.ID == "a1")
+                {
+                    ShowSubroutineSummary(si);
+                    offsetY = r.anchoredPosition.y;
+                }
+            }
+        }
+
+        addNewSubroutineBtn.anchoredPosition = new Vector2(addNewSubroutineBtn.anchoredPosition.x, offsetY - (i * height) - (height / 2));
+    }
+
+    private void ShowSubroutineSummary(SubroutineInfo si)
+    {
+        SummaryText.text = string.Format("{0}\n", si.CompositeName);
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (isRotating)
         {
             this.transform.localRotation = Quaternion.Slerp(from, to, currentRotateTime / rotateTime);
@@ -187,5 +230,22 @@ public class SubroutineWorkstation : MonoBehaviour {
         }
     }
 
-
+    public void PointerEnter(BaseEventData data)
+    {
+        if (data is PointerEventData)
+        {
+            RectTransform rt = (data as PointerEventData).pointerEnter.transform.parent.GetComponent<RectTransform>();
+            print(rt);
+            if (rt != null)
+            {
+                if (ButtonInfoCache.ContainsKey(rt))
+                {
+                    SubroutineInfo si = ButtonInfoCache[rt];
+                    SetFunction(si.FunctionName);
+                    SetMovement(si.MovementName);
+                    ShowSubroutineSummary(si);
+                }
+            }
+        }
+    }
 }

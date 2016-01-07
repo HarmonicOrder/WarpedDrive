@@ -27,7 +27,14 @@ public class CyberspaceEnvironment {
             MaximumRAM = 2,
             Subroutines = new List<SubroutineInfo>()
                     {
+                        new SubroutineInfo(),
                         new SubroutineInfo()
+                        {
+                            FunctionName = "Terminate",
+                            Hotkey = 2,
+                            MovementName = "Station",
+                            ID = "a2"
+                        }
                     }
         };
     }
