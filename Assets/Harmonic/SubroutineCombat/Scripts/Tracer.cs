@@ -58,7 +58,9 @@ public class Tracer : SubroutineMovement {
 			}
             else
             {
-                Parent.LockedTarget = ActiveSubroutines.FindClosestMalware(this.transform.position, 100f).transform;
+                IMalware closest = ActiveSubroutines.FindClosestMalware(this.transform.position, 100f);
+                if (closest != null)
+                    Parent.LockedTarget = closest.transform;
             }
 		}
 	}
