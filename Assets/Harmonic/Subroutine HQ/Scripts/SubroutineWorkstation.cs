@@ -14,9 +14,10 @@ public class SubroutineWorkstation : MonoBehaviour {
     public Text SummaryText, CoreText, RAMText, HPText, DMGText, FreeRAMText;
 
     public string currentFunctionName = "";
-    public string currentMovementName = "Tracer";
+    public string currentMovementName = "";
 
     public GameObject UpgradeRoot, UpgradeLines;
+    public Color EquippedButtonColor;
 
     private Dictionary<string, Transform> functions = new Dictionary<string, Transform>();
     private Dictionary<string, Transform> movement = new Dictionary<string, Transform>();
@@ -30,6 +31,9 @@ public class SubroutineWorkstation : MonoBehaviour {
     private GameObject FunctionBaseButton;
     private GameObject FunctionLeftButton;
     private GameObject FunctionRightButton;
+    private Button CurrentSubroutineButton;
+    private Button CurrentFunctionButton;
+    private Button CurrentMovementButton;
 
     private Dictionary<RectTransform, SubroutineInfo> ButtonInfoCache = new Dictionary<RectTransform, SubroutineInfo>();
 
@@ -90,7 +94,7 @@ public class SubroutineWorkstation : MonoBehaviour {
                     CurrentlyModifyingSubroutine = si;
                     ShowSubroutineSummary(si);
                     offsetY = r.anchoredPosition.y;
-                    r.GetComponent<Button>().Select();
+                    CurrentSubroutineButton = SetEquipButtonColor(null, r.GetComponent<Button>());                    
                 }
             }
         }
@@ -220,18 +224,47 @@ public class SubroutineWorkstation : MonoBehaviour {
             functions[name].gameObject.SetActive(true);
 
             currentFunctionName = name;
-            GameObject.Find(name + "Button").GetComponent<Button>().Select();
+
+            CurrentFunctionButton = SetEquipButtonColor(CurrentFunctionButton, GameObject.Find(name + "Button").GetComponent<Button>());
         }
+    }
+
+    private Button SetEquipButtonColor(Button oldButton, Button newButton)
+    {
+        if (oldButton != null)
+            oldButton.colors = ChangeColors(oldButton.colors, newButton.colors.normalColor);
+
+        newButton.colors = ChangeColors(newButton.colors, EquippedButtonColor);
+
+        return newButton;
+    }
+
+    private ColorBlock ChangeColors(ColorBlock colors, Color newNormalColor)
+    {
+        return new ColorBlock()
+        {
+            colorMultiplier = colors.colorMultiplier,
+            disabledColor = colors.disabledColor,
+            fadeDuration = colors.fadeDuration,
+            highlightedColor = colors.highlightedColor,
+            pressedColor = colors.pressedColor,
+            normalColor = newNormalColor
+        };
     }
 
     private void UpdateUpgrades()
     {
-        Upgrade.WorkstationMapping mapping = Upgrade.FunctionUpgrades[Type.GetType(currentFunctionName)];
-        SetUpgradeButton(FunctionBaseButton, mapping.Base);
-        SetUpgradeButton(FunctionLeftButton, mapping.Left);
-        SetUpgradeButton(FunctionRightButton, mapping.Right);
+        Type functionType = Type.GetType(currentFunctionName);
+        if (Upgrade.FunctionUpgrades.ContainsKey(functionType))
+        {
+            Upgrade.WorkstationMapping mapping = Upgrade.FunctionUpgrades[functionType];
+            SetUpgradeButton(FunctionBaseButton, mapping.Base);
+            SetUpgradeButton(FunctionLeftButton, mapping.Left);
+            SetUpgradeButton(FunctionRightButton, mapping.Right);
+        }
     }
 
+    //TODO: set color on button based on "equipped"
     private void SetUpgradeButton(GameObject gameObject, Upgrade u)
     {
         //TODO : if you haven't discovered it, set name and description to ???
@@ -262,8 +295,8 @@ public class SubroutineWorkstation : MonoBehaviour {
             movement[name].gameObject.SetActive(true);
 
             currentMovementName = name;
-
-            GameObject.Find(name + "Button").GetComponent<Button>().Select();
+            
+            CurrentMovementButton = SetEquipButtonColor(CurrentMovementButton, GameObject.Find(name + "Button").GetComponent<Button>());
         }
     }
 
