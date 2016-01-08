@@ -91,15 +91,26 @@ public class SubroutineWorkstation : MonoBehaviour {
 
                 if (si.ID == "a1")
                 {
-                    CurrentlyModifyingSubroutine = si;
-                    ShowSubroutineSummary(si);
                     offsetY = r.anchoredPosition.y;
-                    CurrentSubroutineButton = SetEquipButtonColor(null, r.GetComponent<Button>());                    
+
+                    SetSubroutine(si, r.GetComponent<Button>());
                 }
             }
         }
 
         addNewSubroutineBtn.anchoredPosition = new Vector2(addNewSubroutineBtn.anchoredPosition.x, offsetY - (i * height) - (height / 2));
+    }
+
+    private void SetSubroutine(SubroutineInfo si, Button button)
+    {
+        CurrentlyModifyingSubroutine = si;
+
+        SetMovementVisualization(si.MovementName);
+        SetFunctionVisualization(si.FunctionName);
+
+        ShowSubroutineSummary(si);
+
+        CurrentSubroutineButton = SetEquipButtonColor(CurrentSubroutineButton, button);
     }
 
     private void ShowSubroutineSummary(SubroutineInfo si)
@@ -216,14 +227,17 @@ public class SubroutineWorkstation : MonoBehaviour {
         UpdateUpgrades();
     }
 
+    private string oldFunctionName = "";
     private void SetFunctionVisualization(string name)
     {
-        if (currentFunctionName != name)
+        if (name != oldFunctionName)
         {
-            functions[currentFunctionName].gameObject.SetActive(false);
+            if (functions.ContainsKey(oldFunctionName))
+                functions[oldFunctionName].gameObject.SetActive(false);
+
             functions[name].gameObject.SetActive(true);
 
-            currentFunctionName = name;
+            oldFunctionName = name;
 
             CurrentFunctionButton = SetEquipButtonColor(CurrentFunctionButton, GameObject.Find(name + "Button").GetComponent<Button>());
         }
@@ -274,7 +288,12 @@ public class SubroutineWorkstation : MonoBehaviour {
 
     public void SetMovement(string name)
     {
-        if (CurrentlyModifyingSubroutine.ValidRAMUse(name))
+        SetMovement(name, false);
+    }
+
+    public void SetMovement(string name, bool skipRAMCheck = false)
+    {
+        if (CurrentlyModifyingSubroutine.ValidRAMUse(name) || skipRAMCheck)
         {
             CurrentlyModifyingSubroutine.MovementName = name;
             SetMovementVisualization(name);
@@ -287,14 +306,16 @@ public class SubroutineWorkstation : MonoBehaviour {
         }
     }
 
+    private string oldMovementName = "";
     private void SetMovementVisualization(string name)
     {
-        if (currentMovementName != name)
+        if (oldMovementName != name)
         {
-            movement[currentMovementName].gameObject.SetActive(false);
-            movement[name].gameObject.SetActive(true);
+            if (movement.ContainsKey(oldMovementName))
+                movement[oldMovementName].gameObject.SetActive(false);
 
-            currentMovementName = name;
+            movement[name].gameObject.SetActive(true);
+            oldMovementName = name;
             
             CurrentMovementButton = SetEquipButtonColor(CurrentMovementButton, GameObject.Find(name + "Button").GetComponent<Button>());
         }
@@ -311,10 +332,8 @@ public class SubroutineWorkstation : MonoBehaviour {
                 if (ButtonInfoCache.ContainsKey(rt))
                 {
                     SubroutineInfo si = ButtonInfoCache[rt];
-                    CurrentlyModifyingSubroutine = si;
-                    SetFunction(si.FunctionName);
-                    SetMovement(si.MovementName);
-                    ShowSubroutineSummary(si);
+
+                    SetSubroutine(si, rt.GetComponent<Button>());
                 }
             }
         }
