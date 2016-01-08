@@ -64,6 +64,32 @@ public static class NetworkMap {
                                     IsAccessible = false
                                 }
                             }
+                        },
+                        new NetworkLocation(){
+                            Name = "colony",
+                            sceneIndex = 9,
+                            IsInfected = true,
+                            Machines = new List<Machine>()
+                            {
+                                new Machine()
+                                {
+                                    Name = "GatewayMachine",
+                                    CPUCores = 4,
+                                    IsInfected = false
+                                },
+                                new Machine()
+                                {
+                                    Name = "DBMachine",
+                                    CPUCores = 2,
+                                    IsInfected = true
+                                },
+                                new Machine()
+                                {
+                                    Name = "DBMachine2",
+                                    CPUCores = 6,
+                                    IsInfected = true
+                                }
+                            }
                         }
                     }
                 }
