@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SubroutineMovement : MonoBehaviour {
 
@@ -16,4 +17,14 @@ public class SubroutineMovement : MonoBehaviour {
 	}
 
 	public virtual void Fire(){}
+
+    private static Dictionary<string, uint> RAMCosts = new Dictionary<string, uint>()
+    {
+        {"tracer", 2},
+        {"station", 1 }
+    };
+    public static uint GetRAMCost(string name)
+    {
+        return RAMCosts[name.ToLower()];
+    }
 }

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class CyberspaceEnvironment {
 
     public uint MaximumRAM { get; set; }
-    public uint CurrentRAMUsed { get; set; }
 
     public List<SubroutineInfo> Subroutines { get; set; }
 
@@ -24,7 +23,7 @@ public class CyberspaceEnvironment {
     {
         return new CyberspaceEnvironment()
         {
-            MaximumRAM = 2,
+            MaximumRAM = 3,
             Subroutines = new List<SubroutineInfo>()
                     {
                         new SubroutineInfo(),
@@ -42,5 +41,18 @@ public class CyberspaceEnvironment {
     internal static void SetInstance(CyberspaceEnvironment env)
     {
         _instance = env;
+    }
+
+    internal uint CurrentRAMUsed
+    {
+        get
+        {
+            uint result = 0;
+            foreach (var sub in this.Subroutines)
+            {
+                result += sub.RAMCost;
+            }
+            return result;
+        }
     }
 }

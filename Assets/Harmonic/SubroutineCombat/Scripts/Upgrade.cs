@@ -7,6 +7,7 @@ public class Upgrade{
     
     public string Name { get; set; }
     public int CoreCost { get; set; }
+    public int RAMCost { get; set; }
     public string Description { get; set; }
 
     public class WorkstationMapping

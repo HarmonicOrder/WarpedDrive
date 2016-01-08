@@ -33,6 +33,8 @@ public class SubroutineWorkstation : MonoBehaviour {
 
     private Dictionary<RectTransform, SubroutineInfo> ButtonInfoCache = new Dictionary<RectTransform, SubroutineInfo>();
 
+    public SubroutineInfo CurrentlyModifyingSubroutine { get; private set; }
+
     // Use this for initialization
     void Start () {
         Radio.Instance.SetSoundtrack(Radio.Soundtrack.DigitalEnvironment);
@@ -85,6 +87,7 @@ public class SubroutineWorkstation : MonoBehaviour {
 
                 if (si.ID == "a1")
                 {
+                    CurrentlyModifyingSubroutine = si;
                     ShowSubroutineSummary(si);
                     offsetY = r.anchoredPosition.y;
                     r.GetComponent<Button>().Select();
@@ -204,6 +207,13 @@ public class SubroutineWorkstation : MonoBehaviour {
 
     public void SetFunction(string name)
     {
+        CurrentlyModifyingSubroutine.FunctionName = name;
+        SetFunctionVisualization(name);
+        UpdateUpgrades();
+    }
+
+    private void SetFunctionVisualization(string name)
+    {
         if (currentFunctionName != name)
         {
             functions[currentFunctionName].gameObject.SetActive(false);
@@ -211,8 +221,6 @@ public class SubroutineWorkstation : MonoBehaviour {
 
             currentFunctionName = name;
         }
-
-        UpdateUpgrades();
     }
 
     private void UpdateUpgrades()
@@ -225,11 +233,27 @@ public class SubroutineWorkstation : MonoBehaviour {
 
     private void SetUpgradeButton(GameObject gameObject, Upgrade u)
     {
+        //TODO : if you haven't discovered it, set name and description to ???
         gameObject.transform.FindChild("Name").GetComponent<Text>().text = u.Name;
         gameObject.transform.FindChild("Description").GetComponent<Text>().text = u.Description;
     }
 
     public void SetMovement(string name)
+    {
+        if (CurrentlyModifyingSubroutine.ValidRAMUse(name))
+        {
+            CurrentlyModifyingSubroutine.MovementName = name;
+            SetMovementVisualization(name);
+            UpdateUpgrades();
+            UpdateFreeRAM();
+        }
+        else
+        {
+            print("not enough ram");
+        }
+    }
+
+    private void SetMovementVisualization(string name)
     {
         if (currentMovementName != name)
         {
@@ -251,6 +275,7 @@ public class SubroutineWorkstation : MonoBehaviour {
                 if (ButtonInfoCache.ContainsKey(rt))
                 {
                     SubroutineInfo si = ButtonInfoCache[rt];
+                    CurrentlyModifyingSubroutine = si;
                     SetFunction(si.FunctionName);
                     SetMovement(si.MovementName);
                     ShowSubroutineSummary(si);
