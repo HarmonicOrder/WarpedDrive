@@ -220,6 +220,7 @@ public class SubroutineWorkstation : MonoBehaviour {
             functions[name].gameObject.SetActive(true);
 
             currentFunctionName = name;
+            GameObject.Find(name + "Button").GetComponent<Button>().Select();
         }
     }
 
@@ -261,6 +262,8 @@ public class SubroutineWorkstation : MonoBehaviour {
             movement[name].gameObject.SetActive(true);
 
             currentMovementName = name;
+
+            GameObject.Find(name + "Button").GetComponent<Button>().Select();
         }
     }
 

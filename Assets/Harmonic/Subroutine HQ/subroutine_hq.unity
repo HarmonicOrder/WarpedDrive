@@ -339,7 +339,7 @@ GameObject:
   - 114: {fileID: 21667799}
   - 114: {fileID: 21667798}
   m_Layer: 5
-  m_Name: Button (11)
+  m_Name: FreezeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1230,7 +1230,7 @@ GameObject:
   - 114: {fileID: 183740778}
   - 114: {fileID: 183740777}
   m_Layer: 5
-  m_Name: Button (8)
+  m_Name: CorruptButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2113,6 +2113,10 @@ Prefab:
       propertyPath: m_FontData.m_FontSize
       value: 36
       objectReference: {fileID: 0}
+    - target: {fileID: 11454870, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
+      propertyPath: m_Colors.m_ColorMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
   m_IsPrefabParent: 0
@@ -2892,6 +2896,26 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 944315304}
+    - target: {fileID: 11454870, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
+      propertyPath: m_Navigation.m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448414, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448414, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448414, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11448414, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
+      propertyPath: m_FillCenter
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
   m_IsPrefabParent: 0
@@ -5975,7 +5999,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22465692, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 22465692, guid: 1f3d8b0ef83e4ad4e90fd3baaebbfb77, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -6412,7 +6436,7 @@ GameObject:
   - 114: {fileID: 1132472394}
   - 114: {fileID: 1132472393}
   m_Layer: 5
-  m_Name: Button (7)
+  m_Name: DeleteButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10689,7 +10713,7 @@ GameObject:
   - 114: {fileID: 1812534911}
   - 114: {fileID: 1812534910}
   m_Layer: 5
-  m_Name: Button (12)
+  m_Name: HoneypotButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11529,7 +11553,7 @@ GameObject:
   - 114: {fileID: 1894391627}
   - 114: {fileID: 1894391626}
   m_Layer: 5
-  m_Name: Button (13)
+  m_Name: SandboxButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11720,7 +11744,7 @@ GameObject:
   - 114: {fileID: 1924532167}
   - 114: {fileID: 1924532166}
   m_Layer: 5
-  m_Name: DefenderButton
+  m_Name: StationButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11951,7 +11975,7 @@ GameObject:
   - 114: {fileID: 1938391289}
   - 114: {fileID: 1938391288}
   m_Layer: 5
-  m_Name: Button (9)
+  m_Name: TerminateButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
