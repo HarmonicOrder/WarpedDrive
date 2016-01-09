@@ -16,7 +16,7 @@ public class BunnyBomb : VirusAI
         Hourglass.gameObject.SetActive(false);
         this.Info = new ActorInfo()
         {
-            Name = "Rabbit",
+            Name = "Wabbit",
             DamagePerHit = 0f,
             FireRate = 0f,
             HitPoints = 1f,

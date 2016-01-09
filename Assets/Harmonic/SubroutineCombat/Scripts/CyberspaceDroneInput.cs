@@ -140,14 +140,22 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			if (CyberspaceBattlefield.Current.ProvisionCores(1)){
 				FireSubroutine((Transform)Instantiate(AlphaSubPrefab, TracerStartPosition.position, TracerStartPosition.rotation));
 			}
+            else
+            {
+                ToastLog.Toast("Insufficent\nCPU Cores");
+            }
 		}
 
 		if (Input.GetKeyDown(KeyCode.Alpha2) && CurrentLock != null)
 		{
 			if (CyberspaceBattlefield.Current.ProvisionCores(2)){
 				FireSubroutine(Instantiate(BetaSubPrefab));
-			}
-		}
+            }
+            else
+            {
+                ToastLog.Toast("Insufficent\nCPU Cores");
+            }
+        }
 
 		float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;
 		float vert = -CrossPlatformInputManager.GetAxis("Horizontal") * xSensitivity;
