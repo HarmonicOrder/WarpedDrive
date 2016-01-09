@@ -4,8 +4,8 @@ using System.Collections;
 public class BunnyBomb : VirusAI
 {
 
-    public override string DisplayNameSingular { get { return "Rabbit"; } }
-    public override string DisplayNamePlural { get { return "Rabbits"; } }
+    public override string DisplayNameSingular { get { return "Wabbit"; } }
+    public override string DisplayNamePlural { get { return "Wabbits"; } }
 
     public BunnyBomb Partner { get; set; }
     public Transform Hourglass;
@@ -22,6 +22,8 @@ public class BunnyBomb : VirusAI
             HitPoints = 1f,
             ArmorPoints = 0f
         };
+
+        this.machineCenter = this.transform.root.position;
     }
 
     private float LookAtSpeed = 5f;
@@ -31,6 +33,7 @@ public class BunnyBomb : VirusAI
     private float RandomMoveTime = 0f;
     private float CurrentRandomMoveTime = 1f;
     private float moveSpeed = 10f;
+    private Vector3 machineCenter;
 
     protected override void OnUpdate()
     {
@@ -40,6 +43,7 @@ public class BunnyBomb : VirusAI
             {
                 Hourglass.gameObject.SetActive(false);
                 Partner = GameObject.Instantiate<GameObject>(this.gameObject).GetComponent<BunnyBomb>();
+                Partner.transform.SetParent(this.transform.parent);
                 Partner.transform.position = this.transform.position + Vector3.forward * 10;
                 Partner.transform.localRotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.Euler(0, 180, 0), 180);
                 Partner.Partner = this;
@@ -56,8 +60,14 @@ public class BunnyBomb : VirusAI
         {
             if (CurrentRandomMoveTime > RandomMoveTime)
             {
-                RandomMoveDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;// + Vector3.forward * 3f;
-                print(RandomMoveDirection);
+                if (Vector3.Distance(this.transform.position, this.machineCenter) > 150f)
+                {
+                    RandomMoveDirection = this.machineCenter - this.transform.position;
+                }
+                else
+                {
+                    RandomMoveDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;// + Vector3.forward * 3f;
+                }
                 RandomMoveTime = Random.Range(3, 8);
                 CurrentRandomMoveTime = 0f;
             }
@@ -70,5 +80,11 @@ public class BunnyBomb : VirusAI
                 CurrentRandomMoveTime += Time.deltaTime;
             }
         }
+    }
+    protected override void OnVirusDead()
+    {
+        GameObject.Instantiate(this.ExplosionPrefab, this.transform.position, Quaternion.identity);
+        base.OnVirusDead();
+        GameObject.Destroy(this.gameObject);
     }
 }

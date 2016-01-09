@@ -2878,13 +2878,58 @@ Prefab:
       propertyPath: m_Name
       value: bunny (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6519040, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+    - {fileID: 6519886, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+    - {fileID: 6505320, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+    - {fileID: 6520442, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+    - {fileID: 6504878, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+    - {fileID: 6569904, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+    - {fileID: 6564416, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+    - {fileID: 6560290, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+    - {fileID: 6596906, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+    - {fileID: 6552792, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+    - {fileID: 13563288, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+    - {fileID: 13699164, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+    - {fileID: 13652590, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1034759161 stripped
 Transform:
   m_PrefabParentObject: {fileID: 414714, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
   m_PrefabInternal: {fileID: 1034759160}
+--- !u!1 &1034759162 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 124174, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+  m_PrefabInternal: {fileID: 1034759160}
+--- !u!1 &1034759163 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 199814, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+  m_PrefabInternal: {fileID: 1034759160}
+--- !u!65 &1034759164
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1034759162}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6, y: 6, z: 6}
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!65 &1034759165
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1034759163}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: .300000012}
 --- !u!1001 &1054654611
 Prefab:
   m_ObjectHideFlags: 0
