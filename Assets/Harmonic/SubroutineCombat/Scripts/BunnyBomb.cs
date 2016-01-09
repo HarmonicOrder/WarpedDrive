@@ -24,6 +24,7 @@ public class BunnyBomb : VirusAI
         };
 
         this.machineCenter = this.transform.root.position;
+        this.TimeTilNextProvision = Random.Range(3, 7);
     }
 
     private float LookAtSpeed = 5f;
@@ -34,7 +35,10 @@ public class BunnyBomb : VirusAI
     private float CurrentRandomMoveTime = 1f;
     private float moveSpeed = 10f;
     private Vector3 machineCenter;
-
+    private bool ProvisioningCore = false;
+    private const float ProvisionTimeDuration = 2f;
+    private float TimeTilNextProvision = 2f;
+    private float TimeProvisioning = 0f;
     protected override void OnUpdate()
     {
         if (Partner == null)
@@ -58,7 +62,33 @@ public class BunnyBomb : VirusAI
         }
         else
         {
-            if (CurrentRandomMoveTime > RandomMoveTime)
+            if (TimeTilNextProvision < 0f)
+            {
+                if (ProvisioningCore)
+                {
+                    if (TimeProvisioning > ProvisionTimeDuration)
+                    {
+                        CyberspaceBattlefield.Current.ReclaimCores(1);
+                        Hourglass.gameObject.SetActive(false);
+                        TimeTilNextProvision = Random.Range(3, 7);
+                        TimeProvisioning = 0f;
+                    }
+                    else
+                    {
+                        TimeProvisioning += Time.deltaTime;
+                    }
+                }
+                else
+                {
+                    ProvisioningCore = CyberspaceBattlefield.Current.ProvisionCores(1);
+                    if (ProvisioningCore)
+                    {
+                        Hourglass.gameObject.SetActive(true);
+                        TimeProvisioning = 0f;
+                    }
+                }
+            }
+            else if (CurrentRandomMoveTime > RandomMoveTime)
             {
                 if (Vector3.Distance(this.transform.position, this.machineCenter) > 150f)
                 {
@@ -70,6 +100,7 @@ public class BunnyBomb : VirusAI
                 }
                 RandomMoveTime = Random.Range(3, 8);
                 CurrentRandomMoveTime = 0f;
+                TimeTilNextProvision -= Time.deltaTime;
             }
             else
             {
@@ -78,11 +109,16 @@ public class BunnyBomb : VirusAI
                 this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed, Space.Self);
 
                 CurrentRandomMoveTime += Time.deltaTime;
+                TimeTilNextProvision -= Time.deltaTime;
             }
         }
     }
     protected override void OnVirusDead()
     {
+        if (ProvisioningCore)
+        {
+            CyberspaceBattlefield.Current.ReclaimCores(1);
+        }
         GameObject.Instantiate(this.ExplosionPrefab, this.transform.position, Quaternion.identity);
         base.OnVirusDead();
         GameObject.Destroy(this.gameObject);
