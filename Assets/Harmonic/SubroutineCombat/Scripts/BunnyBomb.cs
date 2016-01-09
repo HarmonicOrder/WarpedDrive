@@ -35,10 +35,11 @@ public class BunnyBomb : VirusAI
     private float CurrentRandomMoveTime = 1f;
     private float moveSpeed = 10f;
     private Vector3 machineCenter;
-    private bool ProvisioningCore = false;
-    private const float ProvisionTimeDuration = 2f;
+    private bool IsOccupyingCore = false;
+    private const float OccupationDuration = 3f;
     private float TimeTilNextProvision = 2f;
-    private float TimeProvisioning = 0f;
+    private float CurrentlyProvisioningTime = 0f;
+
     protected override void OnUpdate()
     {
         if (Partner == null)
@@ -64,27 +65,28 @@ public class BunnyBomb : VirusAI
         {
             if (TimeTilNextProvision < 0f)
             {
-                if (ProvisioningCore)
+                if (IsOccupyingCore)
                 {
-                    if (TimeProvisioning > ProvisionTimeDuration)
+                    if (CurrentlyProvisioningTime > OccupationDuration)
                     {
                         CyberspaceBattlefield.Current.ReclaimCores(1);
                         Hourglass.gameObject.SetActive(false);
-                        TimeTilNextProvision = Random.Range(3, 7);
-                        TimeProvisioning = 0f;
+                        TimeTilNextProvision = (float)Random.Range(3, 7);
+                        CurrentlyProvisioningTime = 0f;
+                        IsOccupyingCore = false;
                     }
                     else
                     {
-                        TimeProvisioning += Time.deltaTime;
+                        CurrentlyProvisioningTime += Time.deltaTime;
                     }
                 }
                 else
                 {
-                    ProvisioningCore = CyberspaceBattlefield.Current.ProvisionCores(1);
-                    if (ProvisioningCore)
+                    IsOccupyingCore = CyberspaceBattlefield.Current.ProvisionCores(1);
+                    if (IsOccupyingCore)
                     {
                         Hourglass.gameObject.SetActive(true);
-                        TimeProvisioning = 0f;
+                        CurrentlyProvisioningTime = 0f;
                     }
                 }
             }
@@ -115,7 +117,7 @@ public class BunnyBomb : VirusAI
     }
     protected override void OnVirusDead()
     {
-        if (ProvisioningCore)
+        if (IsOccupyingCore)
         {
             CyberspaceBattlefield.Current.ReclaimCores(1);
         }
