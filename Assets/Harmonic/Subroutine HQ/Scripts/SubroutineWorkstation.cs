@@ -132,13 +132,14 @@ public class SubroutineWorkstation : MonoBehaviour {
         SetMovementVisualization(si.MovementName);
         SetFunctionVisualization(si.FunctionName);
 
-        ShowSubroutineSummary(si);
+        UpdateSubroutineSummary(si);
 
         CurrentSubroutineButton = SetEquipButtonColor(CurrentSubroutineButton, button);
         UpdateSubroutineButtonText(CurrentSubroutineButton, si.CompositeName);
     }
 
-    private void ShowSubroutineSummary(SubroutineInfo si)
+    //TODO: probably redundant calls to this
+    private void UpdateSubroutineSummary(SubroutineInfo si)
     {
         SummaryText.text = string.Format("{0}\n", si.CompositeName);
         CoreText.text = string.Format(" {0}  ¢", si.CoreCost);
@@ -249,6 +250,7 @@ public class SubroutineWorkstation : MonoBehaviour {
     {
         CurrentlyModifyingSubroutine.FunctionName = name;
         CurrentlyModifyingSubroutine.CoreCost = SubroutineFunction.GetCoreCost(name);
+        UpdateSubroutineSummary(CurrentlyModifyingSubroutine);
         SetFunctionVisualization(name);
         UpdateUpgrades();
         UpdateSubroutineButtonText();
@@ -326,6 +328,7 @@ public class SubroutineWorkstation : MonoBehaviour {
             SetMovementVisualization(name);
             UpdateUpgrades();
             UpdateFreeRAM();
+            UpdateSubroutineSummary(CurrentlyModifyingSubroutine);
             UpdateSubroutineButtonText();
         }
         else
