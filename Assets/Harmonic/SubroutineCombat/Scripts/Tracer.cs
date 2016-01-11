@@ -5,10 +5,10 @@ using System;
 public class Tracer : SubroutineMovement {
 	
 	public float lookAtSpeed = 2f;
-	public float engagementDistance = 200f;
+	//public float engagementDistance = 200f;
 	public float followDistance = 30f;
 	public float moveSpeed = 20f;
-	public float fireSpeed = 100f;
+	public float fireSpeed = 40f;
 	public float FireTime = 1f;
     public bool MoveToClearFiringLine = false;
 
@@ -82,12 +82,13 @@ public class Tracer : SubroutineMovement {
 
 				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, look, Time.deltaTime * lookAtSpeed);
 				
-				if (relativePos.magnitude > this.engagementDistance)
-				{
-					//do not engage
-				} 
+				//if (relativePos.magnitude > this.engagementDistance)
+				//{
+				//	//do not engage
+				//} 
+				//else 
                 //move slowly
-				else if (relativePos.magnitude < followDistance){
+                if (relativePos.magnitude < followDistance){
 					this.transform.Translate(0, 0, Time.deltaTime * moveSpeed / 3f, Space.Self);
 				}
 				else 

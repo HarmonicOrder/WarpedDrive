@@ -6,7 +6,6 @@ public class Station : SubroutineMovement {
 
 
 	public float TimeToInstantiate = 4f;
-	public MeshRenderer ShieldRenderer;
 	public Transform InstantiatePrefab;
 
 	private bool BeingFired = false; //maybe add public getter
@@ -15,9 +14,11 @@ public class Station : SubroutineMovement {
 	//private List<Transform> targetsInView = new List<Transform>();
 	private float originalAlpha;
 	private Transform CurrentInstantiateCube;
+	private MeshRenderer ShieldRenderer;
 
 	// Use this for initialization
 	void Start () {
+        ShieldRenderer = this.transform.FindChild("MovementRoot/Station/StationHemisphere").GetComponent<MeshRenderer>();
 		this.originalAlpha = this.ShieldRenderer.material.color.a;
 
 		this.ShieldRenderer.material.color = HarmonicUtils.ColorWithAlpha(this.ShieldRenderer.material.color, 0);
@@ -35,8 +36,10 @@ public class Station : SubroutineMovement {
 		this.transform.SetParent(null);
 		this.transform.position = Parent.LockedTarget.position;
 		this.transform.rotation = Parent.LockedTarget.rotation;
-		this.gameObject.GetComponent<Scaler>().duration = TimeToInstantiate;
-		this.gameObject.GetComponent<Scaler>().ScaleAgain();
+        Scaler s = this.gameObject.AddComponent<Scaler>();
+		s.duration = TimeToInstantiate;
+		s.ScaleAgain();
+
 		BeingFired = true;
 	}
 	

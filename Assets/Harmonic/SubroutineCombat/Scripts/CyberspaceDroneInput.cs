@@ -26,6 +26,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public RectTransform Menu;
 	public Text consoleText;
 	public Transform TracerStartPosition;
+    public Transform SubroutineHarnessPrefab;
 	private Quaternion currentLookRotation;
 	private ILockTarget CurrentLock;
 	private bool showingMainMenu;

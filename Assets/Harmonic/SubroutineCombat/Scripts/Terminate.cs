@@ -4,7 +4,7 @@ using System.Collections;
 public class Terminate : SubroutineFunction {
 
 	public float LookAtSpeed = 2f;
-	public float LaserPersistTime = 1f;
+	public float LaserPersistTime = .5f;
 
 	public ParticleSystem PulseParticles;
 	public ParticleSystem BurstParticles;
@@ -12,7 +12,10 @@ public class Terminate : SubroutineFunction {
 
 	// Use this for initialization
 	void Start () {
-		TerminateLineRenderer.SetVertexCount(0);
+        this.TerminateLineRenderer = this.transform.Find("FunctionRoot/Terminate").GetComponent<LineRenderer>();
+        this.PulseParticles = this.transform.Find("FunctionRoot/Terminate/PulseParticles").GetComponent<ParticleSystem>();
+        this.BurstParticles = this.transform.Find("FunctionRoot/Terminate/BurstParticles").GetComponent<ParticleSystem>();
+        TerminateLineRenderer.SetVertexCount(0);
 		this.Parent.Info.DamagePerHit = 5f;
 		this.Parent.Info.FireRate = 5f;
 		this.Parent.Info.CoreCost += 2;

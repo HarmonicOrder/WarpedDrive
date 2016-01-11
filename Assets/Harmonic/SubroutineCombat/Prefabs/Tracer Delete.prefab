@@ -327,7 +327,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 403890}
-  - 114: {fileID: 11407948}
   m_Layer: 0
   m_Name: HealthBar
   m_TagString: Untagged
@@ -529,7 +528,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122442}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 151.992722, y: 59.915287, z: -125.965324}
+  m_LocalPosition: {x: 3.94140577, y: -1.06141019, z: 10.7130537}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 493730}
@@ -1359,22 +1358,6 @@ TrailRenderer:
       rgba: 16777215
   m_MinVertexDistance: .100000001
   m_Autodestruct: 0
---- !u!114 &11407948
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 179002}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2ec2b96de5640e42a622fc3064f1c80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Target: {fileID: 0}
-  m_AutoTargetPlayer: 1
-  m_UpdateType: 0
-  m_RotationRange: {x: 0, y: 0}
-  m_FollowSpeed: 1
 --- !u!114 &11467302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1402,11 +1385,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookAtSpeed: 2
-  engagementDistance: 400
   followDistance: 30
   moveSpeed: 20
   fireSpeed: 40
   FireTime: 1
+  MoveToClearFiringLine: 0
 --- !u!114 &11487390
 MonoBehaviour:
   m_ObjectHideFlags: 1
