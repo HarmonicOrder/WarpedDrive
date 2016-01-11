@@ -6,6 +6,7 @@ public class SubroutineInfo {
 
     public string ID = "a1";
     public int Hotkey = 1;
+    public bool LoadedIntoRAM = false;
     public string FunctionName = "Delete";
     public string MovementName = "Tracer";
     public uint RAMCost

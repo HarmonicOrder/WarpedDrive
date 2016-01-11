@@ -26,11 +26,11 @@ public class SubroutineHarness : MonoBehaviour {
         switch(movementName)
         {
             case "Tracer":
-                t = InstantiateSubcomponent(Tracer, this.MovementRoot);
+                t = InstantiateSubcomponent(Tracer, this.MovementRoot, movementName);
                 this.MovementScript = this.gameObject.AddComponent<Tracer>();
                 break;
             case "Station":
-                t = InstantiateSubcomponent(Station, this.MovementRoot);
+                t = InstantiateSubcomponent(Station, this.MovementRoot, movementName);
                 this.MovementScript = this.gameObject.AddComponent<Station>();
                 (this.MovementScript as Station).InstantiatePrefab = InstantiatePrefab;
                 break;
@@ -43,23 +43,24 @@ public class SubroutineHarness : MonoBehaviour {
         switch (functionName)
         {
             case "Delete":
-                t = InstantiateSubcomponent(Delete, this.FunctionRoot);
+                t = InstantiateSubcomponent(Delete, this.FunctionRoot, functionName);
                 this.FunctionScript = this.gameObject.AddComponent<Delete>();
                 (this.FunctionScript as Delete).lazerPrefab = LazerPrefab;
                 break;
             case "Terminate":
-                t = InstantiateSubcomponent(Terminate, this.FunctionRoot);
+                t = InstantiateSubcomponent(Terminate, this.FunctionRoot, functionName);
                 this.FunctionScript = this.gameObject.AddComponent<Terminate>();
                 break;
         }
     }
 
-    private Transform InstantiateSubcomponent(Transform original, Transform parent)
+    private Transform InstantiateSubcomponent(Transform original, Transform parent, string name)
     {
         Transform t = Instantiate<Transform>(original);
         t.SetParent(parent);
         t.localPosition = Vector3.zero;
         t.localRotation = Quaternion.identity;
+        t.name = name;
         return t;
     }
 }

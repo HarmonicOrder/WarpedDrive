@@ -136,26 +136,16 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			HitCrosshair.enabled = false;
 		}
 
-		if (Input.GetKeyDown(KeyCode.Alpha1) && (CurrentLock != null) && (CurrentLock is VirusAI))
+		if (Input.GetKeyDown(KeyCode.Alpha1) && (CurrentLock != null))
 		{
-			if (CyberspaceBattlefield.Current.ProvisionCores(1)){
-				FireSubroutine((Transform)Instantiate(AlphaSubPrefab, TracerStartPosition.position, TracerStartPosition.rotation));
-			}
-            else
-            {
-                ToastLog.Toast("Insufficent\nCPU Cores");
-            }
+            SubroutineInfo si = GetSubroutineInfo(0);
+            PossiblyCreateSubroutine(si);
 		}
 
 		if (Input.GetKeyDown(KeyCode.Alpha2) && CurrentLock != null)
-		{
-			if (CyberspaceBattlefield.Current.ProvisionCores(2)){
-				FireSubroutine(Instantiate(BetaSubPrefab));
-            }
-            else
-            {
-                ToastLog.Toast("Insufficent\nCPU Cores");
-            }
+        {
+            SubroutineInfo si = GetSubroutineInfo(1);
+            PossiblyCreateSubroutine(si);
         }
 
 		float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;
@@ -186,7 +176,65 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);
 	}
 
-	private void ToggleMenu(bool showMenu)
+    private void PossiblyCreateSubroutine(SubroutineInfo si)
+    {
+        if (si == null)
+        {
+            print("no subroutine info to create from");
+            return;
+        }
+
+        if (ValidateTarget(si))
+        {
+            if (CyberspaceBattlefield.Current.ProvisionCores((int)si.CoreCost))
+            {
+                FireSubroutine(InstantiateHarness(si), si);
+            }
+            else
+            {
+                ToastLog.Toast("Insufficent\nCPU Cores");
+            }
+        }
+        else
+            print("invalid target");
+    }
+
+    private bool ValidateTarget(SubroutineInfo si)
+    {
+        if (si.MovementName == "Tracer")
+        {
+            return (CurrentLock is VirusAI);
+        }
+
+        return true;
+    }
+
+    private Transform InstantiateHarness(SubroutineInfo si)
+    {
+        print("creating harness");
+        if (si.MovementName == "Tracer")
+        {
+            return (Transform)Instantiate(SubroutineHarnessPrefab, TracerStartPosition.position, TracerStartPosition.rotation);
+        }
+        else
+        {
+            return (Transform)Instantiate(SubroutineHarnessPrefab, this.transform.position, this.transform.rotation);
+        }
+    }
+
+    private SubroutineInfo GetSubroutineInfo(int index)
+    {
+        if (index < CyberspaceEnvironment.Instance.Subroutines.Count)
+        {
+            return CyberspaceEnvironment.Instance.Subroutines[index];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private void ToggleMenu(bool showMenu)
 	{
 		Menu.gameObject.SetActive(showMenu);
 		Crosshair.gameObject.SetActive(!showMenu);
@@ -218,8 +266,11 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		TransitionKit.instance.transitionWithDelegate( pixelater );
 	}
 
-    private void FireSubroutine(Transform t)
+    private void FireSubroutine(Transform t, SubroutineInfo si)
 	{
+        print("assigning subroutine harness");
+        t.GetComponent<SubroutineHarness>().Assign(si);
+        print("activating subroutine");
 		Subroutine s = t.GetComponent<Subroutine>();
 		s.LockedTarget = CurrentLock.transform;
 		s.Info.HitPoints = s.Info.MaxHitPoints;
@@ -252,22 +303,4 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
 		target.localRotation = Quaternion.Slerp(target.localRotation, newRotation, smoothing * Time.deltaTime);
 	}
-
-    private IEnumerator ClearFiringLines()
-    {
-        while(enabled)
-        {
-            System.Collections.Generic.List<Subroutine> activeTracers = ActiveSubroutines.List.FindAll((x) => x.Movement is Tracer);
-            if (activeTracers.Count > 0)
-            {
-                foreach(Subroutine s in activeTracers)
-                {
-                    //maybe have them clear a firing line?
-                }
-            }
-
-            yield return new WaitForSeconds(1f);
-        }
-    }
-
 }

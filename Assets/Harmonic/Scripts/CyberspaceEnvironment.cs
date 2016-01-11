@@ -27,13 +27,16 @@ public class CyberspaceEnvironment {
             MaximumRAM = 3,
             Subroutines = new List<SubroutineInfo>()
                     {
-                        new SubroutineInfo(),
+                        new SubroutineInfo() {
+                            LoadedIntoRAM = true
+                        },
                         new SubroutineInfo()
                         {
                             FunctionName = "Terminate",
                             Hotkey = 2,
                             MovementName = "Station",
-                            ID = "a2"
+                            ID = "a2",
+                            LoadedIntoRAM = true                            
                         }
                     }
         };

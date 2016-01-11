@@ -45,14 +45,6 @@ public class Subroutine : Actor {
     private Coroutine Raycasting;
 
 	protected override void OnAwake(){
-		this.Movement = this.GetComponent<SubroutineMovement>();
-		this.Movement.Parent = this;
-		
-		this.Function = this.GetComponent<SubroutineFunction>();
-		this.Function.Parent = this;
-		
-		this.StartingPosition = this.transform.parent;
-		
 		this.Info = new ActorInfo()
 		{ 
 			Name = "Subroutine",
@@ -69,8 +61,16 @@ public class Subroutine : Actor {
 	public void Activate()
 	{
 		if (!this.IsActive)
-		{
-			this.IsActive = true;
+        {
+            this.Movement = this.GetComponent<SubroutineMovement>();
+            this.Movement.Parent = this;
+
+            this.Function = this.GetComponent<SubroutineFunction>();
+            this.Function.Parent = this;
+
+            this.StartingPosition = this.transform.parent;
+
+            this.IsActive = true;
 			ActiveSubroutines.Add(this);
 			this.Movement.Fire();
 			if (this.OnSubroutineActive != null)
