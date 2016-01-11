@@ -211,7 +211,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     private Transform InstantiateHarness(SubroutineInfo si)
     {
-        print("creating harness");
+        //print("creating harness");
         if (si.MovementName == "Tracer")
         {
             return (Transform)Instantiate(SubroutineHarnessPrefab, TracerStartPosition.position, TracerStartPosition.rotation);
@@ -268,9 +268,9 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     private void FireSubroutine(Transform t, SubroutineInfo si)
 	{
-        print("assigning subroutine harness");
+        //print("assigning subroutine harness");
         t.GetComponent<SubroutineHarness>().Assign(si);
-        print("activating subroutine");
+        //print("activating subroutine");
 		Subroutine s = t.GetComponent<Subroutine>();
 		s.LockedTarget = CurrentLock.transform;
 		s.Info.HitPoints = s.Info.MaxHitPoints;

@@ -18,6 +18,20 @@ public class SubroutineHarness : MonoBehaviour {
     {
         SetFunction(mySI.FunctionName);
         SetMovement(mySI.MovementName);
+
+        AdjustSynergy();
+    }
+
+    /// <summary>
+    /// Adjust parameters in specific function/movement situations
+    /// </summary>
+    private void AdjustSynergy()
+    {
+        if ((FunctionScript is Delete) && (MovementScript is Station))
+        {
+            //tighten up accuracy when stationary
+            (FunctionScript as Delete).angleTightness = 1f;
+        }
     }
 
     private void SetMovement(string movementName)

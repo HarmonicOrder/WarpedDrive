@@ -4,6 +4,7 @@ using System.Collections;
 public class Delete : SubroutineFunction {
 
 	public Transform lazerPrefab;
+    public float angleTightness = 5f;
 
 	private float LookAtSpeed = 5f;
 	private Transform leftGun;
@@ -42,7 +43,7 @@ public class Delete : SubroutineFunction {
 					this.Parent.FunctionRoot.rotation = Quaternion.Slerp(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * LookAtSpeed);
 					float angle = Quaternion.Angle(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos));
 					
-					if ( (angle < 5f) && canFire)
+					if ( (angle < angleTightness) && canFire)
 					{
 						FireAtEnemy(this.closestTransform.position - this.transform.position);
 					}
