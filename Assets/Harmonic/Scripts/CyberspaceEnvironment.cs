@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class CyberspaceEnvironment {
 
@@ -54,5 +55,22 @@ public class CyberspaceEnvironment {
             }
             return result;
         }
+    }
+
+    internal void SetNewID(SubroutineInfo newSI)
+    {
+        if (this.Subroutines.Count <= 8)
+        {
+            newSI.ID = "a" + (this.Subroutines.Count + 1);
+            newSI.Hotkey = this.Subroutines.Count + 1;
+
+        }
+        else
+        {
+            //TODO: do c-z
+            newSI.ID = "b" + (this.Subroutines.Count % 9 + 1);
+            newSI.Hotkey = this.Subroutines.Count & 9 + 1;
+        }
+        UnityEngine.Debug.Log("assigning new id " +newSI.ID);
     }
 }

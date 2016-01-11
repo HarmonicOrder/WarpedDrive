@@ -13,14 +13,11 @@ public class SubroutineWorkstation : MonoBehaviour {
     public RectTransform subroutineListPanel, addNewSubroutineBtn;
     public Text SummaryText, CoreText, RAMText, HPText, DMGText, FreeRAMText;
 
-    public string currentFunctionName = "";
-    public string currentMovementName = "";
-
     public GameObject UpgradeRoot, UpgradeLines;
     public Color EquippedButtonColor;
 
     private Dictionary<string, Transform> functions = new Dictionary<string, Transform>();
-    private Dictionary<string, Transform> movement = new Dictionary<string, Transform>();
+    private Dictionary<string, Transform> movementVisualizations = new Dictionary<string, Transform>();
 
     bool isRotating = false, isMoving = false;
     float currentRotateTime = 0, currentMoveTime = 0;
@@ -43,32 +40,36 @@ public class SubroutineWorkstation : MonoBehaviour {
     void Start () {
         Radio.Instance.SetSoundtrack(Radio.Soundtrack.DigitalEnvironment);
 
+        CurrentlyModifyingSubroutine = CyberspaceEnvironment.Instance.Subroutines[0];
+
 	    foreach (Transform t in GameObject.Find("FunctionRoot").transform)
         {
             functions.Add(t.name, t);
-            if (t.name != currentFunctionName)
+            if (t.name != CurrentlyModifyingSubroutine.FunctionName)
             {
                 t.gameObject.SetActive(false);
             }
         }
         foreach (Transform t in GameObject.Find("MovementRoot").transform)
         {
-            movement.Add(t.name, t);
-            if (t.name != currentMovementName)
+            movementVisualizations.Add(t.name, t);
+            if (t.name != CurrentlyModifyingSubroutine.MovementName)
             {
                 t.gameObject.SetActive(false);
             }
         }
+
+        OrderSubroutineList(true);
+        UpdateFreeRAM();
+
         FunctionBaseButton = GameObject.Find("FunctionBase");
         FunctionLeftButton = GameObject.Find("FunctionLeft");
         FunctionRightButton = GameObject.Find("FunctionRight");
         UpgradeRoot.SetActive(false);
         UpgradeLines.SetActive(false);
-        InitializeSubroutineList();
-        UpdateFreeRAM();
     }
 
-    private void InitializeSubroutineList()
+    private void OrderSubroutineList(bool firstRun = false)
     {
         int i = 0;
         float height = 0, offsetY = 0;
@@ -85,20 +86,43 @@ public class SubroutineWorkstation : MonoBehaviour {
             else
             {
                 height = r.sizeDelta.y;
+                offsetY = r.anchoredPosition.y;
                 i++;
-                r.GetComponentInChildren<Text>().text = si.CompositeName;
-                ButtonInfoCache.Add(r, si);
 
-                if (si.ID == "a1")
+                print("turning on " + si.ID);
+                r.gameObject.SetActive(true);
+
+                UpdateSubroutineButtonText(r, si.CompositeName);
+
+                if (!ButtonInfoCache.ContainsKey(r))
+                    ButtonInfoCache.Add(r, si);
+
+                if (firstRun)
                 {
-                    offsetY = r.anchoredPosition.y;
-
-                    SetSubroutine(si, r.GetComponent<Button>());
+                    if (si.ID == "a1")
+                    {
+                        SetSubroutine(si, r.GetComponent<Button>());
+                    }
                 }
             }
         }
 
         addNewSubroutineBtn.anchoredPosition = new Vector2(addNewSubroutineBtn.anchoredPosition.x, offsetY - (i * height) - (height / 2));
+    }
+
+    private void UpdateSubroutineButtonText(RectTransform r, string compositeName)
+    {
+        r.GetComponentInChildren<Text>().text = compositeName;
+    }
+
+    private void UpdateSubroutineButtonText(Button b, string compositeName)
+    {
+        b.GetComponentInChildren<Text>().text = compositeName;
+    }
+
+    private void UpdateSubroutineButtonText()
+    {
+        CurrentSubroutineButton.GetComponentInChildren<Text>().text = CurrentlyModifyingSubroutine.CompositeName;
     }
 
     private void SetSubroutine(SubroutineInfo si, Button button)
@@ -111,6 +135,7 @@ public class SubroutineWorkstation : MonoBehaviour {
         ShowSubroutineSummary(si);
 
         CurrentSubroutineButton = SetEquipButtonColor(CurrentSubroutineButton, button);
+        UpdateSubroutineButtonText(CurrentSubroutineButton, si.CompositeName);
     }
 
     private void ShowSubroutineSummary(SubroutineInfo si)
@@ -225,6 +250,7 @@ public class SubroutineWorkstation : MonoBehaviour {
         CurrentlyModifyingSubroutine.FunctionName = name;
         SetFunctionVisualization(name);
         UpdateUpgrades();
+        UpdateSubroutineButtonText();
     }
 
     private string oldFunctionName = "";
@@ -268,7 +294,7 @@ public class SubroutineWorkstation : MonoBehaviour {
 
     private void UpdateUpgrades()
     {
-        Type functionType = Type.GetType(currentFunctionName);
+        Type functionType = Type.GetType(CurrentlyModifyingSubroutine.FunctionName);
         if (Upgrade.FunctionUpgrades.ContainsKey(functionType))
         {
             Upgrade.WorkstationMapping mapping = Upgrade.FunctionUpgrades[functionType];
@@ -299,6 +325,7 @@ public class SubroutineWorkstation : MonoBehaviour {
             SetMovementVisualization(name);
             UpdateUpgrades();
             UpdateFreeRAM();
+            UpdateSubroutineButtonText();
         }
         else
         {
@@ -311,16 +338,16 @@ public class SubroutineWorkstation : MonoBehaviour {
     {
         if (oldMovementName != name)
         {
-            if (movement.ContainsKey(oldMovementName))
-                movement[oldMovementName].gameObject.SetActive(false);
+            if (movementVisualizations.ContainsKey(oldMovementName))
+                movementVisualizations[oldMovementName].gameObject.SetActive(false);
 
-            movement[name].gameObject.SetActive(true);
+            movementVisualizations[name].gameObject.SetActive(true);
             oldMovementName = name;
             
             CurrentMovementButton = SetEquipButtonColor(CurrentMovementButton, GameObject.Find(name + "Button").GetComponent<Button>());
         }
     }
-
+    
     //actually pointer click now
     public void PointerEnter(BaseEventData data)
     {
@@ -337,5 +364,24 @@ public class SubroutineWorkstation : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void NewSubroutine()
+    {
+        SubroutineInfo newSI = new SubroutineInfo()
+        {
+            FunctionName = "Delete",
+            MovementName = "Station",
+            CoreCost = 1,
+            FunctionUpgrades = new List<string>(),
+            MovementUpgrades = new List<string>()
+        };
+        CyberspaceEnvironment.Instance.SetNewID(newSI);
+
+        CyberspaceEnvironment.Instance.Subroutines.Add(newSI);
+
+        CurrentlyModifyingSubroutine = newSI;
+        
+        OrderSubroutineList();
     }
 }
