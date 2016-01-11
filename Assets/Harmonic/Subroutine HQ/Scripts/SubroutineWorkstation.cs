@@ -71,8 +71,8 @@ public class SubroutineWorkstation : MonoBehaviour {
 
     private void OrderSubroutineList(bool firstRun = false)
     {
-        int i = 0;
-        float height = 0, offsetY = 0;
+        int numberOfButtons = 0;
+        float buttonHeight = 0, topMargin = -20;
         foreach (RectTransform r in subroutineListPanel)
         {
             SubroutineInfo si = CyberspaceEnvironment.Instance.Subroutines.Find((s) => (s.ID == r.name));
@@ -85,9 +85,7 @@ public class SubroutineWorkstation : MonoBehaviour {
             }
             else
             {
-                height = r.sizeDelta.y;
-                offsetY = r.anchoredPosition.y;
-                i++;
+                buttonHeight = r.sizeDelta.y;
 
                 print("turning on " + si.ID);
                 r.gameObject.SetActive(true);
@@ -104,10 +102,19 @@ public class SubroutineWorkstation : MonoBehaviour {
                         SetSubroutine(si, r.GetComponent<Button>());
                     }
                 }
+                SetButtonPositionY(r, topMargin - (numberOfButtons * buttonHeight) - (buttonHeight / 2));
+                numberOfButtons++;
             }
         }
 
-        addNewSubroutineBtn.anchoredPosition = new Vector2(addNewSubroutineBtn.anchoredPosition.x, offsetY - (i * height) - (height / 2));
+        SetButtonPositionY(addNewSubroutineBtn, topMargin - (numberOfButtons * buttonHeight) - (buttonHeight / 2));
+
+        subroutineListPanel.sizeDelta = new Vector2(subroutineListPanel.sizeDelta.x, (numberOfButtons + 1) * buttonHeight);
+    }
+
+    private void SetButtonPositionY(RectTransform btn, float y)
+    {
+        btn.anchoredPosition = new Vector2(btn.anchoredPosition.x, y);
     }
 
     private void UpdateSubroutineButtonText(RectTransform r, string compositeName)
