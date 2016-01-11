@@ -85,7 +85,7 @@ public class SubroutineWorkstation : MonoBehaviour {
             }
             else
             {
-                buttonHeight = r.sizeDelta.y;
+                //buttonHeight = r.sizeDelta.y;
 
                 print("turning on " + si.ID);
                 r.gameObject.SetActive(true);
@@ -102,14 +102,14 @@ public class SubroutineWorkstation : MonoBehaviour {
                         SetSubroutine(si, r.GetComponent<Button>());
                     }
                 }
-                SetButtonPositionY(r, topMargin - (numberOfButtons * buttonHeight) - (buttonHeight / 2));
+                //SetButtonPositionY(r, topMargin - (numberOfButtons * buttonHeight) - (buttonHeight / 2));
                 numberOfButtons++;
             }
         }
 
-        SetButtonPositionY(addNewSubroutineBtn, topMargin - (numberOfButtons * buttonHeight) - (buttonHeight / 2));
+        //SetButtonPositionY(addNewSubroutineBtn, topMargin - (numberOfButtons * buttonHeight) - (buttonHeight / 2));
 
-        subroutineListPanel.sizeDelta = new Vector2(subroutineListPanel.sizeDelta.x, (numberOfButtons + 1) * buttonHeight);
+        //subroutineListPanel.sizeDelta = new Vector2(subroutineListPanel.sizeDelta.x, (numberOfButtons + 1) * buttonHeight);
     }
 
     private void SetButtonPositionY(RectTransform btn, float y)
