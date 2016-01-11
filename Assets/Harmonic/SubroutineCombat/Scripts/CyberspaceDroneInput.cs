@@ -274,7 +274,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		Subroutine s = t.GetComponent<Subroutine>();
 		s.LockedTarget = CurrentLock.transform;
 		s.Info.HitPoints = s.Info.MaxHitPoints;
-		s.Activate();
+		s.Activate(si);
 	}
 	
 	private void AssignLockTarget(bool leftClick, ILockTarget newTargt)

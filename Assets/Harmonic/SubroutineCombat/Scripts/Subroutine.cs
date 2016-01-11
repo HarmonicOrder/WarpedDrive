@@ -43,22 +43,24 @@ public class Subroutine : Actor {
 
     private Machine DeployedMachine { get; set; }
     private Coroutine Raycasting;
+    private SubroutineInfo SInfo { get; set; }
 
-	protected override void OnAwake(){
-		this.Info = new ActorInfo()
-		{ 
-			Name = "Subroutine",
-			MaxHitPoints = 10f,
-			HitPoints = 10f,
-			FireRate = 1f,
-			DamagePerHit = 2f
-		};
-	}
+	protected override void OnAwake()
+    {
+        this.Info = new ActorInfo()
+        {
+            Name = "Subroutine",
+            MaxHitPoints = 10f,
+            HitPoints = 10f,
+            FireRate = 1f,
+            DamagePerHit = 2f
+        };
+    }
 
 	protected override void OnStart(){
 	}
 
-	public void Activate()
+	public void Activate(SubroutineInfo si)
 	{
 		if (!this.IsActive)
         {
@@ -69,6 +71,9 @@ public class Subroutine : Actor {
             this.Function.Parent = this;
 
             this.StartingPosition = this.transform.parent;
+
+
+            SInfo = si;
 
             this.IsActive = true;
 			ActiveSubroutines.Add(this);
@@ -118,7 +123,7 @@ public class Subroutine : Actor {
         if (this.OnSubroutineDead != null)
             this.OnSubroutineDead();
 
-        CyberspaceBattlefield.Current.ReclaimCores(this.Info.CoreCost);
+        CyberspaceBattlefield.Current.ReclaimCores((int)this.SInfo.CoreCost);
 
         GameObject.Destroy(this.gameObject);
     }

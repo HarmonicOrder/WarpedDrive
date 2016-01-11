@@ -32,6 +32,11 @@ public class SubroutineHarness : MonoBehaviour {
             //tighten up accuracy when stationary
             (FunctionScript as Delete).angleTightness = 1f;
         }
+        else if ((FunctionScript is Terminate) && (MovementScript is Tracer))
+        {
+            //slow down when using "heavy weapon"
+            (MovementScript as Tracer).moveSpeed = 10f;
+        }
     }
 
     private void SetMovement(string movementName)

@@ -57,4 +57,17 @@ public class SubroutineFunction : MonoBehaviour {
 		isFiring = false;
 	}
 
+
+    public static uint GetCoreCost(string name)
+    {
+        switch (name.ToLower())
+        {
+            case "delete":
+                return 1;
+            case "terminate":
+                return 2;
+        }
+        print("fallthrough core cost");
+        return 1;
+    }
 }

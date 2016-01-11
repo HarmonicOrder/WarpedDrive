@@ -248,6 +248,7 @@ public class SubroutineWorkstation : MonoBehaviour {
     public void SetFunction(string name)
     {
         CurrentlyModifyingSubroutine.FunctionName = name;
+        CurrentlyModifyingSubroutine.CoreCost = SubroutineFunction.GetCoreCost(name);
         SetFunctionVisualization(name);
         UpdateUpgrades();
         UpdateSubroutineButtonText();
