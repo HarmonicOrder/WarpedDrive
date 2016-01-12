@@ -22,7 +22,30 @@ public static class NetworkMap {
 				"Infocom", 
 				new NetworkLocation(){
 					Name = "Infocom",
-					sceneIndex = 3
+					sceneIndex = 3,
+                    Children = new List<Location>
+                    {
+                        new NetworkLocation(){
+                            Name = "MeatSec",
+                            sceneIndex = 10,
+                            IsInfected = true,
+                            Machines = new List<Machine>()
+                            {
+                                new Machine()
+                                {
+                                    Name = "GatewayMachine",
+                                    CPUCores = 4,
+                                    IsInfected = false
+                                },
+                                new Machine()
+                                {
+                                    Name = "DBMachine",
+                                    CPUCores = 2,
+                                    IsInfected = true
+                                }
+                            }
+                        }
+                    }
 				}
 			},
             {
