@@ -157,7 +157,10 @@ public class SubroutineWorkstation : MonoBehaviour {
 
     private void UpdateFreeRAM()
     {
-        FreeRAMText.text = string.Format("{0} TB Free RAM", CyberspaceEnvironment.Instance.MaximumRAM - CyberspaceEnvironment.Instance.CurrentRAMUsed);
+        uint freeRAM = CyberspaceEnvironment.Instance.MaximumRAM - CyberspaceEnvironment.Instance.CurrentRAMUsed;
+        FreeRAMText.text = string.Format("{0} TB Free RAM", freeRAM);
+
+        addNewSubroutineBtn.GetComponent<Button>().interactable = (freeRAM > 0);
     }
 
     // Update is called once per frame
@@ -379,20 +382,28 @@ public class SubroutineWorkstation : MonoBehaviour {
 
     public void NewSubroutine()
     {
-        SubroutineInfo newSI = new SubroutineInfo()
+        if (CyberspaceEnvironment.Instance.CurrentRAMUsed < CyberspaceEnvironment.Instance.MaximumRAM)
         {
-            FunctionName = "Delete",
-            MovementName = "Station",
-            CoreCost = 1,
-            FunctionUpgrades = new List<string>(),
-            MovementUpgrades = new List<string>()
-        };
-        CyberspaceEnvironment.Instance.SetNewID(newSI);
+            SubroutineInfo newSI = new SubroutineInfo()
+            {
+                FunctionName = "Delete",
+                MovementName = "Station",
+                CoreCost = 1,
+                FunctionUpgrades = new List<string>(),
+                MovementUpgrades = new List<string>()
+            };
+            CyberspaceEnvironment.Instance.SetNewID(newSI);
 
-        CyberspaceEnvironment.Instance.Subroutines.Add(newSI);
+            CyberspaceEnvironment.Instance.Subroutines.Add(newSI);
 
-        CurrentlyModifyingSubroutine = newSI;
-        
-        OrderSubroutineList();
+            CurrentlyModifyingSubroutine = newSI;
+
+            OrderSubroutineList();
+            UpdateFreeRAM();
+        }
+        else
+        {
+            //say "insufficient RAM"
+        }
     }
 }
