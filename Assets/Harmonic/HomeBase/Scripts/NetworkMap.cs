@@ -19,9 +19,9 @@ public static class NetworkMap {
 		RootSubnets = new Dictionary<string, NetworkLocation>()
 		{
 			{
-				"Infocom", 
+				"InfoSec", 
 				new NetworkLocation(){
-					Name = "Infocom",
+					Name = "InfoSec",
 					sceneIndex = 3,
                     Children = new List<Location>
                     {
