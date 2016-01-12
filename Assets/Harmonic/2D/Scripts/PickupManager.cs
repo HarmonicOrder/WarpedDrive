@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text.RegularExpressions;
+using System;
 
 public class PickupManager : MonoBehaviour {
     
@@ -14,7 +16,19 @@ public class PickupManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        DestroyAlreadyPickedUpPickups();
         check = StartCoroutine(CheckPickups());
+    }
+
+    private void DestroyAlreadyPickedUpPickups()
+    {
+        foreach(Transform t in this.transform)
+        {
+            if (StarshipEnvironment.Instance.PickupsPickedUp.Contains(t.name.ToLower()))
+            {
+                GameObject.Destroy(t.gameObject);
+            }
+        }
     }
 
     private IEnumerator CheckPickups()
@@ -26,7 +40,8 @@ public class PickupManager : MonoBehaviour {
                 if (Vector3.Distance(Character.position, t.position) < PickupDistance)
                 {
                     PickupTypes type = PickupTypes.oxygen;
-                    if (type.TryParse<PickupTypes>(t.name.ToLower(), out type))
+                    //only get the first part of the name "oxygen1" becomes "oxygen"
+                    if (type.TryParse<PickupTypes>(new Regex(@"([a-z]*)").Match(t.name.ToLower()).Captures[0].Value, out type))
                     {
                         switch(type)
                         {
@@ -37,6 +52,7 @@ public class PickupManager : MonoBehaviour {
                                 CyberspaceEnvironment.Instance.MaximumRAM += this.RAMPerPickup;
                                 break;
                         }
+                        StarshipEnvironment.Instance.PickupsPickedUp.Add(t.name.ToLower());
                         GameObject.Destroy(t.gameObject);
                     }
                     break;

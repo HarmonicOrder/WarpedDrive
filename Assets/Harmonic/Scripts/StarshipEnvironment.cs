@@ -6,6 +6,7 @@ using System;
 public class StarshipEnvironment {
 
     public Dictionary<string, bool> OpenDoors = new Dictionary<string, bool>();
+    public List<string> PickupsPickedUp = new List<string>();
 
     //all kilograms!
     public double OxygenStorage { get; set; }
@@ -38,6 +39,7 @@ public class StarshipEnvironment {
             return _instance;
         }
     }
+
 
     public static StarshipEnvironment GetDefault()
     {
