@@ -35,7 +35,7 @@ public class Delete : SubroutineFunction {
 			
 			if (TrackEnemy && !isFiring)
 			{
-				FindClosestTransform();
+				FindClosestMalware();
 				
 				if (this.closestTransform != null)
 				{

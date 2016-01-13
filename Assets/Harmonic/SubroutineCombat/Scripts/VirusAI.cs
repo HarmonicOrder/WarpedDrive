@@ -100,4 +100,9 @@ public class VirusAI : Actor, ILockTarget, IMalware {
         if (CyberspaceDroneInput.CurrentLock == this)
             CyberspaceDroneInput.CurrentLock = null;
 	}
+
+    public void ForceAggro(Transform t)
+    {
+        this.targetT = t;
+    }
 }

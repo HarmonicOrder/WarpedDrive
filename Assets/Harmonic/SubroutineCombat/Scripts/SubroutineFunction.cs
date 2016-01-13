@@ -9,7 +9,8 @@ public class SubroutineFunction : MonoBehaviour {
 
     internal bool TrackEnemy = false;
 	protected Transform closestTransform;
-	protected IMalware closestVirus;
+	protected IMalware closestMalware;
+    protected VirusAI closestVirus;
 	protected float CooldownRemaining = -1f;
 	protected bool isFiring = false;
 	public float Range = 300f;
@@ -23,12 +24,12 @@ public class SubroutineFunction : MonoBehaviour {
 	void Update () {
 	
 	}
-	
-	protected void FindClosestTransform()
+
+    protected void FindClosestMalware(bool onlyVirus = false)
 	{
 		if (ActiveSubroutines.MalwareList.Count == 0)
 		{
-			this.closestVirus = null;
+			this.closestMalware = null;
 			this.closestTransform = null;
 			return;
 		}
@@ -43,9 +44,16 @@ public class SubroutineFunction : MonoBehaviour {
 			//and the distance is closer
 			if (dist < closest)
 			{
-				this.closestVirus = mal;
-				this.closestTransform = mal.transform;
-				closest = dist;
+                if (!onlyVirus || (mal is VirusAI))
+                {
+				    this.closestMalware = mal;
+				    this.closestTransform = mal.transform;
+
+                    if (mal is VirusAI)
+                        this.closestVirus = mal as VirusAI;
+
+				    closest = dist;
+                }
 			}
 		}
 	}

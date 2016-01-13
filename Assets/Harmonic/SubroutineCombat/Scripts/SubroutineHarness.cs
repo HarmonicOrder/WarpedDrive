@@ -7,7 +7,7 @@ public class SubroutineHarness : MonoBehaviour {
     public Transform InstantiatePrefab;
     public Transform LazerPrefab;
 
-    public Transform Delete, Terminate, Corrupt;
+    public Transform Delete, Terminate, Corrupt, Honeypot;
     public Transform Tracer, Station;
 
     public Transform FunctionRoot, MovementRoot;
@@ -69,6 +69,10 @@ public class SubroutineHarness : MonoBehaviour {
             case "Terminate":
                 t = InstantiateSubcomponent(Terminate, this.FunctionRoot, functionName);
                 this.FunctionScript = this.gameObject.AddComponent<Terminate>();
+                break;
+            case "Honeypot":
+                t = InstantiateSubcomponent(Honeypot, this.FunctionRoot, functionName);
+                this.FunctionScript = this.gameObject.AddComponent<Honeypot>();
                 break;
         }
     }

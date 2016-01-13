@@ -37,7 +37,7 @@ public class Terminate : SubroutineFunction {
 
 			if (TrackEnemy && !isFiring)
 			{
-				FindClosestTransform();
+				FindClosestMalware();
 
 				if (this.closestTransform != null)
 				{
@@ -58,7 +58,7 @@ public class Terminate : SubroutineFunction {
 	{
 		isFiring = true;
 		CooldownRemaining = this.Parent.Info.FireRate;
-		this.closestVirus.TakeDamage(this.Parent.Info.DamagePerHit);
+		this.closestMalware.TakeDamage(this.Parent.Info.DamagePerHit);
 		this.TerminateLineRenderer.SetVertexCount(2);
 		this.TerminateLineRenderer.SetPosition(0, Vector3.zero);
 		this.TerminateLineRenderer.SetPosition(1, Vector3.forward * relativePos.magnitude);
