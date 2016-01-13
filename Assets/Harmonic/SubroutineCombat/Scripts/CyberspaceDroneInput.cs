@@ -6,6 +6,9 @@ using Prime31.TransitionKit;
 using System;
 
 public class CyberspaceDroneInput : MonoBehaviour {
+
+	public static ILockTarget CurrentLock;
+
 	public float smoothing = 5f;
 	public Transform strategyYawSphere;
 	public Transform strategyPitchSphere;
@@ -28,7 +31,6 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public Transform TracerStartPosition;
     public Transform SubroutineHarnessPrefab;
 	private Quaternion currentLookRotation;
-	private ILockTarget CurrentLock;
 	private bool showingMainMenu;
 
 	private bool lerpToMachine = false;
@@ -272,7 +274,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
         t.GetComponent<SubroutineHarness>().Assign(si);
         //print("activating subroutine");
 		Subroutine s = t.GetComponent<Subroutine>();
-		s.LockedTarget = CurrentLock.transform;
+
+        if (CurrentLock != null)
+		    s.LockedTarget = CurrentLock.transform;
+
 		s.Info.HitPoints = s.Info.MaxHitPoints;
 		s.Activate(si);
 	}

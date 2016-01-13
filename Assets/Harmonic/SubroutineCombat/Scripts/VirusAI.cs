@@ -94,7 +94,10 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 	}
 
 	protected override void _OnDestroy(){
-        print("removing virusAI from virus list");
+        //print("removing virusAI from virus list");
 		ActiveSubroutines.RemoveVirus(this);
+
+        if (CyberspaceDroneInput.CurrentLock == this)
+            CyberspaceDroneInput.CurrentLock = null;
 	}
 }
