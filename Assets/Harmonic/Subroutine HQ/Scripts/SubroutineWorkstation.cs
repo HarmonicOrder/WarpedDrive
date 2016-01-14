@@ -11,7 +11,7 @@ public class SubroutineWorkstation : MonoBehaviour {
     public float rotateTime = .5f, moveTime = .5f;
     public Transform subroutineVisualization;
     public RectTransform subroutineListPanel, addNewSubroutineBtn;
-    public Text SummaryText, CoreText, RAMText, HPText, DMGText, FreeRAMText;
+    public Text SummaryText, CoreText, RAMText, HPText, DMGText, FreeRAMText, UpgradeCoreText, UpgradeRAMText, UpgradeHPText, UpgradeDMGText, UpgradeFreeRAMText;
 
     public GameObject UpgradeRoot, UpgradeLines;
     public Color EquippedButtonColor;
@@ -138,8 +138,8 @@ public class SubroutineWorkstation : MonoBehaviour {
     private void UpdateSubroutineSummary(SubroutineInfo si)
     {
         SummaryText.text = string.Format("{0}\n", si.CompositeName);
-        CoreText.text = string.Format(" {0}  ¢", si.CoreCost);
-        RAMText.text = string.Format(" {0} RAM", si.RAMCost);
+        CoreText.text = UpgradeCoreText.text = string.Format(" {0}  ¢", si.CoreCost);
+        RAMText.text = UpgradeRAMText.text = string.Format(" {0} RAM", si.RAMCost);
         //HPText.text = string.Format("{0} HP", si.);
         //DMGText.text = string.Format("{0} DMG", si.d);
     }
@@ -147,7 +147,7 @@ public class SubroutineWorkstation : MonoBehaviour {
     private void UpdateFreeRAM()
     {
         uint freeRAM = CyberspaceEnvironment.Instance.MaximumRAM - CyberspaceEnvironment.Instance.CurrentRAMUsed;
-        FreeRAMText.text = string.Format("{0} TB Free RAM", freeRAM);
+        FreeRAMText.text = UpgradeFreeRAMText.text = string.Format("{0} TB Free RAM", freeRAM);
 
         addNewSubroutineBtn.GetComponent<Button>().interactable = (freeRAM > 0);
     }

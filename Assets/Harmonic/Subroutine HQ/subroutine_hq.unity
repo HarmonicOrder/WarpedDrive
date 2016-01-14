@@ -1765,6 +1765,7 @@ MonoBehaviour:
   FunctionRoot: {fileID: 1732979104}
   HealthBar: {fileID: 0}
   HealthPipPrefab: {fileID: 0}
+  lockedVirus: {fileID: 0}
 --- !u!114 &264452440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1778,6 +1779,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookAtSpeed: 2
+  avoidDistance: 100
+  doAvoid: 0
   followDistance: 30
   moveSpeed: 20
   fireSpeed: 40
@@ -3681,7 +3684,7 @@ GameObject:
   - 222: {fileID: 620281755}
   - 114: {fileID: 620281754}
   m_Layer: 5
-  m_Name: Text (7)
+  m_Name: UpgradeRAM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6146,6 +6149,11 @@ MonoBehaviour:
   HPText: {fileID: 15299768}
   DMGText: {fileID: 115990147}
   FreeRAMText: {fileID: 2045125710}
+  UpgradeCoreText: {fileID: 1325350086}
+  UpgradeRAMText: {fileID: 620281754}
+  UpgradeHPText: {fileID: 1742384824}
+  UpgradeDMGText: {fileID: 1813913301}
+  UpgradeFreeRAMText: {fileID: 1113747979}
   UpgradeRoot: {fileID: 659334462}
   UpgradeLines: {fileID: 32100800}
   EquippedButtonColor: {r: .286764681, g: .640922785, b: 1, a: 1}
@@ -6983,7 +6991,7 @@ GameObject:
   - 222: {fileID: 1113747980}
   - 114: {fileID: 1113747979}
   m_Layer: 5
-  m_Name: RAMWarning
+  m_Name: UpgradeFreeRAM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9662,7 +9670,7 @@ GameObject:
   - 222: {fileID: 1325350087}
   - 114: {fileID: 1325350086}
   m_Layer: 5
-  m_Name: Text (6)
+  m_Name: UpgradeCore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11692,7 +11700,7 @@ GameObject:
   - 222: {fileID: 1742384825}
   - 114: {fileID: 1742384824}
   m_Layer: 5
-  m_Name: Text (3)
+  m_Name: UpgradeHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12300,7 +12308,7 @@ GameObject:
   - 222: {fileID: 1813913302}
   - 114: {fileID: 1813913301}
   m_Layer: 5
-  m_Name: Text (4)
+  m_Name: UpgradeDMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
