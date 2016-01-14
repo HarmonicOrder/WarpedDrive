@@ -89,7 +89,7 @@ public static class NetworkMap {
                             }
                         },
                         new NetworkLocation(){
-                            Name = "colony",
+                            Name = "colonistDossiers",
                             sceneIndex = 9,
                             IsInfected = true,
                             Machines = new List<Machine>()
