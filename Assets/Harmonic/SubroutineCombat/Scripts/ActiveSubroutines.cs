@@ -137,6 +137,7 @@ public static class ActiveSubroutines {
 			if (dist < closest)
 			{
 				closeIMal = mal;
+                closest = dist;
 			}
 		}
 
