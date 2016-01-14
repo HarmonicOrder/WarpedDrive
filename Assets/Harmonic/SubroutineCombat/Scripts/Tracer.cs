@@ -5,7 +5,9 @@ using System;
 public class Tracer : SubroutineMovement {
 	
 	public float lookAtSpeed = 2f;
-	//public float engagementDistance = 200f;
+    //public float engagementDistance = 200f;
+    public float avoidDistance = 100f;
+    public bool doAvoid = false;
 	public float followDistance = 30f;
 	public float moveSpeed = 20f;
 	public float fireSpeed = 40f;
@@ -87,8 +89,12 @@ public class Tracer : SubroutineMovement {
 				//	//do not engage
 				//} 
 				//else 
+                if (doAvoid && relativePos.magnitude < avoidDistance)
+                {
+                    this.transform.Translate(0, 0, -Time.deltaTime * moveSpeed, Space.Self);
+                }
                 //move slowly
-                if (relativePos.magnitude < followDistance){
+                else if (relativePos.magnitude < followDistance){
 					this.transform.Translate(0, 0, Time.deltaTime * moveSpeed / 3f, Space.Self);
 				}
 				else 
@@ -97,14 +103,14 @@ public class Tracer : SubroutineMovement {
 					this.transform.Translate(0, 0, Time.deltaTime * moveSpeed, Space.Self);
 				}
 			}
-            else
-            {
-                IMalware closest = ActiveSubroutines.FindClosestMalware(this.transform.position, 100f);
-                if (closest != null)
-                {
-                    Parent.LockedTarget = closest.transform;
-                }
-            }
+            //else
+            //{
+            //    IMalware closest = ActiveSubroutines.FindClosestMalware(this.transform.position, 100f);
+            //    if (closest != null)
+            //    {
+            //        Parent.LockedTarget = closest.transform;
+            //    }
+            //}
 		}
 	}
 }

@@ -37,17 +37,15 @@ public class Terminate : SubroutineFunction {
 
 			if (TrackEnemy && !isFiring)
 			{
-				FindClosestMalware();
-
-				if (this.closestTransform != null)
+				if (this.Parent.LockedTarget != null)
 				{
-					Vector3 relativePos = this.closestTransform.position - this.transform.position;
+					Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
 					this.Parent.FunctionRoot.rotation = Quaternion.Slerp(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * LookAtSpeed);
 					float angle = Quaternion.Angle(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos));
 
 					if ( (angle < 5f) && canFire)
 					{
-						FireAtEnemy(this.closestTransform.position - this.transform.position);
+						FireAtEnemy(this.Parent.LockedTarget.position - this.transform.position);
 					}
 				}
 			}
@@ -58,7 +56,7 @@ public class Terminate : SubroutineFunction {
 	{
 		isFiring = true;
 		CooldownRemaining = this.Parent.Info.FireRate;
-		this.closestMalware.TakeDamage(this.Parent.Info.DamagePerHit);
+		this.Parent.lockedMalware.TakeDamage(this.Parent.Info.DamagePerHit);
 		this.TerminateLineRenderer.SetVertexCount(2);
 		this.TerminateLineRenderer.SetPosition(0, Vector3.zero);
 		this.TerminateLineRenderer.SetPosition(1, Vector3.forward * relativePos.magnitude);

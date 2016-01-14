@@ -35,17 +35,16 @@ public class Delete : SubroutineFunction {
 			
 			if (TrackEnemy && !isFiring)
 			{
-				FindClosestMalware();
 				
-				if (this.closestTransform != null)
+				if (this.Parent.LockedTarget != null)
 				{
-					Vector3 relativePos = this.closestTransform.position - this.transform.position;
+					Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
 					this.Parent.FunctionRoot.rotation = Quaternion.Slerp(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * LookAtSpeed);
 					float angle = Quaternion.Angle(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos));
 					
 					if ( (angle < angleTightness) && canFire)
 					{
-						FireAtEnemy(this.closestTransform.position - this.transform.position);
+						FireAtEnemy(this.Parent.LockedTarget.position - this.transform.position);
 					}
 				}
 			}

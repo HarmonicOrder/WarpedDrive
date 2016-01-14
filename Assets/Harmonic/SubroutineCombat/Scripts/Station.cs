@@ -37,6 +37,7 @@ public class Station : SubroutineMovement {
 		this.transform.SetParent(null);
 		this.transform.position = Parent.LockedTarget.position;
 		this.transform.rotation = Parent.LockedTarget.rotation;
+        this.Parent.LockedTarget = null;
         Scaler s = this.gameObject.AddComponent<Scaler>();
 		s.duration = TimeToInstantiate;
 		s.ScaleAgain();

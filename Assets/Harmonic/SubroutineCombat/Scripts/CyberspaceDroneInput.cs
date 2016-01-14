@@ -54,6 +54,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = false;
 		HitCrosshair.enabled = false;
+        CurrentLock = null;
 	}
 
 	// Update is called once per frame

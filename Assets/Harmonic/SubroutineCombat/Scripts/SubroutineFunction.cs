@@ -8,9 +8,6 @@ public class SubroutineFunction : MonoBehaviour {
     public List<Upgrade> Upgrades { get; set; }
 
     internal bool TrackEnemy = false;
-	protected Transform closestTransform;
-	protected IMalware closestMalware;
-    protected VirusAI closestVirus;
 	protected float CooldownRemaining = -1f;
 	protected bool isFiring = false;
 	public float Range = 300f;
@@ -24,40 +21,6 @@ public class SubroutineFunction : MonoBehaviour {
 	void Update () {
 	
 	}
-
-    protected void FindClosestMalware(bool onlyVirus = false)
-	{
-		if (ActiveSubroutines.MalwareList.Count == 0)
-		{
-			this.closestMalware = null;
-			this.closestTransform = null;
-			return;
-		}
-		
-		//comparing range squared vs magnitude squared is a performance enhancement
-		//it eliminates the expensive square root calculation
-		float closest = Range * Range;
-		foreach( IMalware mal in ActiveSubroutines.MalwareList)
-		{
-			float dist = (mal.transform.position - this.transform.position).sqrMagnitude / mal.AttackPriority; 
-			//if this has a higher priority than now
-			//and the distance is closer
-			if (dist < closest)
-			{
-                if (!onlyVirus || (mal is VirusAI))
-                {
-				    this.closestMalware = mal;
-				    this.closestTransform = mal.transform;
-
-                    if (mal is VirusAI)
-                        this.closestVirus = mal as VirusAI;
-
-				    closest = dist;
-                }
-			}
-		}
-	}
-
 	
 	protected IEnumerator WaitCooldown()
 	{		

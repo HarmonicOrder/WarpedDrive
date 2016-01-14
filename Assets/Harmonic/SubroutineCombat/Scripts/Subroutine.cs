@@ -30,15 +30,35 @@ public class Subroutine : Actor {
 	private Transform _lockedTarget;
 	public Transform LockedTarget {
 		get{
+            if (_lockedTarget == null)
+            {
+                FindClosestMalware();
+            }
 			return _lockedTarget;
 		}
 		set{
+            if (value != null)
+            {
+                lockedMalware = value.GetComponent<IMalware>();
+
+                if (lockedMalware is VirusAI)
+                    lockedVirus = lockedMalware as VirusAI;
+                else
+                    lockedVirus = null;
+            }
+            else
+            {
+                lockedMalware = null;
+                lockedVirus = null;
+            }
+
 			_lockedTarget = value;
-
 		}
-	}
+    }
+    public IMalware lockedMalware;
+    public VirusAI lockedVirus;
 
-	public bool IsActive {get;set;}
+    public bool IsActive {get;set;}
 	public Transform StartingPosition {get;set;}
 
 
@@ -62,8 +82,13 @@ public class Subroutine : Actor {
 	}
 
 	public void Activate(SubroutineInfo si)
-	{
-		if (!this.IsActive)
+    {
+        if (this._lockedTarget != null)
+        {
+            this.DeployedMachine = CyberspaceBattlefield.Current.FindByName(this._lockedTarget.root.name);
+            this.DeployedMachine.OnSystemClean += OnMachineClean;
+        }
+        if (!this.IsActive)
         {
             this.Movement = this.GetComponent<SubroutineMovement>();
             this.Movement.Parent = this;
@@ -84,11 +109,6 @@ public class Subroutine : Actor {
             if (this.Movement is Tracer)
                 Raycasting = StartCoroutine(RaycastForward());
 		}
-        if (this._lockedTarget != null)
-        {
-            this.DeployedMachine = CyberspaceBattlefield.Current.FindByName(this._lockedTarget.root.name);
-            this.DeployedMachine.OnSystemClean += OnMachineClean;
-        }
 
         RefreshHealthDisplay();
     }
@@ -192,6 +212,42 @@ public class Subroutine : Actor {
 
             yield return null;
             yield return null;
+        }
+    }
+
+
+    protected void FindClosestMalware(bool onlyVirus = false)
+    {
+        if (ActiveSubroutines.MalwareList.Count == 0)
+        {
+            this.lockedMalware = null;
+            this.lockedVirus = null;
+            this._lockedTarget = null;
+            return;
+        }
+
+        float range = 500;
+        //comparing range squared vs magnitude squared is a performance enhancement
+        //it eliminates the expensive square root calculation
+        float closest = range * range;
+        foreach (IMalware mal in ActiveSubroutines.MalwareList)
+        {
+            float dist = (mal.transform.position - this.transform.position).sqrMagnitude / mal.AttackPriority;
+            //if this has a higher priority than now
+            //and the distance is closer
+            if (dist < closest)
+            {
+                if (!onlyVirus || (mal is VirusAI))
+                {
+                    _lockedTarget = mal.transform;
+                    this.lockedMalware = mal;
+
+                    if (mal is VirusAI)
+                        this.lockedVirus = mal as VirusAI;
+
+                    closest = dist;
+                }
+            }
         }
     }
 }

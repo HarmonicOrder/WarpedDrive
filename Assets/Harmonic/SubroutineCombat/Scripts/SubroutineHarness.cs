@@ -37,6 +37,12 @@ public class SubroutineHarness : MonoBehaviour {
             //slow down when using "heavy weapon"
             (MovementScript as Tracer).moveSpeed = 10f;
         }
+        else if ((FunctionScript is Honeypot) && (MovementScript is Tracer))
+        {
+            //slow down when using "heavy weapon"
+            (MovementScript as Tracer).moveSpeed = 10f;
+            (MovementScript as Tracer).doAvoid = true;
+        }
     }
 
     private void SetMovement(string movementName)

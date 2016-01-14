@@ -71,8 +71,6 @@ public class SubroutineWorkstation : MonoBehaviour {
 
     private void OrderSubroutineList(bool firstRun = false)
     {
-        int numberOfButtons = 0;
-        float buttonHeight = 0, topMargin = -20;
         foreach (RectTransform r in subroutineListPanel)
         {
             SubroutineInfo si = CyberspaceEnvironment.Instance.Subroutines.Find((s) => (s.ID == r.name));
@@ -85,9 +83,6 @@ public class SubroutineWorkstation : MonoBehaviour {
             }
             else
             {
-                //buttonHeight = r.sizeDelta.y;
-
-                print("turning on " + si.ID);
                 r.gameObject.SetActive(true);
 
                 UpdateSubroutineButtonText(r, si.CompositeName);
@@ -102,14 +97,8 @@ public class SubroutineWorkstation : MonoBehaviour {
                         SetSubroutine(si, r.GetComponent<Button>());
                     }
                 }
-                //SetButtonPositionY(r, topMargin - (numberOfButtons * buttonHeight) - (buttonHeight / 2));
-                numberOfButtons++;
             }
         }
-
-        //SetButtonPositionY(addNewSubroutineBtn, topMargin - (numberOfButtons * buttonHeight) - (buttonHeight / 2));
-
-        //subroutineListPanel.sizeDelta = new Vector2(subroutineListPanel.sizeDelta.x, (numberOfButtons + 1) * buttonHeight);
     }
 
     private void SetButtonPositionY(RectTransform btn, float y)
@@ -190,6 +179,12 @@ public class SubroutineWorkstation : MonoBehaviour {
                 isMoving = false;
             }
             currentMoveTime += Time.deltaTime;
+        }
+
+        if (Input.GetKeyUp(KeyCode.BackQuote))
+        {
+            CyberspaceEnvironment.Instance.MaximumRAM++;
+            UpdateFreeRAM();
         }
 
         if (Input.GetKeyUp(KeyCode.Escape))
