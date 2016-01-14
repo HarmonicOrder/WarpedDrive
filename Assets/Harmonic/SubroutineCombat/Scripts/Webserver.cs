@@ -31,7 +31,8 @@ public class Webserver : NetworkLocationButton, IActivatable {
 	public void Activate()
 	{
 		StartCoroutine(FireSalvo());
-	}
+        StartCoroutine(Close());
+    }
 
 	public IEnumerator FireSalvo()
 	{

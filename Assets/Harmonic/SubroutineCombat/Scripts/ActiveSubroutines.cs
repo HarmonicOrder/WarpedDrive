@@ -46,14 +46,19 @@ public static class ActiveSubroutines {
 
 	public static void AddVirus(IMalware newVirus)
 	{
-		MalwareList.Add(newVirus);
-
 		Machine m = CyberspaceBattlefield.Current.FindByName(newVirus.transform.root.name);
-		if (m != null)
+		if (m == null)
+        {
+            UnityEngine.Debug.LogWarning("No machine found to add virus to!");
+        }
+        else
+        {
+		    MalwareList.Add(newVirus);
 			m.ActiveMalware.Add(newVirus);
 
-		if (OnMalwareListChange != null)
-			OnMalwareListChange();
+            if (OnMalwareListChange != null)
+                OnMalwareListChange();
+        }
 	}
 
 	public static void RemoveVirus(IMalware oldVirus)

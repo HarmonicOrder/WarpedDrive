@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Honeypot : SubroutineFunction
 {
-    public float LookAtSpeed = 4f;
+    public float LookAtSpeed = 10f;
     public float AngleThreshold = .1f;
 
     public ParticleSystem PulseParticles;
@@ -41,8 +41,16 @@ public class Honeypot : SubroutineFunction
             {
                 if (isFiring)
                 {
-                    if (this.closestVirus != null)
+                    if (this.closestVirus == null)
+                    {
+                        StopLaser();
+                    }
+                    else
+                    {
                         this.PulseParticles.transform.position = this.closestVirus.transform.position;
+                        LookAtClosestTransform();
+                        this.HoneypotLineRenderer.SetPosition(1, Vector3.forward * (this.closestTransform.position - this.transform.position).magnitude);
+                    }
                 }
                 else
                 {
@@ -50,9 +58,7 @@ public class Honeypot : SubroutineFunction
 
                     if (this.closestTransform != null)
                     {
-                        Vector3 relativePos = this.closestTransform.position - this.transform.position;
-                        this.Parent.FunctionRoot.rotation = Quaternion.Slerp(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * LookAtSpeed);
-                        float angle = Quaternion.Angle(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos));
+                        float angle = LookAtClosestTransform();
 
                         if ((angle < AngleThreshold) && canFire)
                         {
@@ -62,6 +68,14 @@ public class Honeypot : SubroutineFunction
                 }
             }
         }
+    }
+
+    private float LookAtClosestTransform()
+    {
+        Vector3 relativePos = this.closestTransform.position - this.transform.position;
+        this.Parent.FunctionRoot.rotation = Quaternion.Slerp(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * LookAtSpeed);
+        float angle = Quaternion.Angle(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos));
+        return angle;
     }
 
     private void FireAtEnemy(Vector3 relativePos)
@@ -85,6 +99,7 @@ public class Honeypot : SubroutineFunction
 
     private void StopLaser()
     {
+        isFiring = false;
         this.HoneypotLineRenderer.SetVertexCount(0);
         this.PulseParticles.Stop();
     }

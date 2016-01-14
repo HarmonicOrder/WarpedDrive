@@ -12,6 +12,7 @@ public class BunnyBomb : VirusAI
 
     protected override void OnAwake()
     {
+        //this will fail to add the virus to the virus list
         base.OnAwake();
         Hourglass.gameObject.SetActive(false);
         this.Info = new ActorInfo()
@@ -25,6 +26,15 @@ public class BunnyBomb : VirusAI
 
         this.machineCenter = this.transform.root.position;
         this.TimeTilNextProvision = Random.Range(3, 7);
+    }
+
+    public void SetPartner(BunnyBomb part)
+    {
+        if (this.transform.root == null)
+            Debug.LogWarning("no root! you need to be under a machine!");
+
+        this.Partner = part;
+        ActiveSubroutines.AddVirus(this);
     }
 
     private float LookAtSpeed = 5f;
@@ -49,9 +59,10 @@ public class BunnyBomb : VirusAI
                 Hourglass.gameObject.SetActive(false);
                 Partner = GameObject.Instantiate<GameObject>(this.gameObject).GetComponent<BunnyBomb>();
                 Partner.transform.SetParent(this.transform.parent);
+                //this MUST be after setParent
+                Partner.SetPartner(this);
                 Partner.transform.position = this.transform.position + Vector3.forward * 10;
                 Partner.transform.localRotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.Euler(0, 180, 0), 180);
-                Partner.Partner = this;
                 CurrentCreatePartnerTime = 0f;
             }
             else
