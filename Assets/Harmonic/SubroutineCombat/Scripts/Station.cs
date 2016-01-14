@@ -22,7 +22,8 @@ public class Station : SubroutineMovement {
 		this.originalAlpha = this.ShieldRenderer.material.color.a;
 
 		this.ShieldRenderer.material.color = HarmonicUtils.ColorWithAlpha(this.ShieldRenderer.material.color, 0);
-	}
+        this.Parent.IsInvulnerable = true;
+    }
 	
 	public override void Fire()
 	{
@@ -50,8 +51,9 @@ public class Station : SubroutineMovement {
 			if (CurrentInstantiateTime > TimeToInstantiate)
 			{
 				BeingFired = false;
+                this.Parent.IsInvulnerable = false;
 
-				GameObject.Destroy(CurrentInstantiateCube.gameObject);
+                GameObject.Destroy(CurrentInstantiateCube.gameObject);
 
 				this.ShieldRenderer.material.color = HarmonicUtils.ColorWithAlpha(this.ShieldRenderer.material.color, this.originalAlpha);
 				

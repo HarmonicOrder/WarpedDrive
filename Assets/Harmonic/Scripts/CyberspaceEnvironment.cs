@@ -15,9 +15,28 @@ public class CyberspaceEnvironment {
         get
         {
             if (_instance == null)
+            {
                 _instance = GetDefault();
+                if (Application.isEditor)
+                {
+                    AddTestingData(_instance);
+                }
+            }
             return _instance;
         }
+    }
+
+    private static void AddTestingData(CyberspaceEnvironment _instance)
+    {
+        _instance.Subroutines.Add(new SubroutineInfo()
+        {
+            FunctionName = "Honeypot",
+            Hotkey = 3,
+            MovementName = "Station",
+            ID = "a3",
+            LoadedIntoRAM = true
+        });
+        _instance.MaximumRAM++;
     }
 
     public static CyberspaceEnvironment GetDefault()

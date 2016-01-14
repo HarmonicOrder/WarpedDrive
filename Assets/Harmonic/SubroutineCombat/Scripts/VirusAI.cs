@@ -12,7 +12,8 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 	public virtual string DisplayNamePlural {get{return "Viruses";}}
 
 	protected Transform targetT;
-	
+	protected bool IsAggroForced { get; set; }
+
 	protected override void OnAwake ()
 	{
 		ActiveSubroutines.AddVirus(this);
@@ -29,15 +30,26 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 
 	public void OnSubroutineActive(Subroutine sub)
 	{
-		//todo: remove magic number
-		this.targetT = ActiveSubroutines.FindClosestActiveSubroutine(this.transform.position, 300f);
-	}
+        //if you aren't forced, then get the target
+        if (!this.IsAggroForced)
+            TargetClosestActiveSubroutine();
+    }
 	
 	public void OnSubroutineInactive(Subroutine sub)
 	{
-		//todo: remove magic number
-		this.targetT = ActiveSubroutines.FindClosestActiveSubroutine(this.transform.position, 300f);
+        //keep aggro'd if you have a target, you're forced, and the inactive subroutine isn't the one you're targeting
+        if ((this.targetT != null) && this.IsAggroForced && (sub.transform != this.targetT))
+            return;
+
+        TargetClosestActiveSubroutine();
 	}
+
+    public void TargetClosestActiveSubroutine()
+    {
+        //todo: remove magic number
+        this.targetT = ActiveSubroutines.FindClosestActiveSubroutine(this.transform.position, 300f);
+
+    }
 
 	
 	public void EnableLockedOnGui()
@@ -104,5 +116,14 @@ public class VirusAI : Actor, ILockTarget, IMalware {
     public void ForceAggro(Transform t)
     {
         this.targetT = t;
+        this.IsAggroForced = true;
+    }
+
+    public void UnforceAggro()
+    {
+        this.targetT = null;
+        this.IsAggroForced = false;
+
+        TargetClosestActiveSubroutine();
     }
 }

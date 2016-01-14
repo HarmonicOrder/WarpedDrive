@@ -10,6 +10,7 @@ public class Subroutine : Actor {
 	public Transform FunctionRoot;
     public Transform HealthBar;
     public Transform HealthPipPrefab;
+    public bool IsInvulnerable { get; set; }
 
 	public SubroutineStatus Status { 
 		set
@@ -103,6 +104,9 @@ public class Subroutine : Actor {
 
 	public void TakeDamage(float damage)
 	{
+        if (this.IsInvulnerable)
+            return;
+
 		this.Info.HitPoints -= damage;
 
 		if (this.Info.HitPoints < 0f)

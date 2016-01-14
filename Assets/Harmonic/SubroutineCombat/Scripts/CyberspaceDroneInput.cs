@@ -138,16 +138,27 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			HitCrosshair.enabled = false;
 		}
 
-		if (Input.GetKeyDown(KeyCode.Alpha1) && (CurrentLock != null))
-		{
-            SubroutineInfo si = GetSubroutineInfo(0);
-            PossiblyCreateSubroutine(si);
-		}
-
-		if (Input.GetKeyDown(KeyCode.Alpha2) && CurrentLock != null)
+        if (CurrentLock != null)
         {
-            SubroutineInfo si = GetSubroutineInfo(1);
-            PossiblyCreateSubroutine(si);
+		    if (Input.GetKeyDown(KeyCode.Alpha1))
+		    {
+                PossiblyCreateSubroutine(GetSubroutineInfo(0));
+		    }
+
+		    if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                PossiblyCreateSubroutine(GetSubroutineInfo(1));
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                PossiblyCreateSubroutine(GetSubroutineInfo(2));
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                PossiblyCreateSubroutine(GetSubroutineInfo(3));
+            }
         }
 
 		float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;

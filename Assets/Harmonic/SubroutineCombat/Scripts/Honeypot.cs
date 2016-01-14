@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Honeypot : SubroutineFunction
 {
-    public float LookAtSpeed = 2f;
-    public float LaserPersistTime = .5f;
+    public float LookAtSpeed = 4f;
+    public float AngleThreshold = .1f;
 
     public ParticleSystem PulseParticles;
     //public ParticleSystem BurstParticles;
@@ -37,19 +37,27 @@ public class Honeypot : SubroutineFunction
                 CooldownRemaining -= Time.deltaTime;
             }
 
-            if (TrackEnemy && !isFiring)
+            if (TrackEnemy)
             {
-                FindClosestMalware(true);
-
-                if (this.closestTransform != null)
+                if (isFiring)
                 {
-                    Vector3 relativePos = this.closestTransform.position - this.transform.position;
-                    this.Parent.FunctionRoot.rotation = Quaternion.Slerp(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * LookAtSpeed);
-                    float angle = Quaternion.Angle(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos));
+                    if (this.closestVirus != null)
+                        this.PulseParticles.transform.position = this.closestVirus.transform.position;
+                }
+                else
+                {
+                    FindClosestMalware(true);
 
-                    if ((angle < 5f) && canFire)
+                    if (this.closestTransform != null)
                     {
-                        FireAtEnemy(this.closestTransform.position - this.transform.position);
+                        Vector3 relativePos = this.closestTransform.position - this.transform.position;
+                        this.Parent.FunctionRoot.rotation = Quaternion.Slerp(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * LookAtSpeed);
+                        float angle = Quaternion.Angle(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos));
+
+                        if ((angle < AngleThreshold) && canFire)
+                        {
+                            FireAtEnemy(this.closestTransform.position - this.transform.position);
+                        }
                     }
                 }
             }
@@ -65,6 +73,7 @@ public class Honeypot : SubroutineFunction
         this.HoneypotLineRenderer.SetVertexCount(2);
         this.HoneypotLineRenderer.SetPosition(0, Vector3.zero);
         this.HoneypotLineRenderer.SetPosition(1, Vector3.forward * relativePos.magnitude);
+        this.PulseParticles.transform.position = this.closestVirus.transform.position;
         this.PulseParticles.startSpeed = -relativePos.magnitude;
         this.PulseParticles.Play();
         //this.BurstParticles.Emit(100);
@@ -78,5 +87,11 @@ public class Honeypot : SubroutineFunction
     {
         this.HoneypotLineRenderer.SetVertexCount(0);
         this.PulseParticles.Stop();
+    }
+
+    void OnDestroy()
+    {
+        if (this.closestVirus != null)
+            this.closestVirus.UnforceAggro();
     }
 }
