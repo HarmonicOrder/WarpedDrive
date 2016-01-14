@@ -4,6 +4,7 @@ using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
 using Prime31.TransitionKit;
 using System;
+using System.Collections.Generic;
 
 public class CyberspaceDroneInput : MonoBehaviour {
 
@@ -33,12 +34,14 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	private Quaternion currentLookRotation;
 	private bool showingMainMenu;
 
-	private bool lerpToMachine = false;
+	private bool lerpToMachine = false, isControllingSubroutine = false;
 	private float currentLerpTime = 0f;
 	private float lerpToTime = .5f;
 	private Vector3 lerpFrom, lerpTo;
 
-	void Awake() {
+    public Camera ControlCamera { get; private set; }
+
+    void Awake() {
 		CyberspaceBattlefield.Current = new CyberspaceBattlefield();
 		StrategyConsole.Initialize(consoleText);
 
@@ -139,7 +142,18 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			HitCrosshair.enabled = false;
 		}
 
-        if (CurrentLock != null)
+#if UNITY_EDITOR
+        if (Input.GetKey(KeyCode.LeftShift))
+#else
+        if (Input.GetKey(KeyCode.LeftControl))
+
+#endif
+        {
+            CheckControlCamera(KeyCode.Alpha1, 1);
+            CheckControlCamera(KeyCode.Alpha2, 2);
+            CheckControlCamera(KeyCode.Alpha3, 3);
+        }
+        else if (CurrentLock != null)
         {
 		    if (Input.GetKeyDown(KeyCode.Alpha1))
 		    {
@@ -189,6 +203,47 @@ public class CyberspaceDroneInput : MonoBehaviour {
         currentLookRotation = new Quaternion(currentLookRotation.x, currentLookRotation.y, 0, currentLookRotation.w);
 		PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);
 	}
+
+    private void CheckControlCamera(KeyCode k, int hotkey)
+    {
+        if (Input.GetKeyUp(k))
+        {
+            print("key down");
+            if (isControllingSubroutine)
+            {
+                print("already controlling");
+                RevertToStrategyCamera();
+            }
+            else
+            {
+                print("looking for subroutines");
+                Subroutine s = ActiveSubroutines.List.Find(sub => sub.SInfo.Hotkey == hotkey);
+                if (s != null)
+                {
+                    print("making camera");
+                    isControllingSubroutine = true;
+                    ControlCamera = new GameObject("ControlCamera").AddComponent<Camera>();
+                    ControlCamera.transform.SetParent(s.FunctionRoot);
+                    ControlCamera.transform.localPosition = Vector3.up;
+                    ControlCamera.transform.localRotation = Quaternion.identity;
+                }
+                else
+                {
+                    print("No subroutine to control!");
+                }
+            }
+        }
+        else
+        {
+            print("no key up");
+        }
+    }
+
+    private void RevertToStrategyCamera()
+    {
+        isControllingSubroutine = true;
+        GameObject.Destroy(ControlCamera.gameObject);
+    }
 
     private void PossiblyCreateSubroutine(SubroutineInfo si)
     {

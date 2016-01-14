@@ -59,12 +59,11 @@ public class Subroutine : Actor {
     public VirusAI lockedVirus;
 
     public bool IsActive {get;set;}
+    public SubroutineInfo SInfo { get; set; }
 	public Transform StartingPosition {get;set;}
-
 
     private Machine DeployedMachine { get; set; }
     private Coroutine Raycasting;
-    private SubroutineInfo SInfo { get; set; }
 
 	protected override void OnAwake()
     {
