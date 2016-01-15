@@ -23,7 +23,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public SubroutineStatus AlphaStatus;
 	public SubroutineStatus BetaStatus;
 	public SubroutineStatus GammaStatus;
-	public Text TargetGuiText, FileViewerText;
+	public Text TargetGuiText, FileViewerText, FileViewerFilenameText;
     public Image FileViewerImage;
 	public Transform PivotTransform;
 	public MeshRenderer HitCrosshair;
@@ -41,6 +41,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	private Vector3 lerpFrom, lerpTo;
 
     public Camera ControlCamera { get; private set; }
+    public bool IsViewingFile { get; private set; }
 
     void Awake() {
 		CyberspaceBattlefield.Current = new CyberspaceBattlefield();
@@ -64,9 +65,17 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {		
 		if (CrossPlatformInputManager.GetButtonDown("Cancel")){
-			showingMainMenu = !showingMainMenu;
 
-			ToggleMenu(showingMainMenu);
+            if (IsViewingFile)
+            {
+                ExitFileViewer();
+            }
+            else
+            {
+			    showingMainMenu = !showingMainMenu;
+
+			    ToggleMenu(showingMainMenu);
+            }
 		}
 
 		if (lerpToMachine)
@@ -386,18 +395,26 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     public void ShowImage(string filename, Sprite s)
     {
+        FileViewerFilenameText.text = filename;
         FileViewer.gameObject.SetActive(true);
         FileViewerImage.gameObject.SetActive(true);
         FileViewerImage.sprite = s;
         FileViewerText.gameObject.SetActive(false);
+        IsViewingFile = true;
+        Cursor.visible = true;
+        Time.timeScale = 0;
     }
 
     public void ShowText(string filename, string text)
     {
+        FileViewerFilenameText.text = filename;
         FileViewer.gameObject.SetActive(true);
         FileViewerText.gameObject.SetActive(true);
         FileViewerText.text = text;
         FileViewerImage.gameObject.SetActive(false);
+        IsViewingFile = true;
+        Cursor.visible = true;
+        Time.timeScale = 0;
     }
 
     public void ShowFunction(string text)
@@ -410,5 +427,13 @@ public class CyberspaceDroneInput : MonoBehaviour {
     {
         FileViewer.gameObject.SetActive(true);
 
+    }
+
+    private void ExitFileViewer()
+    {
+        FileViewer.gameObject.SetActive(false);
+        IsViewingFile = false;
+        Cursor.visible = false;
+        Time.timeScale = 1;
     }
 }

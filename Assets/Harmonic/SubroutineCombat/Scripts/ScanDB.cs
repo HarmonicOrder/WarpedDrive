@@ -77,15 +77,15 @@ public class ScanDB : NetworkLocationButton, IActivatable
         {
             Input.ShowImage(UnlockFilename, UnlockImage);
         }
-        else if (!string.IsNullOrWhiteSpace(UnlockText))
+        else if (!string.IsNullOrEmpty(UnlockText))
         {
             Input.ShowText(UnlockFilename, UnlockText);
         }
-        else if (!string.IsNullOrWhiteSpace(UnlockFunction))
+        else if (!string.IsNullOrEmpty(UnlockFunction))
         {
 
         }
-        else if (!string.IsNullOrWhiteSpace(UnlockUpgrade))
+        else if (!string.IsNullOrEmpty(UnlockUpgrade))
         {
 
         }
