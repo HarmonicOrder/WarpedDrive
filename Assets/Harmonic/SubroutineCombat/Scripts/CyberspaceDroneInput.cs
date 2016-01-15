@@ -224,8 +224,12 @@ public class CyberspaceDroneInput : MonoBehaviour {
                     isControllingSubroutine = true;
                     ControlCamera = new GameObject("ControlCamera").AddComponent<Camera>();
                     ControlCamera.transform.SetParent(s.FunctionRoot);
+                    ControlCamera.cullingMask = Camera.main.cullingMask;
+                    ControlCamera.depth = 1;
+                    ControlCamera.clearFlags = Camera.main.clearFlags;
                     ControlCamera.transform.localPosition = Vector3.up;
                     ControlCamera.transform.localRotation = Quaternion.identity;
+                    Camera.main.farClipPlane = 10;
                 }
                 else
                 {
@@ -242,7 +246,9 @@ public class CyberspaceDroneInput : MonoBehaviour {
     private void RevertToStrategyCamera()
     {
         isControllingSubroutine = true;
-        GameObject.Destroy(ControlCamera.gameObject);
+        Camera.main.farClipPlane = 2000f;
+        if (ControlCamera != null)
+            GameObject.Destroy(ControlCamera.gameObject);
     }
 
     private void PossiblyCreateSubroutine(SubroutineInfo si)
