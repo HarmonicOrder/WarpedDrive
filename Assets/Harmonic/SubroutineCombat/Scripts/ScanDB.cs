@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class ScanDB : NetworkLocationButton, IActivatable
 {
     public Transform ScanTransform;
     public float scanHeight;
+    public CyberspaceDroneInput Input;
+
+    public string UnlockFilename;
+    public Sprite UnlockImage;
+    public string UnlockText;
+    public string UnlockFunction;
+    public string UnlockUpgrade;
 
     private Machine myMachine { get; set; }
 
@@ -60,6 +68,27 @@ public class ScanDB : NetworkLocationButton, IActivatable
         }
 
         ScanTransform.gameObject.SetActive(false);
+        Unlock();
+    }
+
+    private void Unlock()
+    {
+        if (UnlockImage != null)
+        {
+            Input.ShowImage(UnlockFilename, UnlockImage);
+        }
+        else if (!string.IsNullOrWhiteSpace(UnlockText))
+        {
+            Input.ShowText(UnlockFilename, UnlockText);
+        }
+        else if (!string.IsNullOrWhiteSpace(UnlockFunction))
+        {
+
+        }
+        else if (!string.IsNullOrWhiteSpace(UnlockUpgrade))
+        {
+
+        }
     }
 
     void OnDestroy()

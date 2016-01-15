@@ -23,11 +23,12 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public SubroutineStatus AlphaStatus;
 	public SubroutineStatus BetaStatus;
 	public SubroutineStatus GammaStatus;
-	public Text TargetGuiText;
+	public Text TargetGuiText, FileViewerText;
+    public Image FileViewerImage;
 	public Transform PivotTransform;
 	public MeshRenderer HitCrosshair;
 	public MeshRenderer Crosshair;
-	public RectTransform Menu;
+	public RectTransform Menu, FileViewer;
 	public Text consoleText;
 	public Transform TracerStartPosition;
     public Transform SubroutineHarnessPrefab;
@@ -382,4 +383,32 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
 		target.localRotation = Quaternion.Slerp(target.localRotation, newRotation, smoothing * Time.deltaTime);
 	}
+
+    public void ShowImage(string filename, Sprite s)
+    {
+        FileViewer.gameObject.SetActive(true);
+        FileViewerImage.gameObject.SetActive(true);
+        FileViewerImage.sprite = s;
+        FileViewerText.gameObject.SetActive(false);
+    }
+
+    public void ShowText(string filename, string text)
+    {
+        FileViewer.gameObject.SetActive(true);
+        FileViewerText.gameObject.SetActive(true);
+        FileViewerText.text = text;
+        FileViewerImage.gameObject.SetActive(false);
+    }
+
+    public void ShowFunction(string text)
+    {
+        FileViewer.gameObject.SetActive(true);
+
+    }
+
+    public void ShowUpgrade(string text)
+    {
+        FileViewer.gameObject.SetActive(true);
+
+    }
 }
