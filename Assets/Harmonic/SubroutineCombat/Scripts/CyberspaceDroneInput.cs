@@ -208,19 +208,19 @@ public class CyberspaceDroneInput : MonoBehaviour {
     {
         if (Input.GetKeyUp(k))
         {
-            print("key down");
+            //print("key down");
             if (isControllingSubroutine)
             {
-                print("already controlling");
+                //print("already controlling");
                 RevertToStrategyCamera();
             }
             else
             {
-                print("looking for subroutines");
+                //("looking for subroutines");
                 Subroutine s = ActiveSubroutines.List.Find(sub => sub.SInfo.Hotkey == hotkey);
                 if (s != null)
                 {
-                    print("making camera");
+                    //print("making camera");
                     isControllingSubroutine = true;
                     ControlCamera = new GameObject("ControlCamera").AddComponent<Camera>();
                     ControlCamera.transform.SetParent(s.FunctionRoot);
@@ -230,16 +230,17 @@ public class CyberspaceDroneInput : MonoBehaviour {
                     ControlCamera.transform.localPosition = Vector3.up;
                     ControlCamera.transform.localRotation = Quaternion.identity;
                     Camera.main.farClipPlane = 10;
+                    //todo: auto-revert if subroutine dies
                 }
                 else
                 {
-                    print("No subroutine to control!");
+                    //print("No subroutine to control!");
                 }
             }
         }
         else
         {
-            print("no key up");
+            //print("no key up");
         }
     }
 
