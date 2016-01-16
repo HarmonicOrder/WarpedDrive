@@ -37,6 +37,10 @@ public class SubroutineFunction : MonoBehaviour {
                 return 1;
             case "terminate":
                 return 2;
+            case "honeypot":
+                return 3;
+            case "freeze":
+                return 2;
         }
         print("fallthrough core cost");
         return 1;
