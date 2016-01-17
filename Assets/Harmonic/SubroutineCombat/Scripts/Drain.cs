@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Drain : SubroutineFunction {
+public class Corrupt : SubroutineFunction {
 
 	// Use this for initialization
 	void Start () {
