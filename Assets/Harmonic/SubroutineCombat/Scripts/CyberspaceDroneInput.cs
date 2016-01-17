@@ -18,8 +18,6 @@ public class CyberspaceDroneInput : MonoBehaviour {
 				 zSensitivity = 2f;
 	public float moveSpeed = 1f;
 	public bool invertY = true;
-	public Transform AlphaSubPrefab;
-	public Transform BetaSubPrefab;
 	public SubroutineStatus AlphaStatus;
 	public SubroutineStatus BetaStatus;
 	public SubroutineStatus GammaStatus;
@@ -46,9 +44,6 @@ public class CyberspaceDroneInput : MonoBehaviour {
     void Awake() {
 		CyberspaceBattlefield.Current = new CyberspaceBattlefield();
 		StrategyConsole.Initialize(consoleText);
-
-		AlphaSubPrefab.GetComponent<Subroutine>().Status = AlphaStatus;
-		BetaSubPrefab.GetComponent<Subroutine>().Status = BetaStatus;
 	}
 
 	// Use this for initialization
