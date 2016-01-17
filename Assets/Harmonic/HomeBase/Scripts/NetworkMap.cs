@@ -180,8 +180,20 @@ public static class NetworkMap {
 									Name = "ServerMachine",
 									CPUCores = 2,
 									IsInfected = true
-								}
-							}
+								},
+                                new Machine()
+                                {
+                                    Name = "SecurityMachine",
+                                    CPUCores = 2,
+                                    IsInfected = true
+                                },
+                                new Machine()
+                                {
+                                    Name = "ArchiveMachine",
+                                    CPUCores = 2,
+                                    IsInfected = true
+                                }
+                            }
 						},
 						new NetworkLocation(){
 							Name = "3DPrintshop",
