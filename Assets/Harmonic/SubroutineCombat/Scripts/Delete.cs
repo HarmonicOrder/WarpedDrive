@@ -10,8 +10,11 @@ public class Delete : SubroutineFunction {
 	private Transform leftGun;
 	private Transform rightGun;
 
-	// Use this for initialization
-	void Start () {
+    public override float TracerSlowRange { get { return 30f; } }
+    public override float TracerStopRange { get { return 20f; } }
+
+    // Use this for initialization
+    void Start () {
 		this.Parent.Info.DamagePerHit = 1f;
 		this.Parent.Info.FireRate = 1f;	
 		this.Parent.Info.CoreCost += 1;

@@ -93,8 +93,12 @@ public class Tracer : SubroutineMovement {
                 {
                     this.transform.Translate(0, 0, -Time.deltaTime * moveSpeed, Space.Self);
                 }
+                else if (relativePos.magnitude < Parent.Function.TracerStopRange)
+                {
+
+                }
                 //move slowly
-                else if (relativePos.magnitude < followDistance){
+                else if (relativePos.magnitude < Parent.Function.TracerSlowRange){
 					this.transform.Translate(0, 0, Time.deltaTime * moveSpeed / 3f, Space.Self);
 				}
 				else 

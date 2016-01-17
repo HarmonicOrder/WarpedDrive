@@ -14,10 +14,12 @@ public class SubroutineFunction : MonoBehaviour {
     internal bool TrackEnemy = false;
 	protected float CooldownRemaining = -1f;
 	protected bool isFiring = false;
-	public float Range = 300f;
+    
+	public virtual float TracerSlowRange { get { return 120f; } }
+    public virtual float TracerStopRange { get { return 100f; } }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
