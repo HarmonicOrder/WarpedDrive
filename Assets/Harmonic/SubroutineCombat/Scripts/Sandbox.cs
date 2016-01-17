@@ -13,7 +13,7 @@ public class Sandbox : SubroutineFunction
     void Start()
     {
         this.Parent.Info.DamagePerHit = 0f;
-        this.Parent.Info.FireRate = 5f;
+        this.Parent.Info.FireRate = 8f;
         this.Parent.Info.CoreCost += 2;
     }
 
@@ -34,7 +34,6 @@ public class Sandbox : SubroutineFunction
 
             if (TrackEnemy && !isFiring)
             {
-                print("should be sandboxing");
                 if ((this.Parent.LockedTarget != null) && (this.Parent.lockedVirus != null))
                 {
                     Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
@@ -56,7 +55,7 @@ public class Sandbox : SubroutineFunction
         isFiring = true;
         CooldownRemaining = this.Parent.Info.FireRate;
         CurrentSandboxViz = (Transform)Instantiate(this.SandboxVisualization, this.Parent.lockedMalware.transform.position, Quaternion.identity);
-        this.Parent.lockedVirus.IsImmobile = true;
+        this.Parent.lockedVirus.ForceImmobilization();
         this.Parent.lockedVirus.IsSandboxed = true;
         StartCoroutine(this.WaitAndStopLaser());
     }
@@ -78,11 +77,13 @@ public class Sandbox : SubroutineFunction
     {
         if (this.Parent.lockedVirus != null)
         {
-            this.Parent.lockedVirus.IsImmobile = false;
+            this.Parent.lockedVirus.UnforceImmobilization();
             this.Parent.lockedVirus.IsSandboxed = false;
         }
         if (CurrentSandboxViz != null)
         {
+            print("destroying sandbox viz");
+            print("name:" + CurrentSandboxViz.gameObject.name);
             GameObject.Destroy(CurrentSandboxViz.gameObject);
         }
     }

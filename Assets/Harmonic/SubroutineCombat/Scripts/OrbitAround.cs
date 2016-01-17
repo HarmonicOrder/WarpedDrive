@@ -5,6 +5,7 @@ public class OrbitAround : SubroutineMovement {
 	public Transform OrbitAnchor;
 	public float orbitSpeed = 5f;
 	public bool IsOrbiting = true;
+    public bool CanOrbit = true;
 	public Vector3 RotationAxis = Vector3.up;
 	public CircleDraw OrbitRenderer;
 
@@ -18,7 +19,7 @@ public class OrbitAround : SubroutineMovement {
 	
 	// Update is called once per frame
 	void Update () {
-		if ((OrbitAnchor != null) && IsOrbiting)
+		if ((OrbitAnchor != null) && CanOrbit && IsOrbiting)
 		{
 			transform.RotateAround(OrbitAnchor.position, RotationAxis, Time.deltaTime * orbitSpeed);
 		}

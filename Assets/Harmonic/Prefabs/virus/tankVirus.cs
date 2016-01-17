@@ -50,10 +50,13 @@ public class tankVirus : VirusAI {
 	}
 
 	private void FaceTarget(Vector3 relativePos){
-		this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);
-		float angle = Quaternion.Angle(this.transform.rotation, Quaternion.LookRotation(relativePos));
+        if (!isFiring)
+        {
+		    this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);
+		    float angle = Quaternion.Angle(this.transform.rotation, Quaternion.LookRotation(relativePos));
 
-		PossiblyFireAtTarget(relativePos, angle);
+		    PossiblyFireAtTarget(relativePos, angle);
+        }
 	}
 
 	private void PossiblyFireAtTarget(Vector3 relativePos, float angle)
@@ -68,7 +71,7 @@ public class tankVirus : VirusAI {
 			CooldownRemaining -= Time.deltaTime;
 		}
 
-		if ( (angle < 3f) && canFire)
+		if ( !IsSandboxed && (angle < 3f) && canFire)
 		{
 			Subroutine s = this.targetT.GetComponent<Subroutine>();
 			if (s != null){
@@ -171,5 +174,14 @@ public class tankVirus : VirusAI {
 				}
 			}
 		}
-	}
+    }
+
+
+    protected override void OnImmobilized() {
+        this.OrbitScript.CanOrbit = false;
+    }
+    protected override void OnMobilized()
+    {
+        this.OrbitScript.CanOrbit = true;
+    }
 }

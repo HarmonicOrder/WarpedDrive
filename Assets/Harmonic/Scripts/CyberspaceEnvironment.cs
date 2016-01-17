@@ -36,7 +36,15 @@ public class CyberspaceEnvironment {
             ID = "a3",
             LoadedIntoRAM = true
         });
-        _instance.MaximumRAM++;
+        _instance.Subroutines.Add(new SubroutineInfo()
+        {
+            FunctionName = "Sandbox",
+            Hotkey = 4,
+            MovementName = "Station",
+            ID = "a4",
+            LoadedIntoRAM = true
+        });
+        _instance.MaximumRAM +=2;
     }
 
     public static CyberspaceEnvironment GetDefault()

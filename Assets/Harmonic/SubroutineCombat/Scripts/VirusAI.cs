@@ -12,8 +12,8 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 	public virtual string DisplayNamePlural {get{return "Viruses";}}
 
 	protected Transform targetT;
-	protected bool IsAggroForced { get; set; }
-    public bool IsImmobile { get; internal set; }
+	protected bool IsAggroForced { get; private set; }
+    public bool IsImmobile { get; private set; }
     public bool IsSandboxed { get; internal set; }
 
     protected override void OnAwake ()
@@ -127,4 +127,19 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 
         TargetClosestActiveSubroutine();
     }
+
+    public void ForceImmobilization()
+    {
+        this.IsImmobile = true;
+        OnImmobilized();
+    }
+
+    public void UnforceImmobilization()
+    {
+        this.IsImmobile = false;
+        OnMobilized();
+    }
+
+    protected virtual void OnImmobilized() { }
+    protected virtual void OnMobilized() { }
 }
