@@ -6,6 +6,10 @@ public class SubroutineFunction : MonoBehaviour {
 
 	public Subroutine Parent {get;set;}
     public List<Upgrade> Upgrades { get; set; }
+    /// <summary>
+    /// As opposed to passive ones, like meshes
+    /// </summary>
+    public virtual bool OnlyTrackActiveViruses { get { return false; } }
 
     internal bool TrackEnemy = false;
 	protected float CooldownRemaining = -1f;

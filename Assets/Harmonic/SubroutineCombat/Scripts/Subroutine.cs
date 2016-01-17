@@ -215,7 +215,7 @@ public class Subroutine : Actor {
     }
 
 
-    protected void FindClosestMalware(bool onlyVirus = false)
+    protected void FindClosestMalware()
     {
         if (ActiveSubroutines.MalwareList.Count == 0)
         {
@@ -236,7 +236,7 @@ public class Subroutine : Actor {
             //and the distance is closer
             if (dist < closest)
             {
-                if (!onlyVirus || (mal is VirusAI))
+                if (!this.Function.OnlyTrackActiveViruses || (mal is VirusAI))
                 {
                     _lockedTarget = mal.transform;
                     this.lockedMalware = mal;

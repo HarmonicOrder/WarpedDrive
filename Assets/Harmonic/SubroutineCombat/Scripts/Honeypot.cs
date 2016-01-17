@@ -5,6 +5,7 @@ public class Honeypot : SubroutineFunction
 {
     public float LookAtSpeed = 10f;
     public float AngleThreshold = .1f;
+    public override bool OnlyTrackActiveViruses { get { return true; } }
 
     public ParticleSystem PulseParticles;
     //public ParticleSystem BurstParticles;

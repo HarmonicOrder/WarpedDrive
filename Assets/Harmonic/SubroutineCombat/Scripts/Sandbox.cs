@@ -5,6 +5,9 @@ public class Sandbox : SubroutineFunction
 {
     public float LookAtSpeed = 2f;
     public Transform SandboxVisualization;
+    public override bool OnlyTrackActiveViruses { get { return true; } }
+
+    private Transform CurrentSandboxViz;
 
     // Use this for initialization
     void Start()
@@ -31,7 +34,8 @@ public class Sandbox : SubroutineFunction
 
             if (TrackEnemy && !isFiring)
             {
-                if (this.Parent.LockedTarget != null)
+                print("should be sandboxing");
+                if ((this.Parent.LockedTarget != null) && (this.Parent.lockedVirus != null))
                 {
                     Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
                     this.Parent.FunctionRoot.rotation = Quaternion.Slerp(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * LookAtSpeed);
@@ -48,16 +52,38 @@ public class Sandbox : SubroutineFunction
 
     private void FireAtEnemy(Vector3 relativePos)
     {
+        print("sandboxing with " + this.SandboxVisualization);
         isFiring = true;
         CooldownRemaining = this.Parent.Info.FireRate;
-        this.Parent.lockedMalware.TakeDamage(this.Parent.Info.DamagePerHit);
+        CurrentSandboxViz = (Transform)Instantiate(this.SandboxVisualization, this.Parent.lockedMalware.transform.position, Quaternion.identity);
+        this.Parent.lockedVirus.IsImmobile = true;
+        this.Parent.lockedVirus.IsSandboxed = true;
         StartCoroutine(this.WaitAndStopLaser());
     }
 
 
     private IEnumerator WaitAndStopLaser()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(5f);
+        UnSandbox();
         isFiring = false;
+    }
+
+    void OnDestroy()
+    {
+        UnSandbox();
+    }
+
+    private void UnSandbox()
+    {
+        if (this.Parent.lockedVirus != null)
+        {
+            this.Parent.lockedVirus.IsImmobile = false;
+            this.Parent.lockedVirus.IsSandboxed = false;
+        }
+        if (CurrentSandboxViz != null)
+        {
+            GameObject.Destroy(CurrentSandboxViz.gameObject);
+        }
     }
 }

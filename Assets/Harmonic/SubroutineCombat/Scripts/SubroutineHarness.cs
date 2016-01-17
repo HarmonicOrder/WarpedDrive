@@ -4,7 +4,7 @@ using System;
 
 public class SubroutineHarness : MonoBehaviour {
 
-    public Transform InstantiatePrefab;
+    public Transform InstantiatePrefab, VirusSandboxPrefab;
     public Transform LazerPrefab;
 
     public Transform Delete, Terminate, Corrupt, Honeypot, Freeze, Sandbox, Lag;
@@ -91,6 +91,7 @@ public class SubroutineHarness : MonoBehaviour {
             case "Sandbox":
                 t = InstantiateSubcomponent(Sandbox, this.FunctionRoot, functionName);
                 this.FunctionScript = this.gameObject.AddComponent<Sandbox>();
+                (this.FunctionScript as Sandbox).SandboxVisualization = VirusSandboxPrefab;
                 break;
             case "Lag":
                 t = InstantiateSubcomponent(Lag, this.FunctionRoot, functionName);

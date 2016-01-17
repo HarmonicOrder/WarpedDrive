@@ -13,8 +13,10 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 
 	protected Transform targetT;
 	protected bool IsAggroForced { get; set; }
+    public bool IsImmobile { get; internal set; }
+    public bool IsSandboxed { get; internal set; }
 
-	protected override void OnAwake ()
+    protected override void OnAwake ()
 	{
 		ActiveSubroutines.AddVirus(this);
 	}
@@ -48,7 +50,6 @@ public class VirusAI : Actor, ILockTarget, IMalware {
     {
         //todo: remove magic number
         this.targetT = ActiveSubroutines.FindClosestActiveSubroutine(this.transform.position, 300f);
-
     }
 
 	

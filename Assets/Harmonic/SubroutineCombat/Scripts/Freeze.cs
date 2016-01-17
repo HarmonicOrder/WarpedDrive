@@ -6,6 +6,7 @@ public class Freeze : SubroutineFunction
 
     public float LookAtSpeed = 2f;
     public float LaserPersistTime = .5f;
+    public override bool OnlyTrackActiveViruses { get { return true; } }
 
     //public ParticleSystem PulseParticles;
     public ParticleSystem BurstParticles;

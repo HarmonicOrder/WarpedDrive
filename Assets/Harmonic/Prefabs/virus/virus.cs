@@ -39,7 +39,9 @@ public class virus : VirusAI {
 			
 			if (relativePos.sqrMagnitude < this.engagementDistance * this.engagementDistance){
 				FaceTarget(relativePos);
-				MoveToTarget(relativePos);
+
+                if (!IsImmobile)
+				    MoveToTarget(relativePos);
 			}
 		}
 	}
@@ -48,7 +50,8 @@ public class virus : VirusAI {
 		this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);
 		float angle = Quaternion.Angle(this.transform.rotation, Quaternion.LookRotation(relativePos));
 		
-		PossiblyFireAtTarget(relativePos, angle);
+        if (!IsSandboxed)
+		    PossiblyFireAtTarget(relativePos, angle);
 	}
 	
 	private void PossiblyFireAtTarget(Vector3 relativePos, float angle)
