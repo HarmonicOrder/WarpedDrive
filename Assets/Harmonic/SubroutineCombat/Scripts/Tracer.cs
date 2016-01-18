@@ -23,6 +23,7 @@ public class Tracer : SubroutineMovement {
 	}
 
     private const float Divergence = 15f;
+    private const float maximumEngagementDistance = 300f;
 
     private void CalculateFiringLineRotation()
     {
@@ -84,11 +85,11 @@ public class Tracer : SubroutineMovement {
 
 				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, look, Time.deltaTime * lookAtSpeed);
 				
-				//if (relativePos.magnitude > this.engagementDistance)
-				//{
-				//	//do not engage
-				//} 
-				//else 
+				if (relativePos.magnitude > maximumEngagementDistance)
+				{
+					//do not engage
+				} 
+				else 
                 if (doAvoid && relativePos.magnitude < avoidDistance)
                 {
                     this.transform.Translate(0, 0, -Time.deltaTime * moveSpeed, Space.Self);

@@ -15,8 +15,8 @@ public class SubroutineFunction : MonoBehaviour {
 	protected float CooldownRemaining = -1f;
 	protected bool isFiring = false;
     
-	public virtual float TracerSlowRange { get { return 120f; } }
-    public virtual float TracerStopRange { get { return 100f; } }
+	public virtual float TracerSlowRange { get { return 90f; } }
+    public virtual float TracerStopRange { get { return 80f; } }
 
     // Use this for initialization
     void Start () {
