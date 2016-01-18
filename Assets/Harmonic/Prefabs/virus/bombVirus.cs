@@ -28,7 +28,7 @@ public class bombVirus : VirusAI {
 	}
 
 	protected override void OnUpdate () {
-		if (this.targetT != null)
+		if (!IsImmobile && (this.targetT != null))
 			LookAtAndMoveToTarget();
 	}
 
