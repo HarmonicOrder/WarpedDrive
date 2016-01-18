@@ -30,6 +30,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public Text consoleText;
 	public Transform TracerStartPosition;
     public Transform SubroutineHarnessPrefab;
+    public Canvas UICanvas;
+
 	private Quaternion currentLookRotation;
 	private bool showingMainMenu;
 
@@ -40,6 +42,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     public Camera ControlCamera { get; private set; }
     public bool IsViewingFile { get; private set; }
+    private bool IsCinematic { get; set; }
 
     void Awake() {
 		CyberspaceBattlefield.Current = new CyberspaceBattlefield();
@@ -64,6 +67,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
             if (IsViewingFile)
             {
                 ExitFileViewer();
+            }
+            if (IsCinematic)
+            {
+                ToggleCinematic();
             }
             else
             {
@@ -91,7 +98,12 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		if (showingMainMenu)
 			return;
 
-		bool LeftClick = CrossPlatformInputManager.GetButtonDown("Fire1");
+        if (Input.GetKeyUp(KeyCode.F2))
+        {
+            ToggleCinematic();
+        }
+
+        bool LeftClick = CrossPlatformInputManager.GetButtonDown("Fire1");
 
 		RaycastHit rayHit;
 		if (Physics.Raycast(PivotTransform.position, PivotTransform.forward, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("TargetRaycast")))
@@ -208,6 +220,14 @@ public class CyberspaceDroneInput : MonoBehaviour {
         currentLookRotation = new Quaternion(currentLookRotation.x, currentLookRotation.y, 0, currentLookRotation.w);
 		PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);
 	}
+
+    private void ToggleCinematic()
+    {
+        IsCinematic = !IsCinematic;
+        UICanvas.gameObject.SetActive(!IsCinematic);
+        Crosshair.gameObject.SetActive(!IsCinematic);
+        HitCrosshair.gameObject.SetActive(!IsCinematic);
+    }
 
     private void CheckControlCamera(KeyCode k, int hotkey)
     {
