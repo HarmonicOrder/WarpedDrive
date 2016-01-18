@@ -95,4 +95,9 @@ public static class HarmonicUtils {
     {
         return string.Format("{0}:{1}", Mathf.Floor(seconds / 60).ToString("00"), (Mathf.Floor(seconds % 60)).ToString("00"));
     }
+
+    internal static Vector3 RandomVector(float min, float max)
+    {
+        return new Vector3(UnityEngine.Random.Range(min, max), UnityEngine.Random.Range(min, max), UnityEngine.Random.Range(min, max));
+    }
 }

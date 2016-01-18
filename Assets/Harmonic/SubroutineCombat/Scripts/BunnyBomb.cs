@@ -109,7 +109,7 @@ public class BunnyBomb : VirusAI
                 }
                 else
                 {
-                    RandomMoveDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;// + Vector3.forward * 3f;
+                    RandomMoveDirection = HarmonicUtils.RandomVector(-1f, 1f).normalized;// + Vector3.forward * 3f;
                 }
                 RandomMoveTime = Random.Range(3, 8);
                 CurrentRandomMoveTime = 0f;
