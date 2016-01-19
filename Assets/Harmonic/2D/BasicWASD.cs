@@ -13,8 +13,11 @@ public class BasicWASD : MonoBehaviour {
     public UnityEngine.UI.Text ClockText;
     public UnityEngine.UI.Image ClockPanel;
     public ParticleSystem Immature;
+    public RectTransform AreYouSurePanel;
+    public RectTransform QuitButton;
 
     private bool IsUsingTerminal = false;
+    private bool IsShowingMenu = false;
 
     // Use this for initialization
     void Start () {
@@ -25,7 +28,9 @@ public class BasicWASD : MonoBehaviour {
         Autosave.Instance.On = true;
         //while in meatspace, consume oxygen
         OxygenConsumer.Instance.IsConsuming = true;
-	}
+        QuitButton.gameObject.SetActive(false);
+        AreYouSurePanel.gameObject.SetActive(false);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -53,13 +58,18 @@ public class BasicWASD : MonoBehaviour {
             StartCoroutine(BeImmature());
         }
 
+        bool escapeUp = Input.GetKeyUp(KeyCode.Escape);
         if (Input.GetKeyUp(KeyCode.E) && (IsUsingTerminal || TerminalManager.IsNextToTerminal))
         {
             ToggleTerminal();
         }
-        else if (IsUsingTerminal && Input.GetKeyUp(KeyCode.Escape))
+        else if (IsUsingTerminal && escapeUp)
         {
             ToggleTerminal();
+        }
+        else if (escapeUp)
+        {
+            ToggleMenu();
         }
 
         if (!IsUsingTerminal)
@@ -139,5 +149,30 @@ public class BasicWASD : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D coll)
     {
         print("colliding!");
+    }
+
+    public void QuitClick()
+    {
+        AreYouSurePanel.gameObject.SetActive(true);
+    }
+
+    public void AreYouSureQuit()
+    {
+        Application.Quit();
+    }
+
+    public void CancelQuit()
+    {
+        AreYouSurePanel.gameObject.SetActive(false);
+        ToggleMenu();
+    }
+
+    private void ToggleMenu()
+    {
+        IsShowingMenu = !IsShowingMenu;
+        Cursor.visible = IsShowingMenu;
+        QuitButton.gameObject.SetActive(IsShowingMenu);
+
+        OxygenConsumer.Instance.IsConsuming = !IsShowingMenu;
     }
 }
