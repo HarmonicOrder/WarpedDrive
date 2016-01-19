@@ -16,7 +16,7 @@ public class InfectionMonitor : MonoBehaviour {
         ActiveSubroutines.OnMalwareListChange -= OnMalwareListChange;
     }
 
-	private void OnMalwareListChange()
+	private void OnMalwareListChange(IMalware dead)
 	{
 		if (ActiveSubroutines.MalwareList.Count == 0)
 		{

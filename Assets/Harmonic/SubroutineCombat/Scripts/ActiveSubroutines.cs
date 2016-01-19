@@ -7,7 +7,7 @@ public static class ActiveSubroutines {
 	public static List<Subroutine> List = new List<Subroutine>();
 	public static List<IMalware> MalwareList = new List<IMalware>();
 
-	public delegate void ChangeHandler();
+	public delegate void ChangeHandler(IMalware dead);
 	public static event ChangeHandler OnMalwareListChange;
 	
 	public static void Add(Subroutine newlyActive)
@@ -19,6 +19,7 @@ public static class ActiveSubroutines {
 			//notify viruses of this
 			foreach(IMalware iMal in MalwareList)
 			{
+                //todo: check for ISubroutineListener instead
 				if (iMal is VirusAI)
 				{
 					(iMal as VirusAI).OnSubroutineActive(newlyActive);
@@ -35,8 +36,9 @@ public static class ActiveSubroutines {
 
 			//notify viruses of this
 			foreach(IMalware iMal in MalwareList)
-			{
-				if (iMal is VirusAI)
+            {
+                //todo: check for ISubroutineListener instead
+                if (iMal is VirusAI)
 				{
 					(iMal as VirusAI).OnSubroutineInactive(newlyInactive);
 				}
@@ -57,7 +59,7 @@ public static class ActiveSubroutines {
 			m.ActiveMalware.Add(newVirus);
 
             if (OnMalwareListChange != null)
-                OnMalwareListChange();
+                OnMalwareListChange(null);
         }
 	}
 
@@ -86,7 +88,7 @@ public static class ActiveSubroutines {
 
 		MalwareList.Remove(oldVirus);
 		if (OnMalwareListChange != null)
-			OnMalwareListChange();
+			OnMalwareListChange(oldVirus);
 	}
 
 	

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class VirusAI : Actor, ILockTarget, IMalware {
+public class VirusAI : Actor, ILockTarget, IMalware, ISubroutineListener {
 	
 	public Transform ExplosionPrefab;
 	public MeshRenderer LockedOnGUI;
@@ -18,8 +18,14 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 
     protected override void OnAwake ()
 	{
-		ActiveSubroutines.AddVirus(this);
+        DoOnAwake();
 	}
+
+    //see octopus spawner to see why
+    public void DoOnAwake()
+    {
+        ActiveSubroutines.AddVirus(this);
+    }
 
 	protected override void OnStart ()
 	{
@@ -30,6 +36,10 @@ public class VirusAI : Actor, ILockTarget, IMalware {
 		base.OnStart();
 	}
 
+    /// <summary>
+    /// Subroutine parameter not guaranteed to be non null
+    /// </summary>
+    /// <param name="sub"></param>
 	public void OnSubroutineActive(Subroutine sub)
 	{
         //if you aren't forced, then get the target
