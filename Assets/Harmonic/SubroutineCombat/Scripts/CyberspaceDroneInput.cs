@@ -61,6 +61,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
         CurrentLock = null;
 	}
 
+    private Vector3 viewLockedPosition;
+    private Quaternion viewLockedRotation;
+    private bool IsZoomedOut;
+
 	// Update is called once per frame
 	void Update () {		
 		if (CrossPlatformInputManager.GetButtonDown("Cancel")){
@@ -80,6 +84,26 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			    ToggleMenu(showingMainMenu);
             }
 		}
+
+        if (Input.GetKeyUp(KeyCode.Z))
+        {
+            IsZoomedOut = !IsZoomedOut;
+            if (IsZoomedOut)
+            {
+                viewLockedPosition = PivotTransform.localPosition;
+                viewLockedRotation = PivotTransform.localRotation;
+
+                PivotTransform.SetParent(null);
+                PivotTransform.position = this.transform.position + new Vector3(0, 300, -200);
+                PivotTransform.rotation = Quaternion.Euler(45, 45, 0);
+            }
+            else
+            {
+                PivotTransform.SetParent(strategyPitchSphere);
+                PivotTransform.localPosition = viewLockedPosition;
+                PivotTransform.localRotation = viewLockedRotation;
+            }
+        }
 
 		if (lerpToMachine)
 		{
@@ -193,33 +217,41 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 PossiblyCreateSubroutine(GetSubroutineInfo(3));
             }
         }
-
+        
 		float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;
 		float vert = -CrossPlatformInputManager.GetAxis("Horizontal") * xSensitivity;
+        if (IsZoomedOut)
+        {
+            Vector3 move = new Vector3(-vert * 10, 0, horz * 10);
+            
+            PivotTransform.Translate(Quaternion.Euler(0, 45, 0) * move, Space.World);
+        }
+        else
+        {
+		    if (invertY) 
+		    {
+			    vert = -vert;
+		    }
 
-		if (invertY) 
-		{
-			vert = -vert;
-		}
+		    float dX = 0f, dY = 0f;
+		    if (vert != 0f)
+			    dY = vert * moveSpeed;
+		    if (horz != 0f)
+			    dX = horz * moveSpeed;
 
-		float dX = 0f, dY = 0f;
-		if (vert != 0f)
-			dY = vert * moveSpeed;
-		if (horz != 0f)
-			dX = horz * moveSpeed;
+		    SlerpRotate(strategyPitchSphere, dX, 0, 91f);
 
-		SlerpRotate(strategyPitchSphere, dX, 0, 91f);
+		    SlerpRotate(strategyYawSphere, 0, dY);
 
-		SlerpRotate(strategyYawSphere, 0, dY);
+            float x = -CrossPlatformInputManager.GetAxis("Mouse Y") * xSensitivity;
+            float y = CrossPlatformInputManager.GetAxis("Mouse X") * ySensitivity;
 
-		float x = -CrossPlatformInputManager.GetAxis("Mouse Y") * xSensitivity;
-		float y = CrossPlatformInputManager.GetAxis("Mouse X") * ySensitivity;
-		
-		currentLookRotation *= Quaternion.Euler(x, 
-		                                   y, 
-		                                   0);
-        currentLookRotation = new Quaternion(currentLookRotation.x, currentLookRotation.y, 0, currentLookRotation.w);
-		PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);
+            currentLookRotation *= Quaternion.Euler(x,
+                                               y,
+                                               0);
+            currentLookRotation = new Quaternion(currentLookRotation.x, currentLookRotation.y, 0, currentLookRotation.w);
+            PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);
+        }
 	}
 
     private void ToggleCinematic()
