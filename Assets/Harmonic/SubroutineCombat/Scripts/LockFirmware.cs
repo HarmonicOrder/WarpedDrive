@@ -5,6 +5,7 @@ public class LockFirmware : NetworkLocationButton, IActivatable
 {
     private Machine myMachine { get; set; }
     public string DoorName;
+    public ParticleSystem[] EMVisualizations;
 
     // Use this for initialization
     void Start()
@@ -19,12 +20,6 @@ public class LockFirmware : NetworkLocationButton, IActivatable
         StartCoroutine(Open());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void Activate()
     {
         StartCoroutine(Close());
@@ -32,6 +27,11 @@ public class LockFirmware : NetworkLocationButton, IActivatable
         {
             StarshipEnvironment.Instance.OpenDoors.Add(this.DoorName.ToLower(), true);
             ToastLog.Toast("Door Unlocked!");
+
+            foreach(ParticleSystem ps in EMVisualizations)
+            {
+                ps.emissionRate = 0;
+            }
         }
     }
 
