@@ -47,6 +47,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
     void Awake() {
 		CyberspaceBattlefield.Current = new CyberspaceBattlefield();
 		StrategyConsole.Initialize(consoleText);
+        OxygenConsumer.Instance.IsConsumingSlowly = true;
 	}
 
 	// Use this for initialization

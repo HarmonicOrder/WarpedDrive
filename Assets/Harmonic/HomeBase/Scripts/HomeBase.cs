@@ -20,7 +20,8 @@ public class HomeBase : MonoBehaviour {
 		Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
 		zoomScript = this.transform.GetComponent<CameraZoomToZoom>();
 		Cursor.visible = true;
-	}
+        OxygenConsumer.Instance.IsConsumingSlowly = true;
+    }
 
 	private bool isZoomedOut = false, isSelectingServer = false, isWarping = false;
 	private SubnetSceneSelector currentSubnet;

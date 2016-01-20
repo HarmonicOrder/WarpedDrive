@@ -28,6 +28,7 @@ public class BasicWASD : MonoBehaviour {
         Autosave.Instance.On = true;
         //while in meatspace, consume oxygen
         OxygenConsumer.Instance.IsConsuming = true;
+        OxygenConsumer.Instance.IsConsumingSlowly = false;
         QuitButton.gameObject.SetActive(false);
         AreYouSurePanel.gameObject.SetActive(false);
     }

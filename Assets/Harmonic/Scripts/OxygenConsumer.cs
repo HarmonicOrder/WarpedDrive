@@ -19,6 +19,7 @@ public class OxygenConsumer : MonoBehaviour {
     }
 
     public bool IsConsuming = true;
+    public bool IsConsumingSlowly = false;
 
 	// Use this for initialization
 	void Start () {
@@ -30,8 +31,15 @@ public class OxygenConsumer : MonoBehaviour {
     {
         while(enabled && IsConsuming)
         {
-            StarshipEnvironment.Instance.OxygenLevel -= (StarshipEnvironment.OxygenConsumedPerSecond + StarshipEnvironment.Instance.OxygenProductionPerSecond);
-            yield return new WaitForSeconds(1f);
+            if (IsConsumingSlowly)
+            {
+                StarshipEnvironment.Instance.OxygenLevel -= (StarshipEnvironment.OxygenConsumedPerSecond / 20 + StarshipEnvironment.Instance.OxygenProductionPerSecond / 20);
+            }
+            else
+            {
+                StarshipEnvironment.Instance.OxygenLevel -= (StarshipEnvironment.OxygenConsumedPerSecond / 2 + StarshipEnvironment.Instance.OxygenProductionPerSecond / 2 );
+            }
+            yield return new WaitForSeconds(.5f);
         }
     }
 

@@ -95,6 +95,10 @@ public static class HarmonicUtils {
     {
         return string.Format("{0}:{1}", Mathf.Floor(seconds / 60).ToString("00"), (Mathf.Floor(seconds % 60)).ToString("00"));
     }
+    public static string ClockFormatWithDecisecond(float seconds)
+    {
+        return string.Format("{0}:{1}.{2}", Mathf.Floor(seconds / 60).ToString("00"), (Mathf.Floor(seconds % 60)).ToString("00"), (((int)(seconds * 10))%10).ToString());
+    }
 
     internal static Vector3 RandomVector(float min, float max)
     {
