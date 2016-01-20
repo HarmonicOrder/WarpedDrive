@@ -1357,7 +1357,8 @@ Prefab:
       propertyPath: m_Pivot.y
       value: .5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11425326, guid: d8b795a2982cecb43aefb47ab6a4584b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d8b795a2982cecb43aefb47ab6a4584b, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &164739923
@@ -10790,6 +10791,37 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1660387874}
+--- !u!1 &1828108310 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 187218, guid: d8b795a2982cecb43aefb47ab6a4584b, type: 2}
+  m_PrefabInternal: {fileID: 149754038}
+--- !u!114 &1828108314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1828108310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 1, b: .586206913, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 008d449efd6d7e1478cce65db6fdd1b8, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!1 &1870473685
 GameObject:
   m_ObjectHideFlags: 0
