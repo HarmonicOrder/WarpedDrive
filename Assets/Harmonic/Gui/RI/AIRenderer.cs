@@ -19,7 +19,7 @@ public class AIRenderer : MonoBehaviour {
     public Text OutputText;
     public RIState State;
     public Animator AnimationAnimator;
-    public RectTransform OutputPanel;
+    public RectTransform OutputPanel, BadgeBackground, BadgeSymbol;
 
     public static AIRenderer Instance { get; set; }
 

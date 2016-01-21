@@ -1357,6 +1357,26 @@ Prefab:
       propertyPath: m_Pivot.y
       value: .5
       objectReference: {fileID: 0}
+    - target: {fileID: 11465670, guid: d8b795a2982cecb43aefb47ab6a4584b, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11421446, guid: d8b795a2982cecb43aefb47ab6a4584b, type: 2}
+      propertyPath: BadgeSymbol
+      value: 
+      objectReference: {fileID: 339644278}
+    - target: {fileID: 11421446, guid: d8b795a2982cecb43aefb47ab6a4584b, type: 2}
+      propertyPath: BadgeBackground
+      value: 
+      objectReference: {fileID: 566729948}
+    - target: {fileID: 112248, guid: d8b795a2982cecb43aefb47ab6a4584b, type: 2}
+      propertyPath: m_Name
+      value: RIBadgeSymbol
+      objectReference: {fileID: 0}
+    - target: {fileID: 133646, guid: d8b795a2982cecb43aefb47ab6a4584b, type: 2}
+      propertyPath: m_Name
+      value: RIBadgeBackground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8b795a2982cecb43aefb47ab6a4584b, type: 2}
   m_IsPrefabParent: 0
@@ -2050,6 +2070,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 338856475}
+--- !u!224 &339644278 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 22451556, guid: d8b795a2982cecb43aefb47ab6a4584b,
+    type: 2}
+  m_PrefabInternal: {fileID: 149754038}
 --- !u!1 &357518282
 GameObject:
   m_ObjectHideFlags: 0
@@ -4981,6 +5006,11 @@ CanvasRenderer:
 Transform:
   m_PrefabParentObject: {fileID: 478488, guid: 1b2eb55d2080e844b904365dfdf9ada8, type: 2}
   m_PrefabInternal: {fileID: 1405657382}
+--- !u!224 &566729948 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 22476956, guid: d8b795a2982cecb43aefb47ab6a4584b,
+    type: 2}
+  m_PrefabInternal: {fileID: 149754038}
 --- !u!1 &576749517
 GameObject:
   m_ObjectHideFlags: 0
