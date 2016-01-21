@@ -44,6 +44,7 @@ public class AIRenderer : MonoBehaviour {
     private int charIndex;
     private Regex isBreak = new Regex(@"(\.|\?|\!)");
     private float waitTime = .05f;
+
     private IEnumerator PollQueues()
     {
         while(this.isActiveAndEnabled)
@@ -155,7 +156,7 @@ public class AIRenderer : MonoBehaviour {
             case RIState.Idea:
                 return 1;
             case RIState.Searching:
-                return -2;
+                return 2;
             case RIState.Talking:
                 return 1;
             case RIState.Thinking:

@@ -6,6 +6,11 @@ public class SaveGame {
     public DateTime LastSaved { get; set; }
     public CyberspaceEnvironment Cyberspace { get; set; }
     public StarshipEnvironment Meatspace { get; set; }
+    public Tutorial.CyberspaceProgress CyberspaceProgression { get; set; }
+    public Tutorial.MeatspaceProgress MeatspaceProgression { get; set; }
+    public Tutorial.WorkstationProgress WorkstationProgression { get; set; }
+    public Tutorial.HackingProgress HackingProgression { get; set; }
+    public bool HideTutorial { get; set; }
 
     public static string DefaultSaveGameName = "New Game";
     public static SaveGame GetNewDefault(string name)
