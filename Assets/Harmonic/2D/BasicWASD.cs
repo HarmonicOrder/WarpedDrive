@@ -15,6 +15,7 @@ public class BasicWASD : MonoBehaviour {
     public ParticleSystem Immature;
     public RectTransform AreYouSurePanel;
     public RectTransform QuitButton;
+    public Canvas UICanvas;
 
     private bool IsUsingTerminal = false;
     private bool IsShowingMenu = false;
@@ -105,6 +106,7 @@ public class BasicWASD : MonoBehaviour {
         }
 
 		if (CrossPlatformInputManager.GetButtonDown("Jump") && !HarmonicSerialization.Instance.IsNewGame){
+            UICanvas.enabled = false;
 			var pixelater = new PixelateTransition()
 			{
 				nextScene = 2,

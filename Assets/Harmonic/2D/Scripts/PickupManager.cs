@@ -47,9 +47,11 @@ public class PickupManager : MonoBehaviour {
                         {
                             case PickupTypes.oxygen:
                                 StarshipEnvironment.Instance.OxygenLevel += StarshipEnvironment.OxygenConsumedPerSecond * 60 * this.OxygenMinutesPerPickup;
+                                //todo: fire OnOxygenPickup
                                 break;
                             case PickupTypes.ram:
                                 CyberspaceEnvironment.Instance.MaximumRAM += this.RAMPerPickup;
+                                //todo: fire OnRAMPickup
                                 break;
                         }
                         StarshipEnvironment.Instance.PickupsPickedUp.Add(t.name.ToLower());

@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 using Prime31.TransitionKit;
+using System;
 
 public class HomeBase : MonoBehaviour {
 	public Camera zoomCamera;
@@ -11,6 +12,7 @@ public class HomeBase : MonoBehaviour {
 	public Color _highlightColor;
 	public static Color SubnetTextHighlightColor;
 	public Camera RenderExitCamera;
+    public Canvas UICanvas;
 
 	private CameraZoomToZoom zoomScript;
 	// Use this for initialization
@@ -21,9 +23,16 @@ public class HomeBase : MonoBehaviour {
 		zoomScript = this.transform.GetComponent<CameraZoomToZoom>();
 		Cursor.visible = true;
         OxygenConsumer.Instance.IsConsumingSlowly = true;
+        StartCoroutine(ShowCanvas());
     }
 
-	private bool isZoomedOut = false, isSelectingServer = false, isWarping = false;
+    private IEnumerator ShowCanvas()
+    {
+        yield return new WaitForSeconds(1f);
+        UICanvas.enabled = true;
+    }
+
+    private bool isZoomedOut = false, isSelectingServer = false, isWarping = false;
 	private SubnetSceneSelector currentSubnet;
 	private ServerSelector currentServer;
 	// Update is called once per frame

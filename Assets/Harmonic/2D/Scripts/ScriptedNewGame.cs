@@ -48,8 +48,11 @@ public class ScriptedNewGame : MonoBehaviour {
             this.enabled = false;
             GameObject.Destroy(EmergencyLight);
 
-            if (TestTutorial)
+            if (TestTutorial && GameObject.Find("Tutorial") == null)
+            {
+                HarmonicSerialization.Instance.CurrentSave = SaveGame.GetNewDefault("DEBUG");
                 StartTutorialScript();
+            }
         }
     }
 
