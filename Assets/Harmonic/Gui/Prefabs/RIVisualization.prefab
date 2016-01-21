@@ -12,7 +12,7 @@ GameObject:
   - 114: {fileID: 11465670}
   - 95: {fileID: 9509162}
   m_Layer: 5
-  m_Name: RIBackground
+  m_Name: RIBadgeSymbol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ GameObject:
   - 222: {fileID: 22202276}
   - 114: {fileID: 11422784}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: RIBadgeBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,6 @@ GameObject:
   m_Component:
   - 224: {fileID: 22432918}
   - 222: {fileID: 22239150}
-  - 114: {fileID: 11411666}
   m_Layer: 5
   m_Name: RIVisualization
   m_TagString: Untagged
@@ -140,33 +139,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11411666
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 166368}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: .168627456, g: .494117647, b: .266666681, a: .388235301}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
 --- !u!114 &11421446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -190,6 +162,8 @@ MonoBehaviour:
   State: 0
   AnimationAnimator: {fileID: 9587802}
   OutputPanel: {fileID: 22409624}
+  BadgeBackground: {fileID: 22476956}
+  BadgeSymbol: {fileID: 22451556}
 --- !u!114 &11422784
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,6 +8,7 @@ public class ScriptedNewGame : MonoBehaviour {
     public Light GlobalLight;
     public Canvas ClockCanvas;
     public bool TestNewGame;
+    public bool TestTutorial;
     public GameObject EmergencyLight;
     public AudioClip WakeyWakey;
 
@@ -47,6 +48,9 @@ public class ScriptedNewGame : MonoBehaviour {
             this.enabled = false;
             GameObject.Destroy(EmergencyLight);
         }
+
+        if (TestTutorial)
+            gameObject.AddComponent<MeatspaceTutorial>();
     }
 
     private IEnumerator MoveSlits()
@@ -85,6 +89,7 @@ public class ScriptedNewGame : MonoBehaviour {
         GlobalLight.intensity = 1.25f;
         yield return new WaitForSeconds(2f);
 
+        gameObject.AddComponent<MeatspaceTutorial>();
         GameObject.Destroy(EmergencyLight);
         Radio.Instance.Primary.volume = 1f;
         HarmonicSerialization.Instance.IsNewGame = false;

@@ -23,8 +23,11 @@ public class AIRenderer : MonoBehaviour {
 
     public static AIRenderer Instance { get; set; }
 
-    private Queue<Tuple<RIState, string>> Queue = new Queue<Tuple<RIState, string>>();
-    private Queue<Tuple<RIState, string>> PriorityQueue = new Queue<Tuple<RIState, string>>();
+    //TODO: replace tuples with struct? class?
+    //with: bool for 'sticky' instructions
+    //enum for 'set tutorial enum after you display this'
+    private Queue<AILine> Queue = new Queue<AILine>();
+    private Queue<AILine> PriorityQueue = new Queue<AILine>();
     private Image behaviorImage;
     private bool OuputIsOpen = false;
     // Use this for initialization
@@ -44,43 +47,50 @@ public class AIRenderer : MonoBehaviour {
     private int charIndex;
     private Regex isBreak = new Regex(@"(\.|\?|\!)");
     private float waitTime = .05f;
+    private AILine CurrentOutput;
 
     private IEnumerator PollQueues()
     {
         while(this.isActiveAndEnabled)
         {
-            Tuple<RIState, string> CurrentOutput = null;
+            bool hasOutput = false;
 
             //pull priority queue
             if (PriorityQueue.Count > 0)
+            {
                 CurrentOutput = PriorityQueue.Dequeue();
+                hasOutput = true;
+            }
             else if (Queue.Count > 0)
+            {
                 CurrentOutput = Queue.Dequeue();
+                hasOutput = true;
+            }
 
             //if not in idle and has priority
             //apologize (this just in...uh sorry but....oh....new data incoming....)
             //show priority
             //reentry (anyway...so anyways...as I was saying...)
             //else
-            if (CurrentOutput != null)
+            if (hasOutput)
             {
                 if (!OuputIsOpen)
                     yield return StartCoroutine(ToggleBackground(true));
 
                 //set sprite to state
-                behaviorImage.sprite = GetSprite(CurrentOutput.First);
-                behaviorImage.color = GetColor(CurrentOutput.First);
+                behaviorImage.sprite = GetSprite(CurrentOutput.State);
+                behaviorImage.color = GetColor(CurrentOutput.State);
                 //set animator to corresponding animation state
-                AnimationAnimator.SetInteger("CurrentState", (int)CurrentOutput.First);
-                AnimationAnimator.SetFloat("CurrentSpeed", GetSpeed(CurrentOutput.First));
+                AnimationAnimator.SetInteger("CurrentState", (int)CurrentOutput.State);
+                AnimationAnimator.SetFloat("CurrentSpeed", GetSpeed(CurrentOutput.State));
 
                 OutputText.text = "";
                 //set text (one char at a time)
-                for (charIndex = 0; charIndex < CurrentOutput.Second.Length; charIndex++)
+                for (charIndex = 0; charIndex < CurrentOutput.Text.Length; charIndex++)
                 {
-                    OutputText.text += CurrentOutput.Second[charIndex];
+                    OutputText.text += CurrentOutput.Text[charIndex];
 
-                    if (isBreak.IsMatch(CurrentOutput.Second[charIndex].ToString()))
+                    if (isBreak.IsMatch(CurrentOutput.Text[charIndex].ToString()))
                     {
                         waitTime = .5f;
                     }
@@ -95,7 +105,7 @@ public class AIRenderer : MonoBehaviour {
             }
             else
             {
-                if (OuputIsOpen)
+                if (OuputIsOpen && !CurrentOutput.Sticky)
                 {
                     yield return StartCoroutine(ToggleBackground(false));
                     IdleBehavior();
@@ -173,27 +183,27 @@ public class AIRenderer : MonoBehaviour {
     {
         if (Input.GetKeyUp(KeyCode.Alpha0))
         {
-            PriorityQueue.Enqueue(new Tuple<RIState, string>(RIState.Alerting, "There's a snake in my boot!"));
+            PriorityQueue.Enqueue(new AILine(RIState.Alerting, "There's a snake in my boot!"));
         }
         else if (Input.GetKeyUp(KeyCode.Alpha4))
         {
-            Queue.Enqueue(new Tuple<RIState, string>(RIState.Idea, "Eureka! I think I've cracked it, good sport."));
+            Queue.Enqueue(new AILine(RIState.Idea, "Eureka! I think I've cracked it, good sport."));
         }
         else if (Input.GetKeyUp(KeyCode.Alpha3))
         {
-            Queue.Enqueue(new Tuple<RIState, string>(RIState.Searching, "Looking around...can't say I see much. Oh! Nope, I was wrong."));
+            Queue.Enqueue(new AILine(RIState.Searching, "Looking around...can't say I see much. Oh! Nope, I was wrong."));
         }
         else if (Input.GetKeyUp(KeyCode.Alpha1))
         {
-            Queue.Enqueue(new Tuple<RIState, string>(RIState.Talking, "Here we can see the programmer in his native habitat. Filled with Mountain Dew. And video games."));
+            Queue.Enqueue(new AILine(RIState.Talking, "Here we can see the programmer in his native habitat. Filled with Mountain Dew. And video games."));
         }
         else if (Input.GetKeyUp(KeyCode.Alpha2))
         {
-            Queue.Enqueue(new Tuple<RIState, string>(RIState.Thinking, "Hmmmm. Hmmmmmmmm. Hhhhmmmmm..."));
+            Queue.Enqueue(new AILine(RIState.Thinking, "Hmmmm. Hmmmmmmmm. Hhhhmmmmm..."));
         }
         else if (Input.GetKeyUp(KeyCode.Alpha5))
         {
-            Queue.Enqueue(new Tuple<RIState, string>(RIState.Timing, "My oh my look at the time! You're running low on oxygen..."));
+            Queue.Enqueue(new AILine(RIState.Timing, "My oh my look at the time! You're running low on oxygen..."));
         }
     }
 #endif
@@ -221,15 +231,15 @@ public class AIRenderer : MonoBehaviour {
 
     //for conversations it might make sense to return how long the duration for saying the text is?
     //could just be a lookup
-    public void Output(RIState state, string text, bool isPriority = false)
+    public void Output(RIState state, string text, bool isSticky = false, bool isPriority = false)
     {
         if (isPriority)
         {
-            PriorityQueue.Enqueue(new Tuple<RIState, string>(state, text));
+            PriorityQueue.Enqueue(new AILine(state, text, isSticky));
         }
         else
         {
-            Queue.Enqueue(new Tuple<RIState, string>(state, text));
+            Queue.Enqueue(new AILine(state, text, isSticky));
         }
     }    
 

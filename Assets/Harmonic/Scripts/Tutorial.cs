@@ -36,22 +36,16 @@ public class Tutorial {
     {
         if (HarmonicSerialization.Instance.CurrentSave != null)
         {
-            if (HarmonicSerialization.Instance.CurrentSave.HideTutorial)
-                return;
+            if (aThing is MeatspaceProgress)
+                HarmonicSerialization.Instance.CurrentSave.MeatspaceProgression |= ((MeatspaceProgress)aThing);
+            else if (aThing is CyberspaceProgress)
+                HarmonicSerialization.Instance.CurrentSave.CyberspaceProgression |= ((CyberspaceProgress)aThing);
+            else if (aThing is WorkstationProgress)
+                HarmonicSerialization.Instance.CurrentSave.WorkstationProgression |= ((WorkstationProgress)aThing);
+            else if (aThing is HackingProgress)
+                HarmonicSerialization.Instance.CurrentSave.HackingProgression |= ((HackingProgress)aThing);
             else
-            {
-                if (aThing is MeatspaceProgress)
-                    HarmonicSerialization.Instance.CurrentSave.MeatspaceProgression |= ((MeatspaceProgress)aThing);
-                else if (aThing is CyberspaceProgress)
-                    HarmonicSerialization.Instance.CurrentSave.CyberspaceProgression |= ((CyberspaceProgress)aThing);
-                else if (aThing is WorkstationProgress)
-                    HarmonicSerialization.Instance.CurrentSave.WorkstationProgression |= ((WorkstationProgress)aThing);
-                else if (aThing is HackingProgress)
-                    HarmonicSerialization.Instance.CurrentSave.HackingProgression |= ((HackingProgress)aThing);
-
                 UnityEngine.Debug.LogWarning("flag enum to set is none of any progression enums!");
-                return;
-            }
         }
         else
         {
@@ -65,7 +59,9 @@ public class Tutorial {
     {
         None = 0,
         EnteredCyberspace,
-        EnteredCryosleep
+        EnteredCryosleep,
+        PickedUpOxygen,
+        PickedUpRAM
     }
 
     [Flags]
