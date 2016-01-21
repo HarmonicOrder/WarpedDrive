@@ -19,21 +19,24 @@ public class AIRenderer : MonoBehaviour {
     public Text OutputText;
     public RIState State;
     public Animator AnimationAnimator;
+    public RectTransform OutputPanel;
 
     public static AIRenderer Instance { get; set; }
 
     private Queue<Tuple<RIState, string>> Queue = new Queue<Tuple<RIState, string>>();
     private Queue<Tuple<RIState, string>> PriorityQueue = new Queue<Tuple<RIState, string>>();
     private Image behaviorImage;
+    private bool OuputIsOpen = false;
     // Use this for initialization
     void Awake () {
         Instance = this;
         behaviorImage = GetComponent<Image>();
 	}
-
-    //todo: maybe make coroutines instead
+    
     void Start()
     {
+        OutputPanel.localScale = new Vector3(1, 0, 1);
+        IdleBehavior();
         StartCoroutine(PollQueues());
     }
 
@@ -59,10 +62,13 @@ public class AIRenderer : MonoBehaviour {
             //else
             if (CurrentOutput != null)
             {
+                if (!OuputIsOpen)
+                    yield return StartCoroutine(ToggleBackground(true));
                 //if finished with last state
 
                 //set sprite to state
                 behaviorImage.sprite = GetSprite(CurrentOutput.First);
+                behaviorImage.color = GetColor(CurrentOutput.First);
                 //set animator to corresponding animation state
                 AnimationAnimator.SetInteger("CurrentState", (int)CurrentOutput.First);
                 AnimationAnimator.SetFloat("CurrentSpeed", GetSpeed(CurrentOutput.First));
@@ -73,20 +79,69 @@ public class AIRenderer : MonoBehaviour {
                 //set text (one sentence at a time?)
                 for (sentenceIndex = 0; sentenceIndex < sentences.Length; sentenceIndex++)
                 {
+                    print("printing:" + sentences[sentenceIndex]);
                     OutputText.text += sentences[sentenceIndex];
 
                     //wait based on how many characters are in the output string
                     yield return new WaitForSeconds(sentences[sentenceIndex].Length * .1f);
                 }
+                yield return new WaitForSeconds(.5f);
             }
             else
             {
-                yield return new WaitForSeconds(.5f);
+                if (OuputIsOpen)
+                {
+                    yield return StartCoroutine(ToggleBackground(false));
+                    IdleBehavior();
+                }
+                else
+                    yield return new WaitForSeconds(.5f);
             }
             //repeat
 
             //maybe include debug input (1-6) to set states
 
+        }
+    }
+
+    private Color GetColor(RIState first)
+    {
+        switch (first)
+        {
+            case RIState.Alerting:
+                return AlertColor;
+            default:
+                return NormalColor;
+        }
+    }
+
+    private void IdleBehavior()
+    {
+        AnimationAnimator.SetInteger("CurrentState", 0);
+        behaviorImage.color = new Color(0, 0, 0, 0);
+        OutputText.text = "";
+    }
+
+    private IEnumerator ToggleBackground(bool doOpen)
+    {
+        if (doOpen)
+        {
+            while(OutputPanel.localScale.y < 1)
+            {
+                OutputPanel.localScale = new Vector3(1, OutputPanel.localScale.y + .1f, 1);
+                yield return null;
+            }
+            OuputIsOpen = true;
+        }
+        else
+        {
+            while (OutputPanel.localScale.y > 0)
+            {
+                OutputPanel.localScale = new Vector3(1, OutputPanel.localScale.y - .1f, 1);
+                yield return null;
+            }
+            OutputPanel.localScale = new Vector3(1, 0, 1);
+            OuputIsOpen = false;
         }
     }
 
@@ -105,7 +160,7 @@ public class AIRenderer : MonoBehaviour {
             case RIState.Thinking:
                 return -2;
             case RIState.Timing:
-                return 1;
+                return .5f;
             default:
                 return 1;
         }

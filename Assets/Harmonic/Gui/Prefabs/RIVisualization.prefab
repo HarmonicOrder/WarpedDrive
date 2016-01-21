@@ -96,9 +96,9 @@ GameObject:
   m_Component:
   - 224: {fileID: 22466950}
   - 222: {fileID: 22200894}
-  - 114: {fileID: 11425326}
   - 95: {fileID: 9587802}
   - 114: {fileID: 11421446}
+  - 114: {fileID: 11453552}
   m_Layer: 5
   m_Name: RIBehavior
   m_TagString: Untagged
@@ -189,6 +189,7 @@ MonoBehaviour:
   OutputText: {fileID: 11496906}
   State: 0
   AnimationAnimator: {fileID: 9587802}
+  OutputPanel: {fileID: 22409624}
 --- !u!114 &11422784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -230,7 +231,7 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: .5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
---- !u!114 &11425326
+--- !u!114 &11453552
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -238,24 +239,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 187218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -98529514, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 1, b: .586206913, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 2800000, guid: 6e1f20fd75b9d2841af93cfe84e27c99, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+  m_Sprite: {fileID: 21300000, guid: 008d449efd6d7e1478cce65db6fdd1b8, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &11465670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -336,7 +338,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
