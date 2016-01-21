@@ -47,10 +47,15 @@ public class ScriptedNewGame : MonoBehaviour {
             DestroySlits();
             this.enabled = false;
             GameObject.Destroy(EmergencyLight);
-        }
 
-        if (TestTutorial)
-            gameObject.AddComponent<MeatspaceTutorial>();
+            if (TestTutorial)
+                StartTutorialScript();
+        }
+    }
+
+    private static void StartTutorialScript()
+    {
+        new GameObject("Tutorial").AddComponent<GameTutorial>();
     }
 
     private IEnumerator MoveSlits()
@@ -89,7 +94,7 @@ public class ScriptedNewGame : MonoBehaviour {
         GlobalLight.intensity = 1.25f;
         yield return new WaitForSeconds(2f);
 
-        gameObject.AddComponent<MeatspaceTutorial>();
+        StartTutorialScript();
         GameObject.Destroy(EmergencyLight);
         Radio.Instance.Primary.volume = 1f;
         HarmonicSerialization.Instance.IsNewGame = false;
