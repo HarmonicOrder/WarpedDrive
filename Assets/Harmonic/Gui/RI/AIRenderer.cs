@@ -40,9 +40,10 @@ public class AIRenderer : MonoBehaviour {
         StartCoroutine(PollQueues());
     }
 
-    private string[] sentences;
-    private int sentenceIndex;
-    private Regex splitter = new Regex(@"(\.|\?|\!)");
+    private string[] characters;
+    private int charIndex;
+    private Regex isBreak = new Regex(@"(\.|\?|\!)");
+    private float waitTime = .05f;
     private IEnumerator PollQueues()
     {
         while(this.isActiveAndEnabled)
@@ -64,7 +65,6 @@ public class AIRenderer : MonoBehaviour {
             {
                 if (!OuputIsOpen)
                     yield return StartCoroutine(ToggleBackground(true));
-                //if finished with last state
 
                 //set sprite to state
                 behaviorImage.sprite = GetSprite(CurrentOutput.First);
@@ -74,18 +74,23 @@ public class AIRenderer : MonoBehaviour {
                 AnimationAnimator.SetFloat("CurrentSpeed", GetSpeed(CurrentOutput.First));
 
                 OutputText.text = "";
-                //CurrentOutput.Second.Split('.', '?', '!');
-                sentences = splitter.Split(CurrentOutput.Second);
-                //set text (one sentence at a time?)
-                for (sentenceIndex = 0; sentenceIndex < sentences.Length; sentenceIndex++)
+                //set text (one char at a time)
+                for (charIndex = 0; charIndex < CurrentOutput.Second.Length; charIndex++)
                 {
-                    print("printing:" + sentences[sentenceIndex]);
-                    OutputText.text += sentences[sentenceIndex];
+                    OutputText.text += CurrentOutput.Second[charIndex];
 
-                    //wait based on how many characters are in the output string
-                    yield return new WaitForSeconds(sentences[sentenceIndex].Length * .1f);
+                    if (isBreak.IsMatch(CurrentOutput.Second[charIndex].ToString()))
+                    {
+                        waitTime = .5f;
+                    }
+                    else
+                    {
+                        waitTime = .05f;
+                    }
+                    yield return new WaitForSeconds(waitTime);
                 }
-                yield return new WaitForSeconds(.5f);
+                //give the user a bit to process this
+                yield return new WaitForSeconds(1f);
             }
             else
             {
@@ -97,10 +102,6 @@ public class AIRenderer : MonoBehaviour {
                 else
                     yield return new WaitForSeconds(.5f);
             }
-            //repeat
-
-            //maybe include debug input (1-6) to set states
-
         }
     }
 
