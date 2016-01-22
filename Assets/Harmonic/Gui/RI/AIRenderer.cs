@@ -19,7 +19,9 @@ public class AIRenderer : MonoBehaviour {
     public Text OutputText;
     public RIState State;
     public Animator AnimationAnimator;
-    public RectTransform OutputPanel, BadgeBackground, BadgeSymbol;
+    public Image BadgeBackground, BadgeSymbol;
+    public RectTransform OutputPanel;
+    public bool HideOnIdle = false;
 
     public static AIRenderer Instance { get; set; }
 
@@ -74,6 +76,9 @@ public class AIRenderer : MonoBehaviour {
             //else
             if (hasOutput)
             {
+                BadgeBackground.color = HarmonicUtils.ColorWithAlpha(BadgeBackground.color, 1f);
+                BadgeSymbol.color = HarmonicUtils.ColorWithAlpha(BadgeSymbol.color, 1f);
+
                 if (!OuputIsOpen)
                     yield return StartCoroutine(ToggleBackground(true));
 
@@ -132,6 +137,8 @@ public class AIRenderer : MonoBehaviour {
         AnimationAnimator.SetInteger("CurrentState", 0);
         behaviorImage.color = new Color(0, 0, 0, 0);
         OutputText.text = "";
+        BadgeBackground.color = HarmonicUtils.ColorWithAlpha(BadgeBackground.color, .5f);
+        BadgeSymbol.color = HarmonicUtils.ColorWithAlpha(BadgeSymbol.color, .5f);
     }
 
     private IEnumerator ToggleBackground(bool doOpen)
