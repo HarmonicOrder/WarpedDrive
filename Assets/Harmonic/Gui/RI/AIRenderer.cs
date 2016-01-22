@@ -24,15 +24,12 @@ public class AIRenderer : MonoBehaviour {
     public bool HideOnIdle = false;
 
     public static AIRenderer Instance { get; set; }
-
-    //TODO: replace tuples with struct? class?
-    //with: bool for 'sticky' instructions
-    //enum for 'set tutorial enum after you display this'
+    
     private Queue<AILine> Queue = new Queue<AILine>();
     private Queue<AILine> PriorityQueue = new Queue<AILine>();
     private Image behaviorImage;
     private bool OuputIsOpen = false;
-    // Use this for initialization
+    
     void Awake () {
         Instance = this;
         behaviorImage = GetComponent<Image>();
