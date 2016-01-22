@@ -222,6 +222,11 @@ public class CyberspaceDroneInput : MonoBehaviour {
             Vector3 move = new Vector3(-vert * 10, 0, horz * 10);
             
             PivotTransform.Translate(Quaternion.Euler(0, 45, 0) * move, Space.World);
+
+            //float y = CrossPlatformInputManager.GetAxis("Mouse X") * ySensitivity;
+
+
+            //SlerpRotate(PivotTransform, 0, y);
         }
         else
         {
