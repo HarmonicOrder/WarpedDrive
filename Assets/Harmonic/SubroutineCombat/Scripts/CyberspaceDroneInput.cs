@@ -18,14 +18,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
 				 zSensitivity = 2f;
 	public float moveSpeed = 1f;
 	public bool invertY = true;
-	public SubroutineStatus AlphaStatus;
-	public SubroutineStatus BetaStatus;
-	public SubroutineStatus GammaStatus;
 	public Text TargetGuiText, FileViewerText, FileViewerFilenameText;
     public Image FileViewerImage;
 	public Transform PivotTransform;
-	public MeshRenderer HitCrosshair;
-	public MeshRenderer Crosshair;
+    public RawImage HitCrosshair, Crosshair;
 	public RectTransform Menu, FileViewer;
 	public Text consoleText;
 	public Transform TracerStartPosition;
@@ -181,7 +177,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
 				CurrentLock.DisableLockedOnGui();
 				CurrentLock = null;
 			}
-			HitCrosshair.enabled = false;
+            TargetGuiText.text = "";
+            HitCrosshair.enabled = false;
 		}
 
 #if UNITY_EDITOR
