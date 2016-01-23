@@ -31,6 +31,24 @@ public class GameTutorial : MonoBehaviour {
         {
             CyberspaceStart();
         }
+        else if (Application.loadedLevel == 10)
+        {
+            SecurityLevelStart();
+        }
+    }
+
+    private CyberspaceDroneInput InputScript;
+    private bool isWaitingForMachineMove;
+    private bool isWaitingForSubroutineInstantiation;
+
+    private void SecurityLevelStart()
+    {
+        InputScript = GameObject.Find("StrategyMove").GetComponent<CyberspaceDroneInput>();
+        AIRenderer.Instance.Output(AIRenderer.RIState.Talking, "This subnetwork has a maglock controller on it somewhere.", false, true);
+        AIRenderer.Instance.Output(AIRenderer.RIState.Talking, "We'll have to remove the infection by starting some antivirus programs.", false, true);
+        AIRenderer.Instance.Output(AIRenderer.RIState.Talking, "Let's move off of the gateway machine, and over to that other machine.", false, true);
+        AIRenderer.Instance.Output(AIRenderer.RIState.Talking, "[Click] on the name of the other machine, the infected one.", true, true);
+        isWaitingForMachineMove = true;
     }
 
     private void CyberspaceStart()
@@ -64,6 +82,36 @@ public class GameTutorial : MonoBehaviour {
         else if (Application.loadedLevel == 2)
         {
             HomebaseUpdate();
+        }
+        else if (Application.loadedLevel == 10)
+        {
+            CorridorUnlockUpdate();
+        }
+    }
+
+    private void CorridorUnlockUpdate()
+    {
+        if (isWaitingForMachineMove)
+        {
+            if (InputScript.CurrentMachine != null)
+            {
+                AIRenderer.Instance.Output(AIRenderer.RIState.Talking, "Look at that nasty red infection around the maglock firmware.", false, true);
+                AIRenderer.Instance.Output(AIRenderer.RIState.Talking, "Let's remove the malicious code. We should have a Defender AV ready.", false, true);
+                AIRenderer.Instance.Output(AIRenderer.RIState.Talking, "You can see that it's listed on the right side of your UI. The one with the shield.", false, true);
+                AIRenderer.Instance.Output(AIRenderer.RIState.Talking, "Let's pick an entry point in the system for this Defender subroutine.", false, true);
+                AIRenderer.Instance.Output(AIRenderer.RIState.Talking, "[Click] on a light blue box, then create a Defender virus [2].", true, true);
+                isWaitingForMachineMove = false;
+                isWaitingForSubroutineInstantiation = true;
+                Tutorial.JustDid(Tutorial.HackingProgress.SwitchedMachines);
+            }
+        }
+        if (isWaitingForSubroutineInstantiation)
+        {
+            if (Input.GetKeyUp(KeyCode.Alpha2))
+            {
+                AIRenderer.Instance.Output(AIRenderer.RIState.Talking, "Now the Defender should make short work of the infected program.", false, true);
+                //Tutorial.JustDid(Tutorial.HackingProgress.TargetedMalware);
+            }
         }
     }
 

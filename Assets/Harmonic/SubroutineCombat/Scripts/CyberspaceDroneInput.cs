@@ -27,6 +27,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public Transform TracerStartPosition;
     public Transform SubroutineHarnessPrefab;
     public Canvas UICanvas;
+    public Machine CurrentMachine;
 
 	private Quaternion currentLookRotation;
 	private bool showingMainMenu;
@@ -160,6 +161,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 					    lerpTo = rayHit.collider.transform.parent.parent.position;
 					    lerpFrom = this.transform.position;
 					    lerpToMachine = true;
+                        CurrentMachine = m.myMachine;
                     }
                     else
                     {
