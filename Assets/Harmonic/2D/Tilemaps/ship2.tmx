@@ -9,6 +9,11 @@
    <terrain name="blueBorderFloor" tile="20"/>
    <terrain name="orangeBorderFloor" tile="20"/>
   </terraintypes>
+  <tile id="2">
+   <objectgroup draworder="index">
+    <object id="0" x="8.66667" y="12.6667" width="14" height="21.3333"/>
+   </objectgroup>
+  </tile>
   <tile id="5" terrain=",,,0"/>
   <tile id="6" terrain=",,0,0"/>
   <tile id="7" terrain=",,0,"/>
@@ -79,7 +84,7 @@
   <tile id="76" terrain="1,1,,"/>
   <tile id="77" terrain="1,,,"/>
  </tileset>
- <tileset firstgid="85" name="intbuilding7a" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="132">
+ <tileset firstgid="85" name="intbuilding7a" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="165">
   <image source="../../../OGA/intbuilding7a.png" width="432" height="396"/>
   <tile id="4">
    <objectgroup draworder="index">
@@ -93,7 +98,7 @@
   </tile>
   <tile id="18">
    <objectgroup draworder="index">
-    <object id="0" x="-13" y="-29" width="55" height="84"/>
+    <object id="0" x="-0.666667" y="-0.666667" width="32" height="32.6667"/>
    </objectgroup>
   </tile>
   <tile id="55">
@@ -167,6 +172,39 @@
    </objectgroup>
   </tile>
  </tileset>
+ <tileset firstgid="250" name="intbuilding7b" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="165">
+  <image source="../../../OGA/intbuilding7b.png" width="540" height="396"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0.666667" y="-0.666667" width="31.3333" height="33.3333"/>
+   </objectgroup>
+  </tile>
+  <tile id="2">
+   <objectgroup draworder="index">
+    <object id="0" x="-0.666667" y="0" width="31.3333" height="32.6667"/>
+   </objectgroup>
+  </tile>
+  <tile id="45">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0.666667" width="32" height="31.3333"/>
+   </objectgroup>
+  </tile>
+  <tile id="47">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="-0.666667" width="31.3333" height="32"/>
+   </objectgroup>
+  </tile>
+  <tile id="90">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="-0.666667" width="32" height="32.6667"/>
+   </objectgroup>
+  </tile>
+  <tile id="92">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="30.6667" height="30.6667"/>
+   </objectgroup>
+  </tile>
+ </tileset>
  <layer name="Ground" width="100" height="100">
   <data encoding="base64" compression="zlib">
    eJzt2FsuBEEUxvF6wgKMZ0E8EZcF4Nkt4k1CzJsdYBHsoTfg0XWEXgWW4xzTRfWlqqtHzxjJ/xdfai7Vncw501VtjAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOPueAxyMvRP+X88ZHlyHlflTnIv6UXOecwSOu+z5MZ89SQZ9uf8L66kFkcyhnIdMWeQY3TOrYR+/NB+TMg46clUf85saI7nmJjzJo/0I0drMi1jx5OZ/pxZnbMkWc7G4jz3vZn489KPgib92IwM/Rhck34U37P199WafjT3m/XK7QfrVTtYr8ZLTN3kvrTbdL3yHUM/wrQmvpp1ao6tm1N3XvpRpjVZlXEti62Xfbwu2Za4c2zs9VF83R4T6kfH0I8qWpMN498LDiU7koPAHN8xizXz6EeZ7YfvOyzvpTpvV7JXiK1r8fX97Nyh/YPro9pVVgtfzXTdWfEc22SPqTov/SiL/Z2pyf4Rk/XsvD36kWPvd7vyJ/musX1u70tDe8wg2TJcH1VsP87NVw8SWy99fmny/XiRvLaQ1NAPH9uPuv+1dT9/k7y3kA/T3/PpR5lzfSSnMrrpmp9+nMmo0Z58tPD4zLB/VHHXq4tC3PXK1rDNcH2Uxa5X9GM03PVKkjr7edI19GPU3PVK1yff/RX9GA2tyZyM854smOH1Q3+Tf6YfOfL9TEN5cKLPe4G595I753nVXHfOreSGfuRILdK/zl/XAAAAAAAAAAAAAPD5BINtrG8=
@@ -184,7 +222,7 @@
  </layer>
  <layer name="Midground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1dEJwyAQBuBskglKFsgEHa0DdIBO2pc8iGgutamY8n3wk6CeLwfnNAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9Dcn+WQPoDfzChjdWkm0H52l7J4kXbtt3yU7UzqbJ68p3Qv/oGW2mEftotm/VNb36ms13o9Yaf4feSOO1Ef3AgB9PX7wT7vnieF7+jEW/RiLfozldWIAAAAAAAAAuLY3COlWqQ==
+   eJzt1dEJwyAQANBs0glCFugEGS0DZN7+9ENEc8a2IuU9OBS98+fgXBYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgPEeSdy5AxjNvAJm96xEdB/lUrYnkZ6t73XLckq5eeQ1pXfhH/TMFvOoXzT7t8r5VX2txv8RK83/lj+ipT56FwAY6/jBnn7nF4PP6cdc9GMu+gEAAAAAAAAAc3oBvuRKow==
   </data>
  </layer>
  <layer name="Infosec Doors" width="100" height="100">
@@ -209,7 +247,12 @@
  </layer>
  <layer name="Foreground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1bEJgEAMBdA/pFM5gLU4gwPcaF5xldhYRc734DchRSCQJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAW8tIZS8Ac/MTADiT9lCjyJHs2y1rT/Vcf2Uf3+JeAQAAAAAAAAAwowsSihV5
+   eJzt1cGJwlAQBuD3jmIDYgNiA2IDsg2IDYgNiFVYgGexBguwrsWDA/sODyMSIRBXvw+GGYb/ECaQpAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvGpZqs8sAJ/NPwGAc0qXBzt6ckrpeLirfVTfz/Wt2r6P36hrmSc5pWn+m5fRV7mZqfd1nufafq8Gcc9hueks+rzM6+ib3MzU+zpPN0Zxz3G56SL6T5m30Xe5man3dZ5ueB/v49RhAQAAAAAAAPC/3QDPejCv
+  </data>
+ </layer>
+ <layer name="Shading" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztxrEJAAAIwDA9y/8fc/AEBZcECo0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvlRO2wcAAAAAAAAA7jTHvgK5
   </data>
  </layer>
 </map>
