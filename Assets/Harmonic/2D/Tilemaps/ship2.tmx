@@ -101,6 +101,16 @@
     <object id="0" x="-0.666667" y="-0.666667" width="32" height="32.6667"/>
    </objectgroup>
   </tile>
+  <tile id="20">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="14" width="14.6667" height="18"/>
+   </objectgroup>
+  </tile>
+  <tile id="32">
+   <objectgroup draworder="index">
+    <object id="0" x="18.6667" y="13.3333" width="12.6667" height="18"/>
+   </objectgroup>
+  </tile>
   <tile id="55">
    <objectgroup draworder="index">
     <object id="0" x="-1" y="0" width="31" height="30"/>
@@ -109,6 +119,21 @@
   <tile id="56">
    <objectgroup draworder="index">
     <object id="0" x="-14" y="-10" width="67" height="48"/>
+   </objectgroup>
+  </tile>
+  <tile id="81">
+   <objectgroup draworder="index">
+    <object id="0" x="4" y="14" width="30" height="22.6667"/>
+   </objectgroup>
+  </tile>
+  <tile id="82">
+   <objectgroup draworder="index">
+    <object id="0" x="0.666667" y="13.3333" width="32.6667" height="18.6667"/>
+   </objectgroup>
+  </tile>
+  <tile id="83">
+   <objectgroup draworder="index">
+    <object id="0" x="-1.33333" y="14" width="29.3333" height="17.3333"/>
    </objectgroup>
   </tile>
   <tile id="88">
@@ -129,6 +154,16 @@
   <tile id="91">
    <objectgroup draworder="index">
     <object id="0" x="-1.75" y="-5.5" width="38.25" height="41.25"/>
+   </objectgroup>
+  </tile>
+  <tile id="93">
+   <objectgroup draworder="index">
+    <object id="0" x="4.66667" y="0" width="11.3333" height="33.3333"/>
+   </objectgroup>
+  </tile>
+  <tile id="95">
+   <objectgroup draworder="index">
+    <object id="0" x="16" y="-2.66667" width="10.6667" height="34"/>
    </objectgroup>
   </tile>
   <tile id="96">
@@ -205,9 +240,14 @@
    </objectgroup>
   </tile>
  </tileset>
+ <layer name="Subground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztxsEJACAMALHuP6B2HH24QQtFSODgIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAX+1X9emxbtnwAAAAAAAAAAAAzDo2qxQp
+  </data>
+ </layer>
  <layer name="Ground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt2FsuBEEUxvF6wgKMZ0E8EZcF4Nkt4k1CzJsdYBHsoTfg0XWEXgWW4xzTRfWlqqtHzxjJ/xdfai7Vncw501VtjAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOPueAxyMvRP+X88ZHlyHlflTnIv6UXOecwSOu+z5MZ89SQZ9uf8L66kFkcyhnIdMWeQY3TOrYR+/NB+TMg46clUf85saI7nmJjzJo/0I0drMi1jx5OZ/pxZnbMkWc7G4jz3vZn489KPgib92IwM/Rhck34U37P199WafjT3m/XK7QfrVTtYr8ZLTN3kvrTbdL3yHUM/wrQmvpp1ao6tm1N3XvpRpjVZlXEti62Xfbwu2Za4c2zs9VF83R4T6kfH0I8qWpMN498LDiU7koPAHN8xizXz6EeZ7YfvOyzvpTpvV7JXiK1r8fX97Nyh/YPro9pVVgtfzXTdWfEc22SPqTov/SiL/Z2pyf4Rk/XsvD36kWPvd7vyJ/musX1u70tDe8wg2TJcH1VsP87NVw8SWy99fmny/XiRvLaQ1NAPH9uPuv+1dT9/k7y3kA/T3/PpR5lzfSSnMrrpmp9+nMmo0Z58tPD4zLB/VHHXq4tC3PXK1rDNcH2Uxa5X9GM03PVKkjr7edI19GPU3PVK1yff/RX9GA2tyZyM854smOH1Q3+Tf6YfOfL9TEN5cKLPe4G595I753nVXHfOreSGfuRILdK/zl/XAAAAAAAAAAAAAPD5BINtrG8=
+   eJzt2E1OG0EQhuFmk7BGgTUiKCsQgQMkWfMTReyQQHiHcoAQDkHuMBdgE4W/GMGcInAcqvEU1LSnOz22MUZ6H/GpPXbPSK5ium07BwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJt3uBGTv2d/l63FR5a953JQzybmkmznnskrquleSE/fQk+K53+drcSy12JExlV8ZcwY5x885ldCPJ74fb2R8G8l0b858ak7knJzrFpf0o8bX5J2Ms5HM9ebM+zlLkuVqDOfZ1+byr0s/Am368Tkz9GNwbfoRvqb1j9WafrQ3zHpl+8F6NRqsV5Mlp27yubTTdr2KnUM/0nxN1mXUaL3WzejM67G5YcJzmq5LP/r5mnyUcbWK1k2P11yvdnaORu+P8Hk9x37/0Ovy/SPN1+STi+8F25INybfEnNg5HxJzWK+aaT9i67y8Vvp5m5KtIFrb8Pmv1bXZP9oL94+mrESeT+0fOaEf/XJ/Z2qzf+Rkrbpul37U6OfdjvxJHmusx7qupPaYQfLFcX800X4cuoceFFovf3zk6v24ltyMIKWjHzHaj/99DvL7+T/Jd8kPye0Qj+9cb8+nH/3M/VHsy2jTcU/9OJDR57fkzwgeHzj2jyZ2vfoZxK5XWsNBMjPV/Dz3R7/c9Yp+jIddrySl2c+LjqMf42bXK78+xT5f0Y/x8DVZkPF9JItuuH74XsT64X+Tv6IfNfL/WaZyYeKPu4m555Izc9w01845lZzQjxqpRfnSeekaAAAAAAAAAAAAADH3+7au5Q==
   </data>
  </layer>
  <layer name="Bridge Doors" width="100" height="100">
@@ -222,7 +262,7 @@
  </layer>
  <layer name="Midground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1dEJwyAQANBs0glCFugEGS0DZN7+9ENEc8a2IuU9OBS98+fgXBYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgPEeSdy5AxjNvAJm96xEdB/lUrYnkZ6t73XLckq5eeQ1pXfhH/TMFvOoXzT7t8r5VX2txv8RK83/lj+ipT56FwAY6/jBnn7nF4PP6cdc9GMu+gEAAAAAAAAAc3oBvuRKow==
+   eJzt1dEJwjAQANB0EicoXUBxAXEBdRh/HaDzWqgf+TCRJlJTfA+OXpIelBxcQwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWN8uiiVnAGszr4Bf20fxbi8Vte+yTP96DgW1uZo+cwZbUzJbzKNyn2b/kNjP1adq/D8AAGaHLoRHtK7Nj90XP+4Pnab7G6N1bX7Wjyr60Rb9aIt+tOUy3d91inuYoza/6QcAAAAAAADApj0BHRwvKA==
   </data>
  </layer>
  <layer name="Infosec Doors" width="100" height="100">
@@ -247,7 +287,7 @@
  </layer>
  <layer name="Foreground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1cGJwlAQBuD3jmIDYgNiA2IDsg2IDYgNiFVYgGexBguwrsWDA/sODyMSIRBXvw+GGYb/ECaQpAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvGpZqs8sAJ/NPwGAc0qXBzt6ckrpeLirfVTfz/Wt2r6P36hrmSc5pWn+m5fRV7mZqfd1nufafq8Gcc9hueks+rzM6+ib3MzU+zpPN0Zxz3G56SL6T5m30Xe5man3dZ5ueB/v49RhAQAAAAAAAPC/3QDPejCv
+   eJzt1c1pQkEQAODdo9iA2IDYgNiApAGxgZAGxCoswLN40BSQAqwr5JCBrLL4xB8iKPp9MMy8YQ7LLOxLCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC41rjEPWcBeG7+CQB8pbQ90ttbR2yq7//Wn9cf8aWsUlouDmIece9zvapL7+M74qfUvZxSP//V48iT3Jyp+/U8p517r3Zasc922ekg8rDU75E/cnOm7tfz3EYn9tktOx1Ffiv1NPIsN2fqfj3PbbgPAAAAAAAAAHg8v3tMKog=
   </data>
  </layer>
  <layer name="Shading" width="100" height="100">

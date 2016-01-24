@@ -1482,7 +1482,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300086, guid: 355ea1aa92c4744479e0eec53bba1f76, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &193003501
@@ -1545,7 +1545,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: .200000003, y: .319999993}
+  m_Size: {x: .479999989, y: .949999988}
 --- !u!114 &193003505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1598,8 +1598,8 @@ MonoBehaviour:
   bottomSlit: {fileID: 426697112}
   GlobalLight: {fileID: 830659408}
   ClockCanvas: {fileID: 1380779135}
-  TestNewGame: 0
-  TestTutorial: 1
+  TestNewGame: 1
+  TestTutorial: 0
   EmergencyLight: {fileID: 694805879}
   WakeyWakey: {fileID: 8300000, guid: 0c656f6dff4404d44bd15e10812bbade, type: 3}
   FinalFrequency: 8000
@@ -2107,7 +2107,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_RenderMode: 0
   m_MaxParticleSize: .5
   m_CameraVelocityScale: 0
@@ -9149,6 +9149,26 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 415414, guid: 1b2eb55d2080e844b904365dfdf9ada8, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 465984, guid: 1b2eb55d2080e844b904365dfdf9ada8, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334336, guid: 1b2eb55d2080e844b904365dfdf9ada8, type: 2}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2395856, guid: 1b2eb55d2080e844b904365dfdf9ada8, type: 2}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2376022, guid: 1b2eb55d2080e844b904365dfdf9ada8, type: 2}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b2eb55d2080e844b904365dfdf9ada8, type: 2}
   m_IsPrefabParent: 0
@@ -12306,7 +12326,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1969477325}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.16999817, y: 2.49000001, z: -.100000001}
+  m_LocalPosition: {x: 10.8999996, y: 2.49000001, z: -.100000001}
   m_LocalScale: {x: .200000003, y: .200000018, z: .5}
   m_Children: []
   m_Father: {fileID: 1067936686}
@@ -12322,7 +12342,7 @@ TextMesh:
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
-  m_Anchor: 0
+  m_Anchor: 1
   m_Alignment: 0
   m_TabSize: 4
   m_FontSize: 42
