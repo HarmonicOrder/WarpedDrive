@@ -3,6 +3,7 @@ using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 using Prime31.TransitionKit;
 using System;
+using UnityEngine.UI;
 
 public class HomeBase : MonoBehaviour {
 	public Camera zoomCamera;
@@ -13,6 +14,7 @@ public class HomeBase : MonoBehaviour {
 	public static Color SubnetTextHighlightColor;
 	public Camera RenderExitCamera;
     public Canvas UICanvas;
+    public Text zoomHint;
 
 	private CameraZoomToZoom zoomScript;
 	// Use this for initialization
@@ -24,6 +26,7 @@ public class HomeBase : MonoBehaviour {
 		Cursor.visible = true;
         OxygenConsumer.Instance.IsConsumingSlowly = true;
         StartCoroutine(ShowCanvas());
+        zoomHint.enabled = false;
     }
 
     private IEnumerator ShowCanvas()
@@ -33,13 +36,12 @@ public class HomeBase : MonoBehaviour {
     }
 
     private bool isZoomedOut = false, isSelectingServer = false, isWarping = false;
-	private SubnetSceneSelector currentSubnet;
+	private SubnetSceneSelector hoverSubnet;
 	private ServerSelector currentServer;
 	// Update is called once per frame
 	void Update () {
 		if (CrossPlatformInputManager.GetButtonDown("Zoom")){
-			isZoomedOut = !isZoomedOut;
-			this.transform.GetComponent<CameraZoomToZoom>().ZoomTo(isZoomedOut);
+            ToggleZoom();
 		}
 		if (Input.GetKeyUp(KeyCode.Escape)){
 			TransitionToMeatspace();
@@ -53,7 +55,7 @@ public class HomeBase : MonoBehaviour {
 			if (CrossPlatformInputManager.GetButtonDown("Fire1")){
 				if (currentServer != null)
 					OnServerSelect();
-				else if (currentSubnet != null)
+				else if (hoverSubnet != null)
 					OnSubnetSelect();
 			} else if (!isWarping){
 				RaycastHit hit;
@@ -66,7 +68,7 @@ public class HomeBase : MonoBehaviour {
 						SubnetSceneSelector sss = hit.collider.GetComponent<SubnetSceneSelector>();
 
 						if (sss != null){
-							currentSubnet = sss;
+							hoverSubnet = sss;
 							sss.OnHoverOn();
 						}
 
@@ -82,9 +84,9 @@ public class HomeBase : MonoBehaviour {
 						}
 					}
 				} else {
-					if (!isSelectingServer && (currentSubnet != null)){
-						currentSubnet.OnHoverOff();
-						currentSubnet = null;
+					if (!isSelectingServer && (hoverSubnet != null)){
+						hoverSubnet.OnHoverOff();
+						hoverSubnet = null;
 					}
 					if (currentServer != null){
 						currentServer.OnHoverOff();
@@ -95,12 +97,32 @@ public class HomeBase : MonoBehaviour {
 		}
 	}
 
-	private void OnSubnetSelect()
+    private void ToggleZoom()
+    {
+        isZoomedOut = !isZoomedOut;
+
+        if (selectedSubnet != null)
+        {
+            selectedSubnet.OnDeselect();
+            selectedSubnet = null;
+        }
+
+        this.transform.GetComponent<CameraZoomToZoom>().ZoomTo(isZoomedOut);
+
+        zoomHint.enabled = isZoomedOut;
+    }
+
+    private void OnSubnetSelect()
 	{
+        if (selectedSubnet != null)
+            selectedSubnet.OnDeselect();
+
+        selectedSubnet = hoverSubnet;
 		isSelectingServer = true;
-		Transform zoomTo = currentSubnet.transform.FindChild("ZoomPosition");
+		Transform zoomTo = selectedSubnet.transform.FindChild("ZoomPosition");
+        selectedSubnet.OnSelect();
 		//zoomScript.afterZoom = new CameraZoomToZoom.AfterZoomFinished(AfterSubnetZoom);
-		TextMesh[] meshes = currentSubnet.GetComponentsInChildren<TextMesh>();
+		TextMesh[] meshes = selectedSubnet.GetComponentsInChildren<TextMesh>();
 		for (int i = 0; i < meshes.Length; i++) {
 			meshes[i].transform.rotation = Quaternion.Euler(45f, 0f, 0f);
 		}
@@ -129,7 +151,9 @@ public class HomeBase : MonoBehaviour {
 	}
 
 	private Transform warpBubble;
-	public void OnWarpStart(){
+    private SubnetSceneSelector selectedSubnet;
+
+    public void OnWarpStart(){
 		warpBubble = (Transform)Instantiate(WarpBubblePrefab, zoomCamera.transform.position, zoomCamera.transform.rotation);
 		warpBubble.parent = zoomCamera.transform;
 		warpBubble.localPosition = Vector3.forward*6;

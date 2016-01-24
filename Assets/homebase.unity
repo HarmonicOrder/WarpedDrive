@@ -336,6 +336,78 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!1 &57137810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 57137811}
+  - 222: {fileID: 57137813}
+  - 114: {fileID: 57137812}
+  m_Layer: 5
+  m_Name: ZoomHint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &57137811
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 57137810}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 330226652}
+  m_RootOrder: 1
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -400, y: 19.4599991}
+  m_SizeDelta: {x: 800, y: 44}
+  m_Pivot: {x: .5, y: .5}
+--- !u!114 &57137812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 57137810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: .200000048, g: 1, b: 0, a: .515999973}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: cd7bc8ced6cd06c4ba64f8cbc035df7d, type: 3}
+    m_FontSize: 35
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 2
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '[Click] to select [Z] to zoom '
+--- !u!222 &57137813
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 57137810}
 --- !u!1 &59012663
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,8 +581,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4000, y: 1, z: 2200}
-  m_Center: {x: 500, y: 1500, z: -400}
+  m_Size: {x: 4000, y: 1000, z: 3000}
+  m_Center: {x: 500, y: 200, z: -236.110001}
 --- !u!54 &64577450
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1437,6 +1509,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 2093340348}
+  - {fileID: 57137811}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_AnchorMin: {x: 0, y: 0}
@@ -2539,6 +2612,7 @@ MonoBehaviour:
   _highlightColor: {r: 0, g: .874509811, b: 1, a: 1}
   RenderExitCamera: {fileID: 1580694632}
   UICanvas: {fileID: 330226655}
+  zoomHint: {fileID: 57137812}
 --- !u!4 &537315421
 Transform:
   m_ObjectHideFlags: 0
@@ -6390,8 +6464,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2000, y: 1, z: 1200}
-  m_Center: {x: 0, y: 0, z: 200}
+  m_Size: {x: 2910, y: 800, z: 1400}
+  m_Center: {x: 0, y: 100, z: 0}
 --- !u!1 &879619596
 GameObject:
   m_ObjectHideFlags: 0
@@ -8269,7 +8343,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!102 &1075973018
 TextMesh:
   serializedVersion: 3
@@ -11595,7 +11669,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 900, y: 900, z: 900}
+  m_Size: {x: 900, y: 685.099976, z: 900}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1633005663
 GameObject:
@@ -11729,7 +11803,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1652768259}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
-  m_LocalPosition: {x: -.439999998, y: 0, z: 657}
+  m_LocalPosition: {x: -.439999998, y: 0, z: 591}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1293820420}
