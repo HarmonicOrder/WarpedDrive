@@ -83,8 +83,8 @@ public class CameraZoomToZoom : MonoBehaviour {
 			ZoomToPosition = ZoomCamera.parent.position;
 			ZoomToRotation = ZoomCamera.parent.rotation;
 		} else {
-			ZoomFromPosition = ZoomCamera.parent.position;
-			ZoomFromRotation = ZoomCamera.parent.rotation;
+			ZoomFromPosition = ZoomCamera.transform.position;
+			ZoomFromRotation = ZoomCamera.transform.rotation;
 			ZoomToPosition = MainCamera.position;
 			ZoomToRotation = MainCamera.rotation;
 		}
