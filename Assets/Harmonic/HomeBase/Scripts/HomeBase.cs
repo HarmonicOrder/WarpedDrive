@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class HomeBase : MonoBehaviour {
+    public static SubnetState FocusFirstState = SubnetState.Infosec;
+
 	public Camera zoomCamera, mainCamera;
 	public Texture2D cursorTexture;
 	public Transform homeFiberGate;
@@ -24,6 +26,7 @@ public class HomeBase : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         SeedLayout();
+
         Radio.Instance.SetSoundtrack(Radio.Soundtrack.SubtleElectronica);
 		SubnetTextHighlightColor = this._highlightColor;
 		Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
@@ -33,9 +36,31 @@ public class HomeBase : MonoBehaviour {
         StartCoroutine(ShowCanvas());
         zoomHint.enabled = false;
 
-        CurrentSubnetState = SubnetState.Infosec;
+        CurrentSubnetState = FocusFirstState;
+
+        if (CurrentSubnetState != SubnetState.Infosec)
+        {
+            StartCoroutine(DelayedStartZoom());
+        }
+        else
+        {
+            //todo: extract to init method, put in delayed start zoom
+            RefreshButtonLayout();
+            RefreshZoomButtonVisibility();
+        }
+    }
+
+    /// <summary>
+    /// OK this is a hack to let initialization of other objects to kick in
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator DelayedStartZoom()
+    {
+        isZoomedOut = true;
+        yield return null;
         RefreshButtonLayout();
         RefreshZoomButtonVisibility();
+        ZoomToCurrentSubnetPoint();
     }
 
     private IEnumerator ShowCanvas()
@@ -44,7 +69,7 @@ public class HomeBase : MonoBehaviour {
         UICanvas.enabled = true;
     }
 
-    private bool isZoomedOut = false, isSelectingServer = false, isWarping = false;
+    private bool isZoomedOut = false, isWarping = false;
 	private SubnetSceneSelector hoverSubnet;
 	private ServerSelector currentServer;
 	// Update is called once per frame
@@ -73,14 +98,6 @@ public class HomeBase : MonoBehaviour {
 				if (Physics.Raycast(pointRay, out hit, Mathf.Infinity)){
 
 					if (hit.collider != null){
-						//print ("got a collider: "+hit.collider.gameObject.name);
-						//SubnetSceneSelector sss = hit.collider.GetComponent<SubnetSceneSelector>();
-
-						//if (sss != null){
-						//	hoverSubnet = sss;
-						//	sss.OnHoverOn();
-						//}
-
 						ServerSelector s = hit.collider.GetComponent<ServerSelector>();
 						
 						if (s != null){
@@ -93,10 +110,6 @@ public class HomeBase : MonoBehaviour {
 						}
 					}
 				} else {
-					if (!isSelectingServer && (hoverSubnet != null)){
-						hoverSubnet.OnHoverOff();
-						hoverSubnet = null;
-					}
 					if (currentServer != null){
 						currentServer.OnHoverOff();
 						currentServer = null;
@@ -109,14 +122,7 @@ public class HomeBase : MonoBehaviour {
     private void ToggleZoom()
     {
         isZoomedOut = !isZoomedOut;
-
-        //if (selectedSubnet != null)
-        //{
-        //    selectedSubnet.OnDeselect();
-        //    selectedSubnet = null;
-        //}
-
-
+        
         zoomHint.enabled = isZoomedOut;
 
         if (!isZoomedOut)
@@ -133,8 +139,6 @@ public class HomeBase : MonoBehaviour {
 
     private void ZoomToCurrentSubnetPoint()
     {
-
-        //this.transform.GetComponent<CameraZoomToZoom>().ZoomTo(isZoomedOut);
         zoomScript.ZoomTo(SubnetLayoutInfo[CurrentSubnetState].ZoomToPoint, 1f);
     }
 
@@ -147,33 +151,18 @@ public class HomeBase : MonoBehaviour {
         ZoomCurrentSubnet.gameObject.SetActive(isZoomedOut);
     }
 
-    private void OnSubnetSelect()
-	{
-        if (selectedSubnet != null)
-            selectedSubnet.OnDeselect();
-
-        selectedSubnet = hoverSubnet;
-		isSelectingServer = true;
-		Transform zoomTo = selectedSubnet.transform.FindChild("ZoomPosition");
-        selectedSubnet.OnSelect();
-		//zoomScript.afterZoom = new CameraZoomToZoom.AfterZoomFinished(AfterSubnetZoom);
-		//TextMesh[] meshes = selectedSubnet.GetComponentsInChildren<TextMesh>();
-		//for (int i = 0; i < meshes.Length; i++) {
-		//	meshes[i].transform.rotation = Quaternion.Euler(45f, 0f, 0f);
-		//}
-		//zoomScript.ZoomTo(zoomTo, 1f);
-	}
-
 	private void OnServerSelect()
 	{
 		if(FindNetworkLocation(currentServer.name))
 		{
-			isSelectingServer = false;
 			isWarping = true;
+            UICanvas.gameObject.SetActive(false);
 			homeFiberGate.LookAt(HarmonicUtils.FindInChildren(currentServer.transform, "gateway").position);
 			zoomScript.afterZoom = new CameraZoomToZoom.AfterZoomFinished(AfterSubnetZoom);
 			zoomScript.ZoomTo(homeFiberGate.FindChild("gatewayStartNode"), 2f);
-		}
+            //cache this so we can start there later
+            FocusFirstState = CurrentSubnetState;
+        }
 	}
 
 	private void AfterSubnetZoom(){
@@ -211,9 +200,6 @@ public class HomeBase : MonoBehaviour {
 	}
 
 	public void OnWarpEnd(){
-		//GameObject.Destroy(warpBubble.gameObject);
-		//isWarping = false;
-		//zoomScript.MainCameraToZoom();
 		warpBubble.Find("endGateScaler").GetComponent<Scaler>().scaleUp = true;
 		StartCoroutine(waitThenBattle());
 	}
@@ -295,8 +281,10 @@ public class HomeBase : MonoBehaviour {
         ZoomCurrentSubnet.GetComponent<Text>().text = CurrentSubnetState.ToString();
     }
 
+#warning this isn't working when fired from delayedStart
     private void CheckSubnetButtonVisible(Button b, SubnetState s)
     {
+        print(b.name + " is " + s);
         b.gameObject.SetActive(s != SubnetState.None);
         if (s != SubnetState.None)
         {
