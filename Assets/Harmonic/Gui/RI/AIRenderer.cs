@@ -185,29 +185,32 @@ public class AIRenderer : MonoBehaviour {
 #if UNITY_EDITOR
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Alpha0))
+        if (Input.GetKey(KeyCode.T))
         {
-            PriorityQueue.Enqueue(new AILine(RIState.Alerting, "There's a snake in my boot!"));
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha4))
-        {
-            Queue.Enqueue(new AILine(RIState.Idea, "Eureka! I think I've cracked it, good sport."));
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha3))
-        {
-            Queue.Enqueue(new AILine(RIState.Searching, "Looking around...can't say I see much. Oh! Nope, I was wrong."));
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha1))
-        {
-            Queue.Enqueue(new AILine(RIState.Talking, "Here we can see the programmer in his native habitat. Filled with Mountain Dew. And video games."));
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha2))
-        {
-            Queue.Enqueue(new AILine(RIState.Thinking, "Hmmmm. Hmmmmmmmm. Hhhhmmmmm..."));
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha5))
-        {
-            Queue.Enqueue(new AILine(RIState.Timing, "My oh my look at the time! You're running low on oxygen..."));
+            if (Input.GetKeyUp(KeyCode.Alpha0))
+            {
+                PriorityQueue.Enqueue(new AILine(RIState.Alerting, "There's a snake in my boot!"));
+            }
+            else if (Input.GetKeyUp(KeyCode.Alpha4))
+            {
+                Queue.Enqueue(new AILine(RIState.Idea, "Eureka! I think I've cracked it, good sport."));
+            }
+            else if (Input.GetKeyUp(KeyCode.Alpha3))
+            {
+                Queue.Enqueue(new AILine(RIState.Searching, "Looking around...can't say I see much. Oh! Nope, I was wrong."));
+            }
+            else if (Input.GetKeyUp(KeyCode.Alpha1))
+            {
+                Queue.Enqueue(new AILine(RIState.Talking, "Here we can see the programmer in his native habitat. Filled with Mountain Dew. And video games."));
+            }
+            else if (Input.GetKeyUp(KeyCode.Alpha2))
+            {
+                Queue.Enqueue(new AILine(RIState.Thinking, "Hmmmm. Hmmmmmmmm. Hhhhmmmmm..."));
+            }
+            else if (Input.GetKeyUp(KeyCode.Alpha5))
+            {
+                Queue.Enqueue(new AILine(RIState.Timing, "My oh my look at the time! You're running low on oxygen..."));
+            }
         }
     }
 #endif
