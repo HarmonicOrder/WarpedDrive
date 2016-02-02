@@ -87,7 +87,7 @@ public class HomeBase : MonoBehaviour {
 
 		if (isZoomedOut){
 			if (CrossPlatformInputManager.GetButtonDown("Fire1")){
-				if (currentServer != null)
+				if (currentServer != null && currentServer.CanBeSelected)
 					OnServerSelect();
 				//else if (hoverSubnet != null)
 				//	OnSubnetSelect();

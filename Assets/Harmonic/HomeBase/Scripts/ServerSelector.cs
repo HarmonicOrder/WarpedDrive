@@ -13,10 +13,10 @@ public class ServerSelector : MonoBehaviour {
     public Material LineMaterial;
 	public SpriteRenderer InfectedSpriteRenderer;
     public List<ServerSelector> Requirements;
+    public bool CanBeSelected = true;
 
 	private Color initialColor;
 	public NetworkLocation MyNetworkLocation;
-    private bool CanBeSelected = true;
 
     void Awake()
     {
