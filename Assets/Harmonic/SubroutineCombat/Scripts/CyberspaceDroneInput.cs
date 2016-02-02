@@ -120,6 +120,13 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		if (showingMainMenu)
 			return;
 
+        if (IsViewingFile)
+        {
+            float wheel = CrossPlatformInputManager.GetAxis("Mouse ScrollWheel") * 2f;
+            Vector3 l = FileViewerImage.rectTransform.localScale;
+            FileViewerImage.rectTransform.localScale = new Vector3(Mathf.Max(l.x + wheel, .25f), Mathf.Max(l.y + wheel, .25f), l.z);
+        }
+
         if (Input.GetKeyUp(KeyCode.F2))
         {
             ToggleCinematic();
@@ -484,6 +491,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
     private void ExitFileViewer()
     {
         FileViewer.gameObject.SetActive(false);
+        FileViewerImage.rectTransform.localScale = Vector3.one;
         IsViewingFile = false;
         Cursor.visible = false;
         Time.timeScale = 1;
