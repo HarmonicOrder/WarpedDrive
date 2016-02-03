@@ -16,10 +16,9 @@ public class tankVirus : VirusAI {
 
 	public List<Transform> ArmorPlates;
 
-	public override string DisplayNameSingular {get{return "Armored";}}
-	public override string DisplayNamePlural {get{return "Armored";}}
+    public override VirusType Type { get { return VirusType.Tank; } }
 
-	private OrbitAround OrbitScript;
+    private OrbitAround OrbitScript;
 
 	protected override void OnAwake()
 	{

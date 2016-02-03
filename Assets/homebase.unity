@@ -474,6 +474,7 @@ MonoBehaviour:
   InfectedSpriteRenderer: {fileID: 1206259722}
   Requirements:
   - {fileID: 138044819}
+  CanBeSelected: 1
 --- !u!54 &59012667
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -902,6 +903,7 @@ MonoBehaviour:
   LineMaterial: {fileID: 2100000, guid: 2dca1f2242e646748bc57adeb8334ae8, type: 2}
   InfectedSpriteRenderer: {fileID: 1382309177}
   Requirements: []
+  CanBeSelected: 1
 --- !u!1 &166474755
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,6 +1242,7 @@ MonoBehaviour:
   InfectedSpriteRenderer: {fileID: 566100240}
   Requirements:
   - {fileID: 1632884035}
+  CanBeSelected: 1
 --- !u!54 &229553014
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2520,7 +2523,7 @@ GameObject:
   - 222: {fileID: 490635889}
   - 114: {fileID: 490635888}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: InfectedSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3783,6 +3786,7 @@ MonoBehaviour:
   InfectedSpriteRenderer: {fileID: 563701173}
   Requirements:
   - {fileID: 138044819}
+  CanBeSelected: 1
 --- !u!65 &653857817
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8524,7 +8528,7 @@ GameObject:
   - 222: {fileID: 972575630}
   - 114: {fileID: 972575629}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: InfectedSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10419,6 +10423,7 @@ MonoBehaviour:
   LineMaterial: {fileID: 2100000, guid: 2dca1f2242e646748bc57adeb8334ae8, type: 2}
   InfectedSpriteRenderer: {fileID: 1224697953}
   Requirements: []
+  CanBeSelected: 1
 --- !u!54 &1137313091
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10457,7 +10462,7 @@ GameObject:
   - 222: {fileID: 1144897032}
   - 114: {fileID: 1144897031}
   m_Layer: 5
-  m_Name: Image
+  m_Name: InfectedSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11610,6 +11615,7 @@ MonoBehaviour:
   LineMaterial: {fileID: 2100000, guid: 2dca1f2242e646748bc57adeb8334ae8, type: 2}
   InfectedSpriteRenderer: {fileID: 839586237}
   Requirements: []
+  CanBeSelected: 1
 --- !u!65 &1431390046
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12696,6 +12702,7 @@ MonoBehaviour:
   LineMaterial: {fileID: 2100000, guid: 2dca1f2242e646748bc57adeb8334ae8, type: 2}
   InfectedSpriteRenderer: {fileID: 1483280623}
   Requirements: []
+  CanBeSelected: 1
 --- !u!54 &1632884036
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13801,7 +13808,7 @@ GameObject:
   - 222: {fileID: 1967143553}
   - 114: {fileID: 1967143552}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: InfectedSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,8 +4,7 @@ using System.Collections;
 public class BunnyBomb : VirusAI
 {
 
-    public override string DisplayNameSingular { get { return "Wabbit"; } }
-    public override string DisplayNamePlural { get { return "Wabbits"; } }
+    public override VirusAI.VirusType Type { get { return VirusAI.VirusType.Wabbit; } }
 
     public BunnyBomb Partner { get; set; }
     public Transform Hourglass;

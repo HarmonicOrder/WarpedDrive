@@ -9,9 +9,8 @@ public class MeshNode : MonoBehaviour, IMalware {
 	public List<LineRenderer> TargetEdges = new List<LineRenderer>();
 	public short AttackPriority {get{return 1;}}
     public bool IsHead = false;
-
-	public virtual string DisplayNameSingular {get{return "Infection Node";}}
-	public virtual string DisplayNamePlural {get{return "Infection Nodes";}}
+    
+	public virtual VirusAI.VirusType Type {get{return VirusAI.VirusType.Ransomware;}}
 
 	public Transform MiniExplosionPrefab;
 

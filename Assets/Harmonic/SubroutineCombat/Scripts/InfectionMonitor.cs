@@ -8,7 +8,7 @@ public class InfectionMonitor : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		ActiveSubroutines.OnMalwareListChange += OnMalwareListChange;
-		ScanAndPrint();
+		ScanAndPrint(null);
 	}
 
     void OnDestroy()
@@ -24,11 +24,11 @@ public class InfectionMonitor : MonoBehaviour {
 		}
 		else
 		{
-			ScanAndPrint();
+			ScanAndPrint(dead);
 		}
 	}
 
-	private void ScanAndPrint()
+	private void ScanAndPrint(IMalware dead)
     {
         Dictionary<string, Tuple<int, IMalware>> malwareTypes = new Dictionary<string, Tuple<int, IMalware>>();
         foreach (IMalware imal in ActiveSubroutines.MalwareList)
@@ -43,8 +43,25 @@ public class InfectionMonitor : MonoBehaviour {
                 malwareTypes.Add(imal.GetType().Name, new Tuple<int, IMalware>(1, imal));
             }
         }
-        PrintToAI(malwareTypes);
+        PrintToIcons(malwareTypes, dead);
+        //PrintToAI(malwareTypes);
         //PrintToConsole(malwareTypes);
+    }
+
+    private void PrintToIcons(Dictionary<string, Tuple<int, IMalware>> malwareTypes, IMalware dead)
+    {
+        if (VirusIconDisplay.Instance != null)
+        {
+            if (dead != null && !malwareTypes.ContainsKey(dead.GetType().Name))
+            {
+                malwareTypes.Add(dead.GetType().Name, new Tuple<int, IMalware>(0, dead));
+            }
+
+            foreach (Tuple<int, IMalware> rec in malwareTypes.Values)
+            {
+                VirusIconDisplay.Instance.UpdateIcon(rec.Second, rec.First);
+            }
+        }
     }
 
     private void PrintToAI(Dictionary<string, Tuple<int, IMalware>> malwareTypes)
@@ -57,11 +74,11 @@ public class InfectionMonitor : MonoBehaviour {
             output += rec.First.ToString() + " ";
             if (rec.First > 1)
             {
-                output += rec.Second.DisplayNamePlural;
+                output += rec.Second.Type.ToString();
             }
             else
             {
-                output += rec.Second.DisplayNameSingular;
+                output += VirusAI.GetPluralVirusType(rec.Second.Type);
             }
             if (count < malwareTypes.Values.Count)
                 output += ", ";
@@ -92,11 +109,11 @@ public class InfectionMonitor : MonoBehaviour {
             output += StrategyConsole.LineStartString + rec.First.ToString() + " ";
             if (rec.First > 1)
             {
-                output += rec.Second.DisplayNamePlural;
+                output += rec.Second.Type.ToString();
             }
             else
             {
-                output += rec.Second.DisplayNameSingular;
+                output += VirusAI.GetPluralVirusType(rec.Second.Type);
             }
             output += "\r\n";
         }
@@ -106,6 +123,7 @@ public class InfectionMonitor : MonoBehaviour {
 
     private void OnWin()
 	{
+        ClearIcons();
         if (!CyberspaceBattlefield.Current.Abdicate)
         {
             AIRenderer.Instance.Output(AIRenderer.RIState.Talking, "SYSTEM CLEAN!\r\n> [Esc] to return to menu.");
@@ -115,4 +133,11 @@ public class InfectionMonitor : MonoBehaviour {
         }
 	}
 
+    private void ClearIcons()
+    {
+        if (VirusIconDisplay.Instance != null)
+        {
+            VirusIconDisplay.Instance.DisableIcons();
+        }
+    }
 }

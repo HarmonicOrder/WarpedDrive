@@ -8,8 +8,7 @@ public class VirusAI : Actor, ILockTarget, IMalware, ISubroutineListener {
 	public MeshRenderer LockedOnGUI;
 	public virtual short AttackPriority {get{return 2;}}
 	
-	public virtual string DisplayNameSingular {get{return "Virus";}}
-	public virtual string DisplayNamePlural {get{return "Viruses";}}
+	public virtual VirusType Type {get{return VirusType.Virus;}}
 
 	protected Transform targetT;
 	protected bool IsAggroForced { get; private set; }
@@ -152,4 +151,15 @@ public class VirusAI : Actor, ILockTarget, IMalware, ISubroutineListener {
 
     protected virtual void OnImmobilized() { }
     protected virtual void OnMobilized() { }
+
+    public enum VirusType { Virus, Ransomware, Wabbit, Bomb, Tank, Spawner, Trojan }
+    public static string GetPluralVirusType(VirusType v)
+    {
+        if (v == VirusType.Virus)
+        {
+            return "Viruses";
+        }
+
+        return v.ToString() + "s";
+    }
 }

@@ -11,8 +11,7 @@ public class bombVirus : VirusAI {
 	public Transform[] DestroyBeforeExplosion;
 	public float ExplodingTime = 3f;
 
-	public override string DisplayNameSingular {get{return "Bomb";}}
-	public override string DisplayNamePlural {get{return "Bombs";}}
+    public virtual VirusType Type { get { return VirusType.Bomb; } }
 	private bool orbiting = true;
 
 	protected override void OnAwake()

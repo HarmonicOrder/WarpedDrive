@@ -11,11 +11,10 @@ public class virus : VirusAI {
 
 	public Transform LazerPrefab;
 	public Transform LazerStart;
-	
-	public override string DisplayNameSingular {get{return "Virus";}}
-	public override string DisplayNamePlural {get{return "Virus";}}
-	
-	private OrbitAround OrbitScript;
+
+    public override VirusAI.VirusType Type { get { return VirusAI.VirusType.Virus; } }
+
+    private OrbitAround OrbitScript;
 	
 	protected override void OnAwake()
 	{

@@ -10,8 +10,7 @@ public class OctopusSpawner : MeshNode
     public bool CanReplenishMalware = true;
     public float TimeToReplenishSingleMalware = 5f;
 
-    public override string DisplayNameSingular { get { return "Trojan"; } }
-    public override string DisplayNamePlural { get { return "Trojans"; } }
+    public override VirusAI.VirusType Type { get { return VirusAI.VirusType.Ransomware; } }
 
     private Transform targetT;
     private Coroutine Replenish;

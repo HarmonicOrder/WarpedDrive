@@ -289,6 +289,7 @@ public class HomeBase : MonoBehaviour {
         if (s != SubnetState.None)
         {
             b.GetComponentInChildren<Text>().text = s.ToString();
+
         }
     }
 
@@ -353,5 +354,15 @@ public class HomeBase : MonoBehaviour {
             }
             //TODO: add BRIDGE
         };
+    }
+
+    private NetworkLocation GetSubnet(SubnetState st)
+    {
+        if (NetworkMap.RootSubnets.ContainsKey(st.ToString()))
+        {
+            return NetworkMap.RootSubnets[st.ToString()];
+        }
+
+        return null;
     }
 }
