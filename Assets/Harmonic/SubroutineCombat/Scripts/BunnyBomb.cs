@@ -79,7 +79,7 @@ public class BunnyBomb : VirusAI
                 {
                     if (CurrentlyProvisioningTime > OccupationDuration)
                     {
-                        CyberspaceBattlefield.Current.ReclaimCores(1);
+                        CyberspaceBattlefield.Current.ReclaimCores(1, true);
                         Hourglass.gameObject.SetActive(false);
                         TimeTilNextProvision = (float)Random.Range(3, 7);
                         CurrentlyProvisioningTime = 0f;
@@ -92,7 +92,7 @@ public class BunnyBomb : VirusAI
                 }
                 else
                 {
-                    IsOccupyingCore = CyberspaceBattlefield.Current.ProvisionCores(1);
+                    IsOccupyingCore = CyberspaceBattlefield.Current.ProvisionCores(1, true);
                     if (IsOccupyingCore)
                     {
                         Hourglass.gameObject.SetActive(true);
@@ -130,6 +130,7 @@ public class BunnyBomb : VirusAI
         if (IsOccupyingCore)
         {
             CyberspaceBattlefield.Current.ReclaimCores(1);
+            CyberspaceBattlefield.Current.StolenCores -= 1;
         }
         GameObject.Instantiate(this.ExplosionPrefab, this.transform.position, Quaternion.identity);
         base.OnVirusDead();

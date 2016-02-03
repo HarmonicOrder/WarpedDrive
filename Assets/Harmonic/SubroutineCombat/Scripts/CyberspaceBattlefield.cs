@@ -21,6 +21,8 @@ public class CyberspaceBattlefield {
 		get { return usedCores; }
 	}
 
+    public int StolenCores;
+
 	public delegate void OnCoreChangeEvent();
 	public OnCoreChangeEvent OnCoreChange;
 
@@ -42,11 +44,14 @@ public class CyberspaceBattlefield {
 		return UsedCores + amount <= CurrentCores;
 	}
 
-	public bool ProvisionCores(int amount)
+	public bool ProvisionCores(int amount, bool isStolen = false)
 	{
 		if (CanUseCores(amount))
 		{
 			usedCores += amount;
+
+            if (isStolen)
+                StolenCores += amount;
 			
 			FireCoreChange();
 			return true;
@@ -57,9 +62,12 @@ public class CyberspaceBattlefield {
 		}
 	}
 
-	public bool ReclaimCores(int amount)
+	public bool ReclaimCores(int amount, bool isStolen = false)
 	{
 		usedCores -= amount;
+
+        if (isStolen)
+            StolenCores -= amount;
 
 		FireCoreChange();
 
