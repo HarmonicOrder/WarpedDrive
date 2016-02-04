@@ -67,6 +67,18 @@ public class SubroutineWorkstation : MonoBehaviour {
         FunctionRightButton = GameObject.Find("FunctionRight");
         UpgradeRoot.SetActive(false);
         UpgradeLines.SetActive(false);
+        DisableUnavailableFunctionButtons();
+    }
+
+    private void DisableUnavailableFunctionButtons()
+    {
+        foreach(string functionname in CyberspaceEnvironment.FunctionNames)
+        {
+            if (!CyberspaceEnvironment.Instance.UnlockedFunctions.Contains(functionname))
+            {
+                GameObject.Find(functionname + "Button").GetComponent<Button>().interactable = false;
+            }
+        }
     }
 
     private void OrderSubroutineList(bool firstRun = false)

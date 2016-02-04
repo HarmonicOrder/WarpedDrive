@@ -83,7 +83,8 @@ public class ScanDB : NetworkLocationButton, IActivatable
         }
         else if (!string.IsNullOrEmpty(UnlockFunction))
         {
-
+            CyberspaceEnvironment.Instance.UnlockedFunctions.Add(UnlockFunction);
+            ToastLog.Toast(string.Format("{0}\nUnlocked!", UnlockFunction));
         }
         else if (!string.IsNullOrEmpty(UnlockUpgrade))
         {

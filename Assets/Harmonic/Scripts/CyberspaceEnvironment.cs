@@ -8,6 +8,7 @@ public class CyberspaceEnvironment {
     public uint MaximumRAM { get; set; }
 
     public List<SubroutineInfo> Subroutines { get; set; }
+    public List<string> UnlockedFunctions { get; set; }
 
     private static CyberspaceEnvironment _instance;
     public static CyberspaceEnvironment Instance
@@ -65,7 +66,12 @@ public class CyberspaceEnvironment {
                             ID = "a2",
                             LoadedIntoRAM = true                            
                         }
-                    }
+                    },
+            UnlockedFunctions = new List<string>()
+            {
+                "Delete",
+                "Terminate"
+            }
         };
     }
 
@@ -103,4 +109,15 @@ public class CyberspaceEnvironment {
         }
         UnityEngine.Debug.Log("assigning new id " +newSI.ID);
     }
+
+    public static string[] FunctionNames = new string[7]
+    {
+        "Delete",
+        "Lag",
+        "Freeze",
+        "Corrupt",
+        "Terminate",
+        "Honeypot",
+        "Sandbox"
+    };
 }
