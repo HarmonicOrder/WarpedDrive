@@ -91,8 +91,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 viewLockedRotation = PivotTransform.localRotation;
 
                 PivotTransform.SetParent(null);
-                PivotTransform.position = this.transform.position + new Vector3(0, 300, -200);
-                PivotTransform.rotation = Quaternion.Euler(45, 45, 0);
+                PivotTransform.position = this.transform.position + new Vector3(0, 500, -200);
+                PivotTransform.rotation = Quaternion.Euler(45, 0, 0);
             }
             else
             {
@@ -229,10 +229,13 @@ public class CyberspaceDroneInput : MonoBehaviour {
         if (IsZoomedOut)
         {
             Vector3 move = new Vector3(-vert * 10, 0, horz * 10);
-            
-            PivotTransform.Translate(Quaternion.Euler(0, 45, 0) * move, Space.World);
+
+            //PivotTransform.Translate(Quaternion.Euler(0, 45, 0) * move, Space.World);
+            PivotTransform.Translate(move, Space.World);
 
             //float y = CrossPlatformInputManager.GetAxis("Mouse X") * ySensitivity;
+            float x = -CrossPlatformInputManager.GetAxis("Mouse Y") * xSensitivity;
+            PivotTransform.Rotate(Vector3.up * x, Space.World);
 
 
             //SlerpRotate(PivotTransform, 0, y);
