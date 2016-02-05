@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class bombVirus : VirusAI {
 
-	public float lookAtSpeed = 2f;
+	public float lookAtSpeed = 45f;
 	public float engagementDistance = 200f;
 	public float moveSpeed = 20f;
 	public playerHealth HealthScript;
@@ -42,12 +42,10 @@ public class bombVirus : VirusAI {
 		Vector3 relativePos = this.targetT.position - this.transform.position;
 		this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);
 		
-		//print (relativePos.magnitude);
-		
 		if (relativePos.magnitude > this.engagementDistance)
 		{
 			//do not engage
-		} 
+		}
 		else 
 		{
 			//within engagement, outside optimum, move closer
