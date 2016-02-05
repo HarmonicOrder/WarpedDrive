@@ -6,8 +6,9 @@ public class MachineLabel : MonoBehaviour {
 	public Color CleanColor;
 	public Color InfectedColor;
 	public SpriteRenderer FenceRenderer;
+    public SpriteRenderer FenceRenderer2;
 
-	private Transform Root;
+    private Transform Root;
 	public Machine myMachine;
 	private TextMesh myText;
 
@@ -45,10 +46,14 @@ public class MachineLabel : MonoBehaviour {
 		if (this.myMachine.IsInfected)
 		{
 			FenceRenderer.color = HarmonicUtils.ColorWithAlpha(InfectedColor, .5f);
-		}
+            if (FenceRenderer2 != null)
+                FenceRenderer2.color = HarmonicUtils.ColorWithAlpha(InfectedColor, .5f);
+        }
 		else
 		{
 			FenceRenderer.color = HarmonicUtils.ColorWithAlpha(CleanColor, .5f);
-		}
+            if (FenceRenderer2 != null)
+                FenceRenderer2.color = HarmonicUtils.ColorWithAlpha(CleanColor, .5f);
+        }
 	}
 }
