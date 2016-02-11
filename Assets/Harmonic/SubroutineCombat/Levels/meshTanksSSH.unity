@@ -5804,7 +5804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1182685609
 Transform:
   m_ObjectHideFlags: 0
@@ -5823,17 +5823,17 @@ ReflectionProbe:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1182685608}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Type: 0
   m_Mode: 1
-  m_RefreshMode: 0
+  m_RefreshMode: 1
   m_TimeSlicingMode: 0
   m_Resolution: 128
   m_UpdateFrequency: 0
   m_Importance: 1
-  m_BoxSize: {x: 400, y: 400, z: 400}
-  m_BoxOffset: {x: .936462402, y: 0, z: -.201778412}
+  m_BoxSize: {x: 500, y: 500, z: 500}
+  m_BoxOffset: {x: .718261719, y: -1.90734863e-06, z: -.201786041}
   m_NearClip: .300000012
   m_FarClip: 1000
   m_ShadowDistance: 100
@@ -5841,7 +5841,7 @@ ReflectionProbe:
   m_BackGroundColor: {r: .448529422, g: .448529422, b: .448529422, a: 0}
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967039
   m_IntensityMultiplier: 1
   m_BlendDistance: 1
   m_HDR: 1
@@ -5863,7 +5863,7 @@ MeshRenderer:
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 2
+  m_ReflectionProbeUsage: 0
   m_ProbeAnchor: {fileID: 1182685609}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0

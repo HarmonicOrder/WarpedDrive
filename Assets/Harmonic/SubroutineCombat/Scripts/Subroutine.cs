@@ -130,7 +130,6 @@ public class Subroutine : Actor {
 
 		if (this.Info.HitPoints < 0f)
 		{
-			GameObject.Instantiate(ExplosionPrefab, this.transform.position, Quaternion.identity);
             Die();
 		} else {
 			if (this.OnSubroutineTakeDamage != null)
@@ -140,7 +139,19 @@ public class Subroutine : Actor {
         RefreshHealthDisplay();
     }
 
-    private void Die()
+    /// <summary>
+    /// public facing "this subroutine should explode" method
+    /// </summary>
+    public void Die()
+    {
+        GameObject.Instantiate(ExplosionPrefab, this.transform.position, Quaternion.identity);
+        DoOnDeath();
+    }
+
+    /// <summary>
+    /// internal "do these things when subroutines die" method
+    /// </summary>
+    private void DoOnDeath()
     {
         this.Deactivate();
         if (this.OnSubroutineDead != null)

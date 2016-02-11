@@ -2,7 +2,8 @@
 using System.Collections;
 using System;
 
-public class SubroutineHarness : MonoBehaviour {
+public class SubroutineHarness : MonoBehaviour, ILockTarget
+{
 
     public Transform InstantiatePrefab, VirusSandboxPrefab;
     public Transform LazerPrefab;
@@ -11,8 +12,14 @@ public class SubroutineHarness : MonoBehaviour {
     public Transform Tracer, Station;
 
     public Transform FunctionRoot, MovementRoot;
+    public MeshRenderer LockedOnRenderer;
 
     private MonoBehaviour FunctionScript, MovementScript;
+
+    void Awake()
+    {
+        LockedOnRenderer.enabled = false;
+    }
 
     public void Assign(SubroutineInfo mySI)
     {
@@ -20,6 +27,15 @@ public class SubroutineHarness : MonoBehaviour {
         SetMovement(mySI.MovementName);
 
         AdjustSynergy();
+    }
+
+    public void EnableLockedOnGui()
+    {
+        LockedOnRenderer.enabled = true;
+    }
+    public void DisableLockedOnGui()
+    {
+        LockedOnRenderer.enabled = false;
     }
 
     /// <summary>

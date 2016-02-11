@@ -82,6 +82,15 @@ public class CyberspaceDroneInput : MonoBehaviour {
             }
 		}
 
+        if (Input.GetKeyUp(KeyCode.Delete))
+        {
+            if (CurrentLock is SubroutineHarness)
+            {
+                CurrentLock.transform.GetComponent<Subroutine>().Die();
+                CurrentLock = null;
+            }
+        }
+
         if (Input.GetKeyUp(KeyCode.Z))
         {
             IsZoomedOut = !IsZoomedOut;
@@ -151,8 +160,9 @@ public class CyberspaceDroneInput : MonoBehaviour {
 				if (h)
 				{
 					AssignLockTarget(LeftClick, h);
-				}
+                }
 
+                //IActivatable means buttons that are clickable
                 IActivatable a = (IActivatable)rayHit.collider.GetComponentInParent(typeof(IActivatable));
 				if ((a != null) && LeftClick)
 				{
@@ -174,8 +184,14 @@ public class CyberspaceDroneInput : MonoBehaviour {
                     {
                         ToastLog.Toast("Machine\nInaccessible");
                     }
-				}
-			}
+                }
+
+                SubroutineHarness sh = (SubroutineHarness)rayHit.collider.GetComponentInParent(typeof(SubroutineHarness));
+                if (sh)
+                {
+                    AssignLockTarget(LeftClick, sh);
+                }
+            }
 			
 			HitCrosshair.enabled = true;
 		}
@@ -197,6 +213,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
 #endif
         {
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                SelectAllSubroutinesOnCurrentMachine();
+            }
             CheckControlCamera(KeyCode.Alpha1, 1);
             CheckControlCamera(KeyCode.Alpha2, 2);
             CheckControlCamera(KeyCode.Alpha3, 3);
@@ -268,6 +288,11 @@ public class CyberspaceDroneInput : MonoBehaviour {
         }
 	}
 
+    private void SelectAllSubroutinesOnCurrentMachine()
+    {
+        throw new NotImplementedException();
+    }
+
     private void ToggleCinematic()
     {
         IsCinematic = !IsCinematic;
@@ -280,19 +305,15 @@ public class CyberspaceDroneInput : MonoBehaviour {
     {
         if (Input.GetKeyUp(k))
         {
-            //print("key down");
             if (isControllingSubroutine)
             {
-                //print("already controlling");
                 RevertToStrategyCamera();
             }
             else
             {
-                //("looking for subroutines");
                 Subroutine s = ActiveSubroutines.List.Find(sub => sub.SInfo.Hotkey == hotkey);
                 if (s != null)
                 {
-                    //print("making camera");
                     isControllingSubroutine = true;
                     ControlCamera = new GameObject("ControlCamera").AddComponent<Camera>();
                     ControlCamera.transform.SetParent(s.FunctionRoot);
@@ -310,15 +331,11 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 }
             }
         }
-        else
-        {
-            //print("no key up");
-        }
     }
 
     private void RevertToStrategyCamera()
     {
-        isControllingSubroutine = true;
+        isControllingSubroutine = false;
         Camera.main.farClipPlane = 2000f;
         if (ControlCamera != null)
             GameObject.Destroy(ControlCamera.gameObject);
