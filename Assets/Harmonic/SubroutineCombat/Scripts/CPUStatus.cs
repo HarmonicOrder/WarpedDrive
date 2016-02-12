@@ -16,11 +16,13 @@ public class CPUStatus : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		CyberspaceBattlefield.Current.OnCoreChange += OnCPUChange;
+
+        InUses = new List<RectTransform>() { InUse };
+        NotInUses = new List<RectTransform>() { NotInUse };
+        Occupieds = new List<RectTransform>() { Occupied };
+        Infecteds = new List<RectTransform>() { Infected };
+
 		OnCPUChange();
-        InUses = new List<RectTransform>();
-        NotInUses = new List<RectTransform>();
-        Occupieds = new List<RectTransform>();
-        Infecteds = new List<RectTransform>();
     }
 
 	public void OnCPUChange()
@@ -32,13 +34,37 @@ public class CPUStatus : MonoBehaviour {
         //SetCPUBarImageFilled();
         RefreshCPURectangles();
 	}
-
+    
     private void RefreshCPURectangles()
     {
         print("Refreshing cpus");
-        foreach(RectTransform t in this.transform)
+        RefreshCPURectangleType(InUses, InUse, CyberspaceBattlefield.Current.UsedCores);
+        RefreshCPURectangleType(NotInUses, NotInUse, CyberspaceBattlefield.Current.CurrentCores - CyberspaceBattlefield.Current.UsedCores);
+        RefreshCPURectangleType(Occupieds, Occupied, CyberspaceBattlefield.Current.StolenCores);
+        RefreshCPURectangleType(Infecteds, Infected, CyberspaceBattlefield.Current.TotalCores - CyberspaceBattlefield.Current.CurrentCores);
+    }
+
+    private void RefreshCPURectangleType(List<RectTransform> existingTransforms, RectTransform prototype, int numOfCores)
+    {
+        for (int i = 0; i < numOfCores + existingTransforms.Count; i++)
         {
-            
+            bool cpuStateIsOn = i < numOfCores;
+            bool transformExists = i < existingTransforms.Count;
+
+            if (transformExists)
+            {
+                existingTransforms[i].gameObject.SetActive(cpuStateIsOn);
+            }
+            else if (cpuStateIsOn)
+            {
+                existingTransforms.Add(GameObject.Instantiate<RectTransform>(prototype));
+                existingTransforms[i].SetParent(this.transform);
+                existingTransforms[i].localScale = Vector3.one;
+                existingTransforms[i].localRotation = Quaternion.identity;
+                existingTransforms[i].localPosition = Vector3.zero;
+                existingTransforms[i].gameObject.SetActive(true);
+                existingTransforms[i].SetSiblingIndex(prototype.GetSiblingIndex() + 1);
+            }
         }
     }
 
@@ -67,4 +93,32 @@ public class CPUStatus : MonoBehaviour {
     {
         CyberspaceBattlefield.Current.OnCoreChange -= OnCPUChange;
     }
+
+    public CPUState[] GetStateArray()
+    {
+        CPUState[] result = new CPUState[CyberspaceBattlefield.Current.TotalCores];
+        for (int i = 0; i < result.Length; i++)
+        {
+            if (i < CyberspaceBattlefield.Current.UsedCores)
+            {
+                result[i] = CPUState.Provisioned;
+            }
+            else if (i < CyberspaceBattlefield.Current.UsedCores + CyberspaceBattlefield.Current.CurrentCores)
+            {
+                result[i] = CPUState.Available;
+            }
+            else if (i < CyberspaceBattlefield.Current.UsedCores + CyberspaceBattlefield.Current.CurrentCores + CyberspaceBattlefield.Current.StolenCores)
+            {
+                result[i] = CPUState.Occupied;
+            }
+            else
+            {
+                result[i] = CPUState.Infected;
+            }
+        }
+
+        return result;
+    }
+
+    public enum CPUState { Provisioned, Available, Occupied, Infected }
 }
