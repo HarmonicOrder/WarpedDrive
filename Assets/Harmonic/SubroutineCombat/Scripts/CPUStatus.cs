@@ -38,7 +38,8 @@ public class CPUStatus : MonoBehaviour {
     private void RefreshCPURectangles()
     {
         print("Refreshing cpus");
-        RefreshCPURectangleType(InUses, InUse, CyberspaceBattlefield.Current.UsedCores);
+        int usedByPlayerCoreNumbers = CyberspaceBattlefield.Current.UsedCores - CyberspaceBattlefield.Current.StolenCores;
+        RefreshCPURectangleType(InUses, InUse, usedByPlayerCoreNumbers);
         RefreshCPURectangleType(NotInUses, NotInUse, CyberspaceBattlefield.Current.CurrentCores - CyberspaceBattlefield.Current.UsedCores);
         RefreshCPURectangleType(Occupieds, Occupied, CyberspaceBattlefield.Current.StolenCores);
         RefreshCPURectangleType(Infecteds, Infected, CyberspaceBattlefield.Current.TotalCores - CyberspaceBattlefield.Current.CurrentCores);
@@ -97,17 +98,19 @@ public class CPUStatus : MonoBehaviour {
     public CPUState[] GetStateArray()
     {
         CPUState[] result = new CPUState[CyberspaceBattlefield.Current.TotalCores];
+        
+        int usedByPlayerCoreNumbers = CyberspaceBattlefield.Current.UsedCores - CyberspaceBattlefield.Current.StolenCores;
         for (int i = 0; i < result.Length; i++)
         {
-            if (i < CyberspaceBattlefield.Current.UsedCores)
+            if (i < usedByPlayerCoreNumbers)
             {
                 result[i] = CPUState.Provisioned;
             }
-            else if (i < CyberspaceBattlefield.Current.UsedCores + CyberspaceBattlefield.Current.CurrentCores)
+            else if (i < usedByPlayerCoreNumbers + CyberspaceBattlefield.Current.CurrentCores)
             {
                 result[i] = CPUState.Available;
             }
-            else if (i < CyberspaceBattlefield.Current.UsedCores + CyberspaceBattlefield.Current.CurrentCores + CyberspaceBattlefield.Current.StolenCores)
+            else if (i < usedByPlayerCoreNumbers + CyberspaceBattlefield.Current.CurrentCores + CyberspaceBattlefield.Current.StolenCores)
             {
                 result[i] = CPUState.Occupied;
             }
