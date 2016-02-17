@@ -145,6 +145,38 @@ public static class NetworkMap {
                                     IsInfected = true
                                 }
                             }
+                        },
+                        new NetworkLocation(){
+                            Name = "stealthIntro",
+                            sceneIndex = 12,
+                            IsInfected = true,
+                            Machines = new List<Machine>()
+                            {
+                                new Machine()
+                                {
+                                    Name = "GatewayMachine",
+                                    CPUCores = 2,
+                                    IsInfected = false
+                                },
+                                new Machine()
+                                {
+                                    Name = "SecurityMachine",
+                                    CPUCores = 4,
+                                    IsInfected = true
+                                },
+                                new Machine()
+                                {
+                                    Name = "ArchiveMachine",
+                                    CPUCores = 2,
+                                    IsInfected = true
+                                },
+                                new Machine()
+                                {
+                                    Name = "ServerMachine",
+                                    CPUCores = 2,
+                                    IsInfected = true
+                                }
+                            }
                         }
                     }
                 }

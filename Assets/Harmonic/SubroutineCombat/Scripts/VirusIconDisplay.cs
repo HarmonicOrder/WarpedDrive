@@ -13,6 +13,7 @@ public class VirusIconDisplay : MonoBehaviour {
     public UnityEngine.UI.Text SpawnerAmount;
     public UnityEngine.UI.Text TankAmount;
     public UnityEngine.UI.Text TrojanAmount;
+    public UnityEngine.UI.Text StealthAmount;
 
     // Use this for initialization
     void Awake ()
@@ -46,6 +47,9 @@ public class VirusIconDisplay : MonoBehaviour {
             case VirusAI.VirusType.Bomb:
                 UpdateIcon(BombAmount, first);
                 break;
+            case VirusAI.VirusType.Stealth:
+                UpdateIcon(StealthAmount, first);
+                break;
         }
     }
 
@@ -71,5 +75,6 @@ public class VirusIconDisplay : MonoBehaviour {
         SpawnerAmount.rectTransform.parent.gameObject.SetActive(false);
         RansomwareAmount.rectTransform.parent.gameObject.SetActive(false);
         BombAmount.rectTransform.parent.gameObject.SetActive(false);
+        StealthAmount.rectTransform.parent.gameObject.SetActive(false);
     }
 }

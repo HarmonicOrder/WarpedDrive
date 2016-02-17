@@ -152,7 +152,7 @@ public class VirusAI : Actor, ILockTarget, IMalware, ISubroutineListener {
     protected virtual void OnImmobilized() { }
     protected virtual void OnMobilized() { }
 
-    public enum VirusType { Virus, Ransomware, Wabbit, Bomb, Tank, Spawner, Trojan }
+    public enum VirusType { Virus, Ransomware, Wabbit, Bomb, Tank, Spawner, Trojan, Stealth }
     public static string GetPluralVirusType(VirusType v)
     {
         if (v == VirusType.Virus)
