@@ -17,8 +17,9 @@ public class Machine : Location {
 	public bool IsInfected;
     public bool IsAccessible = true;
 	public List<IMalware> ActiveMalware = new List<IMalware>();
+    public List<IMalware> LurkingMalware = new List<IMalware>();
 
-	public delegate void SystemCleanEvent();
+    public delegate void SystemCleanEvent();
 	public SystemCleanEvent OnSystemClean;
 
 	public Machine()

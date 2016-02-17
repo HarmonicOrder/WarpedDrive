@@ -1,37 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class stealthVirus : VirusAI {
-	
-	public float lookAtSpeed = 2f;
-	public float tooCloseDistance = 10f;
-	public float engagementDistance = 200f;
-	public float optimumRange = 60f;
-	public float moveSpeed = 10f;
+public class stealthVirus : VirusAI, ILurker {
 
-	public Transform LazerPrefab;
-	public Transform LazerStart;
+    public float lookAtSpeed = 2f;
+    public float tooCloseDistance = 10f;
+    public float engagementDistance = 200f;
+    public float optimumRange = 60f;
+    public float moveSpeed = 10f;
 
-    public override VirusAI.VirusType Type { get { return VirusAI.VirusType.Virus; } }
+    public Transform LazerPrefab;
+    public Transform LazerStart;
+    /// <summary>
+    /// The transform that turns off when lurking
+    /// </summary>
+    public Transform RenderBottleneck;
+    public bool WaitUntilWholeSubnetIsClean = false;
+    public float MinimumAmbushMinutes = 5f;
+    public float MaximumAmbushMinutes = 15f;
+
+    public override VirusAI.VirusType Type { get { return VirusAI.VirusType.Stealth; } }
 
     private OrbitAround OrbitScript;
-	
+    public bool IsLurking { get; set; }
+
 	protected override void OnAwake()
 	{
+        this.IsLurking = true;
 		base.OnAwake();
 		this.Info = new ActorInfo()
 		{
-			Name = "Virus",
+			Name = "Stealth Virus",
 			DamagePerHit = 1f,
 			FireRate = 1f,
 			HitPoints = 5f,
 			ArmorPoints = 0f
 		};
 		OrbitScript = this.GetComponent<OrbitAround>();
+        this.RenderBottleneck.gameObject.SetActive(!IsLurking);
 	}
-	
-	// Update is called once per frame
-	protected override void OnUpdate () {
+
+    // Update is called once per frame
+    protected override void OnUpdate () {
 		if (this.targetT != null)
 		{
 			Vector3 relativePos = this.targetT.position - this.transform.position;
@@ -152,5 +163,45 @@ public class stealthVirus : VirusAI {
     {
         print("removing virus from virus list");
         base._OnDestroy();
+    }
+
+    private Coroutine lurkTimer;
+    public void OnServerClean()
+    {
+        if (WaitUntilWholeSubnetIsClean)
+        {
+            //do nothing
+        }
+        else
+        {
+            float randomWaitMinutes = UnityEngine.Random.Range(MinimumAmbushMinutes, MaximumAmbushMinutes);
+            lurkTimer = StartCoroutine(WaitToUnlurk(randomWaitMinutes * 60));
+        }
+    }
+
+    private IEnumerator WaitToUnlurk(float randomWaitSeconds)
+    {
+        yield return new WaitForSeconds(randomWaitSeconds);
+        Unlurk();
+        lurkTimer = null;
+    }
+
+    public void OnSubnetClean()
+    {
+        if (WaitUntilWholeSubnetIsClean)
+        {
+            Unlurk();
+        }
+        else if (lurkTimer != null)
+        {
+            StopCoroutine(lurkTimer);
+            Unlurk();
+        }
+    }
+
+    private void Unlurk()
+    {
+        this.IsLurking = false;
+        this.RenderBottleneck.gameObject.SetActive(true);
     }
 }

@@ -21,7 +21,8 @@ public class VirusAI : Actor, ILockTarget, IMalware, ISubroutineListener {
 	}
 
     //see octopus spawner to see why
-    public void DoOnAwake()
+    //see why it's virtual in stealth virus
+    public virtual void DoOnAwake()
     {
         ActiveSubroutines.AddVirus(this);
     }

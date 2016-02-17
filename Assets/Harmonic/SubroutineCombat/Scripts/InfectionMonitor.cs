@@ -33,6 +33,10 @@ public class InfectionMonitor : MonoBehaviour {
         Dictionary<string, Tuple<int, IMalware>> malwareTypes = new Dictionary<string, Tuple<int, IMalware>>();
         foreach (IMalware imal in ActiveSubroutines.MalwareList)
         {
+            if (imal is ILurker && (imal as ILurker).IsLurking)
+            {
+                continue;
+            }
             if (malwareTypes.ContainsKey(imal.GetType().Name))
             {
                 Tuple<int, IMalware> thisRecord = malwareTypes[imal.GetType().Name];

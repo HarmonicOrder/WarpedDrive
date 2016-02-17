@@ -242,6 +242,9 @@ public class Subroutine : Actor {
         float closest = range * range;
         foreach (IMalware mal in ActiveSubroutines.MalwareList)
         {
+            if (mal is ILurker && (mal as ILurker).IsLurking)
+                continue;
+
             float dist = (mal.transform.position - this.transform.position).sqrMagnitude / mal.AttackPriority;
             //if this has a higher priority than now
             //and the distance is closer

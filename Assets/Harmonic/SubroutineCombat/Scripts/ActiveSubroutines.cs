@@ -56,7 +56,15 @@ public static class ActiveSubroutines {
         else
         {
 		    MalwareList.Add(newVirus);
-			m.ActiveMalware.Add(newVirus);
+
+            if (newVirus is ILurker && (newVirus as ILurker).IsLurking)
+            {
+                m.LurkingMalware.Add(newVirus);
+            }
+            else
+            {
+			    m.ActiveMalware.Add(newVirus);
+            }
 
             if (OnMalwareListChange != null)
                 OnMalwareListChange(null);
@@ -73,16 +81,22 @@ public static class ActiveSubroutines {
 
                 if (CyberspaceBattlefield.Current.Abdicate)
                 {
-                    //do nothing!
+                    return;
                 }
-                else
-                {
-				    m.IsInfected = false;
-				    CyberspaceBattlefield.Current.AddCores(m.CPUCores);
 
-                    if (m.OnSystemClean != null)
-				        m.OnSystemClean();
+                if (m.LurkingMalware.Count > 0)
+                {
+                    foreach(ILurker l in m.LurkingMalware)
+                    {
+                        l.OnServerClean();
+                    }
                 }
+
+				m.IsInfected = false;
+				CyberspaceBattlefield.Current.AddCores(m.CPUCores);
+
+                if (m.OnSystemClean != null)
+				    m.OnSystemClean();
 			}
 		}
 
@@ -138,6 +152,9 @@ public static class ActiveSubroutines {
 
 		foreach( IMalware mal in ActiveSubroutines.MalwareList)
 		{
+            if (mal is ILurker && (mal as ILurker).IsLurking)
+                continue;
+
 			float dist = (mal.transform.position - fromPosition).sqrMagnitude / mal.AttackPriority; 
 			//if this has a higher priority than now
 			//and the distance is closer
