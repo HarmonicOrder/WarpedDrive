@@ -38,7 +38,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &126736
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -137,7 +137,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &169364
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -152,7 +152,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &184530
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -167,7 +167,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &187166
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -230,6 +230,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &198420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 481388}
+  m_Layer: 0
+  m_Name: renderBottleneck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &405170
 Transform:
   m_ObjectHideFlags: 1
@@ -264,10 +279,7 @@ Transform:
   m_LocalPosition: {x: 104.5, y: 0, z: -118.800003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 442224}
-  - {fileID: 439414}
-  - {fileID: 436276}
-  - {fileID: 425144}
+  - {fileID: 481388}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &423298
@@ -294,7 +306,7 @@ Transform:
   m_Children:
   - {fileID: 405170}
   - {fileID: 469598}
-  m_Father: {fileID: 417294}
+  m_Father: {fileID: 481388}
   m_RootOrder: 3
 --- !u!4 &436276
 Transform:
@@ -303,10 +315,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169364}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.52587891e-05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 417294}
+  m_Father: {fileID: 481388}
   m_RootOrder: 2
 --- !u!4 &439414
 Transform:
@@ -315,12 +327,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 126736}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -1.62920685e-07}
-  m_LocalPosition: {x: -.109999999, y: -.466255188, z: -.000686645508}
+  m_LocalPosition: {x: -.11000061, y: -.466255188, z: -.000686645508}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 484144}
   - {fileID: 467046}
-  m_Father: {fileID: 417294}
+  m_Father: {fileID: 481388}
   m_RootOrder: 1
 --- !u!4 &442224
 Transform:
@@ -329,7 +341,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187166}
   m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106709}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.52587891e-05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 492134}
@@ -337,7 +349,7 @@ Transform:
   - {fileID: 406936}
   - {fileID: 423298}
   - {fileID: 498110}
-  m_Father: {fileID: 417294}
+  m_Father: {fileID: 481388}
   m_RootOrder: 0
 --- !u!4 &467046
 Transform:
@@ -363,6 +375,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 425144}
   m_RootOrder: 1
+--- !u!4 &481388
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198420}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 442224}
+  - {fileID: 439414}
+  - {fileID: 436276}
+  - {fileID: 425144}
+  m_Father: {fileID: 417294}
+  m_RootOrder: 0
 --- !u!4 &484144
 Transform:
   m_ObjectHideFlags: 1
@@ -677,6 +705,10 @@ MonoBehaviour:
   moveSpeed: 30
   LazerPrefab: {fileID: 444036, guid: e1b4d94b35ddb5a468173c311fe041e0, type: 2}
   LazerStart: {fileID: 406936}
+  RenderBottleneck: {fileID: 481388}
+  WaitUntilWholeSubnetIsClean: 0
+  MinimumAmbushMinutes: 5
+  MaximumAmbushMinutes: 15
 --- !u!114 &11449778
 MonoBehaviour:
   m_ObjectHideFlags: 1

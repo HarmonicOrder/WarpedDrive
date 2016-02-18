@@ -32,7 +32,6 @@ public class ScrollingTexture : MonoBehaviour {
 
             if (AlsoAnimateProperty)
             {
-                print("current: " + currentPropVal);
                 if (currentPropVal > PropertyMax)
                 {
                     if (PingPongProperty)
