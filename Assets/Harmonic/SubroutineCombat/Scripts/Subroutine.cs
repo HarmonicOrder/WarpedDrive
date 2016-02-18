@@ -85,7 +85,7 @@ public class Subroutine : Actor {
         if (this._lockedTarget != null)
         {
             this.DeployedMachine = CyberspaceBattlefield.Current.FindByName(this._lockedTarget.root.name);
-            this.DeployedMachine.OnSystemClean += OnMachineClean;
+            this.DeployedMachine.OnMachineClean += OnMachineClean;
         }
         if (!this.IsActive)
         {
@@ -166,7 +166,7 @@ public class Subroutine : Actor {
     {
         if (this.DeployedMachine != null)
         {
-            this.DeployedMachine.OnSystemClean -= OnMachineClean;
+            this.DeployedMachine.OnMachineClean -= OnMachineClean;
         }
     }
 
@@ -242,7 +242,7 @@ public class Subroutine : Actor {
         float closest = range * range;
         foreach (IMalware mal in ActiveSubroutines.MalwareList)
         {
-            if (mal is ILurker && (mal as ILurker).IsLurking)
+            if (mal.IsLurking())
                 continue;
 
             float dist = (mal.transform.position - this.transform.position).sqrMagnitude / mal.AttackPriority;

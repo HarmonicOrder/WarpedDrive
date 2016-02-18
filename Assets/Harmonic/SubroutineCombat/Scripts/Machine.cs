@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class Machine : Location {
 
@@ -20,7 +21,7 @@ public class Machine : Location {
     public List<IMalware> LurkingMalware = new List<IMalware>();
 
     public delegate void SystemCleanEvent();
-	public SystemCleanEvent OnSystemClean;
+	public SystemCleanEvent OnMachineClean;
 
 	public Machine()
 	{
@@ -62,4 +63,9 @@ public class Machine : Location {
 		}
 		return result.ToString();
 	}
+
+    internal void StartReinfection()
+    {
+        ToastLog.Toast(this.Name + "\nis being reinfected!");
+    }
 }

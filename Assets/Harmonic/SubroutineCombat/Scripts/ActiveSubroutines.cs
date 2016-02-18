@@ -5,6 +5,10 @@ using System.Collections.Generic;
 public static class ActiveSubroutines {
 
 	public static List<Subroutine> List = new List<Subroutine>();
+    /// <summary>
+    /// canonical list of all malware currently in the subnet.
+    /// Also includes any (stealth) malware that are currently lurking
+    /// </summary>
 	public static List<IMalware> MalwareList = new List<IMalware>();
 
 	public delegate void ChangeHandler(IMalware dead);
@@ -57,12 +61,16 @@ public static class ActiveSubroutines {
         {
 		    MalwareList.Add(newVirus);
 
-            if (newVirus is ILurker && (newVirus as ILurker).IsLurking)
+            if (newVirus.IsLurking())
             {
                 m.LurkingMalware.Add(newVirus);
             }
             else
             {
+                if (!m.IsInfected)
+                {
+                    m.StartReinfection();
+                }
 			    m.ActiveMalware.Add(newVirus);
             }
 
@@ -88,15 +96,15 @@ public static class ActiveSubroutines {
                 {
                     foreach(ILurker l in m.LurkingMalware)
                     {
-                        l.OnServerClean();
+                        l.OnMachineClean();
                     }
                 }
 
 				m.IsInfected = false;
 				CyberspaceBattlefield.Current.AddCores(m.CPUCores);
 
-                if (m.OnSystemClean != null)
-				    m.OnSystemClean();
+                if (m.OnMachineClean != null)
+				    m.OnMachineClean();
 			}
 		}
 
@@ -152,7 +160,7 @@ public static class ActiveSubroutines {
 
 		foreach( IMalware mal in ActiveSubroutines.MalwareList)
 		{
-            if (mal is ILurker && (mal as ILurker).IsLurking)
+            if (mal.IsLurking())
                 continue;
 
 			float dist = (mal.transform.position - fromPosition).sqrMagnitude / mal.AttackPriority; 

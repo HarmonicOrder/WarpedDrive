@@ -18,7 +18,16 @@ public class InfectionMonitor : MonoBehaviour {
 
 	private void OnMalwareListChange(IMalware dead)
 	{
-		if (ActiveSubroutines.MalwareList.Count == 0)
+        if (ActiveSubroutines.MalwareList.Count > 0 && ActiveSubroutines.MalwareList.TrueForAll(m => m.IsLurking()))
+        {
+            //only lurkers! pop them all!
+            foreach(IMalware imal in ActiveSubroutines.MalwareList)
+            {
+                (imal as ILurker).OnSubnetSupposedlyClean();
+            }
+            ScanAndPrint(null);
+        }
+		else if (ActiveSubroutines.MalwareList.Count == 0)
 		{
 			OnWin();
 		}
@@ -33,7 +42,7 @@ public class InfectionMonitor : MonoBehaviour {
         Dictionary<string, Tuple<int, IMalware>> malwareTypes = new Dictionary<string, Tuple<int, IMalware>>();
         foreach (IMalware imal in ActiveSubroutines.MalwareList)
         {
-            if (imal is ILurker && (imal as ILurker).IsLurking)
+            if (imal.IsLurking())
             {
                 continue;
             }

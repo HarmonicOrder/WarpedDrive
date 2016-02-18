@@ -13,7 +13,7 @@ public class Keystore : NetworkLocationButton, IActivatable {
 	void Start () {
         this.transform.localScale = Vector3.zero;
         this.myMachine = CyberspaceBattlefield.Current.FindByName(this.transform.root.name);
-        this.myMachine.OnSystemClean += OnSystemClean;
+        this.myMachine.OnMachineClean += OnSystemClean;
 	}
 
 	private void OnSystemClean() {
@@ -46,6 +46,6 @@ public class Keystore : NetworkLocationButton, IActivatable {
 
     void OnDestroy()
     {
-        this.myMachine.OnSystemClean -= OnSystemClean;
+        this.myMachine.OnMachineClean -= OnSystemClean;
     }
 }

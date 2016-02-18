@@ -12,7 +12,7 @@ public class LockFirmware : NetworkLocationButton, IActivatable
     {
         this.transform.localScale = Vector3.zero;
         this.myMachine = CyberspaceBattlefield.Current.FindByName(this.transform.root.name);
-        this.myMachine.OnSystemClean += OnSystemClean;
+        this.myMachine.OnMachineClean += OnSystemClean;
     }
 
     private void OnSystemClean()
@@ -37,6 +37,6 @@ public class LockFirmware : NetworkLocationButton, IActivatable
 
     void OnDestroy()
     {
-        this.myMachine.OnSystemClean -= OnSystemClean;
+        this.myMachine.OnMachineClean -= OnSystemClean;
     }
 }

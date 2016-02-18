@@ -112,6 +112,12 @@ public class VirusAI : Actor, ILockTarget, IMalware, ISubroutineListener {
 		this.OnTakeDamage(amount, armorPointsLost, hitPointsLost);
 	}
 
+    /// <summary>
+    /// used in things like the tank virus that has to lose its armor
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="armorPointsLost"></param>
+    /// <param name="hitPointsLost"></param>
 	protected virtual void OnTakeDamage(float damage, float armorPointsLost, float hitPointsLost)
 	{
 	}

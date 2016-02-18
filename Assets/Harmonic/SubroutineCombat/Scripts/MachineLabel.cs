@@ -16,7 +16,7 @@ public class MachineLabel : MonoBehaviour {
 	void Start () {
 		this.Root = this.transform.root;
 		this.myMachine = CyberspaceBattlefield.Current.FindByName(this.Root.name);
-		this.myMachine.OnSystemClean += OnSystemClean;
+		this.myMachine.OnMachineClean += OnSystemClean;
 		this.myText = this.GetComponent<TextMesh>();
 		UpdateText();
 		UpdateFence();

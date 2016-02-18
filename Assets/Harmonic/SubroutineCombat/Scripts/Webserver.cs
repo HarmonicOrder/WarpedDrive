@@ -14,7 +14,7 @@ public class Webserver : NetworkLocationButton, IActivatable {
     void Start ()
     {
         this.myMachine = CyberspaceBattlefield.Current.FindByName(this.transform.root.name);
-        this.myMachine.OnSystemClean += OnMachineClean;
+        this.myMachine.OnMachineClean += OnMachineClean;
         this.transform.localScale = Vector3.zero;
     }
 
@@ -55,6 +55,6 @@ public class Webserver : NetworkLocationButton, IActivatable {
 
     void OnDestroy()
     {
-        this.myMachine.OnSystemClean -= OnMachineClean;
+        this.myMachine.OnMachineClean -= OnMachineClean;
     }
 }

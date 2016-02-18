@@ -17,8 +17,8 @@ public class stealthVirus : VirusAI, ILurker {
     /// </summary>
     public Transform RenderBottleneck;
     public bool WaitUntilWholeSubnetIsClean = false;
-    public float MinimumAmbushMinutes = 5f;
-    public float MaximumAmbushMinutes = 15f;
+    public float MinimumAmbushMinutes = 2f;
+    public float MaximumAmbushMinutes = 5f;
 
     public override VirusAI.VirusType Type { get { return VirusAI.VirusType.Stealth; } }
 
@@ -43,6 +43,9 @@ public class stealthVirus : VirusAI, ILurker {
 
     // Update is called once per frame
     protected override void OnUpdate () {
+        if (this.IsLurking)
+            return;
+
 		if (this.targetT != null)
 		{
 			Vector3 relativePos = this.targetT.position - this.transform.position;
@@ -124,14 +127,11 @@ public class stealthVirus : VirusAI, ILurker {
 		GameObject.Destroy(this.gameObject);
 	}
 	
-	private bool isFiring = false;
 	private float CooldownRemaining = 0f;
 	private float LaserPersistTime = 1f;
 	
 	private void FireAtEnemy(Vector3 relativePos)
-	{
-		isFiring = true;
-		
+	{		
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = false;
 		
@@ -148,7 +148,6 @@ public class stealthVirus : VirusAI, ILurker {
 	private IEnumerator WaitAndStopLaser()
 	{		
 		yield return new WaitForSeconds(this.LaserPersistTime);
-		isFiring = false;
 		
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = true;
@@ -161,12 +160,11 @@ public class stealthVirus : VirusAI, ILurker {
 
     protected override void _OnDestroy()
     {
-        print("removing virus from virus list");
         base._OnDestroy();
     }
 
     private Coroutine lurkTimer;
-    public void OnServerClean()
+    public void OnMachineClean()
     {
         if (WaitUntilWholeSubnetIsClean)
         {
@@ -186,17 +184,12 @@ public class stealthVirus : VirusAI, ILurker {
         lurkTimer = null;
     }
 
-    public void OnSubnetClean()
+    public void OnSubnetSupposedlyClean()
     {
-        if (WaitUntilWholeSubnetIsClean)
-        {
-            Unlurk();
-        }
-        else if (lurkTimer != null)
-        {
+        if (lurkTimer != null){
             StopCoroutine(lurkTimer);
-            Unlurk();
         }
+        Unlurk();
     }
 
     private void Unlurk()
