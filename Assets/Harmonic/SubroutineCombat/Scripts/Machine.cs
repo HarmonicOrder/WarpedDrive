@@ -41,7 +41,7 @@ public class Machine : Location {
 		System.Text.StringBuilder result = new System.Text.StringBuilder(4);
 		result.Append("::");
 		for (int i = 0; i < 4; i++) {
-			result.Append(hexChars[Random.Range(0, hexChars.Length)]);
+			result.Append(hexChars[UnityEngine.Random.Range(0, hexChars.Length)]);
 		}
 		return result.ToString();
 	}
