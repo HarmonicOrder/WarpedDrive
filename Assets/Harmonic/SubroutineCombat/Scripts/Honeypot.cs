@@ -35,7 +35,7 @@ public class Honeypot : SubroutineFunction
             }
             else
             {
-                CooldownRemaining -= Time.deltaTime;
+                CooldownRemaining -= InterruptTime.deltaTime;
             }
 
             if (TrackEnemy)
@@ -72,7 +72,7 @@ public class Honeypot : SubroutineFunction
     private float LookAtClosestTransform()
     {
         Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
-        this.Parent.FunctionRoot.rotation = Quaternion.Slerp(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * LookAtSpeed);
+        this.Parent.FunctionRoot.rotation = Quaternion.Slerp(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos), InterruptTime.deltaTime * LookAtSpeed);
         float angle = Quaternion.Angle(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos));
         return angle;
     }

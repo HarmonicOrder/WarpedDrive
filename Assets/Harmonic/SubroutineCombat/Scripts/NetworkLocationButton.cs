@@ -17,7 +17,7 @@ public class NetworkLocationButton : MonoBehaviour {
     {
         while (this.transform.localScale.x < 1f)
         {
-            this.transform.localScale = new Vector3(this.transform.localScale.x + Time.deltaTime * 4, 1f, 1f);
+            this.transform.localScale = new Vector3(this.transform.localScale.x + InterruptTime.deltaTime * 4, 1f, 1f);
             yield return null;
         }
 
@@ -31,7 +31,7 @@ public class NetworkLocationButton : MonoBehaviour {
     {
         while (this.transform.localScale.x > 0f)
         {
-            this.transform.localScale = new Vector3(this.transform.localScale.x - Time.deltaTime * 4, 1f, 1f);
+            this.transform.localScale = new Vector3(this.transform.localScale.x - InterruptTime.deltaTime * 4, 1f, 1f);
             yield return null;
         }
 

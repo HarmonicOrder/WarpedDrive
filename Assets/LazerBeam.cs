@@ -18,7 +18,7 @@ public class LazerBeam : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (liveFire)
-			this.transform.Translate(Vector3.forward*laserSpeed*Time.deltaTime, Space.Self);
+			this.transform.Translate(Vector3.forward*laserSpeed*InterruptTime.deltaTime, Space.Self);
 	}
 
 	IEnumerator SelfDestruct() {

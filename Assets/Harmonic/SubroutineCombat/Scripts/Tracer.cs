@@ -71,7 +71,7 @@ public class Tracer : SubroutineMovement {
 
 			if (CurrentFireTime <= FireTime)
 			{
-				CurrentFireTime += Time.deltaTime;
+				CurrentFireTime += InterruptTime.deltaTime;
 				moveSpeed = this.fireSpeed;
 			}
 
@@ -83,7 +83,7 @@ public class Tracer : SubroutineMovement {
                 if (MoveToClearFiringLine)
                     look *= ClearFiringLineRotation;
 
-				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, look, Time.deltaTime * lookAtSpeed);
+				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, look, InterruptTime.deltaTime * lookAtSpeed);
 				
 				if (relativePos.magnitude > maximumEngagementDistance)
 				{
@@ -92,7 +92,7 @@ public class Tracer : SubroutineMovement {
 				else 
                 if (doAvoid && relativePos.magnitude < avoidDistance)
                 {
-                    this.transform.Translate(0, 0, -Time.deltaTime * moveSpeed, Space.Self);
+                    this.transform.Translate(0, 0, -InterruptTime.deltaTime * moveSpeed, Space.Self);
                 }
                 else if (relativePos.magnitude < Parent.Function.TracerStopRange)
                 {
@@ -100,12 +100,12 @@ public class Tracer : SubroutineMovement {
                 }
                 //move slowly
                 else if (relativePos.magnitude < Parent.Function.TracerSlowRange){
-					this.transform.Translate(0, 0, Time.deltaTime * moveSpeed / 3f, Space.Self);
+					this.transform.Translate(0, 0, InterruptTime.deltaTime * moveSpeed / 3f, Space.Self);
 				}
 				else 
 				{
 					//within engagement, outside optimum, move closer
-					this.transform.Translate(0, 0, Time.deltaTime * moveSpeed, Space.Self);
+					this.transform.Translate(0, 0, InterruptTime.deltaTime * moveSpeed, Space.Self);
 				}
 			}
             //else

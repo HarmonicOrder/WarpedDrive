@@ -25,7 +25,7 @@ public class ScrollingTexture : MonoBehaviour {
 
 	// Update is called once per frame
 	void LateUpdate () {
-		uvOffset += ( uvAnimationRate * Time.deltaTime );
+		uvOffset += ( uvAnimationRate * InterruptTime.deltaTime );
 		if (myRender != null)
 		{
 			myRender.materials[ materialIndex ].SetTextureOffset( textureName, uvOffset);

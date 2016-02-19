@@ -21,7 +21,7 @@ public class OrbitAround : SubroutineMovement {
 	void Update () {
 		if ((OrbitAnchor != null) && CanOrbit && IsOrbiting)
 		{
-			transform.RotateAround(OrbitAnchor.position, RotationAxis, Time.deltaTime * orbitSpeed);
+			transform.RotateAround(OrbitAnchor.position, RotationAxis, InterruptTime.deltaTime * orbitSpeed);
 		}
 	}
 

@@ -63,7 +63,7 @@ public class ScanDB : NetworkLocationButton, IActivatable
                 current = 0;
             }
             ScanTransform.position = Vector3.Lerp(from, to, current / duration);
-            current += Time.deltaTime;
+            current += InterruptTime.deltaTime;
             yield return null;
         }
 

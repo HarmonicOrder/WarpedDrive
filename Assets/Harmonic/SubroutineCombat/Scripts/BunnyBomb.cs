@@ -68,7 +68,7 @@ public class BunnyBomb : VirusAI
             {
                 if (CurrentCreatePartnerTime == 0)
                     Hourglass.gameObject.SetActive(true);
-                CurrentCreatePartnerTime += Time.deltaTime;
+                CurrentCreatePartnerTime += InterruptTime.deltaTime;
             }
         }
         else
@@ -87,7 +87,7 @@ public class BunnyBomb : VirusAI
                     }
                     else
                     {
-                        CurrentlyProvisioningTime += Time.deltaTime;
+                        CurrentlyProvisioningTime += InterruptTime.deltaTime;
                     }
                 }
                 else
@@ -112,16 +112,16 @@ public class BunnyBomb : VirusAI
                 }
                 RandomMoveTime = Random.Range(3, 8);
                 CurrentRandomMoveTime = 0f;
-                TimeTilNextProvision -= Time.deltaTime;
+                TimeTilNextProvision -= InterruptTime.deltaTime;
             }
             else
             {
-                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(RandomMoveDirection), Time.deltaTime * LookAtSpeed);
+                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(RandomMoveDirection), InterruptTime.deltaTime * LookAtSpeed);
 
-                this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed, Space.Self);
+                this.transform.Translate(0, 0, InterruptTime.deltaTime * this.moveSpeed, Space.Self);
 
-                CurrentRandomMoveTime += Time.deltaTime;
-                TimeTilNextProvision -= Time.deltaTime;
+                CurrentRandomMoveTime += InterruptTime.deltaTime;
+                TimeTilNextProvision -= InterruptTime.deltaTime;
             }
         }
     }

@@ -40,7 +40,7 @@ public class bombVirus : VirusAI {
 		}
 
 		Vector3 relativePos = this.targetT.position - this.transform.position;
-		this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);
+		this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), InterruptTime.deltaTime * lookAtSpeed);
 		
 		if (relativePos.magnitude > this.engagementDistance)
 		{
@@ -49,7 +49,7 @@ public class bombVirus : VirusAI {
 		else 
 		{
 			//within engagement, outside optimum, move closer
-			this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed, Space.Self);
+			this.transform.Translate(0, 0, InterruptTime.deltaTime * this.moveSpeed, Space.Self);
 		} 
 		
 		if (relativePos.magnitude < 1)

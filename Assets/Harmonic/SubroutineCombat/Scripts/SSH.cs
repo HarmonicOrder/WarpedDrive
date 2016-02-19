@@ -48,7 +48,7 @@ public class SSH : NetworkLocationButton, IKeyListener, IActivatable {
         {
             this.wipeCube.localPosition = Vector3.Lerp(Vector3.zero, new Vector3(0, 400f, 0f), currentTime);
             yield return null;
-            currentTime += Time.deltaTime;
+            currentTime += InterruptTime.deltaTime;
         }
 
         this.wipeCube.gameObject.SetActive(false);

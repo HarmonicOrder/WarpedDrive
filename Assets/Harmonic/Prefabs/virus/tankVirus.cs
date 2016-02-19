@@ -51,7 +51,7 @@ public class tankVirus : VirusAI {
 	private void FaceTarget(Vector3 relativePos){
         if (!isFiring)
         {
-		    this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), Time.deltaTime * lookAtSpeed);
+		    this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(relativePos), InterruptTime.deltaTime * lookAtSpeed);
 		    float angle = Quaternion.Angle(this.transform.rotation, Quaternion.LookRotation(relativePos));
 
 		    PossiblyFireAtTarget(relativePos, angle);
@@ -67,7 +67,7 @@ public class tankVirus : VirusAI {
 		}
 		else
 		{
-			CooldownRemaining -= Time.deltaTime;
+			CooldownRemaining -= InterruptTime.deltaTime;
 		}
 
 		if ( !IsSandboxed && (angle < 3f) && canFire)
@@ -89,7 +89,7 @@ public class tankVirus : VirusAI {
 		else if (relativePos.magnitude < this.tooCloseDistance) 
 		{
 			//within too close, move away
-			this.transform.Translate(0, 0, -Time.deltaTime * this.moveSpeed, Space.Self);
+			this.transform.Translate(0, 0, -InterruptTime.deltaTime * this.moveSpeed, Space.Self);
 		} 
 		else if ((relativePos.magnitude > this.optimumRange - 10f) && (relativePos.magnitude < this.optimumRange + 10f))
 		{
@@ -98,14 +98,14 @@ public class tankVirus : VirusAI {
 		else if (relativePos.magnitude > this.optimumRange)
 		{
 			//within engagement, outside optimum, move closer
-			this.transform.Translate(0, 0, Time.deltaTime * this.moveSpeed, Space.Self);
+			this.transform.Translate(0, 0, InterruptTime.deltaTime * this.moveSpeed, Space.Self);
 		} 
 		else 
 		{
-			//within engagement, within optimum, move away
-			//this.transform.Translate(0, 0, -Time.deltaTime * this.moveSpeed, Space.Self);
-		}
-	}
+            //within engagement, within optimum, move away
+            //this.transform.Translate(0, 0, -InterruptTime.deltaTime * this.moveSpeed, Space.Self);
+        }
+    }
 
 	
 	protected override void OnVirusDead ()

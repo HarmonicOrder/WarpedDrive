@@ -60,7 +60,7 @@ public class Station : SubroutineMovement {
 				
 				this.Parent.Function.TrackEnemy = true;
 			}
-			CurrentInstantiateTime += Time.deltaTime;
+			CurrentInstantiateTime += InterruptTime.deltaTime;
 		}
 		
 		if (!BeingFired && Parent.IsActive && (Parent.LockedTarget != null))

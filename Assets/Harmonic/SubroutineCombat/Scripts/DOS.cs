@@ -17,7 +17,7 @@ public class DOS : MonoBehaviour {
 	void Update () {
 		if (pointAt != null)
 		{
-			this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(pointAt.position), Time.deltaTime * lookAtSpeed);
+			this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(pointAt.position), InterruptTime.deltaTime * lookAtSpeed);
 		}
 	}
 
@@ -46,7 +46,7 @@ public class DOS : MonoBehaviour {
 
 		while(CurrentIterationTime < IterationTime)
 		{
-			CurrentIterationTime += Time.deltaTime;
+			CurrentIterationTime += InterruptTime.deltaTime;
 			this.transform.position = Vector3.Lerp(lerpFrom, this.pointAt.position, CurrentIterationTime / IterationTime);
 			yield return null;
 		}
@@ -58,7 +58,7 @@ public class DOS : MonoBehaviour {
 
 		while(CurrentIterationTime < IterationTime)
 		{
-			CurrentIterationTime += Time.deltaTime;
+			CurrentIterationTime += InterruptTime.deltaTime;
 			this.transform.position = Vector3.Lerp(lerpFrom, this.pointAt.position, CurrentIterationTime / IterationTime);
 			yield return null;
 		}
@@ -75,7 +75,7 @@ public class DOS : MonoBehaviour {
 
 		while(CurrentIterationTime < IterationTime)
 		{
-			CurrentIterationTime += Time.deltaTime;
+			CurrentIterationTime += InterruptTime.deltaTime;
 			if ((this.target == null) || ((this.target as MonoBehaviour).enabled == false))
 				AcquireTarget();
 

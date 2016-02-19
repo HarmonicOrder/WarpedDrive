@@ -19,7 +19,7 @@ public class ExplosionScalerAndFader : MonoBehaviour {
 	void Update () {
 		if (ScaleTransform != null)
 		{
-			TimeSpentScaling += Time.deltaTime;
+			TimeSpentScaling += InterruptTime.deltaTime;
 			float scaleFactor = Mathf.Pow( ScaleCoeff, TimeSpentScaling );
 			ScaleTransform.localScale = new Vector3( scaleFactor, scaleFactor, scaleFactor);
 			//print (scaleFactor);
@@ -27,7 +27,7 @@ public class ExplosionScalerAndFader : MonoBehaviour {
 
 		if(FadeSprite != null)
 		{
-			TimeSpentFading += Time.deltaTime;
+			TimeSpentFading += InterruptTime.deltaTime;
 			FadeSprite.color = new Color(
 				FadeSprite.color.r,
 				FadeSprite.color.g,

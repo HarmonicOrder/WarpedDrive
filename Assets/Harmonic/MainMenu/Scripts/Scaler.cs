@@ -30,7 +30,7 @@ public class Scaler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (scaleUp){
-			scaleTime += Time.deltaTime;
+            scaleTime += InterruptTime.deltaTime;
 
 			if (scaleTime > duration)
             {

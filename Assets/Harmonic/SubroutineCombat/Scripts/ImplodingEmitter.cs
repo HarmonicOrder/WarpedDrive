@@ -62,7 +62,7 @@ public class ImplodingEmitter : MonoBehaviour {
 
 			partSys.SetParticles(particles, count);
 
-			currentTime += Time.deltaTime;
+			currentTime += InterruptTime.deltaTime;
 
 			yield return null;
 		}

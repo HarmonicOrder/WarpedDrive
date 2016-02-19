@@ -18,7 +18,7 @@ public class PixelateIn : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		currentPixelateTime += Time.deltaTime;
+		currentPixelateTime += InterruptTime.deltaTime;
 
 		if (currentPixelateTime <= pixelateInTime)
 		{
