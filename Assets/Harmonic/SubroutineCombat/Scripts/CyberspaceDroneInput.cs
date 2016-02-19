@@ -38,13 +38,25 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	private Vector3 lerpFrom, lerpTo;
 
     public Camera ControlCamera { get; private set; }
-    public bool IsViewingFile { get; private set; }
     private bool IsCinematic { get; set; }
+    private List<MachineStrategyAnchor> Anchors = new List<MachineStrategyAnchor>();
+    private MachineStrategyAnchor CurrentAnchor;
 
     void Awake() {
 		CyberspaceBattlefield.Current = new CyberspaceBattlefield();
 		StrategyConsole.Initialize(consoleText);
         OxygenConsumer.Instance.IsConsumingSlowly = true;
+
+        foreach(Machine m in CyberspaceBattlefield.Current.CurrentNetwork.Machines)
+        {
+            MachineStrategyAnchor foundA = GameObject.Find(m.Name).GetComponent<MachineStrategyAnchor>();
+            Anchors.Add(foundA);
+            foundA.myMachine = m;
+            if (m.Name.ToLower() == "gatewaymachine")
+            {
+                CurrentAnchor = foundA;
+            }
+        }
 	}
 
 	// Use this for initialization
@@ -56,31 +68,118 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		Cursor.visible = false;
 		HitCrosshair.enabled = false;
         CurrentLock = null;
-	}
+    }
 
     private Vector3 viewLockedPosition;
     private Quaternion viewLockedRotation;
     private bool IsZoomedOut;
+    public enum ViewState { LockedToMachine, SubnetOverview, CollectibleView }
+    private ViewState State;
 
 	// Update is called once per frame
-	void Update () {		
-		if (CrossPlatformInputManager.GetButtonDown("Cancel")){
+	void Update () {
+        HandleCancel();
+        GenericUpdate();
+        switch (State)
+        {
+            case ViewState.CollectibleView:
+                CollectibleViewUpdate();
+                break;
+            case ViewState.LockedToMachine:
+                MachineViewUpdate();
+                break;
+            case ViewState.SubnetOverview:
+                SubnetViewUpdate();
+                break;
+        }
+	}
 
-            if (IsViewingFile)
+    private void HandleCancel()
+    {
+        if (CrossPlatformInputManager.GetButtonDown("Cancel"))
+        {
+            if (State == ViewState.CollectibleView)
             {
                 ExitFileViewer();
             }
-            if (IsCinematic)
+            else if (IsCinematic)
             {
                 ToggleCinematic();
             }
             else
             {
-			    showingMainMenu = !showingMainMenu;
+                showingMainMenu = !showingMainMenu;
 
-			    ToggleMenu(showingMainMenu);
+                ToggleMenu(showingMainMenu);
             }
-		}
+        }
+    }
+
+    private void GenericUpdate()
+    {
+        if (Input.GetKeyUp(KeyCode.F2))
+        {
+            ToggleCinematic();
+        }
+
+        if (lerpToMachine)
+        {
+            if (currentLerpTime > lerpToTime)
+            {
+                this.transform.position = lerpTo;
+                currentLerpTime = 0f;
+                lerpToMachine = false;
+            }
+            else
+            {
+                this.transform.position = Vector3.Lerp(lerpFrom, lerpTo, currentLerpTime / lerpToTime);
+                currentLerpTime += Time.deltaTime;
+            }
+        }
+    }
+
+    private void SubnetViewUpdate()
+    {
+        if (Input.GetKeyUp(KeyCode.Z))
+        {
+            State = ViewState.LockedToMachine;
+            return;
+        }
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            GoToAnchor(CurrentAnchor.Forward);
+        }
+        else if (Input.GetKeyUp(KeyCode.A))
+        {
+            GoToAnchor(CurrentAnchor.Left);
+        }
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+            GoToAnchor(CurrentAnchor.Backward);
+        }
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            GoToAnchor(CurrentAnchor.Right);
+        }
+    }
+
+    private void GoToAnchor(MachineStrategyAnchor a)
+    {
+        if (a != null)
+        {
+            SetNewMachine(a.myMachine, a.transform.position);
+            CurrentAnchor = a;
+        }
+    }
+
+    private void MachineViewUpdate()
+    {
+        if (Input.GetKeyUp(KeyCode.Z))
+        {
+            State = ViewState.SubnetOverview;
+            return;
+        }
 
         if (Input.GetKeyUp(KeyCode.Delete))
         {
@@ -91,120 +190,15 @@ public class CyberspaceDroneInput : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Z))
-        {
-            IsZoomedOut = !IsZoomedOut;
-            if (IsZoomedOut)
-            {
-                viewLockedPosition = PivotTransform.localPosition;
-                viewLockedRotation = PivotTransform.localRotation;
+        MachineRaycastUpdate();
 
-                PivotTransform.SetParent(null);
-                PivotTransform.position = this.transform.position + new Vector3(0, 500, -200);
-                PivotTransform.rotation = Quaternion.Euler(45, 0, 0);
-            }
-            else
-            {
-                PivotTransform.SetParent(strategyPitchSphere);
-                PivotTransform.localPosition = viewLockedPosition;
-                PivotTransform.localRotation = viewLockedRotation;
-            }
-        }
+        MachineSubroutineUpdate();
 
-		if (lerpToMachine)
-		{
-			if (currentLerpTime > lerpToTime)
-			{
-				this.transform.position = lerpTo;
-				currentLerpTime = 0f;
-				lerpToMachine = false;
-			}
-			else
-			{
-				this.transform.position = Vector3.Lerp(lerpFrom, lerpTo, currentLerpTime / lerpToTime);
-				currentLerpTime += Time.deltaTime;
-			}
-		}
+        MachineInputMoveUpdate();
+    }
 
-		if (showingMainMenu)
-			return;
-
-        if (IsViewingFile)
-        {
-            float wheel = CrossPlatformInputManager.GetAxis("Mouse ScrollWheel") * 2f;
-            Vector3 l = FileViewerImage.rectTransform.localScale;
-            FileViewerImage.rectTransform.localScale = new Vector3(Mathf.Max(l.x + wheel, .25f), Mathf.Max(l.y + wheel, .25f), l.z);
-        }
-
-        if (Input.GetKeyUp(KeyCode.F2))
-        {
-            ToggleCinematic();
-        }
-
-        bool LeftClick = CrossPlatformInputManager.GetButtonDown("Fire1");
-
-		RaycastHit rayHit;
-		if (Physics.Raycast(PivotTransform.position, PivotTransform.forward, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("TargetRaycast")))
-		{
-			if (rayHit.collider != null)
-			{
-				//print (rayHit.collider.transform.parent.name);
-				VirusAI v = (VirusAI)rayHit.collider.GetComponentInParent(typeof(VirusAI));
-				if (v)
-				{
-					TargetGuiText.text = v.Info.GetTargetRichText();
-					AssignLockTarget(LeftClick, v);
-				}
-
-				Hardpoint h = (Hardpoint)rayHit.collider.GetComponentInParent(typeof(Hardpoint));
-				if (h)
-				{
-					AssignLockTarget(LeftClick, h);
-                }
-
-                //IActivatable means buttons that are clickable
-                IActivatable a = (IActivatable)rayHit.collider.GetComponentInParent(typeof(IActivatable));
-				if ((a != null) && LeftClick)
-				{
-					a.Activate();
-				}
-
-                MachineLabel m = rayHit.collider.GetComponent<MachineLabel>();
-				if ((m != null) && LeftClick)
-				{
-                    if (m.myMachine.IsAccessible)
-                    {
-					    //super hack
-					    lerpTo = rayHit.collider.transform.parent.parent.position;
-					    lerpFrom = this.transform.position;
-					    lerpToMachine = true;
-                        CurrentMachine = m.myMachine;
-                    }
-                    else
-                    {
-                        ToastLog.Toast("Machine\nInaccessible");
-                    }
-                }
-
-                SubroutineHarness sh = (SubroutineHarness)rayHit.collider.GetComponentInParent(typeof(SubroutineHarness));
-                if (sh)
-                {
-                    AssignLockTarget(LeftClick, sh);
-                }
-            }
-			
-			HitCrosshair.enabled = true;
-		}
-		else 
-		{
-			if (LeftClick && CurrentLock != null)
-			{
-				CurrentLock.DisableLockedOnGui();
-				CurrentLock = null;
-			}
-            TargetGuiText.text = "";
-            HitCrosshair.enabled = false;
-		}
+    private void MachineSubroutineUpdate()
+    {
 
 #if UNITY_EDITOR
         if (Input.GetKey(KeyCode.LeftShift))
@@ -223,12 +217,12 @@ public class CyberspaceDroneInput : MonoBehaviour {
         }
         else if (CurrentLock != null)
         {
-		    if (Input.GetKeyDown(KeyCode.Alpha1))
-		    {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
                 PossiblyCreateSubroutine(GetSubroutineInfo(0));
-		    }
+            }
 
-		    if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 PossiblyCreateSubroutine(GetSubroutineInfo(1));
             }
@@ -243,50 +237,116 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 PossiblyCreateSubroutine(GetSubroutineInfo(3));
             }
         }
-        
-		float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;
-		float vert = -CrossPlatformInputManager.GetAxis("Horizontal") * xSensitivity;
-        if (IsZoomedOut)
+    }
+
+    private void MachineRaycastUpdate()
+    {
+        bool LeftClick = CrossPlatformInputManager.GetButtonDown("Fire1");
+
+        RaycastHit rayHit;
+        if (Physics.Raycast(PivotTransform.position, PivotTransform.forward, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("TargetRaycast")))
         {
-            Vector3 move = new Vector3(-vert * 10, 0, horz * 10);
+            if (rayHit.collider != null)
+            {
+                //print (rayHit.collider.transform.parent.name);
+                VirusAI v = (VirusAI)rayHit.collider.GetComponentInParent(typeof(VirusAI));
+                if (v)
+                {
+                    TargetGuiText.text = v.Info.GetTargetRichText();
+                    AssignLockTarget(LeftClick, v);
+                }
 
-            //PivotTransform.Translate(Quaternion.Euler(0, 45, 0) * move, Space.World);
-            PivotTransform.Translate(move, Space.World);
+                Hardpoint h = (Hardpoint)rayHit.collider.GetComponentInParent(typeof(Hardpoint));
+                if (h)
+                {
+                    AssignLockTarget(LeftClick, h);
+                }
 
-            //float y = CrossPlatformInputManager.GetAxis("Mouse X") * ySensitivity;
-            float x = -CrossPlatformInputManager.GetAxis("Mouse Y") * xSensitivity;
-            PivotTransform.Rotate(Vector3.up * x, Space.World);
+                //IActivatable means buttons that are clickable
+                IActivatable a = (IActivatable)rayHit.collider.GetComponentInParent(typeof(IActivatable));
+                if ((a != null) && LeftClick)
+                {
+                    a.Activate();
+                }
 
+                MachineLabel m = rayHit.collider.GetComponent<MachineLabel>();
+                if ((m != null) && LeftClick)
+                {
+                    if (m.myMachine.IsAccessible)
+                    {
+                        SetNewMachine(m.myMachine, rayHit.transform.root.position);
+                    }
+                    else
+                    {
+                        ToastLog.Toast("Machine\nInaccessible");
+                    }
+                }
 
-            //SlerpRotate(PivotTransform, 0, y);
+                SubroutineHarness sh = (SubroutineHarness)rayHit.collider.GetComponentInParent(typeof(SubroutineHarness));
+                if (sh)
+                {
+                    AssignLockTarget(LeftClick, sh);
+                }
+            }
+
+            HitCrosshair.enabled = true;
         }
         else
         {
-		    if (invertY) 
-		    {
-			    vert = -vert;
-		    }
-
-		    float dX = 0f, dY = 0f;
-		    if (vert != 0f)
-			    dY = vert * moveSpeed;
-		    if (horz != 0f)
-			    dX = horz * moveSpeed;
-
-		    SlerpRotate(strategyPitchSphere, dX, 0, 91f);
-
-		    SlerpRotate(strategyYawSphere, 0, dY);
-
-            float x = -CrossPlatformInputManager.GetAxis("Mouse Y") * xSensitivity;
-            float y = CrossPlatformInputManager.GetAxis("Mouse X") * ySensitivity;
-
-            currentLookRotation *= Quaternion.Euler(x,
-                                               y,
-                                               0);
-            currentLookRotation = new Quaternion(currentLookRotation.x, currentLookRotation.y, 0, currentLookRotation.w);
-            PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);
+            if (LeftClick && CurrentLock != null)
+            {
+                CurrentLock.DisableLockedOnGui();
+                CurrentLock = null;
+            }
+            TargetGuiText.text = "";
+            HitCrosshair.enabled = false;
         }
-	}
+    }
+
+    private void SetNewMachine(Machine m, Vector3 position)
+    {
+        //super hack
+        lerpTo = position;
+        lerpFrom = this.transform.position;
+        lerpToMachine = true;
+        CurrentMachine = m;
+    }
+
+    private void MachineInputMoveUpdate()
+    {
+        float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;
+        float vert = -CrossPlatformInputManager.GetAxis("Horizontal") * xSensitivity;
+        if (invertY)
+        {
+            vert = -vert;
+        }
+
+        float dX = 0f, dY = 0f;
+        if (vert != 0f)
+            dY = vert * moveSpeed;
+        if (horz != 0f)
+            dX = horz * moveSpeed;
+
+        SlerpRotate(strategyPitchSphere, dX, 0, 91f);
+
+        SlerpRotate(strategyYawSphere, 0, dY);
+
+        float x = -CrossPlatformInputManager.GetAxis("Mouse Y") * xSensitivity;
+        float y = CrossPlatformInputManager.GetAxis("Mouse X") * ySensitivity;
+
+        currentLookRotation *= Quaternion.Euler(x,
+                                            y,
+                                            0);
+        currentLookRotation = new Quaternion(currentLookRotation.x, currentLookRotation.y, 0, currentLookRotation.w);
+        PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);
+    }
+
+    private void CollectibleViewUpdate()
+    {
+        float wheel = CrossPlatformInputManager.GetAxis("Mouse ScrollWheel") * 2f;
+        Vector3 l = FileViewerImage.rectTransform.localScale;
+        FileViewerImage.rectTransform.localScale = new Vector3(Mathf.Max(l.x + wheel, .25f), Mathf.Max(l.y + wheel, .25f), l.z);
+    }
 
     private void SelectAllSubroutinesOnCurrentMachine()
     {
@@ -472,47 +532,57 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		target.localRotation = Quaternion.Slerp(target.localRotation, newRotation, smoothing * Time.deltaTime);
 	}
 
+
+    private ViewState OldState;
     public void ShowImage(string filename, Sprite s)
     {
+        ToggleToCollectibleState();
         FileViewerFilenameText.text = filename;
         FileViewer.gameObject.SetActive(true);
         FileViewerImage.gameObject.SetActive(true);
         FileViewerImage.sprite = s;
         FileViewerText.gameObject.SetActive(false);
-        IsViewingFile = true;
         Cursor.visible = true;
         Time.timeScale = 0;
     }
 
+    private void ToggleToCollectibleState()
+    {
+        OldState = State;
+        State = ViewState.CollectibleView;
+    }
+
     public void ShowText(string filename, string text)
     {
+        ToggleToCollectibleState();
         FileViewerFilenameText.text = filename;
         FileViewer.gameObject.SetActive(true);
         FileViewerText.gameObject.SetActive(true);
         FileViewerText.text = text;
         FileViewerImage.gameObject.SetActive(false);
-        IsViewingFile = true;
         Cursor.visible = true;
         Time.timeScale = 0;
     }
 
     public void ShowFunction(string text)
     {
+        ToggleToCollectibleState();
         FileViewer.gameObject.SetActive(true);
 
     }
 
     public void ShowUpgrade(string text)
     {
+        ToggleToCollectibleState();
         FileViewer.gameObject.SetActive(true);
 
     }
 
     private void ExitFileViewer()
     {
+        State = OldState;
         FileViewer.gameObject.SetActive(false);
         FileViewerImage.rectTransform.localScale = Vector3.one;
-        IsViewingFile = false;
         Cursor.visible = false;
         Time.timeScale = 1;
     }
