@@ -31,10 +31,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     public Camera ControlCamera { get; private set; }
 
-	private bool lerpToMachine = false, isControllingSubroutine = false;
-	private float currentLerpTime = 0f;
-	private float lerpDuration = .5f;
-	private Vector3 lerpFrom, lerpTo;
+    private Vector3 MachineViewPivotLocalPosition = new Vector3(0, -8, -200);
+    private HarmonicUtils.LerpContext MachineLerp = new HarmonicUtils.LerpContext(.5f);
+    private HarmonicUtils.LerpContext ZoomLerp = new HarmonicUtils.LerpContext(.5f);
+    private bool isControllingSubroutine = false;
 	private Quaternion currentLookRotation;
 	private bool showingMainMenu;
     private bool IsCinematic { get; set; }
@@ -73,7 +73,9 @@ public class CyberspaceDroneInput : MonoBehaviour {
     private Vector3 viewLockedPosition;
     private Quaternion viewLockedRotation;
     private bool IsZoomedOut;
-    public enum ViewState { LockedToMachine, SubnetOverview, CollectibleView }
+    public enum ViewState { LockedToMachine, SubnetOverview, CollectibleView,
+        Menu
+    }
     private ViewState State;
 
 	// Update is called once per frame
@@ -89,6 +91,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 break;
             case ViewState.SubnetOverview:
                 SubnetViewUpdate();
+                break;
+            case ViewState.Menu:
                 break;
         }
         GenericUpdate();
@@ -122,19 +126,31 @@ public class CyberspaceDroneInput : MonoBehaviour {
             ToggleCinematic();
         }
 
-        if (lerpToMachine)
+        if (MachineLerp.IsLerping)
         {
-            if (currentLerpTime > lerpDuration)
+            if (MachineLerp.CurrentTime > MachineLerp.Duration)
             {
-                this.transform.position = lerpTo;
-                currentLerpTime = 0f;
-                lerpToMachine = false;
-                lerpFrom = lerpTo;
+                this.transform.position = MachineLerp.Finalize();
             }
             else
             {
-                this.transform.position = Vector3.Lerp(lerpFrom, lerpTo, currentLerpTime / lerpDuration);
-                currentLerpTime += Time.deltaTime;
+                this.transform.position = MachineLerp.Hermite();
+                MachineLerp.CurrentTime += Time.deltaTime;
+            }
+        }
+
+        if (ZoomLerp.IsLerping)
+        {
+            if (ZoomLerp.CurrentTime > ZoomLerp.Duration)
+            {
+                PivotTransform.localPosition = ZoomLerp.Finalize();
+                PivotTransform.localRotation = ZoomLerp.FinalizeQ();
+            }
+            else
+            {
+                PivotTransform.localPosition = ZoomLerp.Hermite();
+                PivotTransform.localRotation = ZoomLerp.LerpQ();
+                ZoomLerp.CurrentTime += Time.deltaTime;
             }
         }
     }
@@ -145,9 +161,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
         {
             State = ViewState.LockedToMachine;
 
-            //PivotTransform.SetParent(strategyPitchSphere);
-            PivotTransform.localPosition = viewLockedPosition;
-            PivotTransform.localRotation = viewLockedRotation;
+            PivotTransform.SetParent(strategyPitchSphere);
+
+            ZoomLerp.Reset(PivotTransform.localPosition, MachineViewPivotLocalPosition);
+            ZoomLerp.Reset(PivotTransform.localRotation, Quaternion.identity);
             return;
         }
 
@@ -171,7 +188,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     private void GoToAnchor(MachineStrategyAnchor a)
     {
-        if (a != null)
+        if (a != null && a.myMachine.IsAccessible)
         {
             SetNewMachine(a.myMachine, a.transform.position);
             CurrentAnchor = a;
@@ -184,12 +201,15 @@ public class CyberspaceDroneInput : MonoBehaviour {
         {
             State = ViewState.SubnetOverview;
 
-            viewLockedPosition = PivotTransform.localPosition;
-            viewLockedRotation = PivotTransform.localRotation;
+            //viewLockedPosition = PivotTransform.localPosition;
+            //viewLockedRotation = PivotTransform.localRotation;
 
-            //PivotTransform.SetParent(null);
-            PivotTransform.position = CurrentAnchor.transform.position + new Vector3(0, 300, -300);
-            PivotTransform.rotation = Quaternion.Euler(45, 0, 0);
+            PivotTransform.SetParent(this.transform);
+            //PivotTransform.position = CurrentAnchor.transform.position + new Vector3(0, 300, -300);
+            //PivotTransform.rotation = ;
+
+            ZoomLerp.Reset(PivotTransform.localPosition, new Vector3(0, 300, -300));
+            ZoomLerp.Reset(PivotTransform.localRotation, Quaternion.Euler(45, 0, 0));
             return;
         }
 
@@ -295,18 +315,18 @@ public class CyberspaceDroneInput : MonoBehaviour {
                     a.Activate();
                 }
 
-                MachineLabel m = rayHit.collider.GetComponent<MachineLabel>();
-                if ((m != null) && LeftClick)
-                {
-                    if (m.myMachine.IsAccessible)
-                    {
-                        SetNewMachine(m.myMachine, rayHit.transform.root.position);
-                    }
-                    else
-                    {
-                        ToastLog.Toast("Machine\nInaccessible");
-                    }
-                }
+                //MachineLabel m = rayHit.collider.GetComponent<MachineLabel>();
+                //if ((m != null) && LeftClick)
+                //{
+                //    if (m.myMachine.IsAccessible)
+                //    {
+                //        SetNewMachine(m.myMachine, rayHit.transform.root.position);
+                //    }
+                //    else
+                //    {
+                //        ToastLog.Toast("Machine\nInaccessible");
+                //    }
+                //}
 
                 SubroutineHarness sh = (SubroutineHarness)rayHit.collider.GetComponentInParent(typeof(SubroutineHarness));
                 if (sh)
@@ -331,10 +351,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     private void SetNewMachine(Machine m, Vector3 position)
     {
-        lerpFrom = this.transform.position;
-        lerpTo = position;
-        currentLerpTime = 0f;
-        lerpToMachine = true;
+        MachineLerp.Reset(this.transform.position, position);
         CurrentMachine = m;
     }
 
@@ -485,8 +502,18 @@ public class CyberspaceDroneInput : MonoBehaviour {
         }
     }
 
+    
     private void ToggleMenu(bool showMenu)
 	{
+        if (showMenu)
+        {
+            OldState = State;
+            State = ViewState.Menu;
+        }
+        else
+        {
+            State = OldState;
+        }
 		Menu.gameObject.SetActive(showMenu);
 		Crosshair.gameObject.SetActive(!showMenu);
 		HitCrosshair.gameObject.SetActive(!showMenu);
@@ -560,6 +587,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
 
     private ViewState OldState;
+    private bool isLerpingCamera;
+
     public void ShowImage(string filename, Sprite s)
     {
         ToggleToCollectibleState();

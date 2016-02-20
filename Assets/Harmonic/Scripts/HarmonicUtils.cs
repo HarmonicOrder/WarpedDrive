@@ -104,4 +104,60 @@ public static class HarmonicUtils {
     {
         return new Vector3(UnityEngine.Random.Range(min, max), UnityEngine.Random.Range(min, max), UnityEngine.Random.Range(min, max));
     }
+
+    public class LerpContext
+    {
+        public LerpContext(float duration)
+        {
+            this.Duration = duration;
+        }
+
+        public bool IsLerping { get; set; }
+        public Vector3 From { get; set; }
+        public Vector3 To { get; set; }
+        public Quaternion FromQ { get; set; }
+        public Quaternion ToQ { get; set; }
+        public float CurrentTime { get; set; }
+        public float Duration { get; set; }
+
+        public void Reset(Vector3 from, Vector3 to)
+        {
+            From = from;
+            To = to;
+            CurrentTime = 0f;
+            IsLerping = true;
+        }
+
+        public void Reset(Quaternion fQ, Quaternion tQ)
+        {
+            FromQ = fQ;
+            ToQ = tQ;
+            CurrentTime = 0f;
+            IsLerping = true;
+        }
+
+        public Vector3 Finalize()
+        {
+            CurrentTime = 0f;
+            IsLerping = false;
+            return To;
+        }
+
+        public Quaternion FinalizeQ()
+        {
+            CurrentTime = 0f;
+            IsLerping = false;
+            return ToQ;
+        }
+
+        public Vector3 Hermite()
+        {
+            return Mathfx.Hermite(From, To, CurrentTime / Duration);
+        }
+
+        public Quaternion LerpQ()
+        {
+            return Quaternion.Lerp(FromQ, ToQ, CurrentTime / Duration);
+        }
+    }
 }

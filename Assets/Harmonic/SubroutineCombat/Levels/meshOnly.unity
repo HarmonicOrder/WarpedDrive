@@ -2042,6 +2042,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1432174947}
+  - 114: {fileID: 1432174948}
   m_Layer: 0
   m_Name: GatewayMachine
   m_TagString: Untagged
@@ -2065,6 +2066,21 @@ Transform:
   - {fileID: 1342706081}
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!114 &1432174948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1432174946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605f6a5244347514c8dd10d116490245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Left: {fileID: 0}
+  Right: {fileID: 0}
+  Forward: {fileID: 2144517879}
+  Backward: {fileID: 0}
 --- !u!1001 &1473937094
 Prefab:
   m_ObjectHideFlags: 0
@@ -2851,6 +2867,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2144517878}
+  - 114: {fileID: 2144517879}
   m_Layer: 0
   m_Name: DBMachine
   m_TagString: Untagged
@@ -2881,3 +2898,18 @@ Transform:
   - {fileID: 289518355}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!114 &2144517879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2144517877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605f6a5244347514c8dd10d116490245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Left: {fileID: 0}
+  Right: {fileID: 0}
+  Forward: {fileID: 0}
+  Backward: {fileID: 1432174948}
