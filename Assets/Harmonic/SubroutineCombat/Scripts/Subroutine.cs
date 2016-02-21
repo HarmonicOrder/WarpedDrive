@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
-public class Subroutine : Actor {
+public class Subroutine : Combatant {
 
 	public SubroutineFunction Function {get;set;}
 	public SubroutineMovement Movement {get;set;}
@@ -70,10 +71,9 @@ public class Subroutine : Actor {
         this.Info = new ActorInfo()
         {
             Name = "Subroutine",
-            MaxHitPoints = 10f,
-            HitPoints = 10f,
             FireRate = 1f,
-            DamagePerHit = 2f
+            HitChance = 5f,
+            SaveChance = 5f
         };
     }
 
@@ -108,8 +108,6 @@ public class Subroutine : Actor {
             if (this.Movement is Tracer)
                 Raycasting = StartCoroutine(RaycastForward());
 		}
-
-        RefreshHealthDisplay();
     }
 
 	public void Deactivate()
@@ -120,24 +118,6 @@ public class Subroutine : Actor {
         if (Raycasting != null)
             StopCoroutine(Raycasting);
 	}
-
-	public void TakeDamage(float damage)
-	{
-        if (this.IsInvulnerable)
-            return;
-
-		this.Info.HitPoints -= damage;
-
-		if (this.Info.HitPoints < 0f)
-		{
-            Die();
-		} else {
-			if (this.OnSubroutineTakeDamage != null)
-				this.OnSubroutineTakeDamage(this.Info.HitPoints, this.Info.MaxHitPoints);
-		}
-
-        RefreshHealthDisplay();
-    }
 
     /// <summary>
     /// public facing "this subroutine should explode" method
@@ -172,27 +152,7 @@ public class Subroutine : Actor {
 
     private void OnMachineClean()
     {
-        Die();
-    }
-
-    private void RefreshHealthDisplay()
-    {
-        if (this.HealthBar != null)
-        {
-            foreach(Transform t in this.HealthBar)
-            {
-                GameObject.Destroy(t.gameObject);
-            }
-
-            for (int i = 0; i < this.Info.HitPoints; i++)
-            {
-                Transform t = GameObject.Instantiate<Transform>(this.HealthPipPrefab);
-                t.SetParent(this.HealthBar);
-                t.localPosition = Vector3.zero;
-                t.Rotate(Vector3.forward, (i - ((this.Info.HitPoints - 1) / 2))*15);
-                //t.localScale = Vector3.one * 5f;
-            }
-        }
+        this.Die();
     }
 
     private IEnumerator RaycastForward()
@@ -224,8 +184,7 @@ public class Subroutine : Actor {
             yield return null;
         }
     }
-
-
+    
     protected void FindClosestMalware()
     {
         if (ActiveSubroutines.MalwareList.Count == 0)
@@ -262,5 +221,15 @@ public class Subroutine : Actor {
                 }
             }
         }
+    }
+    
+    public override void DoOnReboot()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void DoOnKilled(ICombatant attacker)
+    {
+        this.Die();
     }
 }

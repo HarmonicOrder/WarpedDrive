@@ -20,9 +20,9 @@ public class bombVirus : VirusAI {
 		this.Info = new ActorInfo()
 		{ 
 			Name = "Bomber",
-			DamagePerHit = 5f,
 			FireRate = 1f,
-			HitPoints = 5f
+            HitChance = 100,
+            SaveChance = 0
 		};
 	}
 
@@ -65,7 +65,7 @@ public class bombVirus : VirusAI {
 
 	private void OnCollideWithSubroutine(Subroutine s)
 	{
-		s.TakeDamage(this.Info.DamagePerHit);
+        this.DoAttack(s);
 		this.OnVirusDead();
 	}
 

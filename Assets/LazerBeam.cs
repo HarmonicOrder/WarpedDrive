@@ -7,7 +7,8 @@ public class LazerBeam : MonoBehaviour {
 
 	public float laserSpeed = 20f;
 	public float lifetime = 10f;
-	public float damage = 1f;
+    public ICombatant origin;
+
 	private bool liveFire = true;
 
 	// Use this for initialization
@@ -36,13 +37,13 @@ public class LazerBeam : MonoBehaviour {
 				VirusAI v = coll.gameObject.GetComponent<VirusAI>();
 				if (v != null)
 				{
-					v.TakeDamage(damage);
+                    origin.DoAttack(v);
 				}
 
 				Subroutine s = coll.gameObject.GetComponent<Subroutine>();
 				if (s != null)
-				{
-					s.TakeDamage(damage);
+                {
+                    origin.DoAttack(s);
 				}
 				//print (coll.gameObject.name);
 			}

@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
-public class VirusAI : Actor, ILockTarget, IMalware, ISubroutineListener {
+public class VirusAI : Combatant, ILockTarget, IMalware, ISubroutineListener {
 	
 	public Transform ExplosionPrefab;
 	public MeshRenderer LockedOnGUI;
@@ -79,38 +80,10 @@ public class VirusAI : Actor, ILockTarget, IMalware, ISubroutineListener {
 		ActiveSubroutines.RemoveVirus(this);
 	}
 
-	public void TakeDamage(float amount)
-	{
-		float armorPointsLost = 0;
-		float hitPointsLost = 0;
-
-		if(this.Info.ArmorPoints > 0f)
-		{
-			if (amount > this.Info.ArmorPoints)
-			{
-				armorPointsLost = this.Info.ArmorPoints;
-				amount -= this.Info.ArmorPoints;
-				this.Info.ArmorPoints = 0f;
-			}
-			else
-			{
-				armorPointsLost = amount;
-				this.Info.ArmorPoints -= amount;
-				amount = 0f;
-			}
-		}
-
-		if (amount > 0f)
-		{
-			hitPointsLost = amount;
-			this.Info.HitPoints -= amount;
-
-			if (this.Info.HitPoints <= 0f)
-				this.OnVirusDead();
-		}
-
-		this.OnTakeDamage(amount, armorPointsLost, hitPointsLost);
-	}
+    public override void DoOnReboot()
+    {
+        //noop
+    }
 
     /// <summary>
     /// used in things like the tank virus that has to lose its armor
@@ -118,7 +91,7 @@ public class VirusAI : Actor, ILockTarget, IMalware, ISubroutineListener {
     /// <param name="damage"></param>
     /// <param name="armorPointsLost"></param>
     /// <param name="hitPointsLost"></param>
-	protected virtual void OnTakeDamage(float damage, float armorPointsLost, float hitPointsLost)
+    protected virtual void OnTakeDamage(float damage, float armorPointsLost, float hitPointsLost)
 	{
 	}
 
@@ -126,7 +99,9 @@ public class VirusAI : Actor, ILockTarget, IMalware, ISubroutineListener {
         //print("removing virusAI from virus list");
 		ActiveSubroutines.RemoveVirus(this);
 
+#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
         if (CyberspaceDroneInput.CurrentLock == this)
+#pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
             CyberspaceDroneInput.CurrentLock = null;
 	}
 
@@ -169,4 +144,5 @@ public class VirusAI : Actor, ILockTarget, IMalware, ISubroutineListener {
 
         return v.ToString() + "s";
     }
+
 }

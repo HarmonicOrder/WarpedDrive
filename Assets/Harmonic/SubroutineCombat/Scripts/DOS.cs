@@ -84,10 +84,11 @@ public class DOS : MonoBehaviour {
 			yield return null;
 		}
 
-		if (this.target != null)
-			this.target.TakeDamage(Damage);
+#warning DOS is toothless now
+        //if (this.target != null)
+        //	this.target.TakeDamage(Damage);
 
-		GameObject.Destroy(this.gameObject);
+        GameObject.Destroy(this.gameObject);
 
 	}
 

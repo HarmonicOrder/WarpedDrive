@@ -15,7 +15,7 @@ public class ScriptedNewGame : MonoBehaviour {
     public uint FinalFrequency = 8000;
 
     private BlurOptimized blurrer;
-    private AudioSource audio;
+    private AudioSource computerVoiceAudio;
     private AudioLowPassFilter filter;
 
 
@@ -34,9 +34,9 @@ public class ScriptedNewGame : MonoBehaviour {
             bottomSlit.enabled = true;
             ClockCanvas.enabled = false;
             GlobalLight.intensity = 0;
-            audio = this.gameObject.AddComponent<AudioSource>();
-            audio.clip = WakeyWakey;
-            audio.playOnAwake = false;
+            computerVoiceAudio = this.gameObject.AddComponent<AudioSource>();
+            computerVoiceAudio.clip = WakeyWakey;
+            computerVoiceAudio.playOnAwake = false;
             filter = this.gameObject.AddComponent<AudioLowPassFilter>();
             filter.cutoffFrequency = 800f;
             Radio.Instance.Primary.volume = .25f;
@@ -64,7 +64,7 @@ public class ScriptedNewGame : MonoBehaviour {
     private IEnumerator MoveSlits()
     {
         yield return new WaitForSeconds(2f);
-        audio.Play(1000);
+        computerVoiceAudio.Play(1000);
         yield return new WaitForSeconds(2f);
         StartCoroutine(UnMuffle());
         while (blurrer.blurSize > 0f)

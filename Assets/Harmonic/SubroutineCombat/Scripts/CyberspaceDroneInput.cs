@@ -554,7 +554,6 @@ public class CyberspaceDroneInput : MonoBehaviour {
         if (CurrentLock != null)
 		    s.LockedTarget = CurrentLock.transform;
 
-		s.Info.HitPoints = s.Info.MaxHitPoints;
 		s.Activate(si);
 	}
 	

@@ -7,8 +7,7 @@ public class Freeze : SubroutineFunction
     public float LookAtSpeed = 2f;
     public float LaserPersistTime = .5f;
     public override bool OnlyTrackActiveViruses { get { return true; } }
-
-    //public ParticleSystem PulseParticles;
+    
     public ParticleSystem BurstParticles;
     public LineRenderer TerminateLineRenderer;
 
@@ -16,10 +15,8 @@ public class Freeze : SubroutineFunction
     void Start()
     {
         this.TerminateLineRenderer = this.transform.Find("FunctionRoot/Freeze").GetComponent<LineRenderer>();
-        //this.PulseParticles = this.transform.Find("FunctionRoot/Terminate/PulseParticles").GetComponent<ParticleSystem>();
         this.BurstParticles = this.transform.Find("FunctionRoot/Freeze/BurstParticles").GetComponent<ParticleSystem>();
         TerminateLineRenderer.SetVertexCount(0);
-        this.Parent.Info.DamagePerHit = 5f;
         this.Parent.Info.FireRate = 5f;
         this.Parent.Info.CoreCost += 2;
     }
@@ -60,7 +57,9 @@ public class Freeze : SubroutineFunction
     {
         isFiring = true;
         CooldownRemaining = this.Parent.Info.FireRate;
-        this.Parent.lockedMalware.TakeDamage(this.Parent.Info.DamagePerHit);
+        
+        this.Parent.DoAttack(this.Parent.lockedMalware);
+
         this.TerminateLineRenderer.SetVertexCount(2);
         this.TerminateLineRenderer.SetPosition(0, Vector3.zero);
         this.TerminateLineRenderer.SetPosition(1, Vector3.forward * relativePos.magnitude);

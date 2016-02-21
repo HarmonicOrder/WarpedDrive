@@ -10,7 +10,6 @@ public class Lag : SubroutineFunction
     // Use this for initialization
     void Start()
     {
-        this.Parent.Info.DamagePerHit = 5f;
         this.Parent.Info.FireRate = 5f;
         this.Parent.Info.CoreCost += 2;
     }
@@ -51,7 +50,7 @@ public class Lag : SubroutineFunction
     {
         isFiring = true;
         CooldownRemaining = this.Parent.Info.FireRate;
-        this.Parent.lockedMalware.TakeDamage(this.Parent.Info.DamagePerHit);
+#warning todo: lag attack
         StartCoroutine(this.WaitAndStopLaser());
     }
 

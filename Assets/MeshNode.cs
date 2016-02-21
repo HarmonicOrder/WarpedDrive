@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 [RequireComponent(typeof(Collider))]
 public class MeshNode : MonoBehaviour, IMalware {
@@ -12,7 +13,13 @@ public class MeshNode : MonoBehaviour, IMalware {
     
 	public virtual VirusAI.VirusType Type {get{return VirusAI.VirusType.Ransomware;}}
 
-	public Transform MiniExplosionPrefab;
+    public float KillChance { get { return 0; } }
+
+    public float SaveChance { get { return 0; } }
+
+    public float Reboots { get  { return 0;  } }
+
+    public Transform MiniExplosionPrefab;
 
 	// Use this for initialization
 	void Start () {
@@ -28,16 +35,8 @@ public class MeshNode : MonoBehaviour, IMalware {
 	{
 		LazerBeam beam = col.collider.GetComponent<LazerBeam>();
 		if (beam != null){
-			TakeDamage(1);
+			Kill(null);
 		}
-	}
-
-	public void TakeDamage(float amount)
-	{
-		RemoveEdges();
-		this.transform.parent.GetComponent<MeshMalware>().RemoveNode(this);
-		ActiveSubroutines.RemoveVirus(this);		
-		SelfDestruct();
 	}
 
 	public void RemoveEdges(){
@@ -75,4 +74,28 @@ public class MeshNode : MonoBehaviour, IMalware {
         ActiveSubroutines.RemoveVirus(this);
 	}
 
+    public void DoAttack(ICombatant target) { }
+
+    public bool TrySave(ICombatant attacker)
+    {
+        return false;
+    }
+
+    public void Kill(ICombatant attacker)
+    {
+        RemoveEdges();
+        this.transform.parent.GetComponent<MeshMalware>().RemoveNode(this);
+        ActiveSubroutines.RemoveVirus(this);
+        SelfDestruct();
+    }
+
+    public void DoOnSave(ICombatant attacker)
+    {
+        
+    }
+
+    public void DoOnBlock(ICombatant attacker)
+    {
+        //noop
+    }
 }

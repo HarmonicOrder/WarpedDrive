@@ -9,7 +9,7 @@ public class DebugKeystrokes : MonoBehaviour {
 		{
 			foreach(IMalware mal in ActiveSubroutines.MalwareList.ToArray())
 			{
-				mal.TakeDamage(999f);
+				mal.Kill(null);
 			}
 		}
 	}

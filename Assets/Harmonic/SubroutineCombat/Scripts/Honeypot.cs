@@ -18,7 +18,6 @@ public class Honeypot : SubroutineFunction
         this.PulseParticles = this.transform.Find("FunctionRoot/Honeypot/PulseParticles").GetComponent<ParticleSystem>();
         //this.BurstParticles = this.transform.Find("FunctionRoot/Terminate/BurstParticles").GetComponent<ParticleSystem>();
         HoneypotLineRenderer.SetVertexCount(0);
-        this.Parent.Info.DamagePerHit = 5f;
         this.Parent.Info.FireRate = 5f;
         this.Parent.Info.CoreCost += 2;
     }

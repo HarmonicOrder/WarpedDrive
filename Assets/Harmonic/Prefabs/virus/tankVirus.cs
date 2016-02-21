@@ -26,11 +26,10 @@ public class tankVirus : VirusAI {
 		this.Info = new ActorInfo()
 		{
 			Name = "Tank",
-			DamagePerHit = 3f,
-			FireRate = 3f,
-			HitPoints = 5f,
-			ArmorPoints = 6f
-		};
+            HitChance = 33,
+            SaveChance = 25,
+            Reboots = 1
+        };
 		LineRenderer.SetVertexCount(0);
 		OrbitScript = this.GetComponent<OrbitAround>();
 	}
@@ -74,7 +73,7 @@ public class tankVirus : VirusAI {
 		{
 			Subroutine s = this.targetT.GetComponent<Subroutine>();
 			if (s != null){
-				s.TakeDamage(this.Info.DamagePerHit);
+                this.DoAttack(s);
 				FireAtEnemy(relativePos);
 			}
 		}

@@ -32,10 +32,9 @@ public class stealthVirus : VirusAI, ILurker {
 		this.Info = new ActorInfo()
 		{
 			Name = "Stealth Virus",
-			DamagePerHit = 1f,
 			FireRate = 1f,
-			HitPoints = 5f,
-			ArmorPoints = 0f
+            HitChance = 20,
+            SaveChance = 25
 		};
 		OrbitScript = this.GetComponent<OrbitAround>();
         this.RenderBottleneck.gameObject.SetActive(!IsLurking);
@@ -138,8 +137,12 @@ public class stealthVirus : VirusAI, ILurker {
 		CooldownRemaining = this.Info.FireRate;
 
 		Transform t = (Transform)GameObject.Instantiate(this.LazerPrefab, this.LazerStart.position, this.LazerStart.rotation);
-		
-		Physics.IgnoreCollision(this.GetComponent<Collider>(), t.GetComponent<Collider>(), true);
+        LazerBeam lb = t.GetComponent<LazerBeam>();
+
+        if (lb != null)
+            lb.origin = this;
+
+        Physics.IgnoreCollision(this.GetComponent<Collider>(), t.GetComponent<Collider>(), true);
 
 		StartCoroutine(this.WaitAndStopLaser());
 	}

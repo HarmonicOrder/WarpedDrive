@@ -15,9 +15,9 @@ public class Delete : SubroutineFunction {
 
     // Use this for initialization
     void Start () {
-		this.Parent.Info.DamagePerHit = 1f;
-		this.Parent.Info.FireRate = 1f;	
-		this.Parent.Info.CoreCost += 1;
+		this.Parent.Info.FireRate = 1f;
+        this.Parent.Info.HitChance += 15f;
+        this.Parent.Info.CoreCost += 1;
 		leftGun = HarmonicUtils.FindInChildren(this.Parent.FunctionRoot, "CrosshairLeft");
 		rightGun = HarmonicUtils.FindInChildren(this.Parent.FunctionRoot, "CrosshairRight");
 	}
@@ -70,8 +70,8 @@ public class Delete : SubroutineFunction {
 		Transform t = (Transform)Instantiate(lazerPrefab, laserStart.position, laserStart.rotation);
 
 		LazerBeam b = t.GetComponent<LazerBeam>();
-		if (b != null)
-			b.damage = this.Parent.Info.DamagePerHit;
+        if (b != null)
+            b.origin = this.Parent;
 
 		Physics.IgnoreCollision(this.GetComponent<Collider>(), t.GetComponent<Collider>());
 

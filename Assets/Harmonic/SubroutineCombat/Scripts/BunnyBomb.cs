@@ -17,10 +17,9 @@ public class BunnyBomb : VirusAI
         this.Info = new ActorInfo()
         {
             Name = "Wabbit",
-            DamagePerHit = 0f,
             FireRate = 0f,
-            HitPoints = 1f,
-            ArmorPoints = 0f
+            HitChance = 0,
+            SaveChance = 5,
         };
 
         this.machineCenter = this.transform.root.position;

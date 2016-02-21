@@ -12,7 +12,6 @@ public class Sandbox : SubroutineFunction
     // Use this for initialization
     void Start()
     {
-        this.Parent.Info.DamagePerHit = 0f;
         this.Parent.Info.FireRate = 8f;
         this.Parent.Info.CoreCost += 2;
     }
