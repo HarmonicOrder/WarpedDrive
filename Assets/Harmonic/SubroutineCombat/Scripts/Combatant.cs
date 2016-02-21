@@ -64,11 +64,14 @@ public class Combatant : Actor, ICombatant {
         }
     }
 
-    public virtual void DoOnReboot(){ }
+    public virtual void DoOnReboot()
+    {
+        Popup.Create(this.transform.position + Vector3.up * 4, null, Popup.Popups.Reboot, (this is Subroutine));
+    }
 
     public virtual void DoOnBlock(ICombatant attacker)
     {
-        throw new NotImplementedException();
+        Popup.Create(this.transform.position + Vector3.up * 4, null, Popup.Popups.Block, (this is Subroutine));
     }
 
     public virtual void DoOnKilled(ICombatant attacker)

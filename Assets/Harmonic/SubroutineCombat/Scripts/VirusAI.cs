@@ -75,26 +75,16 @@ public class VirusAI : Combatant, ILockTarget, IMalware, ISubroutineListener {
 			LockedOnGUI.enabled = false;
 	}
 
-	protected virtual void OnVirusDead()
+    public override void DoOnKilled(ICombatant attacker)
+    {
+        OnVirusDead();
+    }
+
+    protected virtual void OnVirusDead()
 	{
 		ActiveSubroutines.RemoveVirus(this);
 	}
-
-    public override void DoOnReboot()
-    {
-        //noop
-    }
-
-    /// <summary>
-    /// used in things like the tank virus that has to lose its armor
-    /// </summary>
-    /// <param name="damage"></param>
-    /// <param name="armorPointsLost"></param>
-    /// <param name="hitPointsLost"></param>
-    protected virtual void OnTakeDamage(float damage, float armorPointsLost, float hitPointsLost)
-	{
-	}
-
+    
 	protected override void _OnDestroy(){
         //print("removing virusAI from virus list");
 		ActiveSubroutines.RemoveVirus(this);

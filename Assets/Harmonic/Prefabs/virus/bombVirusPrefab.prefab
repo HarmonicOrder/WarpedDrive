@@ -42,7 +42,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 493616}
   - 33: {fileID: 3315112}
-  - 135: {fileID: 13518726}
   - 23: {fileID: 2380032}
   m_Layer: 0
   m_Name: Sphere
@@ -332,7 +331,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 168018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 395.05011, y: 39.9460602, z: 12.7837944}
+  m_LocalPosition: {x: 0, y: 0, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 401630}
@@ -720,18 +719,6 @@ MonoBehaviour:
   CanOrbit: 1
   RotationAxis: {x: 0, y: 1, z: 0}
   OrbitRenderer: {fileID: 0}
---- !u!135 &13518726
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 144290}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: .5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &13538244
 SphereCollider:
   m_ObjectHideFlags: 1

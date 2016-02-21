@@ -16,6 +16,6 @@ public class ActorInfo {
 	
 	public string GetTargetRichText()
 	{
-		return string.Format("{0}\r\n<color=red>{1:##.#}% Kill</color> <color=green>{2:##.#}% Block</color>", Name, HitChance, SaveChance);
+		return string.Format("{0}\r\n<color=red>{1:##.#}% Kill</color> <color=green>{2:#0.#}% Block</color>", Name, HitChance, SaveChance);
 	}
 }

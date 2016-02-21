@@ -344,6 +344,7 @@ GameObject:
   - 114: {fileID: 11484794}
   - 114: {fileID: 11435478}
   - 114: {fileID: 11451490}
+  - 114: {fileID: 11406576}
   m_Layer: 5
   m_Name: StrategyMode
   m_TagString: Untagged
@@ -2133,6 +2134,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11406576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8274ac896559c348a915b33d6afaae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Popup: {fileID: 479622, guid: 9467d04ceb32c46459e2ca9e2516503b, type: 2}
 --- !u!114 &11406772
 MonoBehaviour:
   m_ObjectHideFlags: 1

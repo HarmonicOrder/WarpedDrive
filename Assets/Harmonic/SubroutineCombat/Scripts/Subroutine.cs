@@ -223,11 +223,6 @@ public class Subroutine : Combatant {
         }
     }
     
-    public override void DoOnReboot()
-    {
-        throw new NotImplementedException();
-    }
-
     public override void DoOnKilled(ICombatant attacker)
     {
         this.Die();

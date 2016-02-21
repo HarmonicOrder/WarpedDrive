@@ -28,6 +28,7 @@ public class tankVirus : VirusAI {
 			Name = "Tank",
             HitChance = 33,
             SaveChance = 25,
+            FireRate = 5,
             Reboots = 1
         };
 		LineRenderer.SetVertexCount(0);
@@ -156,20 +157,16 @@ public class tankVirus : VirusAI {
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = true;
 	}
-
-	
-	protected override void OnTakeDamage(float damage, float armorPointsLost, float hitPointsLost)
+    
+	public override void DoOnReboot()
 	{
-		if (armorPointsLost > 0f)
-		{
-			Transform killedArmorPlate;
-			for (int i = 0; i < armorPointsLost; i++) {
-				if (ArmorPlates.Count > 0)
-				{
-					killedArmorPlate = ArmorPlates[ArmorPlates.Count-1];
-					ArmorPlates.Remove(killedArmorPlate);
-					GameObject.Destroy(killedArmorPlate.gameObject);
-				}
+		Transform killedArmorPlate;
+		for (int i = 0; i < ArmorPlates.Count; i++) {
+			if (ArmorPlates.Count > 0)
+			{
+				killedArmorPlate = ArmorPlates[ArmorPlates.Count-1];
+				ArmorPlates.Remove(killedArmorPlate);
+				GameObject.Destroy(killedArmorPlate.gameObject);
 			}
 		}
     }

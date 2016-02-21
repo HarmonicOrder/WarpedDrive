@@ -145,11 +145,6 @@ public class virus : VirusAI {
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = true;
 	}
-	
-	
-	protected override void OnTakeDamage(float damage, float armorPointsLost, float hitPointsLost)
-	{
-    }
 
     protected override void _OnDestroy()
     {

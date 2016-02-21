@@ -69,9 +69,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		HitCrosshair.enabled = false;
         CurrentLock = null;
     }
-
-    private Vector3 viewLockedPosition;
-    private Quaternion viewLockedRotation;
+    
     private bool IsZoomedOut;
     public enum ViewState { LockedToMachine, SubnetOverview, CollectibleView,
         Menu
@@ -200,13 +198,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Z))
         {
             State = ViewState.SubnetOverview;
-
-            //viewLockedPosition = PivotTransform.localPosition;
-            //viewLockedRotation = PivotTransform.localRotation;
-
+            
             PivotTransform.SetParent(this.transform);
-            //PivotTransform.position = CurrentAnchor.transform.position + new Vector3(0, 300, -300);
-            //PivotTransform.rotation = ;
 
             ZoomLerp.Reset(PivotTransform.localPosition, new Vector3(0, 300, -300));
             ZoomLerp.Reset(PivotTransform.localRotation, Quaternion.Euler(45, 0, 0));
@@ -314,19 +307,6 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 {
                     a.Activate();
                 }
-
-                //MachineLabel m = rayHit.collider.GetComponent<MachineLabel>();
-                //if ((m != null) && LeftClick)
-                //{
-                //    if (m.myMachine.IsAccessible)
-                //    {
-                //        SetNewMachine(m.myMachine, rayHit.transform.root.position);
-                //    }
-                //    else
-                //    {
-                //        ToastLog.Toast("Machine\nInaccessible");
-                //    }
-                //}
 
                 SubroutineHarness sh = (SubroutineHarness)rayHit.collider.GetComponentInParent(typeof(SubroutineHarness));
                 if (sh)

@@ -8,7 +8,6 @@ public class bombVirus : VirusAI {
 	public float engagementDistance = 200f;
 	public float moveSpeed = 20f;
 	public playerHealth HealthScript;
-	public Transform[] DestroyBeforeExplosion;
 	public float ExplodingTime = 3f;
 
     public override VirusType Type { get { return VirusType.Bomb; } }
@@ -72,14 +71,7 @@ public class bombVirus : VirusAI {
 	protected override void OnVirusDead()
 	{
 		GameObject.Instantiate(this.ExplosionPrefab, this.transform.position, Quaternion.identity);
-		for(int i = 0; i < DestroyBeforeExplosion.Length; i++)
-		{
-			Transform t = DestroyBeforeExplosion[i];
-			
-			if (t != null)
-				GameObject.Destroy(t.gameObject);
-		}
-		base.OnVirusDead ();
-		StartCoroutine(SelfDestruct(this.ExplodingTime));
-	}
+        base.OnVirusDead();
+        GameObject.Destroy(this.gameObject);
+    }
 }
