@@ -311,6 +311,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 SubroutineHarness sh = (SubroutineHarness)rayHit.collider.GetComponentInParent(typeof(SubroutineHarness));
                 if (sh)
                 {
+                    TargetGuiText.text =  sh.BoundSubroutine.Info.GetTargetRichText();
                     AssignLockTarget(LeftClick, sh);
                 }
             }
