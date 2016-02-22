@@ -22,8 +22,10 @@ public class ScriptedNewGame : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+#if UNITY_EDITOR
         if (TestNewGame)
             HarmonicSerialization.Instance.IsNewGame = true;
+#endif
 
         if (HarmonicSerialization.Instance.IsNewGame)
         {

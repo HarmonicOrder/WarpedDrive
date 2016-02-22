@@ -70,6 +70,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
         Cursor.visible = false;
         HitCrosshair.enabled = false;
         CurrentLock = null;
+        strategyPitchSphere.localRotation = Quaternion.Euler(25, 0, 0);
     }
 
     private void SetCrosshairToMousePosition()
