@@ -38,7 +38,7 @@ public class Webserver : NetworkLocationButton, IActivatable {
 	{
 		if (ActiveSubroutines.MalwareList.Count > 0f)
 		{
-			yield return new WaitForSeconds(UnityEngine.Random.Range(5f, 6f));
+			yield return new WaitForSecondsInterruptTime(UnityEngine.Random.Range(5f, 6f));
 
 			foreach(Transform t in Hangars)
 			{
@@ -46,7 +46,7 @@ public class Webserver : NetworkLocationButton, IActivatable {
 				i.Rotate(Vector3.right, -90f, Space.Self);
 				i.SetParent(t);
 
-				yield return new WaitForSeconds(UnityEngine.Random.Range(.1f, .25f));
+				yield return new WaitForSecondsInterruptTime(UnityEngine.Random.Range(.1f, .25f));
 			}
 
 			StartCoroutine(FireSalvo());

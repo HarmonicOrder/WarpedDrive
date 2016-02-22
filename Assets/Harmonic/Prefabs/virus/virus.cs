@@ -139,7 +139,7 @@ public class virus : VirusAI {
 	
 	private IEnumerator WaitAndStopLaser()
 	{		
-		yield return new WaitForSeconds(this.LaserPersistTime);
+		yield return new WaitForSecondsInterruptTime(this.LaserPersistTime);
 		isFiring = false;
 		
 		if (OrbitScript != null)

@@ -16,7 +16,7 @@ public class TentacleBumper : MonoBehaviour {
     {
         while (this.isActiveAndEnabled)
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(.5f, 2f));
+            yield return new WaitForSecondsInterruptTime(UnityEngine.Random.Range(.5f, 2f));
 
             rigid.AddForce(HarmonicUtils.RandomVector(-1f, 1f), ForceMode.Impulse);
         }

@@ -42,14 +42,16 @@ public class OctopusSpawner : MeshNode
         }
     }
 
+    private ParticleSystem.EmissionModule particlesEmission;
     private IEnumerator ReplenishMalware()
     {
-        InstantiateParticles.emissionRate = 10f;
-        yield return new WaitForSeconds(TimeToReplenishSingleMalware - 1);
-        InstantiateParticles.emissionRate = 40f;
-        yield return new WaitForSeconds(1f);
+        particlesEmission = InstantiateParticles.emission;
+        particlesEmission.rate = new ParticleSystem.MinMaxCurve(10f);
+        yield return new WaitForSecondsInterruptTime(TimeToReplenishSingleMalware - 1);
+        particlesEmission.rate = new ParticleSystem.MinMaxCurve(40f);
+        yield return new WaitForSecondsInterruptTime(1f);
         DoReplenishMalware();
-        InstantiateParticles.emissionRate = 0f;
+        particlesEmission.rate = new ParticleSystem.MinMaxCurve(0f);
 
         //if there are malware to create, recall this coroutine
         if (malwareQueue > 0)

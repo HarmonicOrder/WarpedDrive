@@ -35,7 +35,7 @@ public class Actor : MonoBehaviour {
 	
 	protected IEnumerator SelfDestruct(float timer)
 	{		
-		yield return new WaitForSeconds(timer);
+		yield return new WaitForSecondsInterruptTime(timer);
 		GameObject.Destroy(this.gameObject);
 	}
 }

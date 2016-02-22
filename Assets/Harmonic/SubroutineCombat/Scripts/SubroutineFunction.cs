@@ -30,7 +30,7 @@ public class SubroutineFunction : MonoBehaviour {
 	
 	protected IEnumerator WaitCooldown()
 	{		
-		yield return new WaitForSeconds(this.Parent.Info.FireRate);
+		yield return new WaitForSecondsInterruptTime(this.Parent.Info.FireRate);
 		isFiring = false;
 	}
 

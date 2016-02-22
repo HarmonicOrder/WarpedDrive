@@ -150,7 +150,7 @@ public class stealthVirus : VirusAI, ILurker {
 	
 	private IEnumerator WaitAndStopLaser()
 	{		
-		yield return new WaitForSeconds(this.LaserPersistTime);
+		yield return new WaitForSecondsInterruptTime(this.LaserPersistTime);
 		
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = true;
@@ -178,7 +178,7 @@ public class stealthVirus : VirusAI, ILurker {
     private IEnumerator WaitToUnlurk(float randomWaitSeconds)
     {
         print("stealth is waiting to lurk seconds of " + randomWaitSeconds);
-        yield return new WaitForSeconds(randomWaitSeconds);
+        yield return new WaitForSecondsInterruptTime(randomWaitSeconds);
         print("time to unlurk ");
         Unlurk();
         lurkTimer = null;

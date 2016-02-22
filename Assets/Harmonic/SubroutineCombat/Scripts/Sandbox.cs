@@ -62,7 +62,7 @@ public class Sandbox : SubroutineFunction
 
     private IEnumerator WaitAndStopLaser()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSecondsInterruptTime(5f);
         UnSandbox();
         isFiring = false;
     }

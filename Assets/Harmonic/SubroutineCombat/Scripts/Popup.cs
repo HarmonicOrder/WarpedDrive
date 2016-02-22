@@ -76,7 +76,7 @@ public class Popup : MonoBehaviour {
 
     public IEnumerator SelfDestruct()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSecondsInterruptTime(3f);
         Die();
     }
 

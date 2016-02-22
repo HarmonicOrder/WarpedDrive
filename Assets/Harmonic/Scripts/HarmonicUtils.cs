@@ -174,4 +174,39 @@ public static class HarmonicUtils {
             return _targetLayerMask;
         }
     }
+
+    public static IEnumerator InterruptWaitForSeconds(float seconds)
+    {
+        float waitEndTime = Time.realtimeSinceStartup + seconds;        
+        while (Time.realtimeSinceStartup < waitEndTime) {
+            yield return null;
+        }
+    }
+
+}
+
+public class WaitForSecondsInterruptTime : IEnumerator
+{
+    private float waitDuration;
+    private float currentWait = 0f;
+
+    public object Current{ get { return null; } }
+
+    public WaitForSecondsInterruptTime(float interruptSeconds)
+    {
+        this.waitDuration = interruptSeconds;
+    }
+
+    //basically a keep waiting
+    //return TRUE to keep waiting
+    public bool MoveNext()
+    {
+        currentWait += InterruptTime.deltaTime;
+        return currentWait < waitDuration;
+    }
+
+    public void Reset()
+    {
+        currentWait = 0;
+    }
 }

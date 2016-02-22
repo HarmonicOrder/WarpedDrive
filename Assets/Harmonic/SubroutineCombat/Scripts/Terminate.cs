@@ -73,7 +73,7 @@ public class Terminate : SubroutineFunction {
 	
 	private IEnumerator WaitAndStopLaser()
 	{		
-		yield return new WaitForSeconds(this.LaserPersistTime);
+		yield return new WaitForSecondsInterruptTime(this.LaserPersistTime);
 		this.TerminateLineRenderer.SetVertexCount(0);		
 		this.PulseParticles.Stop();
 		isFiring = false;

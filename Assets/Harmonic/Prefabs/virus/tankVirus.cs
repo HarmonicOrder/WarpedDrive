@@ -149,7 +149,7 @@ public class tankVirus : VirusAI {
 	
 	private IEnumerator WaitAndStopLaser()
 	{		
-		yield return new WaitForSeconds(this.LaserPersistTime);
+		yield return new WaitForSecondsInterruptTime(this.LaserPersistTime);
 		this.LineRenderer.SetVertexCount(0);		
 		this.PulseParticles.Stop();
 		isFiring = false;

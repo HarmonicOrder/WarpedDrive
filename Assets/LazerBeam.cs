@@ -23,7 +23,7 @@ public class LazerBeam : MonoBehaviour {
 	}
 
 	IEnumerator SelfDestruct() {
-		yield return new WaitForSeconds(lifetime);
+		yield return new WaitForSecondsInterruptTime(lifetime);
 		UnityEngine.Object.Destroy(this.gameObject);
 	}
 
