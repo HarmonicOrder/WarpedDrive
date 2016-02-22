@@ -6,7 +6,7 @@ using System.ComponentModel;
 public static class EnumExtensions
 {
 
-    public static bool TryParse<T>(this Enum theEnum, string valueToParse, out T returnValue)
+    public static bool TryParse<T>(Enum theEnum, string valueToParse, out T returnValue)
     {
         returnValue = default(T);
         if (Enum.IsDefined(typeof(T), valueToParse))

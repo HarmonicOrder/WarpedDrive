@@ -41,6 +41,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
     private List<MachineStrategyAnchor> Anchors = new List<MachineStrategyAnchor>();
     private MachineStrategyAnchor CurrentAnchor;
     private bool IsTimeFrozen = false;
+    private bool CameraFollowsMouse = false;
 
     void Awake() {
 		CyberspaceBattlefield.Current = new CyberspaceBattlefield();
@@ -228,7 +229,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 CurrentLock = null;
             }
         }
-
+        
         MachineRaycastUpdate();
 
         MachineSubroutineUpdate();
@@ -283,11 +284,24 @@ public class CyberspaceDroneInput : MonoBehaviour {
         bool LeftClick = CrossPlatformInputManager.GetButtonDown("Fire1");
 
         RaycastHit rayHit;
-        if (Physics.Raycast(PivotTransform.position, PivotTransform.forward, out rayHit, Mathf.Infinity, 1 << LayerMask.NameToLayer("TargetRaycast")))
+        bool casted;
+        if (CameraFollowsMouse)
+        {
+            casted = Physics.Raycast(PivotTransform.position, PivotTransform.forward, out rayHit, Mathf.Infinity, HarmonicUtils.TargetLayerMask);
+        }
+        else
+        {
+            //this bit is tricky
+            //we want the Screen Point in the UI Canvas's camera
+            //then we transform it to a ray using the main camera (because that main camera changes its field of view
+            Ray r = Camera.main.ScreenPointToRay(UICanvas.worldCamera.WorldToScreenPoint(Crosshair.rectTransform.position));
+            //Debug.DrawRay(r.origin, r.direction * 300f, Color.red, 5f);
+            casted = Physics.Raycast(r, out rayHit, Mathf.Infinity, HarmonicUtils.TargetLayerMask);
+        }
+        if (casted)
         {
             if (rayHit.collider != null)
             {
-                //print (rayHit.collider.transform.parent.name);
                 VirusAI v = (VirusAI)rayHit.collider.GetComponentInParent(typeof(VirusAI));
                 if (v)
                 {
@@ -358,11 +372,22 @@ public class CyberspaceDroneInput : MonoBehaviour {
         float x = -CrossPlatformInputManager.GetAxis("Mouse Y") * xSensitivity;
         float y = CrossPlatformInputManager.GetAxis("Mouse X") * ySensitivity;
 
-        currentLookRotation *= Quaternion.Euler(x,
-                                            y,
-                                            0);
-        currentLookRotation = new Quaternion(currentLookRotation.x, currentLookRotation.y, 0, currentLookRotation.w);
-        PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);
+        if (CameraFollowsMouse)
+        {
+            currentLookRotation *= Quaternion.Euler(x,
+                                                y,
+                                                0);
+            currentLookRotation = new Quaternion(currentLookRotation.x, currentLookRotation.y, 0, currentLookRotation.w);
+            PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);
+        }
+        else
+        {
+            x *= 10;
+            y *= 10;
+            Crosshair.rectTransform.anchoredPosition = new Vector2(Crosshair.rectTransform.anchoredPosition.x + y, Crosshair.rectTransform.anchoredPosition.y - x);
+            HitCrosshair.rectTransform.anchoredPosition = Crosshair.rectTransform.anchoredPosition;
+        }
+    
     }
 
     private void CollectibleViewUpdate()

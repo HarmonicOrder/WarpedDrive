@@ -4,14 +4,15 @@ using System;
 using System.Text;
 
 public static class HarmonicUtils {
+    private static int _targetLayerMask = -1;
 
-	/// <summary>
-	/// Creates a new Color with given alpha.
-	/// </summary>
-	/// <returns>The color with alpha set to the alpha param.</returns>
-	/// <param name="c">C.</param>
-	/// <param name="alpha">Alpha.</param>
-	public static Color ColorWithAlpha(Color c, float alpha)
+    /// <summary>
+    /// Creates a new Color with given alpha.
+    /// </summary>
+    /// <returns>The color with alpha set to the alpha param.</returns>
+    /// <param name="c">C.</param>
+    /// <param name="alpha">Alpha.</param>
+    public static Color ColorWithAlpha(Color c, float alpha)
 	{
 		return new Color(
 			c.r,
@@ -158,6 +159,19 @@ public static class HarmonicUtils {
         public Quaternion LerpQ()
         {
             return Quaternion.Lerp(FromQ, ToQ, CurrentTime / Duration);
+        }
+    }
+
+    /// <summary>
+    /// I read somewhere that this was expensive so this is a cached getter
+    /// </summary>
+    public static int TargetLayerMask
+    {
+        get
+        {
+            if (_targetLayerMask < 0)
+                _targetLayerMask = 1 << LayerMask.NameToLayer("TargetRaycast");
+            return _targetLayerMask;
         }
     }
 }

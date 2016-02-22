@@ -29,7 +29,7 @@ public class TerminalManager : MonoBehaviour {
                 {
                     IsNextToTerminal = true;
 
-                    CurrentTerminalType.TryParse<Terminal.TerminalType>(t.name.ToLower(), out CurrentTerminalType);
+                    EnumExtensions.TryParse<Terminal.TerminalType>(CurrentTerminalType, t.name.ToLower(), out CurrentTerminalType);
                     break;
                 }
             }

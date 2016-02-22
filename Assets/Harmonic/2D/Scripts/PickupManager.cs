@@ -41,7 +41,7 @@ public class PickupManager : MonoBehaviour {
                 {
                     PickupTypes type = PickupTypes.oxygen;
                     //only get the first part of the name "oxygen1" becomes "oxygen"
-                    if (type.TryParse<PickupTypes>(new Regex(@"([a-z]*)").Match(t.name.ToLower()).Captures[0].Value, out type))
+                    if (EnumExtensions.TryParse<PickupTypes>(type, new Regex(@"([a-z]*)").Match(t.name.ToLower()).Captures[0].Value, out type))
                     {
                         switch(type)
                         {
