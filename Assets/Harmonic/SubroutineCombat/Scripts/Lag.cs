@@ -57,7 +57,7 @@ public class Lag : SubroutineFunction
 
     private IEnumerator WaitAndStopLaser()
     {
-        yield return new WaitForSeconds(this.LaserPersistTime);
+        yield return new WaitForSecondsInterruptTime(this.LaserPersistTime);
         isFiring = false;
     }
 }

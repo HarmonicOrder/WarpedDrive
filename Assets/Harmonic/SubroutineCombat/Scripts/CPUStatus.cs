@@ -37,7 +37,7 @@ public class CPUStatus : MonoBehaviour {
     
     private void RefreshCPURectangles()
     {
-        print("Refreshing cpus");
+        //print("Refreshing cpus");
         int usedByPlayerCoreNumbers = CyberspaceBattlefield.Current.UsedCores - CyberspaceBattlefield.Current.StolenCores;
         RefreshCPURectangleType(InUses, InUse, usedByPlayerCoreNumbers);
         RefreshCPURectangleType(NotInUses, NotInUse, CyberspaceBattlefield.Current.CurrentCores - CyberspaceBattlefield.Current.UsedCores);

@@ -61,16 +61,25 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         Radio.Instance.SetSoundtrack(Radio.Soundtrack.MethodicalAntivirus);
-        
-		currentLookRotation = PivotTransform.localRotation;
-		Cursor.lockState = CursorLockMode.Confined;
-		Cursor.visible = false;
-		HitCrosshair.enabled = false;
+
+        currentLookRotation = PivotTransform.localRotation;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
+        HitCrosshair.enabled = false;
         CurrentLock = null;
     }
-    
+
+    private void SetCrosshairToMousePosition()
+    {
+        Vector2 pos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(UICanvas.transform as RectTransform, Input.mousePosition, UICanvas.worldCamera, out pos);
+        Crosshair.transform.position = UICanvas.transform.TransformPoint(pos);
+        HitCrosshair.transform.position = Crosshair.transform.position;
+    }
+
     private bool IsZoomedOut;
     public enum ViewState { LockedToMachine, SubnetOverview, CollectibleView,
         Menu
@@ -352,8 +361,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     private void MachineInputMoveUpdate()
     {
-        float horz = CrossPlatformInputManager.GetAxis("Vertical") * ySensitivity;
-        float vert = -CrossPlatformInputManager.GetAxis("Horizontal") * xSensitivity;
+        float vert = CrossPlatformInputManager.GetAxis("Vertical");
+        float horz = -CrossPlatformInputManager.GetAxis("Horizontal");
         if (invertY)
         {
             vert = -vert;
@@ -361,33 +370,26 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
         float dX = 0f, dY = 0f;
         if (vert != 0f)
-            dY = vert * moveSpeed;
+            dY = vert * xSensitivity * moveSpeed;
         if (horz != 0f)
-            dX = horz * moveSpeed;
-
-        SlerpRotate(strategyPitchSphere, dX, 0, 91f);
-
-        SlerpRotate(strategyYawSphere, 0, dY);
-
-        float x = -CrossPlatformInputManager.GetAxis("Mouse Y") * xSensitivity;
-        float y = CrossPlatformInputManager.GetAxis("Mouse X") * ySensitivity;
-
+            dX = horz * ySensitivity * moveSpeed;
+        
         if (CameraFollowsMouse)
         {
-            currentLookRotation *= Quaternion.Euler(x,
-                                                y,
-                                                0);
+            float x = -CrossPlatformInputManager.GetAxis("Mouse Y") * xSensitivity;
+            float y = CrossPlatformInputManager.GetAxis("Mouse X") * ySensitivity;
+            currentLookRotation *= Quaternion.Euler(x, y, 0);
             currentLookRotation = new Quaternion(currentLookRotation.x, currentLookRotation.y, 0, currentLookRotation.w);
             PivotTransform.localRotation = Quaternion.Slerp(PivotTransform.localRotation, currentLookRotation, smoothing * Time.deltaTime);
         }
         else
         {
-            x *= 10;
-            y *= 10;
-            Crosshair.rectTransform.anchoredPosition = new Vector2(Crosshair.rectTransform.anchoredPosition.x + y, Crosshair.rectTransform.anchoredPosition.y - x);
-            HitCrosshair.rectTransform.anchoredPosition = Crosshair.rectTransform.anchoredPosition;
+            SetCrosshairToMousePosition();
         }
-    
+
+        SlerpRotate(strategyPitchSphere, dY, 0, 91f);
+
+        SlerpRotate(strategyYawSphere, 0, dX);
     }
 
     private void CollectibleViewUpdate()
