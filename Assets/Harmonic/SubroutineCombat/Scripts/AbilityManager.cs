@@ -17,6 +17,7 @@ public class AbilityManager : MonoBehaviour {
 
     public void ActivateSuspend()
     {
+        print(CyberspaceDroneInput.CurrentLock);
         if (SuspendCountdown <= 0 && CyberspaceDroneInput.CurrentLock != null && CyberspaceDroneInput.CurrentLock is VirusAI)
         {
             SuspendCountdown = SuspendCooldown;
