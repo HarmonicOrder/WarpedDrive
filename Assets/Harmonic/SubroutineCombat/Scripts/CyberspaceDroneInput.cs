@@ -291,7 +291,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     private void MachineRaycastUpdate()
     {
-        bool LeftClick = CrossPlatformInputManager.GetButtonDown("Fire1");
+        bool LeftClick = Input.GetMouseButtonUp(0); // CrossPlatformInputManager.GetButtonDown("Fire1");
 
         RaycastHit rayHit;
         bool casted;
