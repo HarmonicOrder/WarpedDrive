@@ -17,7 +17,8 @@ public class Machine : Location {
 	public int CPUCores;
 	public bool IsInfected;
     public bool IsAccessible = true;
-	public List<IMalware> ActiveMalware = new List<IMalware>();
+    public bool HasActiveAV { get; set; }
+    public List<IMalware> ActiveMalware = new List<IMalware>();
     public List<IMalware> LurkingMalware = new List<IMalware>();
 
     public delegate void SystemCleanEvent();
@@ -36,7 +37,9 @@ public class Machine : Location {
 	
 	private static List<char> hexAlpha = new List<char>() {'a', 'b', 'c', 'd', 'e', 'f'};
 	private const string hexChars = "0123456789abcdef";
-	private static string GetFourRandomHexcodes()
+
+
+    private static string GetFourRandomHexcodes()
 	{
 		System.Text.StringBuilder result = new System.Text.StringBuilder(4);
 		result.Append("::");

@@ -25,9 +25,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public RectTransform Menu, FileViewer;
 	public Text consoleText;
 	public Transform TracerStartPosition;
-    public Transform SubroutineHarnessPrefab;
+    public Transform SubroutineHarnessPrefab, AVBattleshipPrefab;
     public Canvas UICanvas;
     public Machine CurrentMachine;
+    public Button StartAV;
 
     public Camera ControlCamera { get; private set; }
 
@@ -58,6 +59,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 CurrentAnchor = foundA;
             }
         }
+        RefreshAVButton();
 	}
 
 	// Use this for initialization
@@ -358,6 +360,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
     {
         MachineLerp.Reset(this.transform.position, position);
         CurrentMachine = m;
+        RefreshAVButton();
     }
 
     private void MachineInputMoveUpdate()
@@ -648,5 +651,21 @@ public class CyberspaceDroneInput : MonoBehaviour {
         FileViewerImage.rectTransform.localScale = Vector3.one;
         Cursor.visible = false;
         Time.timeScale = 1;
+    }
+    
+    private bool AVButtonShouldShow()
+    {
+        return (this.CurrentMachine != null) && (this.CurrentMachine.IsInfected) && !this.CurrentMachine.HasActiveAV;
+    }
+    private void RefreshAVButton()
+    {
+        StartAV.gameObject.SetActive(AVButtonShouldShow());
+    }
+
+    public void StartAVOnMachine()
+    {
+        this.CurrentMachine.HasActiveAV = true;
+
+        RefreshAVButton();
     }
 }
