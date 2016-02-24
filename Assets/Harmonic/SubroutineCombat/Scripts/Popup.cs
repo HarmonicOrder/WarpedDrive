@@ -37,9 +37,9 @@ public class Popup : MonoBehaviour {
 
     public void SetSprite(Popups toPopup, bool isSubroutine, bool persist)
     {
-        Color color = GoodColor;
+        Color color = BadColor;
         if (isSubroutine)
-            color = BadColor;
+            color = GoodColor;
 
         switch (toPopup)
         {
@@ -55,6 +55,10 @@ public class Popup : MonoBehaviour {
                 break;
             case Popups.Lag:
                 this.visual.sprite = Lag;
+                if (isSubroutine)
+                    color = BadColor;
+                else
+                    color = GoodColor;
                 break;
         }
         visual.color = color;
