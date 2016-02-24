@@ -32,7 +32,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     public Camera ControlCamera { get; private set; }
 
-    private Vector3 MachineViewPivotLocalPosition = new Vector3(0, -8, -200);
+    private Vector3 MachineViewPivotLocalPosition = new Vector3(0, -8, -240);
     private HarmonicUtils.LerpContext MachineLerp = new HarmonicUtils.LerpContext(.5f);
     private HarmonicUtils.LerpContext ZoomLerp = new HarmonicUtils.LerpContext(.5f);
     private bool isControllingSubroutine = false;

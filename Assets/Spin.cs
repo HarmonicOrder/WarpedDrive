@@ -8,7 +8,7 @@ public class Spin : MonoBehaviour {
 	public float ZOffset = 1f;
 	public float speed = 10f;
 	public Axis RotationAxis = Axis.Y;
-
+    public bool UseInterruptTime = false;
 
 	private Vector3 position;
 	void Start () {
@@ -19,8 +19,17 @@ public class Spin : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//this.transform.RotateAround(position, GetVector(), speed*Time.deltaTime);
-		this.transform.Rotate(GetVector(), speed*Time.deltaTime);
+        float rotationAmount = 0f;
+        if (UseInterruptTime)
+        {
+            rotationAmount = InterruptTime.deltaTime;
+        }
+        else
+        {
+            rotationAmount = Time.deltaTime;
+        }
+
+		this.transform.Rotate(GetVector(), speed*rotationAmount);
 	}
 
 	private Vector3 GetVector(){
