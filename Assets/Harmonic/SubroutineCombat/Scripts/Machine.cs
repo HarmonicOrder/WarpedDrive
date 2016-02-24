@@ -21,6 +21,9 @@ public class Machine : Location {
     public List<IMalware> ActiveMalware = new List<IMalware>();
     public List<IMalware> LurkingMalware = new List<IMalware>();
 
+    internal Transform AVBattleship { get; set; }
+    internal Transform AVBattleshipTracerHangar { get; set; }
+
     public delegate void SystemCleanEvent();
 	public SystemCleanEvent OnMachineClean;
 

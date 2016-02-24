@@ -466,7 +466,11 @@ public class CyberspaceDroneInput : MonoBehaviour {
             return;
         }
 
-        if (ValidateTarget(si))
+        if (!this.CurrentMachine.HasActiveAV)
+        {
+            ToastLog.Toast("No active Antivirus!");
+        }
+        else if (ValidateTarget(si))
         {
             if (CyberspaceBattlefield.Current.ProvisionCores((int)si.CoreCost))
             {
@@ -496,7 +500,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
         //print("creating harness");
         if (si.MovementName == "Tracer")
         {
-            return (Transform)Instantiate(SubroutineHarnessPrefab, TracerStartPosition.position, TracerStartPosition.rotation);
+            return (Transform)Instantiate(SubroutineHarnessPrefab, this.CurrentMachine.AVBattleshipTracerHangar.position, this.CurrentMachine.AVBattleshipTracerHangar.rotation);
         }
         else
         {
@@ -560,16 +564,20 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     private void FireSubroutine(Transform t, SubroutineInfo si)
 	{
-        //print("assigning subroutine harness");
         t.GetComponent<SubroutineHarness>().Assign(si);
-        //print("activating subroutine");
+        
 		Subroutine s = t.GetComponent<Subroutine>();
 
         if (CurrentLock != null)
 		    s.LockedTarget = CurrentLock.transform;
 
 		s.Activate(si);
-	}
+
+        if (si.MovementName == "Station")
+        {
+            t.SetParent(this.CurrentMachine.AVBattleship);
+        }
+    }
 	
 	private void AssignLockTarget(bool leftClick, ILockTarget newTargt)
 	{
@@ -667,6 +675,13 @@ public class CyberspaceDroneInput : MonoBehaviour {
     public void StartAVOnMachine()
     {
         this.CurrentMachine.HasActiveAV = true;
+
+        Transform av = GameObject.Instantiate<Transform>(AVBattleshipPrefab);
+        av.SetParent(this.CurrentAnchor.transform);
+        av.localPosition = Vector3.back * 140f;
+        av.GetComponent<OrbitAround>().OrbitAnchor = this.CurrentAnchor.transform;
+        this.CurrentMachine.AVBattleship = av;
+        this.CurrentMachine.AVBattleshipTracerHangar = av.Find("TracerSpawn");
 
         RefreshAVButton();
     }

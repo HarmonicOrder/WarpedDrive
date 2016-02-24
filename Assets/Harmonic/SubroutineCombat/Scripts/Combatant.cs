@@ -28,7 +28,7 @@ public class Combatant : Actor, ICombatant {
         }
     }
     
-    public virtual void DoAttack(ICombatant target)
+    public virtual bool DoAttack(ICombatant target)
     {
         if (RollDice(this.KillChance))
         {
@@ -42,7 +42,10 @@ public class Combatant : Actor, ICombatant {
                 //it's actually "kill the target, this is who killed the target"
                 target.Kill(this);
             }
+
+            return true;
         }
+        return false;
     }
 
 

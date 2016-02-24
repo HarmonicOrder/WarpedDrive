@@ -5,7 +5,7 @@ public interface ICombatant {
     float KillChance { get;}
     float SaveChance { get;}
     float Reboots { get;}
-    void DoAttack(ICombatant target);
+    bool DoAttack(ICombatant target);
     bool TrySave(ICombatant attacker);
     void Kill(ICombatant attacker);
     void DoOnBlock(ICombatant attacker);
