@@ -9,6 +9,8 @@ public interface ICombatant {
     bool TrySave(ICombatant attacker);
     void Kill(ICombatant attacker);
     void DoOnBlock(ICombatant attacker);
+    Transform transform { get; }
+    GameObject gameObject { get; }
 }
 
 public static class ICombatantExtensions

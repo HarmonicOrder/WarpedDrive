@@ -82,7 +82,7 @@ public class stealthVirus : VirusAI, ILurker {
 		{
 			Subroutine s = this.targetT.GetComponent<Subroutine>();
 			if (s != null){
-				FireAtEnemy(relativePos);
+				FireAtEnemy(relativePos, s);
 			}
 		}
 	}
@@ -129,7 +129,7 @@ public class stealthVirus : VirusAI, ILurker {
 	private float CooldownRemaining = 0f;
 	private float LaserPersistTime = 1f;
 	
-	private void FireAtEnemy(Vector3 relativePos)
+	private void FireAtEnemy(Vector3 relativePos, Subroutine s)
 	{		
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = false;
@@ -137,10 +137,13 @@ public class stealthVirus : VirusAI, ILurker {
 		CooldownRemaining = this.Info.FireRate;
 
 		Transform t = (Transform)GameObject.Instantiate(this.LazerPrefab, this.LazerStart.position, this.LazerStart.rotation);
-        LazerBeam lb = t.GetComponent<LazerBeam>();
+        LazerTorpedo lb = t.GetComponent<LazerTorpedo>();
 
         if (lb != null)
+        {
             lb.origin = this;
+            lb.FireTorpedo(s);
+        }
 
         Physics.IgnoreCollision(this.GetComponent<Collider>(), t.GetComponent<Collider>(), true);
 

@@ -47,7 +47,7 @@ public class Delete : SubroutineFunction {
 					
 					if ( (angle < angleTightness) && canFire)
 					{
-						FireAtEnemy(this.Parent.LockedTarget.position - this.transform.position);
+						FireAtEnemy(this.Parent.LockedTarget.position - this.transform.position, this.Parent.lockedMalware);
 					}
 				}
 			}
@@ -55,7 +55,7 @@ public class Delete : SubroutineFunction {
 	}
 
 	private bool onPrimary = true;
-	private void FireAtEnemy(Vector3 relativePos){
+	private void FireAtEnemy(Vector3 relativePos, IMalware m){
 		isFiring = true;
 		CooldownRemaining = this.Parent.Info.FireRate;
 
@@ -69,9 +69,12 @@ public class Delete : SubroutineFunction {
 
 		Transform t = (Transform)Instantiate(lazerPrefab, laserStart.position, laserStart.rotation);
 
-		LazerBeam b = t.GetComponent<LazerBeam>();
+		LazerTorpedo b = t.GetComponent<LazerTorpedo>();
         if (b != null)
+        {
             b.origin = this.Parent;
+            b.FireTorpedo(m);
+        }
 
 		Physics.IgnoreCollision(this.GetComponent<Collider>(), t.GetComponent<Collider>());
 
