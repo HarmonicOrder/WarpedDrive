@@ -24,7 +24,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
     public RawImage HitCrosshair, Crosshair;
 	public RectTransform Menu, FileViewer;
 	public Text consoleText;
-	public Transform TracerStartPosition;
+	public Transform TracerStartPosition, NoTimeVisual;
     public Transform SubroutineHarnessPrefab, AVBattleshipPrefab;
     public Canvas UICanvas;
     public Machine CurrentMachine;
@@ -73,6 +73,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
         HitCrosshair.enabled = false;
         CurrentLock = null;
         strategyPitchSphere.localRotation = Quaternion.Euler(25, 0, 0);
+        NoTimeVisual.gameObject.SetActive(false);
     }
 
     private void SetCrosshairToMousePosition()
@@ -231,6 +232,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
             {
                 InterruptTime.InterruptScale = 1;
             }
+            NoTimeVisual.gameObject.SetActive(IsTimeFrozen);
         }
 
         if (Input.GetKeyUp(KeyCode.Delete))
