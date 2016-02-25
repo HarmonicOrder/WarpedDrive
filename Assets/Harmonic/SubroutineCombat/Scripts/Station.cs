@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Station : SubroutineMovement {	
-
-
-	public float TimeToInstantiate = 4f;
+public class Station : SubroutineMovement {
+    
+    //this is weakly tied to Subroutine.DelayedActivate
+    public float TimeToInstantiate = 4f;
 	public Transform InstantiatePrefab;
 
 	private bool BeingFired = false; //maybe add public getter
@@ -29,12 +29,12 @@ public class Station : SubroutineMovement {
 	{
 		CurrentInstantiateTime = 0f;
 		CurrentInstantiateCube = (Transform)GameObject.Instantiate(InstantiatePrefab, Parent.LockedTarget.position, Parent.LockedTarget.rotation);
+        CurrentInstantiateCube.SetParent(this.transform.parent);
 
 		//ugly hack
 		CurrentInstantiateCube.GetChild(0).GetComponent<Scaler>().duration = TimeToInstantiate;
 		CurrentInstantiateCube.GetChild(0).GetComponent<Scaler>().scaleUp = true;
-
-		this.transform.SetParent(null);
+        
 		this.transform.position = Parent.LockedTarget.position;
 		this.transform.rotation = Parent.LockedTarget.rotation;
         this.Parent.LockedTarget = null;
@@ -68,4 +68,10 @@ public class Station : SubroutineMovement {
 
 		}
 	}
+
+    void OnDestroy()
+    {
+        if (CurrentInstantiateCube != null)
+            GameObject.Destroy(CurrentInstantiateCube);
+    }
 }

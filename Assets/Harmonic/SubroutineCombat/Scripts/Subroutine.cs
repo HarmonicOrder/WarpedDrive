@@ -13,20 +13,10 @@ public class Subroutine : Combatant {
     public Transform HealthPipPrefab;
     public bool IsInvulnerable { get; set; }
 
-	public SubroutineStatus Status { 
-		set
-		{
-			this.OnSubroutineActive += value.OnSubroutineActive;
-			this.OnSubroutineDead += value.OnSubroutineDead;
-			this.OnSubroutineTakeDamage += value.OnSubroutineTakeDamage;
-		}
-	}
-
-	public delegate void StatusChange();
-	public delegate void DamageReport(float currentHitpoints, float maxHitpoints);
-	public event StatusChange OnSubroutineActive;
-	public event StatusChange OnSubroutineDead;
-	public event DamageReport OnSubroutineTakeDamage;
+    [Obsolete]
+    public delegate void StatusChange();
+    [Obsolete]
+    public delegate void DamageReport(float currentHitpoints, float maxHitpoints);
 
 	private Transform _lockedTarget;
 	public Transform LockedTarget {
@@ -96,18 +86,34 @@ public class Subroutine : Combatant {
             this.Function.Parent = this;
 
             this.StartingPosition = this.transform.parent;
-
-
+            
             SInfo = si;
-
-            this.IsActive = true;
-			ActiveSubroutines.Add(this);
+            
 			this.Movement.Fire();
-			if (this.OnSubroutineActive != null)
-				this.OnSubroutineActive();
+
             if (this.Movement is Tracer)
+            {
                 Raycasting = StartCoroutine(RaycastForward());
+                FinishActivation();
+            }
+            else
+            {
+                StartCoroutine(DelayActivation());
+            }
 		}
+    }
+
+    private IEnumerator DelayActivation()
+    {
+        //this is weakly tied to Station.TimeToInstantiate
+        yield return new WaitForSecondsInterruptTime(4f);
+        FinishActivation();
+    }
+
+    private void FinishActivation()
+    {
+        this.IsActive = true;
+        ActiveSubroutines.Add(this);
     }
 
 	public void Deactivate()
@@ -134,8 +140,6 @@ public class Subroutine : Combatant {
     private void DoOnDeath()
     {
         this.Deactivate();
-        if (this.OnSubroutineDead != null)
-            this.OnSubroutineDead();
 
         CyberspaceBattlefield.Current.ReclaimCores((int)this.SInfo.CoreCost);
 

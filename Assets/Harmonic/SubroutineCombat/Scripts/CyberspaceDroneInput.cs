@@ -565,6 +565,11 @@ public class CyberspaceDroneInput : MonoBehaviour {
     private void FireSubroutine(Transform t, SubroutineInfo si)
 	{
         t.GetComponent<SubroutineHarness>().Assign(si);
+
+        if (si.MovementName == "Station")
+        {
+            t.SetParent(this.CurrentMachine.AVBattleship);
+        }
         
 		Subroutine s = t.GetComponent<Subroutine>();
 
@@ -572,11 +577,6 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		    s.LockedTarget = CurrentLock.transform;
 
 		s.Activate(si);
-
-        if (si.MovementName == "Station")
-        {
-            t.SetParent(this.CurrentMachine.AVBattleship);
-        }
     }
 	
 	private void AssignLockTarget(bool leftClick, ILockTarget newTargt)
