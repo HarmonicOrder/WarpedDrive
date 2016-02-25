@@ -48,7 +48,7 @@ public class LazerTorpedo : MonoBehaviour {
             bool hit = false;
 			if (coll.gameObject != null)
 			{
-				VirusAI v = coll.gameObject.GetComponent<VirusAI>();
+				IMalware v = coll.gameObject.GetComponent<IMalware>();
 				if (v != null)
 				{
                     hit = origin.DoAttack(v);

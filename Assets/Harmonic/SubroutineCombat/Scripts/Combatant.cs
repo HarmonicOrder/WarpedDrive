@@ -27,10 +27,15 @@ public class Combatant : Actor, ICombatant {
             return this.Info.Reboots;
         }
     }
-    
+
+    public bool Defenseless
+    {
+        get { return false; }
+    }
+
     public virtual bool DoAttack(ICombatant target)
     {
-        if (RollDice(this.KillChance))
+        if (target.Defenseless || RollDice(this.KillChance))
         {
             if (target.TrySave(this))
             {

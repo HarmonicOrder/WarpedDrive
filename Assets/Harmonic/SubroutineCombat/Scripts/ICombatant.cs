@@ -2,6 +2,7 @@
 using System.Collections;
 
 public interface ICombatant {
+    bool Defenseless { get; }
     float KillChance { get;}
     float SaveChance { get;}
     float Reboots { get;}

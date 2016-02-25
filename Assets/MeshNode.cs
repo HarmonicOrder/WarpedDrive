@@ -19,6 +19,11 @@ public class MeshNode : MonoBehaviour, IMalware {
 
     public float Reboots { get  { return 0;  } }
 
+    public bool Defenseless
+    {
+        get { return true; }
+    }
+
     public Transform MiniExplosionPrefab;
 
 	// Use this for initialization
