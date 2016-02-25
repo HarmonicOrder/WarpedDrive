@@ -11,7 +11,6 @@ public class Subroutine : Combatant {
 	public Transform FunctionRoot;
     public Transform HealthBar;
     public Transform HealthPipPrefab;
-    public bool IsInvulnerable { get; set; }
 
     [Obsolete]
     public delegate void StatusChange();

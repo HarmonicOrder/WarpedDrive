@@ -64,7 +64,13 @@ public class LazerTorpedo : MonoBehaviour {
             if (hit)
                 killSelf();
             else
+            {
+                Rigidbody r = this.GetComponent<Rigidbody>();
+                r.detectCollisions = false;
+                r.freezeRotation = true;
+                r.velocity = Vector3.zero;
                 this.dudFire = true;
+            }
 		}
 	}
 

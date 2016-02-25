@@ -33,10 +33,10 @@ public class MeshNode : MonoBehaviour, IMalware {
 
 	void OnCollisionEnter(Collision col)
 	{
-		LazerBeam beam = col.collider.GetComponent<LazerBeam>();
-		if (beam != null){
-			Kill(null);
-		}
+		//LazerTorpedo torp = col.collider.GetComponent<LazerTorpedo>();
+		//if (torp != null){
+		//	Kill(null);
+		//}
 	}
 
 	public void RemoveEdges(){
