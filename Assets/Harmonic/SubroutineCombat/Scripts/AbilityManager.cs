@@ -14,22 +14,22 @@ public class AbilityManager : MonoBehaviour {
     {
         HoverText.enabled = false;
         HoverTitle.enabled = false;
-        Abilities.Add("suspend", new AbilityViewModel(Suspend,"suspend",
+        Abilities.Add("suspend", new AbilityViewModel(Suspend, Ability.ByName("suspend"),
 @"
 <color=grey>1.5m refresh</color>
 <color=green>75% Suspend for 5s</color>
 <color=#a00>25% Block 100% for 5s</color>"));
-        Abilities.Add("overclock", new AbilityViewModel(Overclock,"overclock",
+        Abilities.Add("overclock", new AbilityViewModel(Overclock, Ability.ByName("overclock"),
 @"
 <color=grey>3m refresh</color>
 <color=green>65% +1 Core for 1m</color>
 <color=#a00>35% -1 Core for 1m</color>"));
-        Abilities.Add("fork", new AbilityViewModel(Fork,"fork",
+        Abilities.Add("fork", new AbilityViewModel(Fork, Ability.ByName("fork"),
 @"
 <color=grey>2m refresh</color>
 <color=green>75% Clone Subroutine</color>
 <color=#a00>25% Spawn Virus</color>"));
-        Abilities.Add("multithread", new AbilityViewModel(Multithread,"multithread",
+        Abilities.Add("multithread", new AbilityViewModel(Multithread, Ability.ByName("multithread"),
 @"
 <color=grey>1m refresh</color>
 <color=green>66% Rate +50% for 5s</color>
@@ -41,11 +41,11 @@ public class AbilityManager : MonoBehaviour {
         print(CyberspaceDroneInput.CurrentLock);
 
         AbilityViewModel avm = Abilities[name];
-        if (avm.Countdown <= 0 && CyberspaceDroneInput.CurrentLock != null && CyberspaceDroneInput.CurrentLock is VirusAI)
+        if (avm.Countdown <= 0 && avm.Model.CanActivate(CyberspaceDroneInput.CurrentLock))
         {
             avm.Countdown = avm.Cooldown;
             avm.Button.interactable = false;
-            DoSuspend();
+            avm.Model.Activate(CyberspaceDroneInput.CurrentLock);
         }
     }
 
@@ -82,6 +82,7 @@ public class AbilityManager : MonoBehaviour {
                     avm.Countdown = 0;
                     avm.Image.fillAmount = 1f;
                     avm.Button.interactable = true;
+                    avm.Model.OnFinish();
                 }
             }
         }
@@ -89,19 +90,22 @@ public class AbilityManager : MonoBehaviour {
 
     private class AbilityViewModel
     {
-        public float Cooldown = 30f;
+        public float Cooldown;
         public float Countdown = 0f;
         public Image Image;
         public Button Button;
         public string HoverText;
         public string HoverTitle;
+        public Ability Model;
 
-        public AbilityViewModel(Button b, string name, string hoverBody)
+        public AbilityViewModel(Button b, Ability a, string hoverBody)
         {
+            this.Model = a;
+            this.Cooldown = a.Cooldown;
             this.Button = b;
             this.Image = b.GetComponent<Image>();
             this.HoverText = hoverBody;
-            this.HoverTitle = String.Format(@"<color=green>{0}</color>", name.ToUpper());
+            this.HoverTitle = String.Format(@"<color=green>{0}</color>", a.Name.ToUpper());
         }
     }
 
