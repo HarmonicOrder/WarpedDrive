@@ -3,7 +3,9 @@ using System.Collections;
 using System;
 
 public class Combatant : Actor, ICombatant {
-
+    //idea: status effects as list of effect classes
+    //each with their own duration counter
+    //when duration < 0, remove from list and reverse changes
     public float KillChance
     {
         get
