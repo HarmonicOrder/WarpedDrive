@@ -27,7 +27,8 @@ public class ScanDB : NetworkLocationButton, IActivatable
 
     private void OnMachineClean()
     {
-        StartCoroutine(this.Open());
+        if (isActiveAndEnabled)
+            StartCoroutine(this.Open());
     }
 
     // Update is called once per frame

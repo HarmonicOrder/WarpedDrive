@@ -22,8 +22,12 @@ public class BunnyBomb : VirusAI
             SaveChance = 5,
         };
 
-        this.machineCenter = this.transform.root.position;
         this.TimeTilNextProvision = Random.Range(3, 7);
+    }
+
+    public override void DoOnAwake()
+    {
+        this.machineCenter = this.transform.root.position;
     }
 
     public void SetPartner(BunnyBomb part)

@@ -433,6 +433,7 @@ GameObject:
   - 114: {fileID: 11451490}
   - 114: {fileID: 11406576}
   - 114: {fileID: 11459920}
+  - 114: {fileID: 11467770}
   m_Layer: 5
   m_Name: StrategyMode
   m_TagString: Untagged
@@ -1654,7 +1655,6 @@ GameObject:
   - 124: {fileID: 12489102}
   - 81: {fileID: 8184206}
   - 114: {fileID: 11497100}
-  - 114: {fileID: 11402432}
   m_Layer: 0
   m_Name: StrategyCamera
   m_TagString: MainCamera
@@ -2396,32 +2396,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11402432
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 185114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 646b5bc27a658f447b1d929fd5ffbd70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mode: 1
-  showGeneratedNormals: 0
-  offsetScale: 0.2
-  blurRadius: 18
-  edgeThresholdMin: 0.05
-  edgeThreshold: 0.2
-  edgeSharpness: 4
-  dlaaSharp: 0
-  ssaaShader: {fileID: 4800000, guid: b3728d1488b02490cbd196c7941bf1f8, type: 3}
-  dlaaShader: {fileID: 4800000, guid: 017ca72b9e8a749058d13ebd527e98fa, type: 3}
-  nfaaShader: {fileID: 4800000, guid: ce0cb2621f6d84e21a87414e471a3cce, type: 3}
-  shaderFXAAPreset2: {fileID: 4800000, guid: 6f1418cffd12146f2a83be795f6fa5a7, type: 3}
-  shaderFXAAPreset3: {fileID: 4800000, guid: c182fa94a5a0a4c02870641efcd38cd5, type: 3}
-  shaderFXAAII: {fileID: 4800000, guid: cd5b323dcc592457790ff18b528f5e67, type: 3}
-  shaderFXAAIII: {fileID: 4800000, guid: c547503fff0e8482ea5793727057041c, type: 3}
 --- !u!114 &11402444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2562,20 +2536,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: cd7bc8ced6cd06c4ba64f8cbc035df7d, type: 3}
-    m_FontSize: 18
+    m_FontSize: 1
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 90
+    m_BestFit: 1
+    m_MinSize: 1
+    m_MaxSize: 18
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'TOASTER TEXT!!
-
-    GOES HERE!!!!!'
+  m_Text: Toaster Text! Goes here!
 --- !u!114 &11411086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4581,6 +4553,25 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11467770
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee836fb2281800b4097e1bf1ca010451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WabbitPrefab: {fileID: 414714, guid: 95318d29830b5794eb868a71d2524fdc, type: 2}
+  StandardPrefab: {fileID: 494068, guid: 119615961841e12409cd79167ed80e79, type: 2}
+  TankPrefab: {fileID: 418004, guid: 52942d2bc4ffa1d4ab02cefad65f67cf, type: 2}
+  BombPrefab: {fileID: 492026, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
+  AllowWabbit: 1
+  AllowStandard: 1
+  AllowTank: 0
+  AllowBomb: 0
 --- !u!114 &11467822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8000,8 +7991,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -12.5, y: -0}
-  m_SizeDelta: {x: 180, y: 100}
+  m_AnchoredPosition: {x: -11.8, y: -0}
+  m_SizeDelta: {x: 165.2, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22479182
 RectTransform:

@@ -95,6 +95,21 @@ public class VirusAI : Combatant, ILockTarget, IMalware, ISubroutineListener {
             CyberspaceDroneInput.CurrentLock = null;
 	}
 
+    internal static void AfterInstantiateVirus(Transform newVirus, Transform parent)
+    {
+        newVirus.SetParent(parent);
+
+        VirusAI newV = newVirus.GetComponent<VirusAI>();
+        if (newV != null)
+        {
+            newV.DoOnAwake();
+            if (ActiveSubroutines.List.Count > 0)
+            {
+                newV.OnSubroutineActive(null);
+            }
+        }
+    }
+
     public void ForceAggro(Transform t)
     {
         this.targetT = t;

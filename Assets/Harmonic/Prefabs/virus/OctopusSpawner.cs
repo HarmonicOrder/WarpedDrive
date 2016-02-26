@@ -19,7 +19,8 @@ public class OctopusSpawner : MeshNode
     void Start()
     {
         ActiveSubroutines.OnMalwareListChange += OnMalwareListChange;
-        InstantiateParticles.emissionRate = 0;
+        ParticleSystem.EmissionModule emission = InstantiateParticles.emission;
+        emission.rate = new ParticleSystem.MinMaxCurve(0);
     }
 
     void OnDestroy()
@@ -31,7 +32,7 @@ public class OctopusSpawner : MeshNode
 
     private void OnMalwareListChange(IMalware dead)
     {
-        if (CanReplenishMalware && (dead != null) && (dead.gameObject.transform.root.name == this.gameObject.transform.root.name))
+        if (isActiveAndEnabled && CanReplenishMalware && (dead != null) && (dead.gameObject.transform.root.name == this.gameObject.transform.root.name))
         {
             malwareQueue += 1;
             //if there is no active coroutine, start it
@@ -71,18 +72,8 @@ public class OctopusSpawner : MeshNode
     private void DoReplenishMalware()
     {
         Transform t = (Transform)GameObject.Instantiate(InstantiationPrefab, InstantiationPoint.position, InstantiationPoint.rotation);
-        t.SetParent(this.transform.root);
-
-        VirusAI newV = t.GetComponent<VirusAI>();
-        if (newV != null)
-        {
-            newV.DoOnAwake();
-            if (ActiveSubroutines.List.Count > 0)
-            {
-                newV.OnSubroutineActive(null);
-            }
-        }
-
+        VirusAI.AfterInstantiateVirus(t, this.transform.root);
+        
         malwareQueue -= 1;
     }
 }

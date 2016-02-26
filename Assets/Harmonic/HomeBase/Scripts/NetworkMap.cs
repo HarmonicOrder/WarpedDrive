@@ -332,7 +332,7 @@ public static class NetworkMap {
 		Location candidate = null;
 		foreach(Location net in collection)
 		{
-			if ((net as NetworkLocation).sceneIndex == Application.loadedLevel)
+			if ((net as NetworkLocation).sceneIndex == UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex)
 				candidate = net;
 			else if (net.Children != null)
 				candidate = LocByCurrentScene(net.Children);

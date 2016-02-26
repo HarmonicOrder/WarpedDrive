@@ -23,6 +23,7 @@ public class Machine : Location {
 
     internal Transform AVBattleship { get; set; }
     internal Transform AVBattleshipTracerHangar { get; set; }
+    public bool IsBeingReinfected { get; private set; }
 
     public delegate void SystemCleanEvent();
 	public SystemCleanEvent OnMachineClean;
@@ -72,6 +73,7 @@ public class Machine : Location {
 
     internal void StartReinfection()
     {
+        this.IsBeingReinfected = true;
         ToastLog.Toast(this.Name + "\nis being reinfected!");
     }
 }
