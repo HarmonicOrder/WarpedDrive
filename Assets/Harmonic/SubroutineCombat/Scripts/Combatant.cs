@@ -87,7 +87,7 @@ public class Combatant : Actor, ICombatant {
         throw new NotImplementedException();
     }
 
-    private bool RollDice(float chance)
+    public static bool RollDice(float chance)
     {
         return UnityEngine.Random.Range(1, 100f) <= chance;
     }

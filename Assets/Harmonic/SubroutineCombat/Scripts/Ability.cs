@@ -12,28 +12,32 @@ public class Ability {
             Name = "suspend",
             Cooldown = 60,
             GoodChance = 75,
-            BadChance = 25
+            BadChance = 25,
+            Duration = 5
         },
         new Ability()
         {
             Name = "overclock",
             Cooldown = 180,
             GoodChance = 65,
-            BadChance = 35
+            BadChance = 35,
+            Duration = 60
         },
         new Ability()
         {
             Name = "fork",
             Cooldown = 120,
             GoodChance = 75,
-            BadChance = 25
+            BadChance = 25,
+            Duration = 0
         },
         new Ability()
         {
             Name = "multithread",
             Cooldown = 60,
             GoodChance = 66,
-            BadChance = 33
+            BadChance = 33,
+            Duration = 5
         },
     };
 
@@ -57,6 +61,7 @@ public class Ability {
     public float Cooldown { get; set; }
     public float GoodChance { get; set; }
     public float BadChance { get; set; }
+    public float Duration { get; set; }
 
     private GameObject targetG;
     private ICombatant target;
@@ -70,8 +75,15 @@ public class Ability {
         switch (Name)
         {
             case "suspend":
-                originalPosition = this.target.transform.position;
-                this.target.transform.position = Vector3.one * 999f;
+                if (Combatant.RollDice(this.GoodChance))
+                {
+                    originalPosition = this.target.transform.position;
+                    this.target.transform.position = Vector3.one * 999f;
+                }
+                else
+                {
+                    ToastLog.Toast("SUSPEND Failure!\nVirus +100% Block");
+                }
                 break;
             case "overclock":
                 break;
@@ -98,7 +110,7 @@ public class Ability {
         return false;
     }
 
-    public void OnFinish()
+    public void Deactivate()
     {
         if (this.targetG != null && this.target != null)
         {

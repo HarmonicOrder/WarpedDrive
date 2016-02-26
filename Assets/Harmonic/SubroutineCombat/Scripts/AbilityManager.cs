@@ -46,6 +46,7 @@ public class AbilityManager : MonoBehaviour {
             avm.Countdown = avm.Cooldown;
             avm.Button.interactable = false;
             avm.Model.Activate(CyberspaceDroneInput.CurrentLock);
+            avm.CurrentEffect = StartCoroutine(CountdownToEffectEnd(avm));
         }
     }
 
@@ -68,6 +69,12 @@ public class AbilityManager : MonoBehaviour {
         VirusAI v = CyberspaceDroneInput.CurrentLock as VirusAI;
     }
 
+    private IEnumerator CountdownToEffectEnd(AbilityViewModel avm)
+    {
+        yield return new WaitForSecondsInterruptTime(avm.Model.Duration);
+        avm.Model.Deactivate();
+    }
+
     void Update()
     {
         foreach (AbilityViewModel avm in Abilities.Values)
@@ -82,9 +89,17 @@ public class AbilityManager : MonoBehaviour {
                     avm.Countdown = 0;
                     avm.Image.fillAmount = 1f;
                     avm.Button.interactable = true;
-                    avm.Model.OnFinish();
                 }
             }
+        }
+    }
+
+    void OnDestroy()
+    {
+        foreach(AbilityViewModel avm in Abilities.Values)
+        {
+            if (avm.CurrentEffect != null)
+                StopCoroutine(avm.CurrentEffect);
         }
     }
 
@@ -97,6 +112,7 @@ public class AbilityManager : MonoBehaviour {
         public string HoverText;
         public string HoverTitle;
         public Ability Model;
+        public Coroutine CurrentEffect;
 
         public AbilityViewModel(Button b, Ability a, string hoverBody)
         {
