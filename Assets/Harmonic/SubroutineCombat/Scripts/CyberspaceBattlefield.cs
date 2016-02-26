@@ -21,9 +21,11 @@ public class CyberspaceBattlefield {
 		get { return usedCores; }
 	}
 
-    public int StolenCores;
+    public int BurnedCores { get; set; }
+    public int FreeCores { get; set; }
+    public int StolenCores { get; set; }
 
-	public delegate void OnCoreChangeEvent();
+    public delegate void OnCoreChangeEvent();
 	public OnCoreChangeEvent OnCoreChange;
 
 	public NetworkLocation CurrentNetwork {get;set;}

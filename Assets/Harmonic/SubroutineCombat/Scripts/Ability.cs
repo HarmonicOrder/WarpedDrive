@@ -66,6 +66,7 @@ public class Ability {
     private GameObject targetG;
     private ICombatant target;
     private Vector3 originalPosition;
+    private bool WentWell;
 
     public void Activate(ILockTarget target)
     {
@@ -75,7 +76,7 @@ public class Ability {
         switch (Name)
         {
             case "suspend":
-                if (Combatant.RollDice(this.GoodChance))
+                if (RollDice())
                 {
                     originalPosition = this.target.transform.position;
                     this.target.transform.position = Vector3.one * 999f;
@@ -92,6 +93,12 @@ public class Ability {
             case "hyperthread":
                 break;
         }
+    }
+
+    private bool RollDice()
+    {
+        WentWell = Combatant.RollDice(this.GoodChance);
+        return WentWell;
     }
 
     public bool CanActivate(ILockTarget target)
@@ -112,9 +119,27 @@ public class Ability {
 
     public void Deactivate()
     {
-        if (this.targetG != null && this.target != null)
+        switch (Name)
         {
-            this.target.transform.position = originalPosition;
+            case "suspend":
+                if (WentWell)
+                {
+                    if (this.targetG != null && this.target != null)
+                    {
+                        this.target.transform.position = originalPosition;
+                    }
+                }
+                else
+                {
+
+                }
+                break;
+            case "overclock":
+                break;
+            case "fork":
+                break;
+            case "hyperthread":
+                break;
         }
     }
 }
