@@ -24,7 +24,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 710.299988}
+  m_LocalPosition: {x: 0, y: 0, z: 710.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -40,9 +40,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71fd6f46025f7994a81540791ee63d29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoodColor: {r: .200000048, g: 1, b: 0, a: 1}
+  GoodColor: {r: 0.20000005, g: 1, b: 0, a: 1}
   BadColor: {r: 1, g: 0, b: 0, a: 1}
-  FreezeColor: {r: 1, g: 1, b: 1, a: 0}
+  FreezeColor: {r: 1, g: 1, b: 1, a: 1}
   Block: {fileID: 21300000, guid: c84e0fd11cb3ded49918cdd48200d876, type: 3}
   Reboot: {fileID: 21300000, guid: 68a360ec982f99c47a677fe59d863ba6, type: 3}
   Freeze: {fileID: 21300000, guid: 65ee53f2dd9efa04da0d8d2ca67ae169, type: 3}
@@ -68,20 +68,26 @@ SpriteRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c84e0fd11cb3ded49918cdd48200d876, type: 3}
-  m_Color: {r: .200000048, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.20000005, g: 1, b: 0, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: FreezeColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 182692}

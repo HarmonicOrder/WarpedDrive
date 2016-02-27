@@ -149,5 +149,4 @@ public class VirusAI : Combatant, ILockTarget, IMalware, ISubroutineListener {
 
         return v.ToString() + "s";
     }
-
 }

@@ -79,7 +79,7 @@ public class MeshNode : MonoBehaviour, IMalware {
         ActiveSubroutines.RemoveVirus(this);
 	}
 
-    public bool DoAttack(ICombatant target) { return false; }
+    public bool DoAttack(ICombatant target, AttackType type) { return false; }
 
     public bool TrySave(ICombatant attacker)
     {
@@ -102,5 +102,10 @@ public class MeshNode : MonoBehaviour, IMalware {
     public void DoOnBlock(ICombatant attacker)
     {
         //noop
+    }
+
+    public void Freeze(ICombatant attacker)
+    {
+
     }
 }

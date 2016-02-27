@@ -10,7 +10,7 @@ public class Combatant : Actor, ICombatant {
     {
         get
         {
-            return this.Info.HitChance;
+            return this.Info.HitChance + this.StatusEffectHitModifier;
         }
     }
 
@@ -18,7 +18,15 @@ public class Combatant : Actor, ICombatant {
     {
         get
         {
-            return this.Info.SaveChance;
+            return this.Info.SaveChance + this.StatusEffectBlockModifier;
+        }
+    }
+
+    public float FireRate
+    {
+        get
+        {
+            return this.Info.FireRate * this.StatusEffectFireRateModifier;
         }
     }
 
@@ -35,7 +43,8 @@ public class Combatant : Actor, ICombatant {
         get { return false; }
     }
 
-    public virtual bool DoAttack(ICombatant target)
+    public StatusEffect FreezeEffect;
+    public virtual bool DoAttack(ICombatant target, AttackType type = AttackType.Kill)
     {
         if (target.Defenseless || RollDice(this.KillChance))
         {
@@ -45,9 +54,21 @@ public class Combatant : Actor, ICombatant {
             }
             else
             {
-                //this reads backwards
-                //it's actually "kill the target, this is who killed the target"
-                target.Kill(this);
+                switch (type)
+                {
+                    case AttackType.Freeze:
+                        print("freezing combatant");
+                        target.Freeze(this);
+                        if (target is Combatant)
+                            (target as Combatant).AddEffect(this.FreezeEffect.Clone());
+                        break;
+                    default:
+                        //this reads backwards
+                        //it's actually "kill the target, this is who killed the target"
+                        target.Kill(this);
+                        break;
+                }
+
             }
 
             return true;
@@ -92,5 +113,10 @@ public class Combatant : Actor, ICombatant {
     public static bool RollDice(float chance)
     {
         return UnityEngine.Random.Range(1, 100f) <= chance;
+    }
+    
+    public void Freeze(ICombatant attacker)
+    {
+        Popup.Create(this.transform.position + Vector3.up * 4, null, Popup.Popups.Freeze, (this is Subroutine));
     }
 }

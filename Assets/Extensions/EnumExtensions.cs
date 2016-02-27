@@ -18,5 +18,9 @@ public static class EnumExtensions
         return false;
     }
 
+    public static bool Has(Enum theEnum, Enum testEnum)
+    {
+        return ((Convert.ToUInt32(theEnum) & Convert.ToUInt32(testEnum)) == Convert.ToUInt32(testEnum));
+    }
 
 }

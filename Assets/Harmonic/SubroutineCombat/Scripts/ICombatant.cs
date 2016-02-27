@@ -6,13 +6,16 @@ public interface ICombatant {
     float KillChance { get;}
     float SaveChance { get;}
     float Reboots { get;}
-    bool DoAttack(ICombatant target);
+    bool DoAttack(ICombatant target, AttackType type = AttackType.Kill);
     bool TrySave(ICombatant attacker);
     void Kill(ICombatant attacker);
+    void Freeze(ICombatant attacker);
     void DoOnBlock(ICombatant attacker);
     Transform transform { get; }
     GameObject gameObject { get; }
 }
+
+public enum AttackType { Kill, Freeze, Lag, Sandbox }
 
 public static class ICombatantExtensions
 {

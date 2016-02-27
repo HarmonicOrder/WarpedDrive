@@ -45,7 +45,15 @@ public class CyberspaceEnvironment {
             ID = "a4",
             LoadedIntoRAM = true
         });
-        _instance.MaximumRAM +=2;
+        _instance.Subroutines.Add(new SubroutineInfo()
+        {
+            FunctionName = "Freeze",
+            Hotkey = 5,
+            MovementName = "Station",
+            ID = "a5",
+            LoadedIntoRAM = true
+        });
+        _instance.MaximumRAM +=4;
     }
 
     public static CyberspaceEnvironment GetDefault()

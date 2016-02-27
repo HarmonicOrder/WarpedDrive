@@ -18,7 +18,16 @@ public class Freeze : SubroutineFunction
         this.BurstParticles = this.transform.Find("FunctionRoot/Freeze/BurstParticles").GetComponent<ParticleSystem>();
         TerminateLineRenderer.SetVertexCount(0);
         this.Parent.Info.FireRate = 5f;
+        this.Parent.Info.HitChance += 50f;
         this.Parent.Info.CoreCost += 2;
+
+        this.Parent.FreezeEffect = new Actor.StatusEffect()
+        {
+            BlockModifier = -100,
+            Duration = 2,
+            FireRateModifier = 0,
+            Type = Actor.StatusType.Frozen           
+        };
     }
 
     // Update is called once per frame
@@ -58,7 +67,7 @@ public class Freeze : SubroutineFunction
         isFiring = true;
         CooldownRemaining = this.Parent.Info.FireRate;
         
-        this.Parent.DoAttack(this.Parent.lockedMalware);
+        this.Parent.DoAttack(this.Parent.lockedMalware, AttackType.Freeze);
 
         this.TerminateLineRenderer.SetVertexCount(2);
         this.TerminateLineRenderer.SetPosition(0, Vector3.zero);

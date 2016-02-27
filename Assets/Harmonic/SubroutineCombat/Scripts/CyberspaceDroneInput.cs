@@ -290,6 +290,16 @@ public class CyberspaceDroneInput : MonoBehaviour {
             {
                 PossiblyCreateSubroutine(GetSubroutineInfo(3));
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                PossiblyCreateSubroutine(GetSubroutineInfo(4));
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                PossiblyCreateSubroutine(GetSubroutineInfo(5));
+            }
         }
     }
 
