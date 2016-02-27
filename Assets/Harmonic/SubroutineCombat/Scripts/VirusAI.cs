@@ -86,7 +86,7 @@ public class VirusAI : Combatant, ILockTarget, IMalware, ISubroutineListener {
 	}
     
 	protected override void _OnDestroy(){
-        //print("removing virusAI from virus list");
+        print("removing virusAI from virus list");
 		ActiveSubroutines.RemoveVirus(this);
 
 #pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast

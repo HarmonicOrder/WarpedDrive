@@ -689,7 +689,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
         Transform av = GameObject.Instantiate<Transform>(AVBattleshipPrefab);
         av.SetParent(this.CurrentAnchor.transform);
-        av.localPosition = Vector3.back * 140f;
+        av.localPosition = Vector3.forward * 140f;
         av.GetComponent<OrbitAround>().OrbitAnchor = this.CurrentAnchor.transform;
         this.CurrentMachine.AVBattleship = av;
         this.CurrentMachine.AVBattleshipTracerHangar = av.Find("TracerSpawn");
