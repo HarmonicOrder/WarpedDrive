@@ -24,6 +24,7 @@ public class Machine : Location {
     internal Transform AVBattleship { get; set; }
     internal Transform AVBattleshipTracerHangar { get; set; }
     public bool IsBeingReinfected { get; private set; }
+    internal Transform AVCastle { get; set; }
 
     public delegate void SystemCleanEvent();
 	public SystemCleanEvent OnMachineClean;
@@ -70,6 +71,33 @@ public class Machine : Location {
 		}
 		return result.ToString();
 	}
+
+    public void DoOnMachineClean()
+    {
+        if (this.AVBattleship)
+        {
+            GameObject.Destroy(this.AVBattleship.gameObject);
+            this.AVBattleshipTracerHangar = null;
+        }
+
+        if (this.AVCastle != null)
+        {
+            this.AVCastle.gameObject.SetActive(true);
+        }
+
+        if (OnMachineClean != null)
+        {
+            OnMachineClean();
+        }
+    }
+
+    public void DoOnMachineReinfectionComplete()
+    {
+        if (this.AVCastle != null)
+        {
+            this.AVCastle.gameObject.SetActive(false);
+        }
+    }
 
     internal void StartReinfection()
     {

@@ -566,7 +566,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	{
         t.GetComponent<SubroutineHarness>().Assign(si);
 
-        if (si.MovementName == "Station")
+        //only parent if infected, not if being put on castle
+        if (CurrentMachine.IsInfected && (si.MovementName == "Station"))
         {
             t.SetParent(this.CurrentMachine.AVBattleship);
         }
