@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Lag : SubroutineFunction
 {
-
     public float LookAtSpeed = 2f;
     public float LaserPersistTime = .5f;
+    public Transform LagBombVisualization;
 
     // Use this for initialization
     void Start()

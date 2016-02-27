@@ -57,7 +57,6 @@ public class Combatant : Actor, ICombatant {
                 switch (type)
                 {
                     case AttackType.Freeze:
-                        print("freezing combatant");
                         target.Freeze(this);
                         if (target is Combatant)
                             (target as Combatant).AddEffect(this.FreezeEffect.Clone());
