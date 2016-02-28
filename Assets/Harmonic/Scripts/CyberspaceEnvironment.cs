@@ -53,6 +53,14 @@ public class CyberspaceEnvironment {
             ID = "a5",
             LoadedIntoRAM = true
         });
+        _instance.Subroutines.Add(new SubroutineInfo()
+        {
+            FunctionName = "Lag",
+            Hotkey = 6,
+            MovementName = "Station",
+            ID = "a6",
+            LoadedIntoRAM = true
+        });
         _instance.MaximumRAM +=4;
     }
 

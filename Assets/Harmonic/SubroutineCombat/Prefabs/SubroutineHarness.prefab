@@ -116,7 +116,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 198874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -566.477112, y: 60.6676331, z: -115.773956}
+  m_LocalPosition: {x: -512.9202, y: 47.575912, z: -22.389904}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 402874}
@@ -144,7 +144,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 152342}
-  m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106709}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_Children: []
@@ -195,7 +195,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
@@ -216,7 +216,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -235,6 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InstantiatePrefab: {fileID: 415594, guid: fe5222c2c90a8074ea4a73a35244a2e7, type: 2}
   VirusSandboxPrefab: {fileID: 416010, guid: 164a5afe125aa074eb09a05acec5c42c, type: 2}
+  LagBombPrefab: {fileID: 417742, guid: 52c0c2da6765ab74fa40c4c97335b3be, type: 2}
   LazerPrefab: {fileID: 444036, guid: e1b4d94b35ddb5a468173c311fe041e0, type: 2}
   Delete: {fileID: 415254, guid: 043b760bae855e343b85618b57d86f55, type: 2}
   Terminate: {fileID: 474862, guid: c5475a427dafa9742ba6a8b323e5c74d, type: 2}
@@ -248,6 +249,7 @@ MonoBehaviour:
   FunctionRoot: {fileID: 402874}
   MovementRoot: {fileID: 446684}
   LockedOnRenderer: {fileID: 2368056}
+  BoundSubroutine: {fileID: 0}
 --- !u!114 &11445918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -259,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce9370aa086975a4e9c2aa631ca8e079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActiveStatuses: 0
   ExplosionPrefab: {fileID: 454268, guid: b14969d001dc5364f9b49a5d478cd99b, type: 2}
   FunctionRoot: {fileID: 402874}
   HealthBar: {fileID: 480128}

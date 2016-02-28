@@ -156,9 +156,19 @@ public static class HarmonicUtils {
             return Mathfx.Hermite(From, To, CurrentTime / Duration);
         }
 
+        public Vector3 Lerp()
+        {
+            return Vector3.Lerp(From, To, CurrentTime / Duration);
+        }
+
         public Quaternion LerpQ()
         {
             return Quaternion.Lerp(FromQ, ToQ, CurrentTime / Duration);
+        }
+
+        internal bool IsPastDuration()
+        {
+            return CurrentTime > Duration;
         }
     }
 

@@ -140,7 +140,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
         if (MachineLerp.IsLerping)
         {
-            if (MachineLerp.CurrentTime > MachineLerp.Duration)
+            if (MachineLerp.IsPastDuration())
             {
                 this.transform.position = MachineLerp.Finalize();
             }

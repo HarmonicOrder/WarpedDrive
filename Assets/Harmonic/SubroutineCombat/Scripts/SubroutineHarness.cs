@@ -5,8 +5,7 @@ using System;
 [RequireComponent(typeof(Subroutine))]
 public class SubroutineHarness : MonoBehaviour, ILockTarget
 {
-    public Transform InstantiatePrefab, VirusSandboxPrefab;
-    public Transform LazerPrefab;
+    public Transform InstantiatePrefab, VirusSandboxPrefab, LagBombPrefab, LazerPrefab;
 
     public Transform Delete, Terminate, Corrupt, Honeypot, Freeze, Sandbox, Lag;
     public Transform Tracer, Station;
@@ -117,6 +116,7 @@ public class SubroutineHarness : MonoBehaviour, ILockTarget
             case "Lag":
                 t = InstantiateSubcomponent(Lag, this.FunctionRoot, functionName);
                 this.FunctionScript = this.gameObject.AddComponent<Lag>();
+                (this.FunctionScript as Lag).LagBombVisualization = LagBombPrefab;
                 break;
         }
     }

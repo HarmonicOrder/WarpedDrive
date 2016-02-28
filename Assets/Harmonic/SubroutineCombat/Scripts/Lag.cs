@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Lag : SubroutineFunction
 {
     public float LookAtSpeed = 2f;
     public float LaserPersistTime = .5f;
     public Transform LagBombVisualization;
+
+    private HarmonicUtils.LerpContext BombLerp;
+    private GameObject CurrentLagBomb;
+
 
     // Use this for initialization
     void Start()
@@ -29,7 +34,7 @@ public class Lag : SubroutineFunction
                 CooldownRemaining -= InterruptTime.deltaTime;
             }
 
-            if (TrackEnemy && !isFiring)
+            if (TrackEnemy)
             {
                 if (this.Parent.LockedTarget != null)
                 {
@@ -39,25 +44,34 @@ public class Lag : SubroutineFunction
 
                     if ((angle < 5f) && canFire)
                     {
-                        FireAtEnemy(this.Parent.LockedTarget.position - this.transform.position);
+                        FireAtEnemy(this.Parent.LockedTarget.position);
                     }
                 }
             }
         }
     }
-
-    private void FireAtEnemy(Vector3 relativePos)
+    
+    private void FireAtEnemy(Vector3 targetPos)
     {
-        isFiring = true;
         CooldownRemaining = this.Parent.Info.FireRate;
-#warning todo: lag attack
-        StartCoroutine(this.WaitAndStopLaser());
+
+        CurrentLagBomb = GetLagBomb(targetPos);
+        CurrentLagBomb.GetComponent<LagBomb>().Fire(targetPos, 2f, 10);
     }
 
-
-    private IEnumerator WaitAndStopLaser()
+    private GameObject GetLagBomb(Vector3 targetPos)
     {
-        yield return new WaitForSecondsInterruptTime(this.LaserPersistTime);
-        isFiring = false;
+        GameObject result = null;
+        if (this.CurrentLagBomb == null)
+        {
+            this.CurrentLagBomb = GameObject.Instantiate<Transform>(LagBombVisualization).gameObject;
+        }
+        result = this.CurrentLagBomb;
+        result.SetActive(true);
+        result.transform.position = this.transform.position;
+        result.transform.rotation = Quaternion.LookRotation(targetPos - this.transform.position);
+
+        return result;
     }
+    
 }
