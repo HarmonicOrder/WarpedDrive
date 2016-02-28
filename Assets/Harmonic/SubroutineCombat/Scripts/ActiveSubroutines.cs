@@ -89,28 +89,39 @@ public static class ActiveSubroutines {
 
                 if (CyberspaceBattlefield.Current.Abdicate)
                 {
-                    return;
+                    //noop
                 }
-
-                if (m.LurkingMalware.Count > 0)
+                else
                 {
-                    foreach(ILurker l in m.LurkingMalware)
+                    if (m.LurkingMalware.Count > 0)
                     {
-                        l.OnMachineClean();
+                        foreach(ILurker l in m.LurkingMalware)
+                        {
+                            l.OnMachineClean();
+                        }
                     }
+
+				    m.IsInfected = false;
+				    CyberspaceBattlefield.Current.AddCores(m.CPUCores);
+
+                    m.DoOnMachineClean();
                 }
-
-				m.IsInfected = false;
-				CyberspaceBattlefield.Current.AddCores(m.CPUCores);
-
-                m.DoOnMachineClean();
 			}
 		}
+        else
+        {
+            Debug.LogWarning("cant find machine to remove virus from activemalware list");
+        }
 
-		MalwareList.Remove(oldVirus);
+        if (!MalwareList.Remove(oldVirus))
+            Debug.LogWarning("Could not remove virus!");
+
 		if (OnMalwareListChange != null)
 			OnMalwareListChange(oldVirus);
-	}
+
+        //UnityEngine.Debug.Log("still: " + (MalwareList.Count) + " malware");
+        //MalwareList.ForEach(a => UnityEngine.Debug.Log("still here: "+a.transform.name));
+    }
 
 	
 	

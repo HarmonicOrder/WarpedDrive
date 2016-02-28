@@ -38,10 +38,6 @@ public class MeshNode : MonoBehaviour, IMalware {
 
 	void OnCollisionEnter(Collision col)
 	{
-		//LazerTorpedo torp = col.collider.GetComponent<LazerTorpedo>();
-		//if (torp != null){
-		//	Kill(null);
-		//}
 	}
 
 	public void RemoveEdges(){
@@ -75,7 +71,7 @@ public class MeshNode : MonoBehaviour, IMalware {
 	
 	void OnDestroy()
     {
-        //print("removing meshnode from virus list");
+        print("removing meshnode from virus list");
         ActiveSubroutines.RemoveVirus(this);
 	}
 

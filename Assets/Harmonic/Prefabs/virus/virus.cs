@@ -148,10 +148,4 @@ public class virus : VirusAI {
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = true;
 	}
-
-    protected override void _OnDestroy()
-    {
-        print("removing virus from virus list");
-        base._OnDestroy();
-    }
 }

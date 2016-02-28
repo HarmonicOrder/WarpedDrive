@@ -219,6 +219,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
             ZoomLerp.Reset(PivotTransform.localRotation, Quaternion.Euler(45, 0, 0));
             return;
         }
+        if (Input.GetKeyUp(KeyCode.Tab) && this.CurrentAnchor != null && this.CurrentAnchor.myMachine.AVBattleship != null)
+        {
+            ZoomLerp.Reset(this.transform.position, this.CurrentAnchor.myMachine.AVBattleship.position);
+        }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
@@ -551,6 +555,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public void BackToNetwork()
 	{
         CyberspaceBattlefield.Current.Abdicate = true;
+        print("abdicating");
 		var pixelater = new PixelateTransition()
 		{
 			finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,

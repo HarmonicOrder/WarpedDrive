@@ -81,13 +81,17 @@ public class VirusAI : Combatant, ILockTarget, IMalware, ISubroutineListener {
     }
 
     protected virtual void OnVirusDead()
-	{
-		ActiveSubroutines.RemoveVirus(this);
+    {
+        print("removing virusAI from virus list in onvirusdead");
+        ActiveSubroutines.RemoveVirus(this);
 	}
     
 	protected override void _OnDestroy(){
-        print("removing virusAI from virus list");
+        print("removing virusAI from virus list in ondestroy");
 		ActiveSubroutines.RemoveVirus(this);
+
+        if (ActiveSubroutines.MalwareList.Contains(this))
+            print("!!!!! still in list!");
 
 #pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
         if (CyberspaceDroneInput.CurrentLock == this)
