@@ -105,6 +105,6 @@ public class Machine : Location {
     internal void StartReinfection()
     {
         this.IsBeingReinfected = true;
-        ToastLog.Toast(this.Name + "\nis being reinfected!");
+        ToastLog.Toast(this.SubnetAddress + "\nis being reinfected!");
     }
 }
