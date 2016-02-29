@@ -210,6 +210,11 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
             ZoomLerp.Reset(PivotTransform.localPosition, new Vector3(0, 300, -300));
             ZoomLerp.Reset(PivotTransform.localRotation, Quaternion.Euler(45, 0, 0));
+
+            if (CurrentFocus != CurrentAnchor.transform)
+            {
+                MachineLerp.Reset(this.transform.position, this.CurrentAnchor.transform.position);
+            }
             return;
         }
         if (Input.GetKeyUp(KeyCode.Tab))
