@@ -90,23 +90,19 @@ public class Subroutine : Combatant {
             
 			this.Movement.Fire();
 
-            if (this.Movement is Tracer)
-            {
-                Raycasting = StartCoroutine(RaycastForward());
-                FinishActivation();
-            }
-            else
-            {
-                StartCoroutine(DelayActivation());
-            }
+            StartCoroutine(DelayActivation());
 		}
     }
 
     private IEnumerator DelayActivation()
     {
-        //this is weakly tied to Station.TimeToInstantiate
-        yield return new WaitForSecondsInterruptTime(4f);
+        yield return new WaitForSecondsInterruptTime(SubroutineMovement.TimeToInstantiate);
         FinishActivation();
+
+        if (this.Movement is Tracer)
+        {
+            Raycasting = StartCoroutine(RaycastForward());
+        }
     }
 
     private void FinishActivation()
@@ -167,8 +163,6 @@ public class Subroutine : Combatant {
             {
                 if (rayHit.collider != null)
                 {
-                    //always prints false, which is good
-                    //print(rayHit.collider.gameObject == this.gameObject);
                     if (rayHit.collider.GetComponent<Tracer>() != null)
                     {
                         if (this.Movement is Tracer)

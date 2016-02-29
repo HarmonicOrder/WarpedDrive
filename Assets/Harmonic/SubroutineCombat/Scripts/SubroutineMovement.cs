@@ -4,10 +4,15 @@ using System.Collections.Generic;
 
 public class SubroutineMovement : MonoBehaviour {
 
-	public Subroutine Parent {get;set;}
+    public static float TimeToInstantiate = 2f;
 
-	// Use this for initialization
-	void Start () {
+    public Subroutine Parent {get;set;}
+
+    protected float CurrentInstantiateTime = 0f;
+    protected bool BeingFired { get; set; }
+
+    // Use this for initialization
+    void Start () {
 	
 	}
 	

@@ -60,12 +60,25 @@ public class Tracer : SubroutineMovement {
     {
         CurrentFireTime = 0f;
         this.transform.SetParent(null);
-        this.Parent.Function.TrackEnemy = true;
+        BeingFired = true;
     }
 
     // Update is called once per frame
     void Update () {
-		if(Parent.IsActive)
+        if (BeingFired)
+        {
+            if (CurrentInstantiateTime > TimeToInstantiate)
+            {
+                BeingFired = false;
+
+                this.Parent.Function.TrackEnemy = true;
+            }
+            CurrentInstantiateTime += InterruptTime.deltaTime;
+            float t = CurrentInstantiateTime / TimeToInstantiate;
+            this.transform.Translate(0, 0, Mathf.Lerp(0, moveSpeed, t) * 3 * InterruptTime.deltaTime, Space.Self);
+            
+        }
+        else if (Parent.IsActive)
 		{
 			float moveSpeed = this.moveSpeed;
 
@@ -81,7 +94,10 @@ public class Tracer : SubroutineMovement {
                 Quaternion look = Quaternion.LookRotation(relativePos);
 
                 if (MoveToClearFiringLine)
+                {
+                    print("moving to clear firing line");
                     look *= ClearFiringLineRotation;
+                }
 
 				this.transform.rotation = Quaternion.Slerp(this.transform.rotation, look, InterruptTime.deltaTime * lookAtSpeed);
 				
@@ -108,14 +124,6 @@ public class Tracer : SubroutineMovement {
 					this.transform.Translate(0, 0, InterruptTime.deltaTime * moveSpeed, Space.Self);
 				}
 			}
-            //else
-            //{
-            //    IMalware closest = ActiveSubroutines.FindClosestMalware(this.transform.position, 100f);
-            //    if (closest != null)
-            //    {
-            //        Parent.LockedTarget = closest.transform;
-            //    }
-            //}
 		}
 	}
 }

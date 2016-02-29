@@ -4568,7 +4568,7 @@ MonoBehaviour:
   StandardPrefab: {fileID: 494068, guid: 119615961841e12409cd79167ed80e79, type: 2}
   TankPrefab: {fileID: 418004, guid: 52942d2bc4ffa1d4ab02cefad65f67cf, type: 2}
   BombPrefab: {fileID: 492026, guid: 88e6c10ec3bd9584f910d502c7df5e7d, type: 2}
-  AllowWabbit: 1
+  AllowWabbit: 0
   AllowStandard: 1
   AllowTank: 0
   AllowBomb: 0
@@ -4952,6 +4952,8 @@ MonoBehaviour:
   m_Text: '[WASD] Pan/Pivot
 
     [Z] Zoom
+
+    [Tab] Cycle Focus
 
     [Space] Interrupt'
 --- !u!114 &11476744
@@ -7627,8 +7629,8 @@ RectTransform:
   m_RootOrder: 12
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 84, y: 26}
-  m_SizeDelta: {x: 160, y: 47.76}
+  m_AnchoredPosition: {x: 87.9, y: 35}
+  m_SizeDelta: {x: 170, y: 70.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22457270
 RectTransform:

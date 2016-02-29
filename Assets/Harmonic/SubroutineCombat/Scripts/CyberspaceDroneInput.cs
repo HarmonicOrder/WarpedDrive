@@ -277,7 +277,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
             CheckControlCamera(KeyCode.Alpha2, 2);
             CheckControlCamera(KeyCode.Alpha3, 3);
         }
-        else if (CurrentLock != null)
+        else 
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -505,11 +505,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     private bool ValidateTarget(SubroutineInfo si)
     {
-        if (si.MovementName == "Tracer")
+        if (si.MovementName == "Station")
         {
-            return (CurrentLock is VirusAI);
+            return (CurrentLock is Hardpoint);
         }
-
         return true;
     }
 

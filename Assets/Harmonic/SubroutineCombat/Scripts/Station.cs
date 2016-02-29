@@ -4,12 +4,8 @@ using System.Collections.Generic;
 
 public class Station : SubroutineMovement {
     
-    //this is weakly tied to Subroutine.DelayedActivate
-    public float TimeToInstantiate = 4f;
 	public Transform InstantiatePrefab;
 
-	private bool BeingFired = false; //maybe add public getter
-	private float CurrentInstantiateTime = 0f;
 
 	//private List<Transform> targetsInView = new List<Transform>();
 	private float originalAlpha;
@@ -61,10 +57,10 @@ public class Station : SubroutineMovement {
 			CurrentInstantiateTime += InterruptTime.deltaTime;
 		}
 		
-		if (!BeingFired && Parent.IsActive && (Parent.LockedTarget != null))
-		{
-
-		}
+		//if (!BeingFired && Parent.IsActive && (Parent.LockedTarget != null))
+		//{
+  //          //noop
+		//}
 	}
 
     void OnDestroy()
