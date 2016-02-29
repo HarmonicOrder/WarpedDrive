@@ -161,13 +161,10 @@ public class tankVirus : VirusAI {
 	public override void DoOnReboot()
 	{
 		Transform killedArmorPlate;
-		for (int i = 0; i < ArmorPlates.Count; i++) {
-			if (ArmorPlates.Count > 0)
-			{
-				killedArmorPlate = ArmorPlates[ArmorPlates.Count-1];
-				ArmorPlates.Remove(killedArmorPlate);
-				GameObject.Destroy(killedArmorPlate.gameObject);
-			}
+		for (int i = ArmorPlates.Count - 1; i >= 0;  i--) {
+			killedArmorPlate = ArmorPlates[i];
+			ArmorPlates.Remove(killedArmorPlate);
+			GameObject.Destroy(killedArmorPlate.gameObject);
 		}
     }
 

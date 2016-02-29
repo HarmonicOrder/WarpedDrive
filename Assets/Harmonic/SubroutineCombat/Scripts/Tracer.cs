@@ -3,7 +3,8 @@ using System.Collections;
 using System;
 
 public class Tracer : SubroutineMovement {
-	
+	public static int firingLineID = 0;
+
 	public float lookAtSpeed = 2f;
     //public float engagementDistance = 200f;
     public float avoidDistance = 100f;
@@ -27,7 +28,8 @@ public class Tracer : SubroutineMovement {
 
     private void CalculateFiringLineRotation()
     {
-        switch(UnityEngine.Random.Range(0, 8))
+        //monotonically increasing, maybe better than random.range(0,8)
+        switch(firingLineID++ % 8)
         {
             case 0:
                 ClearFiringLineRotation = Quaternion.Euler(0, -Divergence, 0);
@@ -95,7 +97,6 @@ public class Tracer : SubroutineMovement {
 
                 if (MoveToClearFiringLine)
                 {
-                    print("moving to clear firing line");
                     look *= ClearFiringLineRotation;
                 }
 

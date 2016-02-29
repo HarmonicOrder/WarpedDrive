@@ -69,13 +69,14 @@ public class Subroutine : Combatant {
 	protected override void OnStart(){
 	}
 
-	public void Activate(SubroutineInfo si)
+	public void Activate(SubroutineInfo si, Machine m)
     {
-        if (this._lockedTarget != null)
+        if (m != null)
         {
-            this.DeployedMachine = CyberspaceBattlefield.Current.FindByName(this._lockedTarget.root.name);
+            this.DeployedMachine = m;
             this.DeployedMachine.OnMachineClean += OnMachineClean;
         }
+
         if (!this.IsActive)
         {
             this.Movement = this.GetComponent<SubroutineMovement>();

@@ -595,7 +595,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
         if (CurrentLock != null)
 		    s.LockedTarget = CurrentLock.transform;
 
-		s.Activate(si);
+		s.Activate(si, CurrentMachine);
     }
 	
 	private void AssignLockTarget(bool leftClick, ILockTarget newTargt)
