@@ -170,6 +170,22 @@ public static class HarmonicUtils {
         {
             return CurrentTime > Duration;
         }
+
+        public void HermiteIterateOrFinalize(Transform t, float timeIncrement)
+        {
+            if (IsLerping)
+            {
+                if (IsPastDuration())
+                {
+                    t.position = Finalize();
+                }
+                else
+                {
+                    t.position = Hermite();
+                    CurrentTime += timeIncrement;
+                }
+            }
+        }
     }
 
     /// <summary>

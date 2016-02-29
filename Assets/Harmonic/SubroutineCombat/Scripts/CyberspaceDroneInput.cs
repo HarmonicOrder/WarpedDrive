@@ -40,6 +40,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	private bool showingMainMenu;
     private bool IsCinematic { get; set; }
     private List<MachineStrategyAnchor> Anchors = new List<MachineStrategyAnchor>();
+    private Transform CurrentFocus;
     private MachineStrategyAnchor CurrentAnchor;
     private bool IsTimeFrozen = false;
     private bool CameraFollowsMouse = false;
@@ -57,6 +58,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
             if (m.Name.ToLower() == "gatewaymachine")
             {
                 CurrentAnchor = foundA;
+                CurrentFocus = foundA.transform;
             }
         }
         RefreshAVButton();
@@ -138,18 +140,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
             ToggleCinematic();
         }
 
-        if (MachineLerp.IsLerping)
-        {
-            if (MachineLerp.IsPastDuration())
-            {
-                this.transform.position = MachineLerp.Finalize();
-            }
-            else
-            {
-                this.transform.position = MachineLerp.Hermite();
-                MachineLerp.CurrentTime += Time.deltaTime;
-            }
-        }
+        MachineLerp.HermiteIterateOrFinalize(this.transform, Time.deltaTime);
 
         if (ZoomLerp.IsLerping)
         {
@@ -204,6 +195,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
         {
             SetNewMachine(a.myMachine, a.transform.position);
             CurrentAnchor = a;
+            CurrentFocus = a.transform;
         }
     }
 
@@ -212,16 +204,28 @@ public class CyberspaceDroneInput : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Z))
         {
             State = ViewState.SubnetOverview;
-            
+
+            this.transform.SetParent(null);
             PivotTransform.SetParent(this.transform);
 
             ZoomLerp.Reset(PivotTransform.localPosition, new Vector3(0, 300, -300));
             ZoomLerp.Reset(PivotTransform.localRotation, Quaternion.Euler(45, 0, 0));
             return;
         }
-        if (Input.GetKeyUp(KeyCode.Tab) && this.CurrentAnchor != null && this.CurrentAnchor.myMachine.AVBattleship != null)
+        if (Input.GetKeyUp(KeyCode.Tab))
         {
-            ZoomLerp.Reset(this.transform.position, this.CurrentAnchor.myMachine.AVBattleship.position);
+            if (CurrentFocus == CurrentAnchor.transform && this.CurrentAnchor.myMachine.AVBattleship != null)
+            {
+                CurrentFocus = this.CurrentAnchor.myMachine.AVBattleship;
+                this.transform.SetParent(CurrentFocus);
+                MachineLerp.Reset(this.transform.position, this.CurrentAnchor.myMachine.AVBattleship.position);
+            }
+            else
+            {
+                this.transform.SetParent(null);
+                MachineLerp.Reset(this.transform.position, this.CurrentAnchor.transform.position);
+                CurrentFocus = CurrentAnchor.transform;
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
