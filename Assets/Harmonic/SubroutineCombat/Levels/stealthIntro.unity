@@ -6763,16 +6763,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1503976106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76b5ec6153a1d55438228df10fe66844, type: 3}
+  m_Script: {fileID: 11500000, guid: a88a26a276b4e47619ce2c5adad33fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceFog: 1
-  useRadialDistance: 0
-  heightFog: 1
-  height: 1
-  heightDensity: 2.8
-  startDistance: 0
-  fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
+  monochrome: 1
+  grainIntensityMin: 0.1
+  grainIntensityMax: 0.2
+  grainSize: 2
+  scratchIntensityMin: 0.05
+  scratchIntensityMax: 0.25
+  scratchFPS: 10
+  scratchJitter: 0.01
+  grainTexture: {fileID: 2800000, guid: ffa9c02760c2b4e8eb9814ec06c4b05b, type: 3}
+  scratchTexture: {fileID: 2800000, guid: 6205c27cc031f4e66b8ea90d1bfaa158, type: 3}
+  shaderRGB: {fileID: 4800000, guid: 5d7f4c401ae8946bcb0d6ff68a9e7466, type: 3}
+  shaderYUV: {fileID: 4800000, guid: 0e447868506ba49f0a73235b8a8b647a, type: 3}
 --- !u!1001 &1517300628
 Prefab:
   m_ObjectHideFlags: 0
@@ -11416,7 +11421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2037528301
 Transform:
   m_ObjectHideFlags: 0
@@ -11424,7 +11429,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2037528300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7234964, y: 3.1400003, z: -0.1227417}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2055898999}
@@ -11440,7 +11445,7 @@ GameObject:
   - 4: {fileID: 2055898999}
   - 33: {fileID: 2055899001}
   - 23: {fileID: 2055899000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
