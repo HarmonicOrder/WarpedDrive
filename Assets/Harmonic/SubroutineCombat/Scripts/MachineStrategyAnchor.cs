@@ -10,7 +10,7 @@ public class MachineStrategyAnchor : MonoBehaviour {
     {
         myMachine.AVCastle = this.AntivirusCastle;
 
-        if (this.AntivirusCastle != null && myMachine.IsInfected) //this.transform.name.ToLower() != "gatewaymachine"
+        if (this.AntivirusCastle != null) //this.transform.name.ToLower() != "gatewaymachine"
         {
             if (myMachine.IsInfected)
             {

@@ -57,6 +57,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
             foundA.myMachine = m;
             if (m.Name.ToLower() == "gatewaymachine")
             {
+                CurrentMachine = m;
                 CurrentAnchor = foundA;
                 CurrentFocus = foundA.transform;
             }
@@ -489,7 +490,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
             return;
         }
 
-        if (!this.CurrentMachine.HasActiveAV)
+        if (this.CurrentMachine.IsInfected && !this.CurrentMachine.HasActiveAV)
         {
             ToastLog.Toast("No active Antivirus!");
         }
