@@ -25,6 +25,7 @@ public class Machine : Location {
     internal Transform AVBattleshipTracerHangar { get; set; }
     public bool IsBeingReinfected { get; private set; }
     internal Transform AVCastle { get; set; }
+    internal Transform AVCastleTracerHanger { get; set; }
 
     public delegate void SystemCleanEvent();
 	public SystemCleanEvent OnMachineClean;

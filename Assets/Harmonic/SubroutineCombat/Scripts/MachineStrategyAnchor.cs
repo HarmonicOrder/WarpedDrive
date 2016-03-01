@@ -12,7 +12,12 @@ public class MachineStrategyAnchor : MonoBehaviour {
 
         if (this.AntivirusCastle != null && myMachine.IsInfected) //this.transform.name.ToLower() != "gatewaymachine"
         {
-            this.AntivirusCastle.gameObject.SetActive(false);
+            if (myMachine.IsInfected)
+            {
+                this.AntivirusCastle.gameObject.SetActive(false);
+            }
+
+            myMachine.AVCastleTracerHanger = this.AntivirusCastle.Find("TracerSpawn").transform;
         }
     }
 }

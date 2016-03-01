@@ -514,7 +514,13 @@ public class CyberspaceDroneInput : MonoBehaviour {
         {
             return (CurrentLock is Hardpoint);
         }
-        return true;
+        else 
+        {
+            if (CurrentLock == null)
+                return true;
+            else
+                return (CurrentLock is IMalware);
+        }
     }
 
     private Transform InstantiateHarness(SubroutineInfo si)
@@ -522,7 +528,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
         //print("creating harness");
         if (si.MovementName == "Tracer")
         {
-            return (Transform)Instantiate(SubroutineHarnessPrefab, this.CurrentMachine.AVBattleshipTracerHangar.position, this.CurrentMachine.AVBattleshipTracerHangar.rotation);
+            if (this.CurrentMachine.AVBattleshipTracerHangar != null)
+                return (Transform)Instantiate(SubroutineHarnessPrefab, this.CurrentMachine.AVBattleshipTracerHangar.position, this.CurrentMachine.AVBattleshipTracerHangar.rotation);
+            else
+                return (Transform)Instantiate(SubroutineHarnessPrefab, this.CurrentMachine.AVCastleTracerHanger.position, this.CurrentMachine.AVCastleTracerHanger.rotation);
         }
         else
         {
