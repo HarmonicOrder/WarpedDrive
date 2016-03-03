@@ -104,4 +104,9 @@ public class MeshNode : MonoBehaviour, IMalware {
     {
 
     }
+
+    public void Lag(ICombatant attacker)
+    {
+
+    }
 }

@@ -40,7 +40,6 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	private bool showingMainMenu;
     private bool IsCinematic { get; set; }
     private List<MachineStrategyAnchor> Anchors = new List<MachineStrategyAnchor>();
-    private Transform CurrentFocus;
     private MachineStrategyAnchor CurrentAnchor;
     private bool IsTimeFrozen = false;
     private bool CameraFollowsMouse = false;
@@ -57,9 +56,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
             foundA.myMachine = m;
             if (m.Name.ToLower() == "gatewaymachine")
             {
-                CurrentMachine = m;
                 CurrentAnchor = foundA;
-                CurrentFocus = foundA.transform;
             }
         }
         RefreshAVButton();
@@ -141,7 +138,18 @@ public class CyberspaceDroneInput : MonoBehaviour {
             ToggleCinematic();
         }
 
-        MachineLerp.HermiteIterateOrFinalize(this.transform, Time.deltaTime);
+        if (MachineLerp.IsLerping)
+        {
+            if (MachineLerp.CurrentTime > MachineLerp.Duration)
+            {
+                this.transform.position = MachineLerp.Finalize();
+            }
+            else
+            {
+                this.transform.position = MachineLerp.Hermite();
+                MachineLerp.CurrentTime += Time.deltaTime;
+            }
+        }
 
         if (ZoomLerp.IsLerping)
         {
@@ -196,7 +204,6 @@ public class CyberspaceDroneInput : MonoBehaviour {
         {
             SetNewMachine(a.myMachine, a.transform.position);
             CurrentAnchor = a;
-            CurrentFocus = a.transform;
         }
     }
 
@@ -205,33 +212,17 @@ public class CyberspaceDroneInput : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Z))
         {
             State = ViewState.SubnetOverview;
-
-            this.transform.SetParent(null);
+            
             PivotTransform.SetParent(this.transform);
 
             ZoomLerp.Reset(PivotTransform.localPosition, new Vector3(0, 300, -300));
             ZoomLerp.Reset(PivotTransform.localRotation, Quaternion.Euler(45, 0, 0));
-
-            if (CurrentFocus != CurrentAnchor.transform)
-            {
-                MachineLerp.Reset(this.transform.position, this.CurrentAnchor.transform.position);
-            }
             return;
         }
-        if (Input.GetKeyUp(KeyCode.Tab))
+
+        if (Input.GetKeyUp(KeyCode.Tab) && this.CurrentAnchor != null && this.CurrentAnchor.myMachine.AVBattleship != null)
         {
-            if (CurrentFocus == CurrentAnchor.transform && this.CurrentAnchor.myMachine.AVBattleship != null)
-            {
-                CurrentFocus = this.CurrentAnchor.myMachine.AVBattleship;
-                this.transform.SetParent(CurrentFocus);
-                MachineLerp.Reset(this.transform.position, this.CurrentAnchor.myMachine.AVBattleship.position);
-            }
-            else
-            {
-                this.transform.SetParent(null);
-                MachineLerp.Reset(this.transform.position, this.CurrentAnchor.transform.position);
-                CurrentFocus = CurrentAnchor.transform;
-            }
+            ZoomLerp.Reset(this.transform.position, this.CurrentAnchor.myMachine.AVBattleship.position);
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
@@ -283,7 +274,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
             CheckControlCamera(KeyCode.Alpha2, 2);
             CheckControlCamera(KeyCode.Alpha3, 3);
         }
-        else 
+        else if (CurrentLock != null)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -490,7 +481,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
             return;
         }
 
-        if (this.CurrentMachine.IsInfected && !this.CurrentMachine.HasActiveAV)
+        if (!this.CurrentMachine.HasActiveAV)
         {
             ToastLog.Toast("No active Antivirus!");
         }
@@ -511,17 +502,12 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     private bool ValidateTarget(SubroutineInfo si)
     {
-        if (si.MovementName == "Station")
+        if (si.MovementName == "Tracer")
         {
-            return (CurrentLock is Hardpoint);
+            return (CurrentLock is VirusAI);
         }
-        else 
-        {
-            if (CurrentLock == null)
-                return true;
-            else
-                return (CurrentLock is IMalware);
-        }
+
+        return true;
     }
 
     private Transform InstantiateHarness(SubroutineInfo si)
@@ -529,10 +515,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
         //print("creating harness");
         if (si.MovementName == "Tracer")
         {
-            if (this.CurrentMachine.AVBattleshipTracerHangar != null)
-                return (Transform)Instantiate(SubroutineHarnessPrefab, this.CurrentMachine.AVBattleshipTracerHangar.position, this.CurrentMachine.AVBattleshipTracerHangar.rotation);
-            else
-                return (Transform)Instantiate(SubroutineHarnessPrefab, this.CurrentMachine.AVCastleTracerHanger.position, this.CurrentMachine.AVCastleTracerHanger.rotation);
+            return (Transform)Instantiate(SubroutineHarnessPrefab, this.CurrentMachine.AVBattleshipTracerHangar.position, this.CurrentMachine.AVBattleshipTracerHangar.rotation);
         }
         else
         {
@@ -573,7 +556,6 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	public void BackToNetwork()
 	{
         CyberspaceBattlefield.Current.Abdicate = true;
-        print("abdicating");
 		var pixelater = new PixelateTransition()
 		{
 			finalScaleEffect = PixelateTransition.PixelateFinalScaleEffect.ToPoint,

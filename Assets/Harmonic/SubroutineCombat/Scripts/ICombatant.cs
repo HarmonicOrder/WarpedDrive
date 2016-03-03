@@ -11,8 +11,10 @@ public interface ICombatant {
     void Kill(ICombatant attacker);
     void Freeze(ICombatant attacker);
     void DoOnBlock(ICombatant attacker);
+    void Lag(ICombatant attacker);
     Transform transform { get; }
     GameObject gameObject { get; }
+
 }
 
 public enum AttackType { Kill, Freeze, Lag, Sandbox }

@@ -10,9 +10,13 @@ public class LagBomb : MonoBehaviour {
     public ParticleSystem ps1, ps2, ps3;
     private bool firing;
     private HarmonicUtils.LerpContext BombLerp;
+    private float radius;
+    private ICombatant sender;
 
-    public void Fire (Vector3 target, float duration, float lagPenalty) {
-        firing = true;
+    public void Fire (ICombatant attacker, Vector3 target, float duration, float lagPenalty, float radius = 60f) {
+        this.firing = true;
+        this.radius = radius;
+        this.sender = attacker;
         BombLerp = new HarmonicUtils.LerpContext(duration)
         {
             From = this.transform.position,
@@ -77,6 +81,13 @@ public class LagBomb : MonoBehaviour {
 
     private void LagTargetsInProximity(Vector3 position)
     {
-
+        foreach(IMalware m in ActiveSubroutines.MalwareList)
+        {
+            if ((position - m.transform.position).sqrMagnitude < radius * radius)
+            {
+#warning if sender is dead this causes NRE
+                sender.DoAttack(m, AttackType.Lag);
+            }
+        }
     }
 }

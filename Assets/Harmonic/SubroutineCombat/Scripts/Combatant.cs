@@ -43,7 +43,7 @@ public class Combatant : Actor, ICombatant {
         get { return false; }
     }
 
-    public StatusEffect FreezeEffect;
+    public StatusEffect FreezeEffect, LagEffect;
     public virtual bool DoAttack(ICombatant target, AttackType type = AttackType.Kill)
     {
         if (target.Defenseless || RollDice(this.KillChance))
@@ -60,6 +60,11 @@ public class Combatant : Actor, ICombatant {
                         target.Freeze(this);
                         if (target is Combatant)
                             (target as Combatant).AddEffect(this.FreezeEffect.Clone());
+                        break;
+                    case AttackType.Lag:
+                        target.Lag(this);
+                        if (target is Combatant)
+                            (target as Combatant).AddEffect(this.LagEffect.Clone());
                         break;
                     default:
                         //this reads backwards
@@ -117,5 +122,10 @@ public class Combatant : Actor, ICombatant {
     public void Freeze(ICombatant attacker)
     {
         Popup.Create(this.transform.position + Vector3.up * 4, null, Popup.Popups.Freeze, (this is Subroutine));
+    }
+
+    public void Lag(ICombatant attacker)
+    {
+        Popup.Create(this.transform.position + Vector3.up * 4, null, Popup.Popups.Lag, (this is Subroutine));
     }
 }

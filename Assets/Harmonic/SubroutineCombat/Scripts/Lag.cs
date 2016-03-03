@@ -16,7 +16,17 @@ public class Lag : SubroutineFunction
     void Start()
     {
         this.Parent.Info.FireRate = 5f;
+        this.Parent.Info.HitChance += 100f;
         this.Parent.Info.CoreCost += 2;
+
+        this.Parent.LagEffect = new Actor.StatusEffect()
+        {
+            BlockModifier = -10f,
+            Duration = 2f,
+            FireRateModifier = 1f,
+            HitModifier = -10f,
+            Type = Actor.StatusType.Lagged
+        };
     }
 
     // Update is called once per frame
@@ -56,7 +66,7 @@ public class Lag : SubroutineFunction
         CooldownRemaining = this.Parent.Info.FireRate;
 
         CurrentLagBomb = GetLagBomb(targetPos);
-        CurrentLagBomb.GetComponent<LagBomb>().Fire(targetPos, 2f, 10);
+        CurrentLagBomb.GetComponent<LagBomb>().Fire(this.Parent, targetPos, 2f, 10);
     }
 
     private GameObject GetLagBomb(Vector3 targetPos)
