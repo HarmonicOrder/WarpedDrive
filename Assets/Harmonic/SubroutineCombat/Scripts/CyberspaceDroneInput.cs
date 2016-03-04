@@ -17,7 +17,12 @@ public class CyberspaceDroneInput : MonoBehaviour {
         }
         set
         {
-            if (value != null)
+            if (value == null)
+            {
+                _currLock = null;
+                _currLockObj = null;
+            }
+            else
             {
                 _currLockObj = value.transform.gameObject;
                 _currLock = value;
