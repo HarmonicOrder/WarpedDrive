@@ -24,10 +24,19 @@ public class LazerTorpedo : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (liveFire && (target != null) && (targetObj != null))
+		if (liveFire)
         {
-            this.transform.LookAt(target.transform);
-			this.transform.Translate((target.transform.position-this.transform.position).normalized*laserSpeed*InterruptTime.deltaTime, Space.World);
+            if ((targetObj == null) || (target == null))
+            {
+                liveFire = false;
+                dudFire = true;
+                //print("target null, dud fire now");
+            }
+            else
+            {
+                this.transform.LookAt(target.transform);
+			    this.transform.Translate((target.transform.position-this.transform.position).normalized*laserSpeed*InterruptTime.deltaTime, Space.World);
+            }
         }
         else if (dudFire)
         {
