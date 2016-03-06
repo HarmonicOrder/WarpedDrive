@@ -8,12 +8,12 @@ public class AbilityManager : MonoBehaviour {
 
     public Button Suspend, Overclock, Fork, Multithread;
     public Text HoverText, HoverTitle;
+    public Image HoverBackground;
     private Dictionary<string, AbilityViewModel> Abilities = new Dictionary<string, AbilityViewModel>();
 
     void Awake()
     {
-        HoverText.enabled = false;
-        HoverTitle.enabled = false;
+        HoverText.enabled = HoverTitle.enabled = HoverBackground.enabled = false;
         Abilities.Add("suspend", new AbilityViewModel(Suspend, Ability.ByName("suspend"),
 @"
 <color=grey>1.5m refresh</color>
@@ -52,16 +52,14 @@ public class AbilityManager : MonoBehaviour {
 
     public void OnButtonHover(string name)
     {
-        HoverText.enabled = true;
-        HoverTitle.enabled = true;
+        HoverText.enabled = HoverTitle.enabled = HoverBackground.enabled = true;
         HoverText.text = Abilities[name].HoverText;
         HoverTitle.text = Abilities[name].HoverTitle;
     }
 
     public void OnButtonHoverOff(string name)
     {
-        HoverText.enabled = false;
-        HoverTitle.enabled = false;
+        HoverText.enabled = HoverTitle.enabled = HoverBackground.enabled = false;
     }
 
     private void DoSuspend()
@@ -121,7 +119,7 @@ public class AbilityManager : MonoBehaviour {
             this.Button = b;
             this.Image = b.GetComponent<Image>();
             this.HoverText = hoverBody;
-            this.HoverTitle = String.Format(@"<color=green>{0}</color>", a.Name.ToUpper());
+            this.HoverTitle = a.Name.ToUpper();
         }
     }
 
