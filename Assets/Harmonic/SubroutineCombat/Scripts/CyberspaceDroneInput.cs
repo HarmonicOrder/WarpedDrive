@@ -248,6 +248,12 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 this.transform.SetParent(CurrentFocus);
                 MachineLerp.Reset(this.transform.position, this.CurrentAnchor.myMachine.AVBattleship.position);
             }
+            else if (CurrentFocus == CurrentAnchor.transform && this.CurrentAnchor.myMachine.AVCastle != null)
+            {
+                CurrentFocus = this.CurrentAnchor.myMachine.AVCastle;
+                this.transform.SetParent(CurrentFocus);
+                MachineLerp.Reset(this.transform.position, this.CurrentAnchor.myMachine.AVCastle.position);
+            }
             else
             {
                 this.transform.SetParent(null);
