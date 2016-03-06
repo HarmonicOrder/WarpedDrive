@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.Text;
+using System.Collections.Generic;
 
 public static class HarmonicUtils
 {
@@ -406,6 +407,32 @@ public static class HarmonicUtils
         }
     }
 
+    public class Range
+    {
+
+        public int Begin { get; set; }
+
+        public int End { get; set; }
+
+        public Range(int begin, int end)
+        {
+            Begin = begin;
+            End = end;
+        }
+
+    }
+
+    public static string GetRandomUnicode(int length, IList<Range> ranges)
+    {
+        var builder = new StringBuilder(length);
+        for (var i = 0; i < length; i++)
+        {
+            var rangeIndex = UnityEngine.Random.Range(0, ranges.Count);
+            var range = ranges[rangeIndex];
+            builder.Append((char)UnityEngine.Random.Range(range.Begin, range.End+1));
+        }
+        return builder.ToString();
+    }
 }
 
 
