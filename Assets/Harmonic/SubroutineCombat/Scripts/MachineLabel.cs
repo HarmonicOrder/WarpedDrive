@@ -16,14 +16,14 @@ public class MachineLabel : MonoBehaviour {
 	void Start () {
 		this.Root = this.transform.root;
 		this.myMachine = CyberspaceBattlefield.Current.FindByName(this.Root.name);
-		this.myMachine.OnMachineClean += OnSystemClean;
+		this.myMachine.OnMachineClean += OnMachineClean;
+        this.myMachine.OnMachineRefinectionSuccess += OnMachineClean;
 		this.myText = this.GetComponent<TextMesh>();
 		UpdateText();
 		UpdateFence();
 	}
 
-	private void OnSystemClean() {
-
+	private void OnMachineClean() {
 		UpdateText();
 		UpdateFence();
 	}
@@ -56,4 +56,10 @@ public class MachineLabel : MonoBehaviour {
                 FenceRenderer2.color = HarmonicUtils.ColorWithAlpha(CleanColor, .5f);
         }
 	}
+
+    void OnDestroy()
+    {
+        this.myMachine.OnMachineClean -= OnMachineClean;
+        this.myMachine.OnMachineRefinectionSuccess -= OnMachineClean;
+    }
 }

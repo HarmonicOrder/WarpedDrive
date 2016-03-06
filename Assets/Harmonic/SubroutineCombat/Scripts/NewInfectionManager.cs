@@ -14,13 +14,15 @@ public class NewInfectionManager : MonoBehaviour {
 
     private List<MachineStrategyAnchor> invasionCandidates = new List<MachineStrategyAnchor>();
     private int MachinesToInfect = 1;
-    private MachineStrategyAnchor MachineInvasionTarget;
     private float InvasionRadius = 175f;
+    private Guid InvasionID;
+    private MachineStrategyAnchor MachineInvasionTarget;
     private Coroutine WaitingInvasion { get; set; }
     private float CurrentWaitDuration { get; set; }
     private bool IsPlottingOrInvading = false;
 
-    private static float InvasionSuccessCountdownInSeconds = 30;
+    private static float InvasionSuccessCountdownInSeconds = 60;
+    private float CurrentCoundown = 0f;
 
     void Awake()
     {
@@ -115,6 +117,7 @@ public class NewInfectionManager : MonoBehaviour {
         if ((MachineInvasionTarget != null) && NetworkMap.CurrentLocation.IsInfected)
         {
             MachineInvasionTarget.myMachine.StartReinfection();
+            InvasionID = Guid.NewGuid();
 
             foreach(Transform t in InvasionForce)
             {
@@ -124,13 +127,21 @@ public class NewInfectionManager : MonoBehaviour {
                 newT.RotateAround(MachineInvasionTarget.transform.position, Vector3.up, UnityEngine.Random.Range(0f, 360f));
             }
 
+            ToastLog.ToastSticky(String.Format("{0} Reinfection: 1%", MachineInvasionTarget.myMachine.SubnetAddress), 1, InvasionID);
             WaitToWin = StartCoroutine(WaitUntilWin());
         }
     }
 
     private IEnumerator WaitUntilWin()
     {
-        yield return new WaitForSecondsInterruptTime(InvasionSuccessCountdownInSeconds);
+        while((CurrentCoundown < InvasionSuccessCountdownInSeconds) && MachineInvasionTarget.myMachine.IsBeingReinfected)
+        {
+            yield return null;
+            CurrentCoundown += InterruptTime.deltaTime;
+
+            int percentage = (int)(CurrentCoundown / InvasionSuccessCountdownInSeconds * 100f);
+            ToastLog.ToastSticky(String.Format("{0} Reinfection: {1}%", MachineInvasionTarget.myMachine.SubnetAddress, percentage), percentage, InvasionID);
+        }
 
         if (MachineInvasionTarget.myMachine.IsBeingReinfected)
         {
@@ -145,12 +156,14 @@ public class NewInfectionManager : MonoBehaviour {
     public void OnInvasionSuccess()
     {
         MachinesToInfect--;
+        MachineInvasionTarget.myMachine.DoOnMachineReinfectionComplete();
+        ToastLog.ToastSticky(String.Format("{0} Reinfection Complete!", MachineInvasionTarget.myMachine.SubnetAddress), -1, InvasionID);
         StartRandomCountdown();
     }
 
     public void OnInvasionFailure()
     {
-        MachinesToInfect--;
+        ToastLog.ToastSticky(String.Format("{0} Reinfection Aborted!", MachineInvasionTarget.myMachine.SubnetAddress), -1, InvasionID);
         StartRandomCountdown();
     }
 

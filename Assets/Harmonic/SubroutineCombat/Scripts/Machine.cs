@@ -29,8 +29,9 @@ public class Machine : Location {
 
     public delegate void SystemCleanEvent();
 	public SystemCleanEvent OnMachineClean;
+    public SystemCleanEvent OnMachineRefinectionSuccess;
 
-	public Machine()
+    public Machine()
 	{
 		SetRandomSubnetAddress();
 	}
@@ -101,11 +102,22 @@ public class Machine : Location {
         {
             this.AVCastle.gameObject.SetActive(false);
         }
+
+        this.IsInfected = true;
+
+        if (OnMachineRefinectionSuccess != null)
+        {
+            OnMachineRefinectionSuccess();
+        }
+    }
+
+    internal void DoOnMachineReinfectionStopped()
+    {
+        this.IsBeingReinfected = false;
     }
 
     internal void StartReinfection()
     {
         this.IsBeingReinfected = true;
-        ToastLog.Toast(this.SubnetAddress + "\nis being reinfected!");
     }
 }
