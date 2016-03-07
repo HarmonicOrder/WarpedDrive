@@ -74,6 +74,8 @@ public class Subroutine : Combatant {
         {
             this.DeployedMachine = m;
             this.DeployedMachine.OnMachineClean += OnMachineClean;
+            this.DeployedMachine.OnMachineReInfectionSuccess += OnMachineClean;
+            this.DeployedMachine.OnMachineReInfectionFailure += OnMachineClean;
         }
 
         if (!this.IsActive)
@@ -146,9 +148,14 @@ public class Subroutine : Combatant {
         if (this.DeployedMachine != null)
         {
             this.DeployedMachine.OnMachineClean -= OnMachineClean;
+            this.DeployedMachine.OnMachineReInfectionSuccess -= OnMachineClean;
+            this.DeployedMachine.OnMachineReInfectionFailure -= OnMachineClean;
         }
     }
 
+    /// <summary>
+    /// also used for reinfectionSuccess/reinfectionFailure
+    /// </summary>
     private void OnMachineClean()
     {
         this.Die();

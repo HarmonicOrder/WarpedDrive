@@ -17,7 +17,7 @@ public class MachineLabel : MonoBehaviour {
 		this.Root = this.transform.root;
 		this.myMachine = CyberspaceBattlefield.Current.FindByName(this.Root.name);
 		this.myMachine.OnMachineClean += OnMachineClean;
-        this.myMachine.OnMachineRefinectionSuccess += OnMachineClean;
+        this.myMachine.OnMachineReInfectionSuccess += OnMachineClean;
 		this.myText = this.GetComponent<TextMesh>();
 		UpdateText();
 		UpdateFence();
@@ -60,6 +60,6 @@ public class MachineLabel : MonoBehaviour {
     void OnDestroy()
     {
         this.myMachine.OnMachineClean -= OnMachineClean;
-        this.myMachine.OnMachineRefinectionSuccess -= OnMachineClean;
+        this.myMachine.OnMachineReInfectionSuccess -= OnMachineClean;
     }
 }
