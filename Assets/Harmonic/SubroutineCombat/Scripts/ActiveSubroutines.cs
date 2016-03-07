@@ -100,10 +100,7 @@ public static class ActiveSubroutines {
                             l.OnMachineClean();
                         }
                     }
-
-				    m.IsInfected = false;
-				    CyberspaceBattlefield.Current.AddCores(m.CPUCores);
-
+                    
                     m.DoOnMachineClean();
                 }
                 else if (m.IsBeingReinfected)

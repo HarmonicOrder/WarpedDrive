@@ -81,9 +81,16 @@ public class CyberspaceBattlefield {
 		currCores += amount;
 
 		FireCoreChange();
-	}
+    }
 
-	private void FireCoreChange()
+    public void RemoveCores(int amount)
+    {
+        currCores -= amount;
+
+        FireCoreChange();
+    }
+
+    private void FireCoreChange()
 	{	
 		if (OnCoreChange != null)
 			OnCoreChange();

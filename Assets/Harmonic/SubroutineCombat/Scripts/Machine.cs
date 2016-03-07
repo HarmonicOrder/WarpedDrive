@@ -91,6 +91,9 @@ public class Machine : Location {
             this.AVCastle.gameObject.SetActive(true);
         }
 
+        IsInfected = false;
+        CyberspaceBattlefield.Current.AddCores(CPUCores);
+
         if (OnMachineClean != null)
         {
             OnMachineClean();
@@ -105,6 +108,7 @@ public class Machine : Location {
         }
 
         this.IsInfected = true;
+        CyberspaceBattlefield.Current.RemoveCores(CPUCores);
 
         if (OnMachineReInfectionSuccess != null)
         {
