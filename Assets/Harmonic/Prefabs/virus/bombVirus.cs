@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class bombVirus : VirusAI {
 
-	public float lookAtSpeed = 45f;
+	public float lookAtSpeed = 10f;
 	public float engagementDistance = 200f;
 	public float moveSpeed = 20f;
 	public playerHealth HealthScript;
