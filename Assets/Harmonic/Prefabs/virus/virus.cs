@@ -22,9 +22,9 @@ public class virus : VirusAI {
 		this.Info = new ActorInfo()
 		{
 			Name = "Virus",
-			FireRate = 1f,
+			Cooldown = 1f,
             HitChance = 15,
-            SaveChance = 15
+            BlockChance = 15
         };
 		OrbitScript = this.GetComponent<OrbitAround>();
 	}
@@ -123,7 +123,7 @@ public class virus : VirusAI {
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = false;
 		
-		CooldownRemaining = this.Info.FireRate;
+		CooldownRemaining = this.Info.Cooldown;
 
 		Transform t = (Transform)GameObject.Instantiate(this.LazerPrefab, this.LazerStart.position, this.LazerStart.rotation);
         LazerTorpedo lb = t.GetComponent<LazerTorpedo>();

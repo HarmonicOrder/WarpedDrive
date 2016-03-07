@@ -15,7 +15,7 @@ public class MeshNode : MonoBehaviour, IMalware {
 
     public float KillChance { get { return 0; } }
 
-    public float SaveChance { get { return 0; } }
+    public float BlockChance { get { return 0; } }
 
     public float Reboots { get  { return 0;  } }
 

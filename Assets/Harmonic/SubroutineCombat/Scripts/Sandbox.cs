@@ -12,8 +12,10 @@ public class Sandbox : SubroutineFunction
     // Use this for initialization
     void Start()
     {
-        this.Parent.Info.FireRate = 8f;
+        this.Parent.Info.Cooldown = 8f;
         this.Parent.Info.CoreCost += 2;
+        this.Parent.Info.HitChance += 100f;
+        this.Parent.MyActorInfo.FunctionHitChance = 100f;
     }
 
     // Update is called once per frame
@@ -52,7 +54,7 @@ public class Sandbox : SubroutineFunction
     {
         print("sandboxing with " + this.SandboxVisualization);
         isFiring = true;
-        CooldownRemaining = this.Parent.Info.FireRate;
+        CooldownRemaining = this.Parent.Info.Cooldown;
         CurrentSandboxViz = (Transform)Instantiate(this.SandboxVisualization, this.Parent.lockedMalware.transform.position, Quaternion.identity);
         this.Parent.lockedVirus.ForceImmobilization();
         this.Parent.lockedVirus.IsSandboxed = true;

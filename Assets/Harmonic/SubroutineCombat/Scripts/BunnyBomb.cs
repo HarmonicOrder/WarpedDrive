@@ -17,9 +17,9 @@ public class BunnyBomb : VirusAI
         this.Info = new ActorInfo()
         {
             Name = "Wabbit",
-            FireRate = 0f,
+            Cooldown = 0f,
             HitChance = 0,
-            SaveChance = 5,
+            BlockChance = 5,
         };
 
         this.TimeTilNextProvision = Random.Range(3, 7);

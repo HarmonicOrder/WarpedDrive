@@ -16,8 +16,9 @@ public class Terminate : SubroutineFunction {
         this.PulseParticles = this.transform.Find("FunctionRoot/Terminate/PulseParticles").GetComponent<ParticleSystem>();
         this.BurstParticles = this.transform.Find("FunctionRoot/Terminate/BurstParticles").GetComponent<ParticleSystem>();
         TerminateLineRenderer.SetVertexCount(0);
-		this.Parent.Info.FireRate = 5f;
+		this.Parent.Info.Cooldown = 5f;
         this.Parent.Info.HitChance += 50f;
+        this.Parent.MyActorInfo.FunctionHitChance = 50f;
         this.Parent.Info.CoreCost += 2;
 	}
 	
@@ -55,7 +56,7 @@ public class Terminate : SubroutineFunction {
 	private void FireAtEnemy(Vector3 relativePos)
 	{
 		isFiring = true;
-		CooldownRemaining = this.Parent.Info.FireRate;
+		CooldownRemaining = this.Parent.Info.Cooldown;
 
         this.Parent.DoAttack(this.Parent.lockedMalware);
 

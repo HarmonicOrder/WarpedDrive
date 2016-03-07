@@ -17,15 +17,16 @@ public class Freeze : SubroutineFunction
         this.TerminateLineRenderer = this.transform.Find("FunctionRoot/Freeze").GetComponent<LineRenderer>();
         this.BurstParticles = this.transform.Find("FunctionRoot/Freeze/BurstParticles").GetComponent<ParticleSystem>();
         TerminateLineRenderer.SetVertexCount(0);
-        this.Parent.Info.FireRate = 5f;
+        this.Parent.Info.Cooldown = 5f;
         this.Parent.Info.HitChance += 50f;
+        this.Parent.MyActorInfo.FunctionHitChance = 50f;
         this.Parent.Info.CoreCost += 2;
 
         this.Parent.FreezeEffect = new Actor.StatusEffect()
         {
             BlockModifier = -100,
             Duration = 2,
-            FireRateModifier = 0,
+            CooldownModifier = 0,
             Type = Actor.StatusType.Frozen           
         };
     }
@@ -65,7 +66,7 @@ public class Freeze : SubroutineFunction
     private void FireAtEnemy(Vector3 relativePos)
     {
         isFiring = true;
-        CooldownRemaining = this.Parent.Info.FireRate;
+        CooldownRemaining = this.Parent.Info.Cooldown;
         
         this.Parent.DoAttack(this.Parent.lockedMalware, AttackType.Freeze);
 

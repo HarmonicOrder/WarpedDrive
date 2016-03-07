@@ -15,8 +15,9 @@ public class Delete : SubroutineFunction {
 
     // Use this for initialization
     void Start () {
-		this.Parent.Info.FireRate = 1f;
+		this.Parent.Info.Cooldown = 1f;
         this.Parent.Info.HitChance += 15f;
+        this.Parent.MyActorInfo.FunctionHitChance = 15f;
         this.Parent.Info.CoreCost += 1;
 		leftGun = HarmonicUtils.FindInChildren(this.Parent.FunctionRoot, "CrosshairLeft");
 		rightGun = HarmonicUtils.FindInChildren(this.Parent.FunctionRoot, "CrosshairRight");
@@ -57,7 +58,7 @@ public class Delete : SubroutineFunction {
 	private bool onPrimary = true;
 	private void FireAtEnemy(Vector3 relativePos, IMalware m){
 		isFiring = true;
-		CooldownRemaining = this.Parent.Info.FireRate;
+		CooldownRemaining = this.Parent.Info.Cooldown;
 
 		Transform laserStart;
 		if (onPrimary)

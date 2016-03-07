@@ -32,9 +32,9 @@ public class stealthVirus : VirusAI, ILurker {
 		this.Info = new ActorInfo()
 		{
 			Name = "Stealth Virus",
-			FireRate = 1f,
+			Cooldown = 1f,
             HitChance = 20,
-            SaveChance = 25
+            BlockChance = 25
 		};
 		OrbitScript = this.GetComponent<OrbitAround>();
         this.RenderBottleneck.gameObject.SetActive(!IsLurking);
@@ -134,7 +134,7 @@ public class stealthVirus : VirusAI, ILurker {
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = false;
 		
-		CooldownRemaining = this.Info.FireRate;
+		CooldownRemaining = this.Info.Cooldown;
 
 		Transform t = (Transform)GameObject.Instantiate(this.LazerPrefab, this.LazerStart.position, this.LazerStart.rotation);
         LazerTorpedo lb = t.GetComponent<LazerTorpedo>();

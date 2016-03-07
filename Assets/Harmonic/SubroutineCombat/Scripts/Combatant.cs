@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Text;
 
 public class Combatant : Actor, ICombatant {
-    //idea: status effects as list of effect classes
-    //each with their own duration counter
-    //when duration < 0, remove from list and reverse changes
+
+
     public float KillChance
     {
         get
@@ -14,19 +14,19 @@ public class Combatant : Actor, ICombatant {
         }
     }
 
-    public float SaveChance
+    public float BlockChance
     {
         get
         {
-            return this.Info.SaveChance + this.StatusEffectBlockModifier;
+            return this.Info.BlockChance + this.StatusEffectBlockModifier;
         }
     }
 
-    public float FireRate
+    public float Cooldown
     {
         get
         {
-            return this.Info.FireRate * this.StatusEffectFireRateModifier;
+            return this.Info.Cooldown * this.StatusEffectCooldownModifier;
         }
     }
 
@@ -83,7 +83,7 @@ public class Combatant : Actor, ICombatant {
 
     public virtual bool TrySave(ICombatant attacker)
     {
-        return RollDice(this.SaveChance);
+        return RollDice(this.BlockChance);
     }
 
     public virtual void Kill(ICombatant attacker)
@@ -127,5 +127,93 @@ public class Combatant : Actor, ICombatant {
     public void Lag(ICombatant attacker)
     {
         Popup.Create(this.transform.position + Vector3.up * 4, null, Popup.Popups.Lag, (this is Subroutine));
+    }
+
+    public string InformationReadout()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append(this.Info.Name.ToUpper());
+        sb.Append("\r\n--------\r\n");
+        HitReadout(sb);
+        sb.Append("\r\n\r\n");
+        CooldownReadout(sb);
+        sb.Append("\r\n\r\n");
+        BlockReadout(sb);
+        RebootReadout(sb);
+        TargetReadout(sb);
+        return sb.ToString();
+    }
+
+    protected void EffectReadout(StringBuilder sb, StatusEffect se, float effectAmount)
+    {
+        if (effectAmount > 0)
+        {
+            sb.Append("+");
+            sb.Append(effectAmount.ToString().PadLeft(3, ' '));
+            sb.Append("% [");
+            sb.Append(se.Type.ToString());
+            sb.Append("]\r\n");
+        }
+        else if (effectAmount < 0)
+        {
+            sb.Append("-");
+            sb.Append(Math.Abs(effectAmount).ToString().PadLeft(3, ' '));
+            sb.Append("% [");
+            sb.Append(se.Type.ToString());
+            sb.Append("]\r\n");
+        }
+    }
+
+    public void HitReadout(StringBuilder sb)
+    {
+        sb.Append("HIT\r\n");
+        FillHitReadout(sb);
+        foreach(StatusEffect s in this.Effects)
+        {
+            EffectReadout(sb, s, s.HitModifier);
+        }
+        sb.AppendFormat("={0}%", this.KillChance.ToString().PadLeft(3, ' '));
+    }
+
+    protected virtual void FillHitReadout(StringBuilder sb)
+    {
+        sb.Append(this.Info.HitChance.ToString().PadLeft(4, ' '));
+        sb.Append("%\r\n");
+    }
+
+    public void CooldownReadout(StringBuilder sb)
+    {
+        sb.Append("COOLDOWN\r\n");
+    }
+
+    public void BlockReadout(StringBuilder sb)
+    {
+        sb.Append("BLOCK\r\n");
+        FillBlockReadout(sb);
+        foreach (StatusEffect s in this.Effects)
+        {
+            EffectReadout(sb, s, s.BlockModifier);
+        }
+        sb.AppendFormat("={0}%", this.BlockChance.ToString().PadLeft(3, ' '));
+    }
+
+    protected virtual void FillBlockReadout(StringBuilder sb)
+    {
+        sb.Append(this.Info.BlockChance.ToString().PadLeft(4, ' '));
+        sb.Append("%\r\n");
+    }
+
+    public void RebootReadout(StringBuilder sb)
+    {
+        if (this.Info.Reboots > 0)
+        {
+            sb.Append("\r\n\r\n");
+            sb.Append(this.Info.Reboots);
+            sb.Append(" REBOOT");
+        }
+    }
+
+    public void TargetReadout(StringBuilder sb)
+    {
     }
 }

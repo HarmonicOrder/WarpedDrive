@@ -5,8 +5,7 @@ using System.Collections.Generic;
 public class Station : SubroutineMovement {
     
 	public Transform InstantiatePrefab;
-
-
+    
 	//private List<Transform> targetsInView = new List<Transform>();
 	private float originalAlpha;
 	private Transform CurrentInstantiateCube;
@@ -18,6 +17,9 @@ public class Station : SubroutineMovement {
 		this.originalAlpha = this.ShieldRenderer.material.color.a;
 
 		this.ShieldRenderer.material.color = HarmonicUtils.ColorWithAlpha(this.ShieldRenderer.material.color, 0);
+
+        this.Parent.Info.BlockChance += 20f;
+        this.Parent.MyActorInfo.MovementBlockChance = 20f;
     }
 	
 	public override void Fire()

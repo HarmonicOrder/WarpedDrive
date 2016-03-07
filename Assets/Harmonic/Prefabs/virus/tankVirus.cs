@@ -27,8 +27,8 @@ public class tankVirus : VirusAI {
 		{
 			Name = "Tank",
             HitChance = 33,
-            SaveChance = 25,
-            FireRate = 5,
+            BlockChance = 25,
+            Cooldown = 5,
             Reboots = 1
         };
 		LineRenderer.SetVertexCount(0);
@@ -130,7 +130,7 @@ public class tankVirus : VirusAI {
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = false;
 
-		CooldownRemaining = this.Info.FireRate;
+		CooldownRemaining = this.Info.Cooldown;
 
 		this.LineRenderer.SetVertexCount(2);
 		this.LineRenderer.SetPosition(0, Vector3.zero);

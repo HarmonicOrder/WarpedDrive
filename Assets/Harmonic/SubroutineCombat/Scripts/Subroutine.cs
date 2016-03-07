@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Text;
 
 public class Subroutine : Combatant {
 
@@ -50,6 +51,7 @@ public class Subroutine : Combatant {
 
     public bool IsActive {get;set;}
     public SubroutineInfo SInfo { get; set; }
+    public SubroutineActorInfo MyActorInfo { get { return Info as SubroutineActorInfo;  } }
 	public Transform StartingPosition {get;set;}
 
     private Machine DeployedMachine { get; set; }
@@ -57,12 +59,9 @@ public class Subroutine : Combatant {
 
 	protected override void OnAwake()
     {
-        this.Info = new ActorInfo()
+        this.Info = new SubroutineActorInfo()
         {
             Name = "Subroutine",
-            FireRate = 1f,
-            HitChance = 5f,
-            SaveChance = 5f
         };
     }
 
@@ -224,5 +223,32 @@ public class Subroutine : Combatant {
     public override void DoOnKilled(ICombatant attacker)
     {
         this.Die();
+    }
+    
+    private void HitAndBlockReadout(StringBuilder sb, float movementAmount, float functionAmount)
+    {
+        sb.Append(movementAmount.ToString().PadLeft(4, ' '));
+        sb.Append("% [");
+        sb.Append(this.SInfo.MovementName.ToUpper());
+        sb.Append("]\r\n");
+
+        if (functionAmount > 0f)
+        {
+            sb.Append("+");
+            sb.Append(functionAmount.ToString().PadLeft(3, ' '));
+            sb.Append("% [");
+            sb.Append(this.SInfo.FunctionName.ToUpper());
+            sb.Append("]\r\n");
+        }
+    }
+
+    protected override void FillHitReadout(StringBuilder sb)
+    {
+        HitAndBlockReadout(sb, MyActorInfo.MovementHitChance, MyActorInfo.FunctionHitChance);
+    }
+
+    protected override void FillBlockReadout(StringBuilder sb)
+    {
+        HitAndBlockReadout(sb, MyActorInfo.MovementBlockChance, MyActorInfo.FunctionBlockChance);
     }
 }

@@ -19,7 +19,6 @@ public class CyberspaceDroneInput : MonoBehaviour {
         {
             if (value == null)
             {
-                print("setting to null");
                 _currLock = null;
                 _currLockObj = null;
             }
@@ -371,7 +370,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 VirusAI v = (VirusAI)rayHit.collider.GetComponentInParent(typeof(VirusAI));
                 if (v)
                 {
-                    TargetGuiText.text = v.Info.GetTargetRichText();
+                    TargetGuiText.text = v.InformationReadout();
                     AssignLockTarget(LeftClick, v);
                 }
 
@@ -391,7 +390,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 SubroutineHarness sh = (SubroutineHarness)rayHit.collider.GetComponentInParent(typeof(SubroutineHarness));
                 if (sh)
                 {
-                    TargetGuiText.text =  sh.BoundSubroutine.Info.GetTargetRichText();
+                    TargetGuiText.text = sh.BoundSubroutine.InformationReadout();
                     AssignLockTarget(LeftClick, sh);
                 }
             }

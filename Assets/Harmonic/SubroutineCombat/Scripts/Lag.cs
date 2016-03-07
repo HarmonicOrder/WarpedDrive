@@ -15,15 +15,16 @@ public class Lag : SubroutineFunction
     // Use this for initialization
     void Start()
     {
-        this.Parent.Info.FireRate = 5f;
+        this.Parent.Info.Cooldown = 5f;
         this.Parent.Info.HitChance += 100f;
+        this.Parent.MyActorInfo.FunctionHitChance = 100f;
         this.Parent.Info.CoreCost += 2;
 
         this.Parent.LagEffect = new Actor.StatusEffect()
         {
             BlockModifier = -10f,
             Duration = 2f,
-            FireRateModifier = 1f,
+            CooldownModifier = 1f,
             HitModifier = -10f,
             Type = Actor.StatusType.Lagged
         };
@@ -63,7 +64,7 @@ public class Lag : SubroutineFunction
     
     private void FireAtEnemy(Vector3 targetPos)
     {
-        CooldownRemaining = this.Parent.Info.FireRate;
+        CooldownRemaining = this.Parent.Info.Cooldown;
 
         CurrentLagBomb = GetLagBomb(targetPos);
         CurrentLagBomb.GetComponent<LagBomb>().Fire(this.Parent, targetPos, 2f, 10);

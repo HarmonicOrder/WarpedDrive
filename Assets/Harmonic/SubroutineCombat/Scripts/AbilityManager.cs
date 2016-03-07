@@ -16,24 +16,24 @@ public class AbilityManager : MonoBehaviour {
         HoverText.enabled = HoverTitle.enabled = HoverBackground.enabled = false;
         Abilities.Add("suspend", new AbilityViewModel(Suspend, Ability.ByName("suspend"),
 @"
-<color=grey>1.5m refresh</color>
-<color=green>75% Suspend for 5s</color>
-<color=#a00>25% Block 100% for 5s</color>"));
+<color=#03FF62FF>1.5m refresh</color>
+<color=#03FF62FF>75% Suspend for 5s</color>
+<color=#d00>25% Block 100% for 5s</color>"));
         Abilities.Add("overclock", new AbilityViewModel(Overclock, Ability.ByName("overclock"),
 @"
-<color=grey>3m refresh</color>
-<color=green>65% +1 Core for 1m</color>
-<color=#a00>35% -1 Core for 1m</color>"));
+<color=#03FF62FF>3m refresh</color>
+<color=#03FF62FF>65% +1 Core for 1m</color>
+<color=#d00>35% -1 Core for 1m</color>"));
         Abilities.Add("fork", new AbilityViewModel(Fork, Ability.ByName("fork"),
 @"
-<color=grey>2m refresh</color>
-<color=green>75% Clone Subroutine</color>
-<color=#a00>25% Spawn Virus</color>"));
+<color=#03FF62FF>2m refresh</color>
+<color=#03FF62FF>75% Clone Subroutine</color>
+<color=#d00>25% Spawn Virus</color>"));
         Abilities.Add("multithread", new AbilityViewModel(Multithread, Ability.ByName("multithread"),
 @"
-<color=grey>1m refresh</color>
-<color=green>66% Rate +50% for 5s</color>
-<color=#a00>33% Frozen for 5s</color>"));
+<color=#03FF62FF>1m refresh</color>
+<color=#03FF62FF>66% Rate +50% for 5s</color>
+<color=#d00>33% Frozen for 5s</color>"));
     }
 
     public void Activate(string name)

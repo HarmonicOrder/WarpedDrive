@@ -8,7 +8,7 @@ public class Actor : MonoBehaviour {
 	public ActorInfo Info {get;set;}
     public float StatusEffectBlockModifier { get; set; }
     public float StatusEffectHitModifier { get; set; }
-    public float StatusEffectFireRateModifier { get; set; }
+    public float StatusEffectCooldownModifier { get; set; }
 
     void Awake () {
 		OnAwake();
@@ -61,7 +61,7 @@ public class Actor : MonoBehaviour {
         newStatus.Countdown = newStatus.Duration;
         ActiveStatuses |= newStatus.Type;
         StatusEffectBlockModifier += newStatus.BlockModifier;
-        StatusEffectFireRateModifier += newStatus.FireRateModifier;
+        StatusEffectCooldownModifier += newStatus.CooldownModifier;
         StatusEffectHitModifier += newStatus.HitModifier;
         Effects.Add(newStatus);
     }
@@ -70,7 +70,7 @@ public class Actor : MonoBehaviour {
     {
         ActiveStatuses &= ~oldStatus.Type;
         StatusEffectBlockModifier -= oldStatus.BlockModifier;
-        StatusEffectFireRateModifier -= oldStatus.FireRateModifier;
+        StatusEffectCooldownModifier -= oldStatus.CooldownModifier;
         StatusEffectHitModifier -= oldStatus.HitModifier;
         Effects.Remove(oldStatus);
     }
@@ -95,7 +95,7 @@ public class Actor : MonoBehaviour {
         public float Countdown { get; set; }
         public float BlockModifier { get; set; }
         public float HitModifier { get; set; }
-        public float FireRateModifier { get; set; }
+        public float CooldownModifier { get; set; }
 
         public StatusEffect Clone()
         {
@@ -105,7 +105,7 @@ public class Actor : MonoBehaviour {
                 Duration = this.Duration,
                 BlockModifier = this.BlockModifier,
                 HitModifier = this.HitModifier,
-                FireRateModifier = this.FireRateModifier
+                CooldownModifier = this.CooldownModifier
             };
         }
     }

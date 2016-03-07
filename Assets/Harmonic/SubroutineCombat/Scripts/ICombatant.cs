@@ -4,7 +4,7 @@ using System.Collections;
 public interface ICombatant {
     bool Defenseless { get; }
     float KillChance { get;}
-    float SaveChance { get;}
+    float BlockChance { get;}
     float Reboots { get;}
     bool DoAttack(ICombatant target, AttackType type = AttackType.Kill);
     bool TrySave(ICombatant attacker);
@@ -23,6 +23,6 @@ public static class ICombatantExtensions
 {
     public static float GetKillChance(this ICombatant attacker, ICombatant target)
     {
-        return attacker.KillChance / 100f * target.SaveChance / 100f;
+        return attacker.KillChance / 100f * target.BlockChance / 100f;
     }
 }

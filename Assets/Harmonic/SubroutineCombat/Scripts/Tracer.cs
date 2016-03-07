@@ -21,7 +21,9 @@ public class Tracer : SubroutineMovement {
     // Use this for initialization
     void Start () {
         CalculateFiringLineRotation();
-	}
+        this.Parent.Info.HitChance += 15f;
+        this.Parent.MyActorInfo.MovementHitChance = 15f;
+    }
 
     private const float Divergence = 15f;
     private const float maximumEngagementDistance = 300f;

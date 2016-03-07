@@ -18,7 +18,8 @@ public class Honeypot : SubroutineFunction
         this.PulseParticles = this.transform.Find("FunctionRoot/Honeypot/PulseParticles").GetComponent<ParticleSystem>();
         //this.BurstParticles = this.transform.Find("FunctionRoot/Terminate/BurstParticles").GetComponent<ParticleSystem>();
         HoneypotLineRenderer.SetVertexCount(0);
-        this.Parent.Info.FireRate = 5f;
+        this.Parent.Info.Cooldown = 5f;
+        this.Parent.MyActorInfo.FunctionHitChance = 100f;
         this.Parent.Info.CoreCost += 2;
     }
 
@@ -79,7 +80,7 @@ public class Honeypot : SubroutineFunction
     private void FireAtEnemy(Vector3 relativePos)
     {
         isFiring = true;
-        CooldownRemaining = this.Parent.Info.FireRate;
+        CooldownRemaining = this.Parent.Info.Cooldown;
         //this.closestVirus.TakeDamage(this.Parent.Info.DamagePerHit);
         this.Parent.lockedVirus.ForceAggro(this.transform);
         this.HoneypotLineRenderer.SetVertexCount(2);

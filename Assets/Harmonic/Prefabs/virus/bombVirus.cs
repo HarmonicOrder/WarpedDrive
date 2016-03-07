@@ -19,9 +19,9 @@ public class bombVirus : VirusAI {
 		this.Info = new ActorInfo()
 		{ 
 			Name = "Bomber",
-			FireRate = 1f,
+			Cooldown = 1f,
             HitChance = 100,
-            SaveChance = 0
+            BlockChance = 0
 		};
 	}
 
