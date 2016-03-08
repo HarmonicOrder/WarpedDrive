@@ -21,8 +21,7 @@ public class Tracer : SubroutineMovement {
     // Use this for initialization
     void Start () {
         CalculateFiringLineRotation();
-        this.Parent.Info.HitChance += 15f;
-        this.Parent.MyActorInfo.MovementHitChance = 15f;
+        this.Parent.Info.BonusHitModifier = 1f;
     }
 
     private const float Divergence = 15f;
@@ -109,6 +108,7 @@ public class Tracer : SubroutineMovement {
 					//do not engage
 				} 
 				else 
+                //if we're an avoidance type try to move away
                 if (doAvoid && relativePos.magnitude < avoidDistance)
                 {
                     this.transform.Translate(0, 0, -InterruptTime.deltaTime * moveSpeed, Space.Self);

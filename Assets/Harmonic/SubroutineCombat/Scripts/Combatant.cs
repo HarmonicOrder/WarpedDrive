@@ -10,7 +10,7 @@ public class Combatant : Actor, ICombatant {
     {
         get
         {
-            return this.Info.HitChance + this.StatusEffectHitModifier;
+            return this.Info.HitChance + (this.Info.HitChance * this.Info.BonusHitModifier) + this.StatusEffectHitModifier;
         }
     }
 

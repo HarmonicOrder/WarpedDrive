@@ -33,7 +33,6 @@ public class ImplodingEmitter : MonoBehaviour {
         {
 		    partSys.Clear();
 		    if (!partSys.isPlaying) {
-                print("starting to play!");
 			    partSys.Play();
 		    }
 		    while(isAttracting)

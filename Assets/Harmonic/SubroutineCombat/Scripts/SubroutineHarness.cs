@@ -63,6 +63,10 @@ public class SubroutineHarness : MonoBehaviour, ILockTarget
             (MovementScript as Tracer).moveSpeed = 10f;
             (MovementScript as Tracer).doAvoid = true;
         }
+        else if ((FunctionScript is Corrupt) && (MovementScript is Tracer))
+        {
+            //???
+        }
     }
 
     private void SetMovement(string movementName)

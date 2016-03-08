@@ -5,6 +5,7 @@ public class ActorInfo {
 	
 	public float Cooldown = 0f;
     public float HitChance = 0f;
+    public float BonusHitModifier = 0f;
     public float BlockChance = 0f;
     public float Reboots = 0f;
 	public int CoreCost = 0;
@@ -23,7 +24,7 @@ public class ActorInfo {
 public class SubroutineActorInfo : ActorInfo
 {
     public float MovementBlockChance = 0f;
-    public float MovementHitChance = 0f;
+    public float MovementHitModifier = 1f;
     public float FunctionBlockChance = 0f;
     public float FunctionHitChance = 0f;
 }

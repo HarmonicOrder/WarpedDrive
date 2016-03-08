@@ -7,6 +7,11 @@ public class Corrupt : SubroutineFunction {
 
     public ImplodingEmitter Emitter { get; private set; }
 
+    // 1/3 of standard 90f range
+    public override float TracerSlowRange { get { return 30f; } }
+    // 1/4 of the standard 80f range
+    public override float TracerStopRange { get { return 20f; } }
+
     // Use this for initialization
     void Start () {
         this.Parent.Info.Cooldown = .3f;

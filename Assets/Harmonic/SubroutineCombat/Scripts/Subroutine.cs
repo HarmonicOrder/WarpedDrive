@@ -231,31 +231,38 @@ public class Subroutine : Combatant {
     {
         this.Die();
     }
-    
-    private void HitAndBlockReadout(StringBuilder sb, float movementAmount, float functionAmount)
+
+    protected override void FillHitReadout(StringBuilder sb)
     {
-        sb.Append(movementAmount.ToString().PadLeft(4, ' '));
+        sb.Append(MyActorInfo.FunctionHitChance.ToString().PadLeft(4, ' '));
         sb.Append("% [");
-        sb.Append(this.SInfo.MovementName.ToUpper());
+        sb.Append(this.SInfo.FunctionName.ToUpper());
         sb.Append("]\r\n");
 
-        if (functionAmount > 0f)
+        if (this.Info.BonusHitModifier > 0f)
         {
             sb.Append("+");
-            sb.Append(functionAmount.ToString().PadLeft(3, ' '));
+            sb.Append((MyActorInfo.FunctionHitChance * MyActorInfo.MovementHitModifier).ToString().PadLeft(3, ' '));
             sb.Append("% [");
-            sb.Append(this.SInfo.FunctionName.ToUpper());
+            sb.Append(this.SInfo.MovementName.ToUpper());
             sb.Append("]\r\n");
         }
     }
 
-    protected override void FillHitReadout(StringBuilder sb)
-    {
-        HitAndBlockReadout(sb, MyActorInfo.MovementHitChance, MyActorInfo.FunctionHitChance);
-    }
-
     protected override void FillBlockReadout(StringBuilder sb)
     {
-        HitAndBlockReadout(sb, MyActorInfo.MovementBlockChance, MyActorInfo.FunctionBlockChance);
+        sb.Append(MyActorInfo.MovementBlockChance.ToString().PadLeft(4, ' '));
+        sb.Append("% [");
+        sb.Append(this.SInfo.MovementName.ToUpper());
+        sb.Append("]\r\n");
+
+        if (MyActorInfo.FunctionBlockChance > 0f)
+        {
+            sb.Append("+");
+            sb.Append(MyActorInfo.FunctionBlockChance.ToString().PadLeft(3, ' '));
+            sb.Append("% [");
+            sb.Append(this.SInfo.FunctionName.ToUpper());
+            sb.Append("]\r\n");
+        }
     }
 }
