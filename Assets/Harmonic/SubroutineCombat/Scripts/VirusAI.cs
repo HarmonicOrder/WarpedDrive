@@ -16,8 +16,11 @@ public class VirusAI : Combatant, ILockTarget, IMalware, ISubroutineListener {
     public bool IsImmobile { get; private set; }
     public bool IsSandboxed { get; internal set; }
 
+    public List<GameObject> Emitters { get; set; }
+
     protected override void OnAwake ()
 	{
+        Emitters = new List<GameObject>();
         DoOnAwake();
 	}
 
@@ -63,8 +66,16 @@ public class VirusAI : Combatant, ILockTarget, IMalware, ISubroutineListener {
         this.targetT = ActiveSubroutines.FindClosestActiveSubroutine(this.transform.position, 300f);
     }
 
-	
-	public void EnableLockedOnGui()
+    internal static void UnparentEmitters(List<GameObject> emitters)
+    {
+        foreach (GameObject g in emitters)
+        {
+            if (g != null)
+                g.transform.SetParent(null);
+        }
+    }
+
+    public void EnableLockedOnGui()
 	{
 		LockedOnGUI.enabled = true;
 	}
@@ -82,16 +93,16 @@ public class VirusAI : Combatant, ILockTarget, IMalware, ISubroutineListener {
 
     protected virtual void OnVirusDead()
     {
-        print("removing virusAI from virus list in onvirusdead");
         ActiveSubroutines.RemoveVirus(this);
 	}
     
 	protected override void _OnDestroy(){
-        print("removing virusAI from virus list in ondestroy");
 		ActiveSubroutines.RemoveVirus(this);
 
         if (ActiveSubroutines.MalwareList.Contains(this))
             print("!!!!! still in list!");
+
+        UnparentEmitters(this.Emitters);
 
 #pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
         if (CyberspaceDroneInput.CurrentLock == this)

@@ -61,7 +61,15 @@ public class CyberspaceEnvironment {
             ID = "a6",
             LoadedIntoRAM = true
         });
-        _instance.MaximumRAM +=4;
+        _instance.Subroutines.Add(new SubroutineInfo()
+        {
+            FunctionName = "Corrupt",
+            Hotkey = 7,
+            MovementName = "Tracer",
+            ID = "a7",
+            LoadedIntoRAM = true
+        });
+        _instance.MaximumRAM +=6;
     }
 
     public static CyberspaceEnvironment GetDefault()

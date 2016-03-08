@@ -11,7 +11,8 @@ public class MeshNode : MonoBehaviour, IMalware {
 	public short AttackPriority {get{return 1;}}
     public bool IsHead = false;
     
-	public virtual VirusAI.VirusType Type {get{return VirusAI.VirusType.Ransomware;}}
+	public virtual VirusAI.VirusType Type {get{return VirusAI.VirusType.Ransomware;} }
+    public List<GameObject> Emitters { get; set; } 
 
     public float KillChance { get { return 0; } }
 
@@ -28,7 +29,8 @@ public class MeshNode : MonoBehaviour, IMalware {
 
 	// Use this for initialization
 	void Start () {
-		ActiveSubroutines.AddVirus(this);		
+        Emitters = new List<GameObject>();
+        ActiveSubroutines.AddVirus(this);		
 	}
 	
 	// Update is called once per frame
@@ -71,7 +73,7 @@ public class MeshNode : MonoBehaviour, IMalware {
 	
 	void OnDestroy()
     {
-        print("removing meshnode from virus list");
+        VirusAI.UnparentEmitters(Emitters);
         ActiveSubroutines.RemoveVirus(this);
 	}
 

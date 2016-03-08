@@ -118,6 +118,9 @@ public class SubroutineHarness : MonoBehaviour, ILockTarget
                 this.FunctionScript = this.gameObject.AddComponent<Lag>();
                 (this.FunctionScript as Lag).LagBombVisualization = LagBombPrefab;
                 break;
+            default:
+                print("Fell through subroutine harness! " +functionName);
+                break;
         }
     }
 

@@ -4,9 +4,7 @@ using System.Collections;
 public class Delete : SubroutineFunction {
 
 	public Transform lazerPrefab;
-    public float angleTightness = 5f;
-
-	private float LookAtSpeed = 5f;
+    
 	private Transform leftGun;
 	private Transform rightGun;
 
@@ -19,40 +17,17 @@ public class Delete : SubroutineFunction {
         this.Parent.Info.HitChance += 15f;
         this.Parent.MyActorInfo.FunctionHitChance = 15f;
         this.Parent.Info.CoreCost += 1;
+        this.LookAtSpeed = 5f;
 		leftGun = HarmonicUtils.FindInChildren(this.Parent.FunctionRoot, "CrosshairLeft");
 		rightGun = HarmonicUtils.FindInChildren(this.Parent.FunctionRoot, "CrosshairRight");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (this.Parent.IsActive)
-		{
-			bool canFire = false;
-			if (CooldownRemaining <= 0f)
-			{
-				canFire = true;
-			}
-			else
-			{
-				CooldownRemaining -= InterruptTime.deltaTime;
-			}
-			
-			if (TrackEnemy && !isFiring)
-			{
-				
-				if (this.Parent.LockedTarget != null)
-				{
-					Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
-					this.Parent.FunctionRoot.rotation = Quaternion.Slerp(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos), InterruptTime.deltaTime * LookAtSpeed);
-					float angle = Quaternion.Angle(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos));
-					
-					if ( (angle < angleTightness) && canFire)
-					{
-						FireAtEnemy(this.Parent.LockedTarget.position - this.transform.position, this.Parent.lockedMalware);
-					}
-				}
-			}
-		}
+        if (CanAttackEnemy())
+        {
+            FireAtEnemy(this.Parent.LockedTarget.position - this.transform.position, this.Parent.lockedMalware);
+        }
 	}
 
 	private bool onPrimary = true;

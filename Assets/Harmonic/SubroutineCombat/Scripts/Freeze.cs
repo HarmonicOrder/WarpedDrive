@@ -3,20 +3,19 @@ using System.Collections;
 
 public class Freeze : SubroutineFunction
 {
-
-    public float LookAtSpeed = 2f;
+    
     public float LaserPersistTime = .5f;
     public override bool OnlyTrackActiveViruses { get { return true; } }
     
-    public ParticleSystem BurstParticles;
-    public LineRenderer TerminateLineRenderer;
+    public ParticleSystem FrostParticles;
+    public LineRenderer FreezeLineRenderer;
 
     // Use this for initialization
     void Start()
     {
-        this.TerminateLineRenderer = this.transform.Find("FunctionRoot/Freeze").GetComponent<LineRenderer>();
-        this.BurstParticles = this.transform.Find("FunctionRoot/Freeze/BurstParticles").GetComponent<ParticleSystem>();
-        TerminateLineRenderer.SetVertexCount(0);
+        this.FreezeLineRenderer = this.transform.Find("FunctionRoot/Freeze").GetComponent<LineRenderer>();
+        this.FrostParticles = this.transform.Find("FunctionRoot/Freeze/BurstParticles").GetComponent<ParticleSystem>();
+        FreezeLineRenderer.SetVertexCount(0);
         this.Parent.Info.Cooldown = 5f;
         this.Parent.Info.HitChance += 50f;
         this.Parent.MyActorInfo.FunctionHitChance = 50f;
@@ -34,32 +33,9 @@ public class Freeze : SubroutineFunction
     // Update is called once per frame
     void Update()
     {
-        if (this.Parent.IsActive)
+        if (CanAttackEnemy())
         {
-            bool canFire = false;
-            if (CooldownRemaining <= 0f)
-            {
-                canFire = true;
-            }
-            else
-            {
-                CooldownRemaining -= InterruptTime.deltaTime;
-            }
-
-            if (TrackEnemy && !isFiring)
-            {
-                if (this.Parent.LockedTarget != null)
-                {
-                    Vector3 relativePos = this.Parent.LockedTarget.position - this.transform.position;
-                    this.Parent.FunctionRoot.rotation = Quaternion.Slerp(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos), InterruptTime.deltaTime * LookAtSpeed);
-                    float angle = Quaternion.Angle(this.Parent.FunctionRoot.rotation, Quaternion.LookRotation(relativePos));
-
-                    if ((angle < 5f) && canFire)
-                    {
-                        FireAtEnemy(this.Parent.LockedTarget.position - this.transform.position);
-                    }
-                }
-            }
+            FireAtEnemy(this.Parent.LockedTarget.position - this.transform.position);
         }
     }
 
@@ -70,14 +46,13 @@ public class Freeze : SubroutineFunction
         
         this.Parent.DoAttack(this.Parent.lockedMalware, AttackType.Freeze);
 
-        this.TerminateLineRenderer.SetVertexCount(2);
-        this.TerminateLineRenderer.SetPosition(0, Vector3.zero);
-        this.TerminateLineRenderer.SetPosition(1, Vector3.forward * relativePos.magnitude);
-        //this.PulseParticles.startSpeed = relativePos.magnitude;
-        //this.PulseParticles.Play();
-        this.BurstParticles.Emit(100);
-        this.BurstParticles.transform.localPosition = Vector3.forward * relativePos.magnitude / 2;
-        this.BurstParticles.transform.localScale = Vector3.right * relativePos.magnitude / 2;
+        this.FreezeLineRenderer.SetVertexCount(2);
+        this.FreezeLineRenderer.SetPosition(0, Vector3.zero);
+        this.FreezeLineRenderer.SetPosition(1, Vector3.forward * relativePos.magnitude);
+        
+        this.FrostParticles.Emit(100);
+        this.FrostParticles.transform.localPosition = Vector3.forward * relativePos.magnitude / 2;
+        this.FrostParticles.transform.localScale = Vector3.right * relativePos.magnitude / 2;
         StartCoroutine(this.WaitAndStopLaser());
     }
 
@@ -85,8 +60,7 @@ public class Freeze : SubroutineFunction
     private IEnumerator WaitAndStopLaser()
     {
         yield return new WaitForSecondsInterruptTime(this.LaserPersistTime);
-        this.TerminateLineRenderer.SetVertexCount(0);
-        //this.PulseParticles.Stop();
+        this.FreezeLineRenderer.SetVertexCount(0);
         isFiring = false;
     }
 }
