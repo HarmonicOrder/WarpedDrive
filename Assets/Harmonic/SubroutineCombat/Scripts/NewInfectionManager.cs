@@ -96,7 +96,12 @@ public class NewInfectionManager : MonoBehaviour {
         for (int i = 0; i < NumOfInvaders; i++)
         {
             randomIndex = UnityEngine.Random.Range(0, invasionForceCandidates.Count);
-            InvasionForce.Add(invasionForceCandidates[randomIndex]);
+            Transform toAdd = invasionForceCandidates[randomIndex];
+            InvasionForce.Add(toAdd);
+
+            //wabbits create partners, so they count for twice
+            if (toAdd == WabbitPrefab)
+                i++;
         }
 
         return InvasionForce;
