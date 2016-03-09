@@ -186,6 +186,30 @@ public class Combatant : Actor, ICombatant {
         sb.Append("COOLDOWN\r\n");
         sb.Append(this.Info.Cooldown.ToString().PadLeft(4, ' '));
         sb.Append("s\r\n");
+
+        foreach (StatusEffect s in this.Effects)
+        {
+            if (s.CooldownModifier > 1)
+            {
+                sb.Append("+");
+            }
+            else if (s.CooldownModifier < 1)
+            {
+                sb.Append("-");
+            }
+            else
+            {
+                continue;
+            }
+            sb.Append(Math.Abs(s.CooldownModifier * this.Info.Cooldown).ToString().PadLeft(3, ' '));
+            sb.Append("% [");
+            sb.Append(s.Type.ToString());
+            sb.Append("]\r\n");
+        }
+
+        sb.Append("=");
+        sb.Append(this.Cooldown.ToString().PadLeft(3, ' '));
+        sb.Append("s\r\n");
     }
 
     public void BlockReadout(StringBuilder sb)

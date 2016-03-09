@@ -101,6 +101,11 @@ public class Actor : MonoBehaviour {
         /// </summary>
         public float CooldownModifier { get; set; }
 
+        public StatusEffect()
+        {
+            this.CooldownModifier = 1f;
+        }
+
         public StatusEffect Clone()
         {
             return new StatusEffect()

@@ -81,7 +81,7 @@ public class Tracer : SubroutineMovement {
             this.transform.Translate(0, 0, Mathf.Lerp(0, moveSpeed, t) * 3 * InterruptTime.deltaTime, Space.Self);
             
         }
-        else if (Parent.IsActive)
+        else if (Parent.IsActive && !EnumExtensions.Has(this.Parent.ActiveStatuses, Actor.StatusType.Frozen))
 		{
 			float moveSpeed = this.moveSpeed;
 

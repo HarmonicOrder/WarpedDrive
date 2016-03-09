@@ -29,7 +29,7 @@ public class SubroutineFunction : MonoBehaviour {
 
     protected bool CanAttackEnemy()
     {
-        if (this.Parent.IsActive)
+        if (this.Parent.IsActive && !EnumExtensions.Has(this.Parent.ActiveStatuses, Actor.StatusType.Frozen))
         {
             bool canFire = false;
             if (CooldownRemaining <= 0f)

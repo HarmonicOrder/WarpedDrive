@@ -70,8 +70,18 @@ public class Ability {
 
     public void Activate(ILockTarget target)
     {
-        this.targetG = target.transform.gameObject;
-        this.target = (ICombatant)target;
+        if (target != null)
+        {
+            this.targetG = target.transform.gameObject;
+            if (target is ICombatant)
+            {
+                this.target = (ICombatant)target;
+            }
+            else
+            {
+                this.target = target.transform.GetComponent<ICombatant>();
+            }
+        }
 
         switch (Name)
         {
@@ -110,10 +120,10 @@ public class Ability {
                 {
                     (this.target as Subroutine).AddEffect(new Actor.StatusEffect()
                     {
-                        HitModifier = -1,
                         Duration = 5f,
                         Type = Actor.StatusType.Frozen
                     });
+                    this.target.Freeze(null);
                     ToastLog.Toast("HYPERTHREAD Failure!\nFrozen for 5s");
                 }
                 break;
@@ -128,7 +138,6 @@ public class Ability {
 
     public bool CanActivate(ILockTarget target)
     {
-        UnityEngine.Debug.Log(target);
         switch (Name)
         {
             case "suspend":
@@ -136,9 +145,9 @@ public class Ability {
             case "overclock":
                 return true;
             case "fork":
-                return target != null && target is Subroutine;
+                return target != null && target is SubroutineHarness;
             case "hyperthread":
-                return target != null && target is Subroutine;
+                return target != null && target is SubroutineHarness;
         }
         return false;
     }
