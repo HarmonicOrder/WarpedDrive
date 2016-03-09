@@ -261,6 +261,11 @@ public class CyberspaceDroneInput : MonoBehaviour {
             }
         }
 
+        if (Input.GetKeyUp(KeyCode.B) && CanStartAVBattleship())
+        {
+            StartAVOnMachine();
+        }
+
         if (Input.GetKeyUp(KeyCode.Space))
         {
             IsTimeFrozen = !IsTimeFrozen;
@@ -728,13 +733,13 @@ public class CyberspaceDroneInput : MonoBehaviour {
         Time.timeScale = 1;
     }
     
-    private bool AVButtonShouldShow()
+    private bool CanStartAVBattleship()
     {
         return (this.CurrentMachine != null) && (this.CurrentMachine.IsInfected) && !this.CurrentMachine.HasActiveAV;
     }
     private void RefreshAVButton()
     {
-        StartAV.gameObject.SetActive(AVButtonShouldShow());
+        StartAV.gameObject.SetActive(CanStartAVBattleship());
     }
 
     public void StartAVOnMachine()
