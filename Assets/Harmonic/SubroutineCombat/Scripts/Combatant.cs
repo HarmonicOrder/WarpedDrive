@@ -184,6 +184,8 @@ public class Combatant : Actor, ICombatant {
     public void CooldownReadout(StringBuilder sb)
     {
         sb.Append("COOLDOWN\r\n");
+        sb.Append(this.Info.Cooldown.ToString().PadLeft(4, ' '));
+        sb.Append("s\r\n");
     }
 
     public void BlockReadout(StringBuilder sb)

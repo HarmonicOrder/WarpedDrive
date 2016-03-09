@@ -10,7 +10,7 @@ public class Ability {
         new Ability()
         {
             Name = "suspend",
-            Cooldown = 60,
+            Cooldown = 90,
             GoodChance = 75,
             BadChance = 25,
             Duration = 5
@@ -33,8 +33,8 @@ public class Ability {
         },
         new Ability()
         {
-            Name = "multithread",
-            Cooldown = 60,
+            Name = "hyperthread",
+            Cooldown = 90,
             GoodChance = 66,
             BadChance = 33,
             Duration = 5
@@ -83,6 +83,12 @@ public class Ability {
                 }
                 else
                 {
+                    (this.target as Combatant).AddEffect(new Actor.StatusEffect()
+                    {
+                        BlockModifier = 100f,
+                        Duration = 5f,
+                        Type = Actor.StatusType.Superblock
+                    });
                     ToastLog.Toast("SUSPEND Failure!\nVirus +100% Block");
                 }
                 break;
@@ -91,6 +97,25 @@ public class Ability {
             case "fork":
                 break;
             case "hyperthread":
+                if (RollDice())
+                {
+                    (this.target as Subroutine).AddEffect(new Actor.StatusEffect()
+                    {
+                        CooldownModifier = -.5f,
+                        Duration = 5f,
+                        Type = Actor.StatusType.Hyperthread
+                    });
+                }
+                else
+                {
+                    (this.target as Subroutine).AddEffect(new Actor.StatusEffect()
+                    {
+                        HitModifier = -1,
+                        Duration = 5f,
+                        Type = Actor.StatusType.Frozen
+                    });
+                    ToastLog.Toast("HYPERTHREAD Failure!\nFrozen for 5s");
+                }
                 break;
         }
     }
@@ -103,6 +128,7 @@ public class Ability {
 
     public bool CanActivate(ILockTarget target)
     {
+        UnityEngine.Debug.Log(target);
         switch (Name)
         {
             case "suspend":

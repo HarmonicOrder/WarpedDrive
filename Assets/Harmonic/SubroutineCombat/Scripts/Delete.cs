@@ -33,7 +33,7 @@ public class Delete : SubroutineFunction {
 	private bool onPrimary = true;
 	private void FireAtEnemy(Vector3 relativePos, IMalware m){
 		isFiring = true;
-		CooldownRemaining = this.Parent.Info.Cooldown;
+        CooldownRemaining = this.Parent.Cooldown;
 
 		Transform laserStart;
 		if (onPrimary)

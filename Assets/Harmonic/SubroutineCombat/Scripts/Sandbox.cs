@@ -3,10 +3,9 @@ using System.Collections;
 
 public class Sandbox : SubroutineFunction
 {
-    public float LookAtSpeed = 2f;
     public Transform SandboxVisualization;
     public override bool OnlyTrackActiveViruses { get { return true; } }
-
+    internal static float SandboxingTime = 4f;
     private Transform CurrentSandboxViz;
 
     // Use this for initialization
@@ -64,7 +63,7 @@ public class Sandbox : SubroutineFunction
 
     private IEnumerator WaitAndStopLaser()
     {
-        yield return new WaitForSecondsInterruptTime(5f);
+        yield return new WaitForSecondsInterruptTime(SandboxingTime);
         UnSandbox();
         isFiring = false;
     }

@@ -134,7 +134,7 @@ public class stealthVirus : VirusAI, ILurker {
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = false;
 		
-		CooldownRemaining = this.Info.Cooldown;
+		CooldownRemaining = this.Cooldown;
 
 		Transform t = (Transform)GameObject.Instantiate(this.LazerPrefab, this.LazerStart.position, this.LazerStart.rotation);
         LazerTorpedo lb = t.GetComponent<LazerTorpedo>();

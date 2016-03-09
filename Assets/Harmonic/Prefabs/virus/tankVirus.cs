@@ -130,7 +130,7 @@ public class tankVirus : VirusAI {
 		if (OrbitScript != null)
 			OrbitScript.IsOrbiting = false;
 
-		CooldownRemaining = this.Info.Cooldown;
+		CooldownRemaining = this.Cooldown;
 
 		this.LineRenderer.SetVertexCount(2);
 		this.LineRenderer.SetPosition(0, Vector3.zero);

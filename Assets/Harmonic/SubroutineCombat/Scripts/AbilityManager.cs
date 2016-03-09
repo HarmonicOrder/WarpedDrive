@@ -29,17 +29,15 @@ public class AbilityManager : MonoBehaviour {
 <color=#03FF62FF>2m refresh</color>
 <color=#03FF62FF>75% Clone Subroutine</color>
 <color=#d00>25% Spawn Virus</color>"));
-        Abilities.Add("multithread", new AbilityViewModel(Multithread, Ability.ByName("multithread"),
+        Abilities.Add("hyperthread", new AbilityViewModel(Multithread, Ability.ByName("hyperthread"),
 @"
-<color=#03FF62FF>1m refresh</color>
+<color=#03FF62FF>1.5m refresh</color>
 <color=#03FF62FF>66% Rate +50% for 5s</color>
 <color=#d00>33% Frozen for 5s</color>"));
     }
 
     public void Activate(string name)
     {
-        print(CyberspaceDroneInput.CurrentLock);
-
         AbilityViewModel avm = Abilities[name];
         if (avm.Countdown <= 0 && avm.Model.CanActivate(CyberspaceDroneInput.CurrentLock))
         {

@@ -11,6 +11,7 @@ public class Actor : MonoBehaviour {
     public float StatusEffectCooldownModifier { get; set; }
 
     void Awake () {
+        StatusEffectCooldownModifier = 1f;
 		OnAwake();
 	}
 	
@@ -95,6 +96,9 @@ public class Actor : MonoBehaviour {
         public float Countdown { get; set; }
         public float BlockModifier { get; set; }
         public float HitModifier { get; set; }
+        /// <summary>
+        /// a multiplier for cooldown
+        /// </summary>
         public float CooldownModifier { get; set; }
 
         public StatusEffect Clone()
@@ -111,5 +115,7 @@ public class Actor : MonoBehaviour {
     }
 
     [Flags]
-    public enum StatusType { None, Frozen, Sandboxed, Lagged }
+    public enum StatusType { None, Frozen, Sandboxed, Lagged, Hyperthread,
+        Superblock
+    }
 }
