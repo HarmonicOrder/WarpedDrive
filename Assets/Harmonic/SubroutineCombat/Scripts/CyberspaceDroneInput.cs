@@ -29,6 +29,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
             }
         }
     }
+    public static CyberspaceDroneInput Instance;
 
 	public float smoothing = 5f;
 	public Transform strategyYawSphere;
@@ -42,7 +43,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
     public Image FileViewerImage;
 	public Transform PivotTransform;
     public RawImage HitCrosshair, Crosshair;
-	public RectTransform Menu, FileViewer;
+	public RectTransform Menu, FileViewer, SubroutineList;
 	public Text consoleText;
 	public Transform TracerStartPosition, NoTimeVisual;
     public Transform SubroutineHarnessPrefab, AVBattleshipPrefab;
@@ -52,6 +53,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     public Camera ControlCamera { get; private set; }
 
+    internal Transform CurrentFocus { get; set; }
+
     private Vector3 MachineViewPivotLocalPosition = new Vector3(0, -8, -240);
     private HarmonicUtils.LerpContext MachineLerp = new HarmonicUtils.LerpContext(.5f);
     private HarmonicUtils.LerpContext ZoomLerp = new HarmonicUtils.LerpContext(.5f);
@@ -60,12 +63,12 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	private bool showingMainMenu;
     private bool IsCinematic { get; set; }
     private List<MachineStrategyAnchor> Anchors = new List<MachineStrategyAnchor>();
-    private Transform CurrentFocus;
     private MachineStrategyAnchor CurrentAnchor;
     private bool IsTimeFrozen = false;
     private bool CameraFollowsMouse = false;
 
     void Awake() {
+        Instance = this;
 		CyberspaceBattlefield.Current = new CyberspaceBattlefield();
 		StrategyConsole.Initialize(consoleText);
         OxygenConsumer.Instance.IsConsumingSlowly = true;
@@ -97,6 +100,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
         CurrentLock = null;
         strategyPitchSphere.localRotation = Quaternion.Euler(25, 0, 0);
         NoTimeVisual.gameObject.SetActive(false);
+        SubroutineList.gameObject.SetActive(false);
     }
 
     private void SetCrosshairToMousePosition()
@@ -255,9 +259,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
             }
             else
             {
-                this.transform.SetParent(null);
-                MachineLerp.Reset(this.transform.position, this.CurrentAnchor.transform.position);
-                CurrentFocus = CurrentAnchor.transform;
+                ResetFocusToMachine();
             }
         }
 
@@ -295,6 +297,13 @@ public class CyberspaceDroneInput : MonoBehaviour {
         MachineSubroutineUpdate();
 
         MachineInputMoveUpdate();
+    }
+
+    public void ResetFocusToMachine()
+    {
+        this.transform.SetParent(null);
+        MachineLerp.Reset(this.transform.position, this.CurrentAnchor.transform.position);
+        CurrentFocus = CurrentAnchor.transform;
     }
 
     private void MachineSubroutineUpdate()
@@ -739,7 +748,9 @@ public class CyberspaceDroneInput : MonoBehaviour {
     }
     private void RefreshAVButton()
     {
-        StartAV.gameObject.SetActive(CanStartAVBattleship());
+        bool showBootButton = CanStartAVBattleship();
+        StartAV.gameObject.SetActive(showBootButton);
+        SubroutineList.gameObject.SetActive(!showBootButton);
     }
 
     public void StartAVOnMachine()

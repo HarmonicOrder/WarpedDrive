@@ -82,6 +82,10 @@ public class Machine : Location {
             //doing this while one of the hardpoints is selected can cause problems
 #warning fixme: do something smarter than this to fix hardpoints disappearing
             CyberspaceDroneInput.CurrentLock = null;
+
+            if (CyberspaceDroneInput.Instance.CurrentFocus == this.AVBattleship)
+                CyberspaceDroneInput.Instance.ResetFocusToMachine();
+
             GameObject.Destroy(this.AVBattleship.gameObject);
             this.AVBattleshipTracerHangar = null;
         }
