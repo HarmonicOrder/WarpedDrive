@@ -5,7 +5,7 @@ using UnityStandardAssets.ImageEffects;
 public class ScriptedNewGame : MonoBehaviour {
     
     public MeshRenderer topSlit, bottomSlit;
-    public Light GlobalLight;
+    public Light Spotlight1, Spotlight2;
     public Canvas ClockCanvas;
     public bool TestNewGame;
     public bool TestTutorial;
@@ -35,7 +35,7 @@ public class ScriptedNewGame : MonoBehaviour {
             topSlit.enabled = true;
             bottomSlit.enabled = true;
             ClockCanvas.enabled = false;
-            GlobalLight.intensity = 0;
+            Spotlight1.intensity = Spotlight2.intensity = 0;
             computerVoiceAudio = this.gameObject.AddComponent<AudioSource>();
             computerVoiceAudio.clip = WakeyWakey;
             computerVoiceAudio.playOnAwake = false;
@@ -80,9 +80,9 @@ public class ScriptedNewGame : MonoBehaviour {
         ClockCanvas.enabled = true;
 
         yield return new WaitForSeconds(2f);
-        GlobalLight.intensity = 1.25f;
+        Spotlight1.intensity = Spotlight2.intensity = 1.25f;
         yield return new WaitForSeconds(.2f);
-        GlobalLight.intensity = 0;
+        Spotlight1.intensity = Spotlight2.intensity = 0;
 
         yield return new WaitForSeconds(4f);
         yield return StartCoroutine(FlickerLights());
@@ -91,12 +91,12 @@ public class ScriptedNewGame : MonoBehaviour {
         yield return StartCoroutine(FlickerLights());
 
         yield return new WaitForSeconds(.2f);
-        while(GlobalLight.intensity < 1.25f)
+        while(Spotlight1.intensity < 1.25f)
         {
-            GlobalLight.intensity += .2f;
+            Spotlight1.intensity = Spotlight2.intensity += .2f;
             yield return null;
         }
-        GlobalLight.intensity = 1.25f;
+        Spotlight1.intensity = Spotlight2.intensity = 1.25f;
         yield return new WaitForSeconds(2f);
 
         StartTutorialScript();
@@ -107,13 +107,13 @@ public class ScriptedNewGame : MonoBehaviour {
 
     private IEnumerator FlickerLights()
     {
-        GlobalLight.intensity = 1.25f;
+        Spotlight1.intensity = Spotlight2.intensity = 1.25f;
         yield return new WaitForSeconds(.2f);
-        GlobalLight.intensity = 0;
+        Spotlight1.intensity = Spotlight2.intensity = 0;
         yield return new WaitForSeconds(.2f);
-        GlobalLight.intensity = 1.25f;
+        Spotlight1.intensity = Spotlight2.intensity = 1.25f;
         yield return new WaitForSeconds(.4f);
-        GlobalLight.intensity = 0;
+        Spotlight1.intensity = Spotlight2.intensity = 0;
     }
 
     private IEnumerator UnMuffle()
