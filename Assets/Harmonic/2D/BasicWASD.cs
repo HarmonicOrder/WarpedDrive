@@ -6,7 +6,7 @@ using System;
 
 public class BasicWASD : MonoBehaviour {
 
-    public Animator animator;
+    public Animator animator, headlightAnimator;
     public Camera TerminalCamera;
     public UnityStandardAssets.ImageEffects.BlurOptimized BlurEffect;
     public Terminal T;
@@ -79,7 +79,7 @@ public class BasicWASD : MonoBehaviour {
 		    float h, v;
 		    h = CrossPlatformInputManager.GetAxis("Horizontal");
 		    v = CrossPlatformInputManager.GetAxis("Vertical")  ;
-
+            print("h:" + h + " v:" + v);
             if (v > 0)
             {
                 animator.SetInteger("Direction", 2);
@@ -96,6 +96,8 @@ public class BasicWASD : MonoBehaviour {
             {
                 animator.SetInteger("Direction", 1);
             }
+            headlightAnimator.SetFloat("BlendX", Mathf.Clamp(h, -1f, 1f));
+            headlightAnimator.SetFloat("BlendY", Mathf.Clamp(v, -1f, 1f));
             animator.SetBool("isWalking", (h != 0) || (v != 0));
 
             Vector3 vec = new Vector3(h, v, 0f);
