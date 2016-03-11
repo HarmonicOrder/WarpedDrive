@@ -89,6 +89,46 @@ public static class NetworkMap {
                             }
                         },
                         new NetworkLocation(){
+                            Name = "crossH",
+                            sceneIndex = 14,
+                            IsInfected = true,
+                            Machines = new List<Machine>()
+                            {
+                                new Machine()
+                                {
+                                    Name = "GatewayMachine",
+                                    CPUCores = 4,
+                                    IsInfected = false
+                                },
+                                new Machine()
+                                {
+                                    Name = "KeystoreMachine1",
+                                    CPUCores = 4,
+                                    IsInfected = true
+                                },
+                                new Machine()
+                                {
+                                    Name = "KeystoreMachine2",
+                                    CPUCores = 2,
+                                    IsInfected = true
+                                },
+                                new Machine()
+                                {
+                                    Name = "DBMachine1",
+                                    CPUCores = 2,
+                                    IsInfected = true,
+                                    IsAccessible = false
+                                },
+                                new Machine()
+                                {
+                                    Name = "DBMachine2",
+                                    CPUCores = 2,
+                                    IsInfected = true,
+                                    IsAccessible = false
+                                }
+                            }
+                        },
+                        new NetworkLocation(){
                             Name = "colonistDossiers",
                             sceneIndex = 9,
                             IsInfected = true,

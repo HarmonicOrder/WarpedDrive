@@ -5,10 +5,15 @@ public class SSH : NetworkLocationButton, IKeyListener, IActivatable {
 
     public Transform TunnelViz;
     public Transform LockViz;
-    public Transform wipeCube;
+    public Keystore.KeyColor KeyColor = Keystore.KeyColor.Green;
+    public MachineStrategyAnchor OpenedAnchor;
+    public bool ForwardToTarget = false, RightToTarget = true;
 
+    private MachineStrategyAnchor StartAnchor;
 	// Use this for initialization
 	void Start () {
+        StartAnchor = this.transform.root.GetComponent<MachineStrategyAnchor>();
+
         TunnelViz.gameObject.SetActive(false);
         this.transform.localScale = Vector3.zero;
         Keystore.OnKeyCopied += OnKeyCopied;
@@ -21,36 +26,34 @@ public class SSH : NetworkLocationButton, IKeyListener, IActivatable {
 
     public void OnKeyCopied(Keystore.KeyColor keyColor)
     {
-        LockViz.gameObject.SetActive(false);
-        StartCoroutine(Open());
+        if (keyColor == this.KeyColor)
+        {
+            LockViz.gameObject.SetActive(false);
+            StartCoroutine(Open());
+        }
     }
 
     public void Activate()
     {
         TunnelViz.gameObject.SetActive(true);
         ToastLog.Toast("SSH Tunnel\nOpened");
-        Machine myMachine = CyberspaceBattlefield.Current.FindByName(wipeCube.root.name);
-        myMachine.IsAccessible = true;
-        if (wipeCube != null)
-            StartCoroutine(CloseCube());
+        OpenedAnchor.myMachine.IsAccessible = true;
+        if (ForwardToTarget)
+        {
+            this.StartAnchor.Forward = this.OpenedAnchor;
+            this.OpenedAnchor.Backward = this.StartAnchor;
+        }
+        else if (RightToTarget)
+        {
+            this.StartAnchor.Right = this.OpenedAnchor;
+            this.OpenedAnchor.Left = this.StartAnchor;
+        }
+
         StartCoroutine(Close());
     }
 
     void OnDestroy()
     {
         Keystore.OnKeyCopied -= OnKeyCopied;
-    }
-
-    public IEnumerator CloseCube()
-    {
-        float currentTime = 0f;
-        while (currentTime < 1f)
-        {
-            this.wipeCube.localPosition = Vector3.Lerp(Vector3.zero, new Vector3(0, 400f, 0f), currentTime);
-            yield return null;
-            currentTime += InterruptTime.deltaTime;
-        }
-
-        this.wipeCube.gameObject.SetActive(false);
     }
 }
