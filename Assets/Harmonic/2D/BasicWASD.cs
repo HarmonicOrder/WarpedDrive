@@ -11,7 +11,7 @@ public class BasicWASD : MonoBehaviour {
     public UnityStandardAssets.ImageEffects.BlurOptimized BlurEffect;
     public Terminal T;
     public UnityEngine.UI.Text ClockText;
-    public UnityEngine.UI.Image ClockPanel;
+    public UnityEngine.UI.Image ClockFill;
     public ParticleSystem Immature;
     public RectTransform AreYouSurePanel;
     public RectTransform QuitButton;
@@ -79,7 +79,7 @@ public class BasicWASD : MonoBehaviour {
 		    float h, v;
 		    h = CrossPlatformInputManager.GetAxis("Horizontal");
 		    v = CrossPlatformInputManager.GetAxis("Vertical")  ;
-            print("h:" + h + " v:" + v);
+            //print("h:" + h + " v:" + v);
             if (v > 0)
             {
                 animator.SetInteger("Direction", 2);
@@ -119,6 +119,7 @@ public class BasicWASD : MonoBehaviour {
 		}
 
         ClockText.text = HarmonicUtils.ClockFormat((float)StarshipEnvironment.Instance.SecondsTilOxygenRunsOut);
+        ClockFill.fillAmount = (float)(StarshipEnvironment.Instance.OxygenLevel / StarshipEnvironment.Instance.OxygenStorage);
 	}
 
     private IEnumerator BeImmature()
@@ -139,7 +140,6 @@ public class BasicWASD : MonoBehaviour {
     {
         BlurEffect.enabled = usingTerminal;
         TerminalCamera.enabled = usingTerminal;
-        ClockPanel.enabled = !usingTerminal;
 
         if (usingTerminal)
         {

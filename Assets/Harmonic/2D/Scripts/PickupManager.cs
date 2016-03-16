@@ -7,15 +7,20 @@ public class PickupManager : MonoBehaviour {
     
     public float PickupDistance = 1f;
     public float OxygenMinutesPerPickup = 4f;
+    public float OxygenMinutePerTick = .2f;
     public uint RAMPerPickup = 2;
     public Transform Character;
 
     Coroutine check;
 
+    private float ticksOfOxygenPerPickup;
+    private float downscalePerTickForOxygen;
 
     // Use this for initialization
     void Start()
     {
+        ticksOfOxygenPerPickup = (OxygenMinutesPerPickup / OxygenMinutePerTick);
+        downscalePerTickForOxygen = (1 / ticksOfOxygenPerPickup);
         DestroyAlreadyPickedUpPickups();
         check = StartCoroutine(CheckPickups());
     }
@@ -43,10 +48,18 @@ public class PickupManager : MonoBehaviour {
                     //only get the first part of the name "oxygen1" becomes "oxygen"
                     if (EnumExtensions.TryParse<PickupTypes>(type, new Regex(@"([a-z]*)").Match(t.name.ToLower()).Captures[0].Value, out type))
                     {
+                        bool destroy = true;
                         switch(type)
                         {
                             case PickupTypes.oxygen:
-                                StarshipEnvironment.Instance.OxygenLevel += StarshipEnvironment.OxygenConsumedPerSecond * 60 * this.OxygenMinutesPerPickup;
+                                Transform scaler = t.GetChild(0).transform;
+                                if (scaler.localScale.y > 0)
+                                {
+                                    StarshipEnvironment.Instance.OxygenLevel += StarshipEnvironment.OxygenConsumedPerSecond * 60 * (OxygenMinutePerTick);
+                                    print(scaler.localScale.y - downscalePerTickForOxygen);
+                                    scaler.localScale = new Vector3(1, scaler.localScale.y - downscalePerTickForOxygen, 1);
+                                    destroy = false;
+                                }
                                 //todo: fire OnOxygenPickup
                                 break;
                             case PickupTypes.ram:
@@ -55,7 +68,8 @@ public class PickupManager : MonoBehaviour {
                                 break;
                         }
                         StarshipEnvironment.Instance.PickupsPickedUp.Add(t.name.ToLower());
-                        GameObject.Destroy(t.gameObject);
+                        if (destroy)
+                            GameObject.Destroy(t.gameObject);
                     }
                     break;
                 }

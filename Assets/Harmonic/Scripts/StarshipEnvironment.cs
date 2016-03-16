@@ -27,6 +27,7 @@ public class StarshipEnvironment {
     public StarshipEnvironment()
     {
         //UnityEngine.Debug.Log("oxygen is " + OxygenConsumer.Instance.enabled);
+        this.OxygenStorage = 6 / 1000f;
     }
 
     private static StarshipEnvironment _instance;
