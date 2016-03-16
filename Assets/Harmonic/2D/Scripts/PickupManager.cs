@@ -55,9 +55,14 @@ public class PickupManager : MonoBehaviour {
                                 Transform scaler = t.GetChild(0).transform;
                                 if (scaler.localScale.y > 0)
                                 {
-                                    StarshipEnvironment.Instance.OxygenLevel += StarshipEnvironment.OxygenConsumedPerSecond * 60 * (OxygenMinutePerTick);
-                                    print(scaler.localScale.y - downscalePerTickForOxygen);
-                                    scaler.localScale = new Vector3(1, scaler.localScale.y - downscalePerTickForOxygen, 1);
+                                    if (StarshipEnvironment.Instance.OxygenLevel < StarshipEnvironment.Instance.OxygenStorage)
+                                    {
+                                        StarshipEnvironment.Instance.OxygenLevel += StarshipEnvironment.OxygenConsumedPerSecond * 60 * (OxygenMinutePerTick);
+                                        //print(scaler.localScale.y - downscalePerTickForOxygen);
+                                        scaler.localScale = new Vector3(1, scaler.localScale.y - downscalePerTickForOxygen, 1);
+                                        t.GetComponent<AudioSource>().pitch = UnityEngine.Random.Range(.7f, 1.2f);
+                                        t.GetComponent<AudioSource>().Play();
+                                    }
                                     destroy = false;
                                 }
                                 //todo: fire OnOxygenPickup
