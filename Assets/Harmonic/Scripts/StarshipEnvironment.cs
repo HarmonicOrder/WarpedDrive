@@ -6,6 +6,7 @@ using System;
 public class StarshipEnvironment {
 
     public Dictionary<string, bool> OpenDoors = new Dictionary<string, bool>();
+    public Dictionary<string, float> O2GeneratorAmount = new Dictionary<string, float>();
     public List<string> PickupsPickedUp = new List<string>();
 
     //all kilograms!
@@ -61,11 +62,28 @@ public class StarshipEnvironment {
         return OpenDoors.ContainsKey(name) && OpenDoors[name];
     }
 
+    public float GeneratorAmount(string name)
+    {
+        if (O2GeneratorAmount.ContainsKey(name))
+        {
+            return O2GeneratorAmount[name];
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
     public static string[] DoorNames = new string[]
     {
         "infosec",
         "cargobay",
         "biomed",
         "bridge"
+    };
+
+    public static string[] GeneratorNames = new string[]
+    {
+        "o2gen1"
     };
 }

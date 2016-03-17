@@ -168,7 +168,7 @@ public class BasicWASD : MonoBehaviour {
         else if (st == FocusState.Generator)
         {
             Gen.transform.parent.gameObject.SetActive(true);
-
+            Gen.PrintStatus(TerminalManager.GeneratorName);
         }
         else
         {

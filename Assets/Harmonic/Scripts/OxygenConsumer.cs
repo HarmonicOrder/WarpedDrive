@@ -43,6 +43,7 @@ public class OxygenConsumer : MonoBehaviour {
                 }
                 yield return new WaitForSeconds(.5f);
             }
+            //do NOT remove this! coroutines MUST yield return or they will hold up the thread!
             yield return new WaitForSeconds(.5f);
         }
     }
