@@ -9,7 +9,8 @@ public class BasicWASD : MonoBehaviour {
     public Animator animator, headlightAnimator;
     public Camera TerminalCamera;
     public UnityStandardAssets.ImageEffects.BlurOptimized BlurEffect;
-    public Terminal T;
+    public Terminal Term;
+    public Generator Gen;
     public UnityEngine.UI.Text ClockText;
     public UnityEngine.UI.Image ClockFill;
     public ParticleSystem Immature;
@@ -19,6 +20,8 @@ public class BasicWASD : MonoBehaviour {
 
     private bool IsUsingTerminal = false;
     private bool IsShowingMenu = false;
+    private FocusState CurrentFocus;
+    private enum FocusState { None, Terminal, Generator }
 
     // Use this for initialization
     void Start () {
@@ -32,6 +35,8 @@ public class BasicWASD : MonoBehaviour {
         OxygenConsumer.Instance.IsConsumingSlowly = false;
         QuitButton.gameObject.SetActive(false);
         AreYouSurePanel.gameObject.SetActive(false);
+        Gen.transform.parent.gameObject.SetActive(false);
+        Term.transform.parent.gameObject.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -61,20 +66,27 @@ public class BasicWASD : MonoBehaviour {
         }
 
         bool escapeUp = Input.GetKeyUp(KeyCode.Escape);
-        if (Input.GetKeyUp(KeyCode.E) && (IsUsingTerminal || TerminalManager.IsNextToTerminal))
+        if (Input.GetKeyUp(KeyCode.E))
         {
-            ToggleTerminal();
+            if (TerminalManager.IsNextToTerminal)
+            {
+                SetFocus(FocusState.Terminal);
+            }
+            else if (TerminalManager.IsNextToGenerator)
+            {
+                SetFocus(FocusState.Generator);
+            }
         }
-        else if (IsUsingTerminal && escapeUp)
+        else if (CurrentFocus != FocusState.None && escapeUp)
         {
-            ToggleTerminal();
+            SetFocus(FocusState.None);
         }
         else if (escapeUp)
         {
             ToggleMenu();
         }
 
-        if (!IsUsingTerminal)
+        if (CurrentFocus == FocusState.None)
         {
 		    float h, v;
 		    h = CrossPlatformInputManager.GetAxis("Horizontal");
@@ -129,25 +141,40 @@ public class BasicWASD : MonoBehaviour {
         Immature.Stop();
     }
 
-    private void ToggleTerminal()
+    private void SetFocus(FocusState contextual)
     {
-        IsUsingTerminal = !IsUsingTerminal;
-
-        SetTerminalState(IsUsingTerminal);
-    }
-
-    private void SetTerminalState(bool usingTerminal)
-    {
-        BlurEffect.enabled = usingTerminal;
-        TerminalCamera.enabled = usingTerminal;
-
-        if (usingTerminal)
+        if (CurrentFocus == contextual)
         {
-            T.ShowStatus();
+            CurrentFocus = FocusState.None;
         }
         else
         {
-            T.StopStatus();
+            CurrentFocus = contextual;
+        }
+
+        SetTerminalState(CurrentFocus);
+    }
+
+    private void SetTerminalState(FocusState st)
+    {
+        BlurEffect.enabled = st != FocusState.None;
+        TerminalCamera.enabled = st != FocusState.None;
+
+        if (st == FocusState.Terminal)
+        {
+            Term.transform.parent.gameObject.SetActive(true);
+            Term.ShowStatus();
+        }
+        else if (st == FocusState.Generator)
+        {
+            Gen.transform.parent.gameObject.SetActive(true);
+
+        }
+        else
+        {
+            Gen.transform.parent.gameObject.SetActive(false);
+            Term.transform.parent.gameObject.SetActive(false);
+            Term.StopStatus();
         }
     }
 
