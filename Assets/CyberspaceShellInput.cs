@@ -6,7 +6,7 @@ using Prime31.TransitionKit;
 
 public class CyberspaceShellInput : MonoBehaviour {
 	
-	public EngineThruster thruster;
+	//public EngineThruster thruster;
 	public Image ThrottlePanel;
 
 	public float maximumRollPerSecond = 10f;

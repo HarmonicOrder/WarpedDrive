@@ -4,7 +4,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class CyberspaceFlyInput : MonoBehaviour {
 
-	public EngineThruster thruster;
+	//public EngineThruster thruster;
 	public float maximumRollPerSecond = 10f;
 	public float maximumPitchPerSecond = 10f;
 	public float maximumYawPerSecond = 10f;
@@ -65,7 +65,7 @@ public class CyberspaceFlyInput : MonoBehaviour {
 
 		//print(string.Format("Boosting:{0}, X:{1}, Y:{2}, Z:{3}", boost, horz, vert, roll));
 
-		if (thruster != null){
+		/*if (thruster != null){
 			if (currentThrottle != 0f){
 				if (boost) {
 					thruster.ChangeEngineState(EngineThruster.EngineState.Boost);
@@ -75,7 +75,7 @@ public class CyberspaceFlyInput : MonoBehaviour {
 			} else {
 				thruster.ChangeEngineState(EngineThruster.EngineState.Idle);
 			}
-		}
+		}*/
 		currentSpeed = moveSpeed * Mathf.Abs(currentThrottle) * (boost ? boostMultiplier : 1);
 
 		//fov widens when boosting, temporarily

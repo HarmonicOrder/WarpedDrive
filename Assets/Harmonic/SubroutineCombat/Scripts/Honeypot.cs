@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Honeypot : SubroutineFunction
 {
-    public float LookAtSpeed = 10f;
     public float AngleThreshold = .1f;
     public override bool OnlyTrackActiveViruses { get { return true; } }
 
