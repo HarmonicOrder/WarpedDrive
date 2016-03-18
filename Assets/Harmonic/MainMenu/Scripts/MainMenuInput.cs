@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class MainMenuInput : MonoBehaviour {
 	public Texture2D cursorTexture;
-    public Button LoadGameButton;
-    public Button LoadOtherGameButton;
+    public Button LoadGameButton, LoadOtherGameButton;
     public RectTransform NewGameButton;
     public Canvas MainmenuCanvas;
     public Canvas SignupCanvas;
@@ -81,6 +80,11 @@ public class MainMenuInput : MonoBehaviour {
         pixelater.nextScene = 1;
         TransitionKit.instance.transitionWithDelegate(pixelater);
         return;
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 
     public void OpenLoadButtons()

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 using Prime31.TransitionKit;
 using System;
+using UnityEngine.SceneManagement;
 
 public class BasicWASD : MonoBehaviour {
 
@@ -191,6 +192,11 @@ public class BasicWASD : MonoBehaviour {
     public void AreYouSureQuit()
     {
         Application.Quit();
+    }
+
+    public void AreYouSureMenu()
+    {
+        SceneManager.LoadSceneAsync(0);
     }
 
     public void CancelQuit()
