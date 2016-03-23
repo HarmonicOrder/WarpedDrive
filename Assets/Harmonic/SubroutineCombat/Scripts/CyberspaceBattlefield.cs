@@ -30,6 +30,7 @@ public class CyberspaceBattlefield {
 
 	public NetworkLocation CurrentNetwork {get;set;}
     public bool Abdicate { get; set; }
+    public bool RequiredButtonExists { get; set; }
 
     public CyberspaceBattlefield() {
 		CurrentNetwork = NetworkMap.GetLocationByCurrentScene();

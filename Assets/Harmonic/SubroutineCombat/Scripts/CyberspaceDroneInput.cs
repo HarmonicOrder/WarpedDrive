@@ -617,7 +617,13 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	}
 	
 	public void BackToNetwork()
-	{
+    {
+        if (CyberspaceBattlefield.Current.RequiredButtonExists)
+        {
+            ToastLog.Toast("Undownloaded data in subnet!");
+            return;
+        }
+
         CyberspaceBattlefield.Current.Abdicate = true;
 		var pixelater = new PixelateTransition()
 		{
@@ -630,6 +636,12 @@ public class CyberspaceDroneInput : MonoBehaviour {
 	
 	public void BackToMeatspace()
     {
+        if (CyberspaceBattlefield.Current.RequiredButtonExists)
+        {
+            ToastLog.Toast("Undownloaded data in subnet!");
+            return;
+        }
+
         CyberspaceBattlefield.Current.Abdicate = true;
         var pixelater = new PixelateTransition()
 		{
