@@ -212,6 +212,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
         {
             GoToAnchor(CurrentAnchor.Right);
         }
+
+        SetCrosshairToMousePosition();
     }
 
     private void GoToAnchor(MachineStrategyAnchor a)
