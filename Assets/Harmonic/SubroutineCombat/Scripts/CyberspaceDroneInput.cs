@@ -289,8 +289,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
         {
             if (CurrentLock is SubroutineHarness)
             {
+                AssignLockTarget(null);
                 CurrentLock.transform.GetComponent<Subroutine>().Die();
-                CurrentLock = null;
             }
         }
         
@@ -431,10 +431,9 @@ public class CyberspaceDroneInput : MonoBehaviour {
         }
         else
         {
-            if (LeftClick && CurrentLock != null)
+            if (LeftClick)
             {
-                CurrentLock.DisableLockedOnGui();
-                CurrentLock = null;
+                AssignLockTarget(null);
             }
             TargetGuiText.text = "";
             HitCrosshair.enabled = false;
@@ -576,7 +575,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
             if (candidate != null)
             {
-                CurrentLock = candidate;
+                AssignLockTarget(candidate);
                 return true;
             }
             else
@@ -734,7 +733,10 @@ public class CyberspaceDroneInput : MonoBehaviour {
 			CurrentLock.DisableLockedOnGui();
 		}
 		CurrentLock = newTargt;
-		CurrentLock.EnableLockedOnGui();
+        if (newTargt != null)
+        {
+		    CurrentLock.EnableLockedOnGui();
+        }
 	}
 
 	private void SlerpRotate(Transform target, float deltaX, float deltaY, float? xRange = null)
