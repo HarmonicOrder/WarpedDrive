@@ -7,6 +7,7 @@ public class Hardpoint : MonoBehaviour, ILockTarget {
 	public MeshRenderer lockedOnMesh;
 	public SpriteRenderer lockedOnSprite;
     public bool Occupied = false;
+    public bool IsOnBattleshipFarSide = false;
 
 	private Color unhighlighted;
 	private int emissionColorPropertyID;

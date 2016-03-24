@@ -725,7 +725,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194430}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.474118, y: -80.18673, z: 103.51743}
+  m_LocalPosition: {x: -421.8818, y: 239.23041, z: -67.48463}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 477862}
@@ -1472,6 +1472,8 @@ MonoBehaviour:
   HighlightedSprite: {r: 0.15862082, g: 0, b: 1, a: 1}
   lockedOnMesh: {fileID: 2344668}
   lockedOnSprite: {fileID: 21242654}
+  Occupied: 0
+  IsOnBattleshipFarSide: 1
 --- !u!114 &11411306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1487,6 +1489,8 @@ MonoBehaviour:
   HighlightedSprite: {r: 0.15862082, g: 0, b: 1, a: 1}
   lockedOnMesh: {fileID: 2383686}
   lockedOnSprite: {fileID: 21212900}
+  Occupied: 0
+  IsOnBattleshipFarSide: 1
 --- !u!114 &11425922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1502,6 +1506,8 @@ MonoBehaviour:
   HighlightedSprite: {r: 0.15862082, g: 0, b: 1, a: 1}
   lockedOnMesh: {fileID: 2377582}
   lockedOnSprite: {fileID: 21292108}
+  Occupied: 0
+  IsOnBattleshipFarSide: 0
 --- !u!114 &11443698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1517,6 +1523,8 @@ MonoBehaviour:
   HighlightedSprite: {r: 0.15862082, g: 0, b: 1, a: 1}
   lockedOnMesh: {fileID: 2306928}
   lockedOnSprite: {fileID: 21221128}
+  Occupied: 0
+  IsOnBattleshipFarSide: 0
 --- !u!114 &11447500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1532,6 +1540,8 @@ MonoBehaviour:
   HighlightedSprite: {r: 0.15862082, g: 0, b: 1, a: 1}
   lockedOnMesh: {fileID: 2384512}
   lockedOnSprite: {fileID: 21285134}
+  Occupied: 0
+  IsOnBattleshipFarSide: 0
 --- !u!114 &11449574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1564,6 +1574,8 @@ MonoBehaviour:
   HighlightedSprite: {r: 0.15862082, g: 0, b: 1, a: 1}
   lockedOnMesh: {fileID: 2370990}
   lockedOnSprite: {fileID: 21237456}
+  Occupied: 0
+  IsOnBattleshipFarSide: 1
 --- !u!212 &21212900
 SpriteRenderer:
   m_ObjectHideFlags: 1

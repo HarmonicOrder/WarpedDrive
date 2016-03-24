@@ -710,7 +710,14 @@ public class CyberspaceDroneInput : MonoBehaviour {
             t.SetParent(this.CurrentMachine.AVBattleship);
 
             if (CurrentLock is Hardpoint)
+            {
                 s.AssignHardpoint(CurrentLock as Hardpoint);
+                if ((CurrentLock as Hardpoint).IsOnBattleshipFarSide && this.CurrentMachine.AVBattleship != null)
+                {
+#warning hack to make battleship tip without tipping camera
+                    this.CurrentMachine.AVBattleship.GetChild(0).localRotation = Quaternion.Euler(0, 90f, -45f);
+                }
+            }
         }
         
 
