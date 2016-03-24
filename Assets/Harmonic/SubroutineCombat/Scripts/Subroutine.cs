@@ -151,6 +151,11 @@ public class Subroutine : Combatant {
             this.DeployedMachine.OnMachineReInfectionSuccess -= OnMachineClean;
             this.DeployedMachine.OnMachineReInfectionFailure -= OnMachineClean;
         }
+
+        if (this.AssignedHardpointObj != null)
+        {
+            this.AssignedHardpoint.Occupied = false;
+        }
     }
 
     /// <summary>
@@ -264,5 +269,15 @@ public class Subroutine : Combatant {
             sb.Append(this.SInfo.FunctionName.ToUpper());
             sb.Append("]\r\n");
         }
+    }
+
+    private Hardpoint AssignedHardpoint;
+    private GameObject AssignedHardpointObj;
+    internal void AssignHardpoint(Hardpoint hardpoint)
+    {
+        print("assigning hardpoint");
+        hardpoint.Occupied = true;
+        this.AssignedHardpoint = hardpoint;
+        this.AssignedHardpointObj = hardpoint.gameObject;
     }
 }

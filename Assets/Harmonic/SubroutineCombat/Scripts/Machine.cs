@@ -26,6 +26,7 @@ public class Machine : Location {
     public bool IsBeingReinfected { get; private set; }
     internal Transform AVCastle { get; set; }
     internal Transform AVCastleTracerHanger { get; set; }
+    public Hardpoint[] Hardpoints { get; set; }
 
     public delegate void SystemCleanEvent();
 	public SystemCleanEvent OnMachineClean;
@@ -94,6 +95,7 @@ public class Machine : Location {
         if (this.AVCastle != null)
         {
             this.AVCastle.gameObject.SetActive(true);
+            this.Hardpoints = this.AVCastle.GetComponentsInChildren<Hardpoint>();
         }
 
         IsInfected = false;
@@ -139,5 +141,30 @@ public class Machine : Location {
         {
             OnMachineReInfectionStart();
         }
+    }
+
+    internal Transform StartAntivirus(Transform aVBattleshipPrefab, MachineStrategyAnchor currentAnchor)
+    {
+        this.HasActiveAV = true;
+
+        Transform av = GameObject.Instantiate<Transform>(aVBattleshipPrefab);
+        av.SetParent(currentAnchor.transform);
+        av.localPosition = Vector3.forward * 140f;
+        av.GetComponent<OrbitAround>().OrbitAnchor = currentAnchor.transform;
+        this.Hardpoints = av.GetComponentsInChildren<Hardpoint>();
+
+        return av;
+    }
+
+    internal Hardpoint CandidateHardpoint()
+    {
+        for (int i = 0; i < Hardpoints.Count(); i++)
+        {
+            UnityEngine.Debug.Log("evaluating " + Hardpoints[i].name);
+            if (!Hardpoints[i].Occupied)
+                return Hardpoints[i];
+        }
+
+        return null;
     }
 }

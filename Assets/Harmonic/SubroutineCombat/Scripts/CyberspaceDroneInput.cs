@@ -392,27 +392,38 @@ public class CyberspaceDroneInput : MonoBehaviour {
                 if (v)
                 {
                     TargetGuiText.text = v.InformationReadout();
-                    AssignLockTarget(LeftClick, v);
-                }
-
-                Hardpoint h = (Hardpoint)rayHit.collider.GetComponentInParent(typeof(Hardpoint));
-                if (h)
-                {
-                    AssignLockTarget(LeftClick, h);
-                }
-
-                //IActivatable means buttons that are clickable
-                IActivatable a = (IActivatable)rayHit.collider.GetComponentInParent(typeof(IActivatable));
-                if ((a != null) && LeftClick)
-                {
-                    a.Activate();
                 }
 
                 SubroutineHarness sh = (SubroutineHarness)rayHit.collider.GetComponentInParent(typeof(SubroutineHarness));
                 if (sh)
                 {
                     TargetGuiText.text = sh.BoundSubroutine.InformationReadout();
-                    AssignLockTarget(LeftClick, sh);
+                }
+
+                if (LeftClick)
+                {
+                    if (v)
+                    {
+                        AssignLockTarget(v);
+                    }
+
+                    if (sh)
+                    {
+                        AssignLockTarget(sh);
+                    }
+
+                    Hardpoint h = (Hardpoint)rayHit.collider.GetComponentInParent(typeof(Hardpoint));
+                    if (h)
+                    {
+                        AssignLockTarget(h);
+                    }
+
+                    //IActivatable means buttons that are clickable
+                    IActivatable a = (IActivatable)rayHit.collider.GetComponentInParent(typeof(IActivatable));
+                    if (a != null)
+                    {
+                        a.Activate();
+                    }
                 }
             }
 
@@ -554,14 +565,48 @@ public class CyberspaceDroneInput : MonoBehaviour {
             }
         }
         else
-            print("invalid target");
+            ToastLog.Toast("Invalid target");
+    }
+
+    private bool CanAutopickHardpoint()
+    {
+        if (CurrentMachine != null)
+        {
+            Hardpoint candidate = CurrentMachine.CandidateHardpoint();
+
+            if (candidate != null)
+            {
+                CurrentLock = candidate;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private bool ValidateTarget(SubroutineInfo si)
     {
         if (si.MovementName == "Station")
         {
-            return (CurrentLock is Hardpoint);
+            if (CurrentLock is Hardpoint)
+            {
+                if ((CurrentLock as Hardpoint).Occupied)
+                    return CanAutopickHardpoint();
+                else
+                    return true;
+            }
+            else if (CurrentLock == null)
+            {
+                return CanAutopickHardpoint();
+            }
+            else
+                return false;
         }
         else
         {
@@ -657,14 +702,17 @@ public class CyberspaceDroneInput : MonoBehaviour {
     private void FireSubroutine(Transform t, SubroutineInfo si)
 	{
         t.GetComponent<SubroutineHarness>().Assign(si);
+		Subroutine s = t.GetComponent<Subroutine>();
 
         //only parent if infected, not if being put on castle
         if (CurrentMachine.IsInfected && (si.MovementName == "Station"))
         {
             t.SetParent(this.CurrentMachine.AVBattleship);
+
+            if (CurrentLock is Hardpoint)
+                s.AssignHardpoint(CurrentLock as Hardpoint);
         }
         
-		Subroutine s = t.GetComponent<Subroutine>();
 
         if (CurrentLock != null)
 		    s.LockedTarget = CurrentLock.transform;
@@ -672,17 +720,14 @@ public class CyberspaceDroneInput : MonoBehaviour {
 		s.Activate(si, CurrentMachine);
     }
 	
-	private void AssignLockTarget(bool leftClick, ILockTarget newTargt)
+	private void AssignLockTarget(ILockTarget newTargt)
 	{
-		if (leftClick)
+		if (CurrentLock != null)
 		{
-			if (CurrentLock != null)
-			{
-				CurrentLock.DisableLockedOnGui();
-			}
-			CurrentLock = newTargt;
-			CurrentLock.EnableLockedOnGui();
+			CurrentLock.DisableLockedOnGui();
 		}
+		CurrentLock = newTargt;
+		CurrentLock.EnableLockedOnGui();
 	}
 
 	private void SlerpRotate(Transform target, float deltaX, float deltaY, float? xRange = null)
@@ -769,14 +814,8 @@ public class CyberspaceDroneInput : MonoBehaviour {
 
     public void StartAVOnMachine()
     {
-        this.CurrentMachine.HasActiveAV = true;
-
-        Transform av = GameObject.Instantiate<Transform>(AVBattleshipPrefab);
-        av.SetParent(this.CurrentAnchor.transform);
-        av.localPosition = Vector3.forward * 140f;
-        av.GetComponent<OrbitAround>().OrbitAnchor = this.CurrentAnchor.transform;
-        this.CurrentMachine.AVBattleship = av;
-        this.CurrentMachine.AVBattleshipTracerHangar = av.Find("TracerSpawn");
+        this.CurrentMachine.AVBattleship = this.CurrentMachine.StartAntivirus(AVBattleshipPrefab, this.CurrentAnchor); ;
+        this.CurrentMachine.AVBattleshipTracerHangar = this.CurrentMachine.AVBattleship.Find("TracerSpawn");
 
         RefreshAVButton();
     }

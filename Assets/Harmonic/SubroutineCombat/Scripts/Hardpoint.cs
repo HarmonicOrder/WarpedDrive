@@ -6,7 +6,8 @@ public class Hardpoint : MonoBehaviour, ILockTarget {
 	public Color HighlightedSprite;
 	public MeshRenderer lockedOnMesh;
 	public SpriteRenderer lockedOnSprite;
-    
+    public bool Occupied = false;
+
 	private Color unhighlighted;
 	private int emissionColorPropertyID;
 	private Color unhighlightedSprite;
