@@ -3,8 +3,7 @@ using System.Collections;
 
 public class MachineLabel : MonoBehaviour {
 
-	public Color CleanColor;
-	public Color InfectedColor;
+	public Color CleanColor, InfectedColor, ReinfectingColor;
 	public SpriteRenderer FenceRenderer;
     public SpriteRenderer FenceRenderer2;
 
@@ -16,50 +15,52 @@ public class MachineLabel : MonoBehaviour {
 	void Start () {
 		this.Root = this.transform.root;
 		this.myMachine = CyberspaceBattlefield.Current.FindByName(this.Root.name);
-		this.myMachine.OnMachineClean += OnMachineClean;
-        this.myMachine.OnMachineReInfectionSuccess += OnMachineClean;
+		this.myMachine.OnMachineClean += OnMachineStatusChange;
+        this.myMachine.OnMachineReInfectionStart += OnMachineStatusChange;
+        this.myMachine.OnMachineReInfectionFailure += OnMachineStatusChange;
+        this.myMachine.OnMachineReInfectionSuccess += OnMachineStatusChange;
 		this.myText = this.GetComponent<TextMesh>();
 		UpdateText();
 		UpdateFence();
 	}
 
-	private void OnMachineClean() {
+	private void OnMachineStatusChange() {
 		UpdateText();
 		UpdateFence();
 	}
 
 	private void UpdateText()
 	{
-		if (this.myMachine.IsInfected)
-		{
-			myText.color = InfectedColor;
-		}
-		else
-		{
-			myText.color = CleanColor;
-		}
+        myText.color = GetAppropriateColor();
 		myText.text = string.Format("{0}\r\n{1} CPU Cores", this.myMachine.HumanSubnetAddress, this.myMachine.CPUCores);
 	}
 
 	private void UpdateFence()
 	{
-		if (this.myMachine.IsInfected)
-		{
-			FenceRenderer.color = HarmonicUtils.ColorWithAlpha(InfectedColor, .5f);
-            if (FenceRenderer2 != null)
-                FenceRenderer2.color = HarmonicUtils.ColorWithAlpha(InfectedColor, .5f);
-        }
-		else
-		{
-			FenceRenderer.color = HarmonicUtils.ColorWithAlpha(CleanColor, .5f);
-            if (FenceRenderer2 != null)
-                FenceRenderer2.color = HarmonicUtils.ColorWithAlpha(CleanColor, .5f);
-        }
+		FenceRenderer.color = GetAppropriateColor(.5f);
+        if (FenceRenderer2 != null)
+            FenceRenderer2.color = GetAppropriateColor(.5f);
 	}
+
+    private Color GetAppropriateColor(float alpha = 1)
+    {
+        if (this.myMachine.IsInfected)
+        {
+            return HarmonicUtils.ColorWithAlpha(InfectedColor, alpha);
+        }
+        else if (this.myMachine.IsBeingReinfected)
+        {
+            return HarmonicUtils.ColorWithAlpha(ReinfectingColor, alpha);
+        }
+        else
+        {
+            return HarmonicUtils.ColorWithAlpha(CleanColor, alpha);
+        }
+    }
 
     void OnDestroy()
     {
-        this.myMachine.OnMachineClean -= OnMachineClean;
-        this.myMachine.OnMachineReInfectionSuccess -= OnMachineClean;
+        this.myMachine.OnMachineClean -= OnMachineStatusChange;
+        this.myMachine.OnMachineReInfectionSuccess -= OnMachineStatusChange;
     }
 }

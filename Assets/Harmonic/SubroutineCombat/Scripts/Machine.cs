@@ -29,6 +29,7 @@ public class Machine : Location {
 
     public delegate void SystemCleanEvent();
 	public SystemCleanEvent OnMachineClean;
+    public SystemCleanEvent OnMachineReInfectionStart;
     public SystemCleanEvent OnMachineReInfectionFailure;
     public SystemCleanEvent OnMachineReInfectionSuccess;
 
@@ -133,5 +134,10 @@ public class Machine : Location {
     internal void StartReinfection()
     {
         this.IsBeingReinfected = true;
+
+        if (OnMachineReInfectionStart != null)
+        {
+            OnMachineReInfectionStart();
+        }
     }
 }
