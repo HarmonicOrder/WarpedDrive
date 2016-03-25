@@ -15,7 +15,6 @@ public class Honeypot : SubroutineFunction
     {
         this.HoneypotLineRenderer = this.transform.Find("FunctionRoot/Honeypot").GetComponent<LineRenderer>();
         this.PulseParticles = this.transform.Find("FunctionRoot/Honeypot/PulseParticles").GetComponent<ParticleSystem>();
-        //this.BurstParticles = this.transform.Find("FunctionRoot/Terminate/BurstParticles").GetComponent<ParticleSystem>();
         HoneypotLineRenderer.SetVertexCount(0);
         this.Parent.Info.Cooldown = 5f;
         this.Parent.MyActorInfo.FunctionHitChance = 100f;
@@ -81,6 +80,7 @@ public class Honeypot : SubroutineFunction
         isFiring = true;
         CooldownRemaining = this.Parent.Info.Cooldown;
         //this.closestVirus.TakeDamage(this.Parent.Info.DamagePerHit);
+
         this.Parent.lockedVirus.ForceAggro(this.transform);
         this.HoneypotLineRenderer.SetVertexCount(2);
         this.HoneypotLineRenderer.SetPosition(0, Vector3.zero);

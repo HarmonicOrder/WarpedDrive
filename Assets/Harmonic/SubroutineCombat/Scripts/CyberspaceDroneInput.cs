@@ -708,18 +708,21 @@ public class CyberspaceDroneInput : MonoBehaviour {
         {
             t.SetParent(this.CurrentMachine.AVBattleship.GetChild(0));
 
-            if (CurrentLock is Hardpoint)
+        }
+
+        if (CurrentLock is Hardpoint)
+        {
+            s.AssignHardpoint(CurrentLock as Hardpoint);
+            if (this.CurrentMachine.AVBattleship != null)
             {
-                s.AssignHardpoint(CurrentLock as Hardpoint);
-                if ((CurrentLock as Hardpoint).IsOnBattleshipFarSide && this.CurrentMachine.AVBattleship != null)
+                s.LockedTarget = CurrentLock.transform.GetChild(0);
+                if ((CurrentLock as Hardpoint).IsOnBattleshipFarSide)
                 {
                     this.CurrentMachine.TiltBattleship();
                 }
             }
         }
-        
-
-        if (CurrentLock != null)
+        else if (CurrentLock != null)
 		    s.LockedTarget = CurrentLock.transform;
 
 		s.Activate(si, CurrentMachine);
@@ -823,7 +826,7 @@ public class CyberspaceDroneInput : MonoBehaviour {
     public void StartAVOnMachine()
     {
         this.CurrentMachine.AVBattleship = this.CurrentMachine.StartAntivirus(AVBattleshipPrefab, this.CurrentAnchor); ;
-        this.CurrentMachine.AVBattleshipTracerHangar = this.CurrentMachine.AVBattleship.Find("TracerSpawn");
+        this.CurrentMachine.AVBattleshipTracerHangar = this.CurrentMachine.AVBattleship.GetChild(0).Find("TracerSpawn");
 
         RefreshAVButton();
     }
