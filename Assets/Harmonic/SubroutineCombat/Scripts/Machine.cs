@@ -146,6 +146,7 @@ public class Machine : Location {
     internal Transform StartAntivirus(Transform aVBattleshipPrefab, MachineStrategyAnchor currentAnchor)
     {
         this.HasActiveAV = true;
+        this.isTilted = false;
 
         Transform av = GameObject.Instantiate<Transform>(aVBattleshipPrefab);
         av.SetParent(currentAnchor.transform);
@@ -166,5 +167,20 @@ public class Machine : Location {
         }
 
         return null;
+    }
+
+    private bool isTilted = false;
+    internal void TiltBattleship()
+    {
+#warning hack to make battleship tip without tipping camera
+        if (!isTilted)
+        {
+            Spin s = this.AVBattleship.GetChild(0).gameObject.AddComponent<Spin>();
+            s.RotationAxis = Spin.Axis.Z;
+            s.ZOffset = 0f;
+            s.degreesPerSecond = -15;
+            s.SetAutoOff(4f);
+            this.isTilted = true;
+        }
     }
 }

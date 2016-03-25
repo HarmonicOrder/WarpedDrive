@@ -6,9 +6,12 @@ public class Spin : MonoBehaviour {
 	public enum Axis {X, Y, Z}
 
 	public float ZOffset = 1f;
-	public float speed = 10f;
+	public float degreesPerSecond = 10f;
 	public Axis RotationAxis = Axis.Y;
     public bool UseInterruptTime = false;
+
+    private bool autoOff = false;
+    private float autoOffCountdown = -1f;
 
 	private Vector3 position;
 	void Start () {
@@ -29,7 +32,15 @@ public class Spin : MonoBehaviour {
             rotationAmount = Time.deltaTime;
         }
 
-		this.transform.Rotate(GetVector(), speed*rotationAmount);
+		this.transform.Rotate(GetVector(), degreesPerSecond*rotationAmount);
+
+        if (this.autoOff)
+        {
+            if (this.autoOffCountdown > 0)
+                this.autoOffCountdown -= rotationAmount;
+            else
+                this.enabled = false;
+        }
 	}
 
 	private Vector3 GetVector(){
@@ -44,4 +55,10 @@ public class Spin : MonoBehaviour {
 			return Vector3.up;
 		}
 	}
+
+    public void SetAutoOff(float duration)
+    {
+        this.autoOff = true;
+        this.autoOffCountdown = duration;
+    }
 }

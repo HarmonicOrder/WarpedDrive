@@ -706,15 +706,14 @@ public class CyberspaceDroneInput : MonoBehaviour {
         //only parent if infected, not if being put on castle
         if (CurrentMachine.IsInfected && (si.MovementName == "Station"))
         {
-            t.SetParent(this.CurrentMachine.AVBattleship);
+            t.SetParent(this.CurrentMachine.AVBattleship.GetChild(0));
 
             if (CurrentLock is Hardpoint)
             {
                 s.AssignHardpoint(CurrentLock as Hardpoint);
                 if ((CurrentLock as Hardpoint).IsOnBattleshipFarSide && this.CurrentMachine.AVBattleship != null)
                 {
-#warning hack to make battleship tip without tipping camera
-                    this.CurrentMachine.AVBattleship.GetChild(0).localRotation = Quaternion.Euler(0, 90f, -45f);
+                    this.CurrentMachine.TiltBattleship();
                 }
             }
         }
