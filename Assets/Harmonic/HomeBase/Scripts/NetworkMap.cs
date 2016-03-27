@@ -19,14 +19,34 @@ public static class NetworkMap {
 		RootSubnets = new Dictionary<string, NetworkLocation>()
 		{
 			{
-				"InfoSec", 
+				"Metanet", 
 				new NetworkLocation(){
 					Name = "InfoSec",
 					sceneIndex = 3,
                     Children = new List<Location>
                     {
                         new NetworkLocation(){
-                            Name = "MeatSec",
+                            Name = "CryptoEngine",
+                            sceneIndex = 10,
+                            IsInfected = true,
+                            Machines = new List<Machine>()
+                            {
+                                new Machine()
+                                {
+                                    Name = "GatewayMachine",
+                                    CPUCores = 4,
+                                    IsInfected = false
+                                },
+                                new Machine()
+                                {
+                                    Name = "DBMachine",
+                                    CPUCores = 2,
+                                    IsInfected = true
+                                }
+                            }
+                        },
+                        new NetworkLocation(){
+                            Name = "SimInt",
                             sceneIndex = 10,
                             IsInfected = true,
                             Machines = new List<Machine>()

@@ -19,6 +19,7 @@ public class Honeypot : SubroutineFunction
         this.Parent.Info.Cooldown = 5f;
         this.Parent.MyActorInfo.FunctionHitChance = 100f;
         this.Parent.Info.CoreCost += 2;
+        this.LookAtSpeed = 4f;
     }
 
     // Update is called once per frame

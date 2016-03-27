@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class HomeBase : MonoBehaviour {
-    public static SubnetState FocusFirstState = SubnetState.Infosec;
+    public static SubnetState FocusFirstState = SubnetState.Metanet;
 
 	public Camera zoomCamera, mainCamera;
 	public Texture2D cursorTexture;
@@ -19,7 +19,7 @@ public class HomeBase : MonoBehaviour {
     public Canvas UICanvas;
     public Text zoomHint, ZoomCurrentSubnet;
     public Button ZoomTop, ZoomLeft, ZoomRight, ZoomBottom;
-    public Transform EngineeringZoomPoint, InfosecZoomPoint, ArchivesZoomPoint, MedicalZoomPoint, PayloadZoomPoint, BridgeZoomPoint;
+    public Transform QuantumZoomPoint, InfosecZoomPoint, ArchivesZoomPoint, TeleoperationZoomPoint, ClassicalZoomPoint;
 
     private CameraZoomToZoom zoomScript;
     private SubnetState CurrentSubnetState;
@@ -38,7 +38,7 @@ public class HomeBase : MonoBehaviour {
 
         CurrentSubnetState = FocusFirstState;
 
-        if (CurrentSubnetState != SubnetState.Infosec)
+        if (CurrentSubnetState != SubnetState.Metanet)
         {
             StartCoroutine(DelayedStartZoom());
         }
@@ -127,7 +127,7 @@ public class HomeBase : MonoBehaviour {
 
         if (!isZoomedOut)
         {
-            CurrentSubnetState = SubnetState.Infosec;
+            CurrentSubnetState = SubnetState.Metanet;
             RefreshButtonLayout();
         }
 
@@ -272,13 +272,18 @@ public class HomeBase : MonoBehaviour {
         ZoomToCurrentSubnetPoint();
     }
 
+    private string StateToString(SubnetState state)
+    {
+        return state.ToString().Replace('_', ' ');
+    }
+
     public void RefreshButtonLayout()
     {
         CheckSubnetButtonVisible(ZoomTop, SubnetLayoutInfo[CurrentSubnetState].Top);
         CheckSubnetButtonVisible(ZoomRight, SubnetLayoutInfo[CurrentSubnetState].Right);
         CheckSubnetButtonVisible(ZoomBottom, SubnetLayoutInfo[CurrentSubnetState].Bottom);
         CheckSubnetButtonVisible(ZoomLeft, SubnetLayoutInfo[CurrentSubnetState].Left);
-        ZoomCurrentSubnet.GetComponent<Text>().text = CurrentSubnetState.ToString();
+        ZoomCurrentSubnet.GetComponent<Text>().text = StateToString(CurrentSubnetState);
     }
 
 #warning this isn't working when fired from delayedStart
@@ -288,8 +293,7 @@ public class HomeBase : MonoBehaviour {
         b.gameObject.SetActive(s != SubnetState.None);
         if (s != SubnetState.None)
         {
-            b.GetComponentInChildren<Text>().text = s.ToString();
-
+            b.GetComponentInChildren<Text>().text = StateToString(s);
         }
     }
 
@@ -306,12 +310,11 @@ public class HomeBase : MonoBehaviour {
     public enum SubnetState
     {
         None,
-        Infosec,
-        Engineering,
+        Metanet,
+        Quantum_Computing,
         Archives,
-        Payload,
-        Medical,
-        Bridge
+        Classical_Computing,
+        Teleoperation
     }
 
     public Dictionary<SubnetState, SubnetButtonLayout> SubnetLayoutInfo;
@@ -319,37 +322,37 @@ public class HomeBase : MonoBehaviour {
     {
         SubnetLayoutInfo = new Dictionary<SubnetState, SubnetButtonLayout>()
         {
-            {SubnetState.Infosec, new SubnetButtonLayout()
+            {SubnetState.Metanet, new SubnetButtonLayout()
                 {
                     ZoomToPoint = InfosecZoomPoint,
-                    Left = SubnetState.Engineering,
+                    Left = SubnetState.Quantum_Computing,
                     Right = SubnetState.Archives,
-                    Bottom = SubnetState.Payload,
-                    Top = SubnetState.Medical
+                    Bottom = SubnetState.Classical_Computing,
+                    Top = SubnetState.Teleoperation
                 }
             },
-            {SubnetState.Engineering, new SubnetButtonLayout()
+            {SubnetState.Quantum_Computing, new SubnetButtonLayout()
                 {
-                    ZoomToPoint = EngineeringZoomPoint,
-                    Right = SubnetState.Infosec
+                    ZoomToPoint = QuantumZoomPoint,
+                    Right = SubnetState.Metanet
                 }
             },
             {SubnetState.Archives, new SubnetButtonLayout()
                 {
                     ZoomToPoint = ArchivesZoomPoint,
-                    Left = SubnetState.Infosec
+                    Left = SubnetState.Metanet
                 }
             },
-            {SubnetState.Payload, new SubnetButtonLayout()
+            {SubnetState.Classical_Computing, new SubnetButtonLayout()
                 {
-                    ZoomToPoint = PayloadZoomPoint,
-                    Top = SubnetState.Infosec
+                    ZoomToPoint = ClassicalZoomPoint,
+                    Top = SubnetState.Metanet
                 }
             },
-            {SubnetState.Medical, new SubnetButtonLayout()
+            {SubnetState.Teleoperation, new SubnetButtonLayout()
                 {
-                    ZoomToPoint = MedicalZoomPoint,
-                    Bottom = SubnetState.Infosec
+                    ZoomToPoint = TeleoperationZoomPoint,
+                    Bottom = SubnetState.Metanet
                 }
             }
             //TODO: add BRIDGE
