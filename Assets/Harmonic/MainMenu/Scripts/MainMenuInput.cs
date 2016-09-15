@@ -3,22 +3,31 @@ using System.Collections;
 using Prime31.TransitionKit;
 using UnityEngine.UI;
 
-public class MainMenuInput : MonoBehaviour {
-	public Texture2D cursorTexture;
+public class MainMenuInput : MonoBehaviour
+{
+    public Texture2D cursorTexture;
     public Button LoadGameButton, LoadOtherGameButton;
     public RectTransform NewGameButton;
     public Canvas MainmenuCanvas;
     public Canvas SignupCanvas;
     public TextMesh TitleText;
     public InputField NewGameName;
-    public Transform LoadGameButtons;
-
+    public Transform LoadGameButtons, SettingsPanel, GamePanel;
+    public Sprite SpeakerOnSprite, SpeakerOffSprite;
+    public Image MusicImage, EffectsImage;
+    public Slider MusicSlider, EffectsSlider;
+    
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
         Cursor.visible = true;
         LoadGameButton.gameObject.SetActive(HarmonicSerialization.Instance.HasContinueGame);
         LoadOtherGameButton.gameObject.SetActive(HarmonicSerialization.Instance.HasContinueGame);
+        SettingsPanel.gameObject.SetActive(false);
+
+        RefreshMusicEffectsUI("Music", MusicImage, MusicSlider);
+        RefreshMusicEffectsUI("SoundFX", EffectsImage, EffectsSlider);
 
         if (HarmonicSerialization.Instance.HasContinueGame)
         {
@@ -40,16 +49,17 @@ public class MainMenuInput : MonoBehaviour {
         }
         LoadGameButtons.gameObject.SetActive(false);
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
-	public void NewGame()
-	{
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void NewGame()
+    {
         ShowSignupForm();
-	}
+    }
 
     public void ContinueGame()
     {
@@ -103,5 +113,85 @@ public class MainMenuInput : MonoBehaviour {
                 StartGame();
             });
         }
+    }
+    public void ToggleSettings()
+    {
+        bool newSettingsPanelVisibility = !SettingsPanel.gameObject.activeSelf;
+
+        SettingsPanel.gameObject.SetActive(newSettingsPanelVisibility);
+        GamePanel.gameObject.SetActive(!newSettingsPanelVisibility);
+    }
+
+    private void ToggleMusicEffectsPreference(string key, Image icon, Slider slider)
+    {
+        float newValue = 0f;
+
+        if (PlayerPrefs.HasKey(key))
+        {
+            if (PlayerPrefs.GetFloat(key) > 0)
+            {
+                newValue = 0f;
+            }
+            else
+            {
+                newValue = 1f;
+            }
+        }
+
+        PlayerPrefs.SetFloat(key, newValue);
+
+        RefreshMusicEffectsUI(key, icon, slider);
+    }
+
+    private void RefreshMusicEffectsUI(string key, Image icon, Slider slider)
+    {
+        float value = GetValueWithDefault(key);
+
+        if (value > 0f)
+        {
+            icon.sprite = SpeakerOnSprite;
+        }
+        else
+        {
+            icon.sprite = SpeakerOffSprite;
+        }
+
+        if (slider != null)
+            slider.value = value;
+    }
+
+    private static float GetValueWithDefault(string key)
+    {
+        float value = 1f; //default to 1
+        if (PlayerPrefs.HasKey(key))
+        {
+            value = PlayerPrefs.GetFloat(key);
+        }
+
+        return value;
+    }
+
+    public void ToggleMusic()
+    {
+        ToggleMusicEffectsPreference("Music", MusicImage, MusicSlider);
+    }
+
+    public void ToggleEffects()
+    {
+        //probably should name this Effects, but oh well
+        ToggleMusicEffectsPreference("SoundFX", EffectsImage, EffectsSlider);
+    }
+
+    public void MusicSliderValueChange()
+    {
+        //could be consolidated into a common function
+        PlayerPrefs.SetFloat("Music", MusicSlider.value);
+        RefreshMusicEffectsUI("Music", MusicImage, null);
+    }
+
+    public void EffectsSliderValueChange()
+    {
+        PlayerPrefs.SetFloat("SoundFX", EffectsSlider.value);
+        RefreshMusicEffectsUI("SoundFX", EffectsImage, null);
     }
 }

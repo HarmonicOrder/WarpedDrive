@@ -30,7 +30,13 @@ public class Radio : MonoBehaviour {
 	void Awake () {
         Radio._instance = this;
         GameObject.DontDestroyOnLoad(this.gameObject);
-	}
+        SetVolume();
+
+        if (this.Primary.volume > 0)
+        {
+            this.Primary.Play();
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -59,10 +65,11 @@ public class Radio : MonoBehaviour {
     {
         AudioClip current = Primary.clip;
         AudioClip next = null;
+        SetVolume();
 
         if ((current == null) || (current.name.ToLower() != s.ToString().ToLower()))
         {
-            foreach(AudioClip clip in Soundtracks)
+            foreach (AudioClip clip in Soundtracks)
             {
                 if (clip.name.ToLower() == s.ToString().ToLower())
                 {
@@ -80,6 +87,17 @@ public class Radio : MonoBehaviour {
                 this.currentCrossFadeTime = 0f;
             }
         }
+    }
+
+    private void SetVolume()
+    {
+        float value = 1f;
+        if (PlayerPrefs.HasKey("Music"))
+        {
+            value = PlayerPrefs.GetFloat("Music");
+        }
+
+        Primary.volume = Secondary.volume = value;
     }
 
     public enum Soundtrack
