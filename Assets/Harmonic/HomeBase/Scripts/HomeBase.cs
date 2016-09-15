@@ -29,7 +29,7 @@ public class HomeBase : MonoBehaviour {
 
         Radio.Instance.SetSoundtrack(Radio.Soundtrack.SubtleElectronica);
 		SubnetTextHighlightColor = this._highlightColor;
-		Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+		Cursor.SetCursor(cursorTexture, new Vector2( cursorTexture.width / 2, cursorTexture.height / 2), CursorMode.Auto);
 		zoomScript = this.transform.GetComponent<CameraZoomToZoom>();
 		Cursor.visible = true;
         OxygenConsumer.Instance.IsConsumingSlowly = true;

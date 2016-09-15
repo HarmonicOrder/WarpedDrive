@@ -20,7 +20,7 @@ public class MainMenuInput : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(cursorTexture, new Vector2(cursorTexture.width / 2, cursorTexture.height / 2), CursorMode.Auto);
         Cursor.visible = true;
         LoadGameButton.gameObject.SetActive(HarmonicSerialization.Instance.HasContinueGame);
         LoadOtherGameButton.gameObject.SetActive(HarmonicSerialization.Instance.HasContinueGame);
@@ -182,16 +182,21 @@ public class MainMenuInput : MonoBehaviour
         ToggleMusicEffectsPreference("SoundFX", EffectsImage, EffectsSlider);
     }
 
-    public void MusicSliderValueChange()
+    private void SliderValueChange(string key, Slider slider, Image image, float value)
     {
-        //could be consolidated into a common function
-        PlayerPrefs.SetFloat("Music", MusicSlider.value);
-        RefreshMusicEffectsUI("Music", MusicImage, null);
+        print("slider change");
+        PlayerPrefs.SetFloat(key, value);
+        RefreshMusicEffectsUI(key, image, null);
+        Radio.Instance.RefreshVolume();
     }
 
-    public void EffectsSliderValueChange()
+    public void MusicSliderValueChange(float value)
     {
-        PlayerPrefs.SetFloat("SoundFX", EffectsSlider.value);
-        RefreshMusicEffectsUI("SoundFX", EffectsImage, null);
+        SliderValueChange("Music", MusicSlider, MusicImage, value);
+    }
+
+    public void EffectsSliderValueChange(float value)
+    {
+        SliderValueChange("SoundFX", EffectsSlider, EffectsImage, value);
     }
 }

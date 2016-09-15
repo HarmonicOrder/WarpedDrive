@@ -30,12 +30,8 @@ public class Radio : MonoBehaviour {
 	void Awake () {
         Radio._instance = this;
         GameObject.DontDestroyOnLoad(this.gameObject);
-        SetVolume();
-
-        if (this.Primary.volume > 0)
-        {
-            this.Primary.Play();
-        }
+        RefreshVolume();
+        this.Primary.Play();
     }
 	
 	// Update is called once per frame
@@ -65,7 +61,7 @@ public class Radio : MonoBehaviour {
     {
         AudioClip current = Primary.clip;
         AudioClip next = null;
-        SetVolume();
+        RefreshVolume();
 
         if ((current == null) || (current.name.ToLower() != s.ToString().ToLower()))
         {
@@ -89,7 +85,7 @@ public class Radio : MonoBehaviour {
         }
     }
 
-    private void SetVolume()
+    public void RefreshVolume()
     {
         float value = 1f;
         if (PlayerPrefs.HasKey("Music"))

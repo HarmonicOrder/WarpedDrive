@@ -811,7 +811,7 @@ RectTransform:
   m_Children:
   - {fileID: 385472351}
   m_Father: {fileID: 1371149521}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 171.59998, y: -187.7}
@@ -1180,7 +1180,7 @@ RectTransform:
   - {fileID: 1381339148}
   - {fileID: 719188630}
   m_Father: {fileID: 1371149521}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -250, y: -187.7}
@@ -1352,7 +1352,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 705935207}
         m_MethodName: EffectsSliderValueChange
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1568,7 +1568,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 705935207}
         m_MethodName: MusicSliderValueChange
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2406,11 +2406,10 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -3794,7 +3793,7 @@ RectTransform:
   m_Children:
   - {fileID: 502440199}
   m_Father: {fileID: 1371149521}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 171.6, y: -100}
@@ -5928,10 +5927,10 @@ RectTransform:
   m_Children:
   - {fileID: 1976741654}
   - {fileID: 109332743}
-  - {fileID: 1059042731}
-  - {fileID: 241977327}
   - {fileID: 327521855}
   - {fileID: 2109417979}
+  - {fileID: 1059042731}
+  - {fileID: 241977327}
   m_Father: {fileID: 705935203}
   m_RootOrder: 3
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -6343,9 +6342,8 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!1 &1525736799
 GameObject:
@@ -9773,7 +9771,7 @@ RectTransform:
   m_Children:
   - {fileID: 293211491}
   m_Father: {fileID: 1371149521}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -78.79999, y: -187.7}
