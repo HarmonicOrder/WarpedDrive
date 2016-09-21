@@ -688,7 +688,7 @@ Transform:
   - {fileID: 1031718429}
   - {fileID: 1279962008}
   m_Father: {fileID: 64577446}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!65 &59012665
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -819,7 +819,6 @@ Transform:
   m_Children:
   - {fileID: 1450036331}
   - {fileID: 138044816}
-  - {fileID: 1656238811}
   - {fileID: 635468129}
   - {fileID: 59012664}
   - {fileID: 1064422414}
@@ -3092,7 +3091,6 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -5931,7 +5929,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 64577446}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!1001 &640488747
 Prefab:
   m_ObjectHideFlags: 0
@@ -9082,7 +9080,8 @@ MonoBehaviour:
   lineBlockedColor: {r: 1, g: 0, b: 0, a: 1}
   LineMaterial: {fileID: 2100000, guid: 2dca1f2242e646748bc57adeb8334ae8, type: 2}
   InfectedSpriteRenderer: {fileID: 1287341679}
-  Requirements: []
+  Requirements:
+  - {fileID: 212445776}
   CanBeSelected: 1
 --- !u!65 &840724931
 BoxCollider:
@@ -14320,7 +14319,7 @@ Transform:
   - {fileID: 150116092}
   - {fileID: 1248775113}
   m_Father: {fileID: 64577446}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!114 &1064422415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21085,33 +21084,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3efe660c54800e94d814799345cdf132, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1656238810
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1656238811}
-  m_Layer: 0
-  m_Name: printshopServer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1656238811
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1656238810}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 0, z: 951}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 64577446}
-  m_RootOrder: 2
 --- !u!1001 &1657809066
 Prefab:
   m_ObjectHideFlags: 0
