@@ -13,6 +13,8 @@ public class Radio : MonoBehaviour {
                 _instance.Primary = _instance.gameObject.AddComponent<AudioSource>();
                 _instance.Secondary = _instance.gameObject.AddComponent<AudioSource>();
                 _instance.Soundtracks = new List<AudioClip>();
+                _instance.RefreshVolume();
+                _instance.StartRadio();
             }
             return _instance;
         }
@@ -31,7 +33,16 @@ public class Radio : MonoBehaviour {
         Radio._instance = this;
         GameObject.DontDestroyOnLoad(this.gameObject);
         RefreshVolume();
-        this.Primary.Play();
+        StartRadio();
+    }
+
+    public void StartRadio()
+    {
+        if (this.Primary)
+        {
+            print("starting radio");
+            this.Primary.Play();
+        }
     }
 	
 	// Update is called once per frame
@@ -87,13 +98,16 @@ public class Radio : MonoBehaviour {
 
     public void RefreshVolume()
     {
-        float value = 1f;
-        if (PlayerPrefs.HasKey("Music"))
+        if (Primary && Secondary)
         {
-            value = PlayerPrefs.GetFloat("Music");
-        }
+            float value = 1f;
+            if (PlayerPrefs.HasKey("Music"))
+            {
+                value = PlayerPrefs.GetFloat("Music");
+            }
 
-        Primary.volume = Secondary.volume = value;
+            Primary.volume = Secondary.volume = value;
+        }
     }
 
     public enum Soundtrack

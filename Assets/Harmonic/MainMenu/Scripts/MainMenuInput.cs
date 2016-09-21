@@ -184,7 +184,6 @@ public class MainMenuInput : MonoBehaviour
 
     private void SliderValueChange(string key, Slider slider, Image image, float value)
     {
-        print("slider change");
         PlayerPrefs.SetFloat(key, value);
         RefreshMusicEffectsUI(key, image, null);
         Radio.Instance.RefreshVolume();

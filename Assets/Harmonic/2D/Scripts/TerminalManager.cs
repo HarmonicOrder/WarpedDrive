@@ -13,13 +13,40 @@ public class TerminalManager : MonoBehaviour {
     public float TerminalDistance = 2f;
     public Transform Character;
 
-    Coroutine check;
+    private TextMesh currentLabel;
+
+    Coroutine check, showLabel;
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         check = StartCoroutine(CheckTerminals());
-	}
+        showLabel = StartCoroutine(ShowLabel());
+        foreach (Transform t in this.transform)
+        {
+            TextMesh text = t.GetChild(0).GetComponent<TextMesh>();
+            text.color = HarmonicUtils.ColorWithAlpha(text.color, 0);
+        }
+    }
+
+    private IEnumerator ShowLabel()
+    {
+        float increment = .2f;
+        while(enabled)
+        {
+            if (currentLabel && IsNextToTerminal)
+            {
+                currentLabel.color = HarmonicUtils.ColorWithAlpha(currentLabel.color, Mathf.Min(currentLabel.color.a + increment, 1f));
+            }
+            else if (currentLabel && !IsNextToTerminal)
+            {
+                currentLabel.color = HarmonicUtils.ColorWithAlpha(currentLabel.color, Mathf.Max(currentLabel.color.a - increment, 0f));
+            }
+
+            yield return new WaitForSeconds(.1f);
+        }
+    }
 
     private IEnumerator CheckTerminals()
     {
@@ -41,6 +68,7 @@ public class TerminalManager : MonoBehaviour {
                     else
                     {
                         IsNextToTerminal = true;
+                        currentLabel = t.GetChild(0).GetComponent<TextMesh>();
 
                         EnumExtensions.TryParse<Terminal.TerminalType>(CurrentTerminalType, t.name.ToLower(), out CurrentTerminalType);
                         break;
@@ -54,5 +82,6 @@ public class TerminalManager : MonoBehaviour {
     
     void OnDestroy() {
         StopCoroutine(check);
-	}
+        StopCoroutine(showLabel);
+    }
 }
